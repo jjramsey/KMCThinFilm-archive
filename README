@@ -1,3 +1,9 @@
+This is my personal "archive" copy of a library that I wrote,
+KMCThinFilm. Unless something happens to the original repo, the
+"canonical" URL for it is https://github.com/USArmyResearchLab/KMCThinFilm.
+
+Copy of the text of the original README is below.
+
 The ARL KMCThinFilm library is a C++ library for the rapid development
 of lattice-based kinetic Monte Carlo (kMC) simulation codes. It can be
 used either in serial or in parallel. More details are available from
