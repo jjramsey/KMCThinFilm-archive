@@ -1,0 +1,44 @@
+This is a simple example simulation where the particles are on a cubic
+lattice and can only diffuse if they have no in-plane neighbors. The
+resulting surface has a sort of "fractal" appearance, roughly
+reminiscent of a snowflake.
+
+Instructions for running the example:
+
+- The Makefile requires a working "make.inc" file. To generate this
+  file, run the script "mkMakeInc.sh", which will prompt for the
+  directories where the KMCThinFilm library and Boost are installed,
+  as well as some other things. (Alternatively, run "mkMakeInc.sh"
+  with the "--batch" option, which will generate a skeleton "make.inc"
+  with dummy values that one then edit manually.)
+
+  After this is done, just type "make".
+
+- Change to the "testdir" directory, which should be empty. Run the
+  command "../testFractal" to perform the simulation, which has taken
+  about twelve seconds to run on a workstation with an Intel
+  Xeon 3.3 GHz processor. When the simulation completes, there should
+  be a message reading something like, "Simulation ran out of events
+  to execute at simulation time = 4.00033".
+
+  The directory should now be full of files named "snapshot1.dat",
+  "snapshot2.dat", etc.
+
+- To visualize the results of the example simulation, Python, NumPy,
+  and Matplotlib should be installed. Once this is done, one can run
+  the command "../getOverheadViewAndCovData.py" in the "testdir"
+  directory. This will generate PNG files named "img0001.png",
+  "img0002.png", etc., which correspond to the files named
+  "snapshot1.dat", "snapshot2.dat", etc, respectively. There will also
+  be a file named "coverage.dat" that shows the coverage of the
+  simulated substrate with time, which should show the coverage
+  increasing up to about 4.0, i.e. 4 monolayers worth of particles
+  deposited. The root-mean-square of the height of the deposited film
+  is also shown, and this should oscillate with time.
+
+  These results should be the same as those in the "testdir_ref"
+  directory.
+
+- To clean up after running the test simulation, type "make
+  cleanall". This will remove the testFractal binary, the output files
+  from the simulation runs, and miscellaneous object files.

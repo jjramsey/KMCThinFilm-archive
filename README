@@ -1,0 +1,11 @@
+The ARL KMCThinFilm library is a C++ library for the rapid development
+of lattice-based kinetic Monte Carlo (kMC) simulation codes. It can be
+used either in serial or in parallel. More details are available from
+doc/html/index.html or doc/latex/refman.pdf.
+
+For instructions on compilation and installation, see either
+doc/html/compilation.html or the chapter "Compilation and
+installation" in doc/latex/refman.pdf.
+
+Note that if need be, a copy of the parallel random number generator
+DCMT is in the extra/ directory.

@@ -1,0 +1,60 @@
+\doxysection{Simulation\+State.\+hpp}
+\hypertarget{SimulationState_8hpp_source}{}\label{SimulationState_8hpp_source}\index{SimulationState.hpp@{SimulationState.hpp}}
+\mbox{\hyperlink{SimulationState_8hpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ SIMULATION\_STATE\_HPP}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ SIMULATION\_STATE\_HPP}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ Note:\ This\ header\ file\ is\ documented\ via\ Doxygen}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ <http://www.doxygen.org>.\ Comments\ for\ Doxygen\ begin\ with\ '/*!'\ or}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ '//!',\ and\ descriptions\ of\ functions,\ class\ and\ member\ functions}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//\ occur\ *before*\ their\ corresponding\ class\ declarations\ and\ function}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//\ prototypes.}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ "{}KMC\_Config.hpp"{}}}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespaceKMCThinFilm}{KMCThinFilm}}\ \{}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00028\ \ \ \textcolor{keyword}{class\ }SimulationState\ \{}
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keyword}{friend}\ \textcolor{keyword}{class\ }Simulation;}
+\DoxyCodeLine{00030\ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00031\ \ \ \ \ SimulationState()}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ :\ elapsed\_time\_(0),\ t\_stop\_(0),\ maxTime\_(0),\ }
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#if\ KMC\_PARALLEL}}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ t\_sector\_(0),}
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ num\_local\_events\_(0),\ num\_global\_steps\_(0)}
+\DoxyCodeLine{00037\ \ \ \ \ \{\}}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00042\ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{classKMCThinFilm_1_1SimulationState_a01882b6444dedf12543e0a9e7f763f02}{elapsedTime}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00043\ \textcolor{preprocessor}{\#if\ KMC\_PARALLEL}}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \textcolor{comment}{//\ This\ means\ that\ I'll\ have\ to\ make\ sure\ t\_sector\_\ is\ zero}}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \textcolor{comment}{//\ outside\ a\ looping\ over\ sectors.}}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ elapsed\_time\_\ +\ t\_sector\_;}
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ elapsed\_time\_;}
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00050\ \ \ \ \ \}}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00054\ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{classKMCThinFilm_1_1SimulationState_a14d7d48b97201644407d5e6d6322db18}{maxTime}}()\textcolor{keyword}{\ const\ }\{\textcolor{keywordflow}{return}\ maxTime\_;\}}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00061\ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{classKMCThinFilm_1_1SimulationState_a58682bae932ee82f328f1315de40fd88}{globalTimeIncrement}}()\textcolor{keyword}{\ const\ }\{\textcolor{keywordflow}{return}\ t\_stop\_;\}}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00065\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ \mbox{\hyperlink{classKMCThinFilm_1_1SimulationState_a7b059ae6d15ec65426e171df9f17141d}{numLocalEvents}}()\textcolor{keyword}{\ const\ }\{\textcolor{keywordflow}{return}\ num\_local\_events\_;\}}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00071\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ \mbox{\hyperlink{classKMCThinFilm_1_1SimulationState_ad5f8eb846523ab0fa5d9885e9be5c01c}{numGlobalSteps}}()\textcolor{keyword}{\ const\ }\{\textcolor{keywordflow}{return}\ num\_global\_steps\_;\}}
+\DoxyCodeLine{00072\ \ \ \ \ }
+\DoxyCodeLine{00073\ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00074\ \ \ \ \ \textcolor{keywordtype}{double}\ elapsed\_time\_,\ t\_stop\_,\ maxTime\_;}
+\DoxyCodeLine{00075\ \textcolor{preprocessor}{\#if\ KMC\_PARALLEL}}
+\DoxyCodeLine{00076\ \ \ \ \ \textcolor{keywordtype}{double}\ t\_sector\_;}
+\DoxyCodeLine{00077\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00078\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ num\_local\_events\_,\ num\_global\_steps\_;}
+\DoxyCodeLine{00079\ \ \ \};}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00081\ \}}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00083\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ SIMULATION\_STATE\_HPP\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

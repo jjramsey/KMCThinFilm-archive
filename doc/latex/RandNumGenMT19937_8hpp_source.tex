@@ -1,0 +1,33 @@
+\doxysection{Rand\+Num\+Gen\+MT19937.\+hpp}
+\hypertarget{RandNumGenMT19937_8hpp_source}{}\label{RandNumGenMT19937_8hpp_source}\index{RandNumGenMT19937.hpp@{RandNumGenMT19937.hpp}}
+\mbox{\hyperlink{RandNumGenMT19937_8hpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ RAND\_NUM\_GEN\_MT19937\_HPP}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ RAND\_NUM\_GEN\_MT19937\_HPP}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{RandNumGen_8hpp}{RandNumGen.hpp}}"{}}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <boost/random/mersenne\_twister.hpp>}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <boost/random/uniform\_01.hpp>}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespaceKMCThinFilm}{KMCThinFilm}}\ \{}
+\DoxyCodeLine{00014\ \ \ }
+\DoxyCodeLine{00020\ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{classKMCThinFilm_1_1RandNumGenMT19937_af6aa949c0c59271fb9c3ddae309312ac}{RandNumGenMT19937}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classKMCThinFilm_1_1RandNumGen}{RandNumGen}}\ \{}
+\DoxyCodeLine{00021\ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00024\ \ \ \ \ \mbox{\hyperlink{classKMCThinFilm_1_1RandNumGenMT19937_af6aa949c0c59271fb9c3ddae309312ac}{RandNumGenMT19937}}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ seed)}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ :\ rng\_(seed)}
+\DoxyCodeLine{00026\ \ \ \ \ \{\}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{classKMCThinFilm_1_1RandNumGenMT19937_abff0a620f02f3e42519697f10f0fedfa}{getNumInOpenIntervalFrom0To1}}();}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00033\ \ \ \ \ boost::random::mt19937\ rng\_;}
+\DoxyCodeLine{00034\ \ \ \ \ boost::random::uniform\_01<double>\ uni01\_;}
+\DoxyCodeLine{00035\ \ \ \};}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \}}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ RAND\_NUM\_GEN\_MT19937\_HPP\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

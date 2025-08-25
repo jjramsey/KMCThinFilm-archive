@@ -1,0 +1,111 @@
+This is a version of the simulation in ../testFractal modified to
+allow both serial and parallel use. To compile the parallel version
+requires KMCThinFilm to have been compiled with support for the DCMT
+parallel random number generator.
+
+Instructions for running the example:
+
+- The Makefile requires a working "make.inc" file. To generate this
+  file, run the script "mkMakeInc.sh", which will prompt for the
+  directories where the KMCThinFilm library and Boost are installed,
+  as well as some other things. (Alternatively, run "mkMakeInc.sh"
+  with the "--batch" option, which will generate a skeleton "make.inc"
+  with dummy values that one then edit manually.)
+
+  After this is done, run "make" to compile both the serial and
+  parallel versions of testFractal, or type "make testFractalSerial"
+  or "make testFractalParallel" to compile only one of them.
+
+- Change to the "testdir_serial" directory, which should be empty. Run
+  the command "../testFractalSerial" to perform the simulation, which
+  has taken about a quarter of a minute to run on a workstation with
+  an Intel Xeon 3.3 GHz processor. When the simulation completes,
+  there should be a message reading something like, "Simulation ran
+  out of events to execute at simulation time = 4.00033".
+
+  The directory should now be full of files named
+  "outFile_ProcCoords0_0_snapshot1.dat",
+  "outFile_ProcCoords0_0_snapshot2.dat", etc.
+
+- To visualize the results of the example serial simulation, Python,
+  NumPy, and Matplotlib should be installed. Once this is done, one
+  can run the command "../getOverheadViewAndCovData.py" in the
+  "testdir_serial" directory. This will generate PNG files named
+  "img0001.png", "img0002.png", etc., which correspond to the files
+  named "snapshot1.dat", "snapshot2.dat", etc, respectively. There
+  will also be a file named "coverage.dat" that shows the coverage of
+  the simulated substrate with time, which should show the coverage
+  increasing up to about 4.0, i.e. 4 monolayers worth of particles
+  deposited. The root-mean-square of the height of the deposited film
+  is also shown, and this should oscillate with time.
+
+  These results should be the same as those in the "testdir_serial_ref"
+  directory.
+
+- Change to the "testdir_parallel_row" directory, which should be also
+  be empty. Here, the suffix "_row" refers to using row-based parallel
+  decomposition, where the domain is split into strips.
+
+  The command to run will depend on the details of one's MPI
+  installation and on the number of processors one has available. For
+  a system with at least four processors where "mpiexec" is used to
+  launch MPI programs, this command will be "mpiexec -np 4
+  ../testFractalParallelRow". For this relatively small simulation,
+  the approximate parallel algorithm may actual take longer(!) than a
+  corresponding serial simulation. On a workstation with an Intel Xeon
+  3.3 GHz processor using OpenMPI, the parallel simulation took about
+  a quarter of a minute, roughly the same time as the serial
+  simulation (which is obviously inefficient). Also, while the serial
+  code will simply quit when it runs out of possible events to
+  execute, the parallel code will simply continue until the specified
+  simulation time is reached.
+
+  Visualizing the parallel results is done in the same manner as for
+  the example serial simulation. These results should be the same as
+  those in the "testdir_parallel_row_ref" directory.
+
+- Change to the "testdir_parallel_compact" directory, which should be
+  also be empty. Here, the suffix "_compact" refers to using compact
+  parallel decomposition, where the domain is split such that the part
+  of the lattice owned by each processor has the smallest possible
+  perimeter.
+
+  The command to run will depend on the details of one's MPI
+  installation and on the number of processors one has available. For
+  a system with at least four processors where "mpiexec" is used to
+  launch MPI programs, this command will be "mpiexec -np 4
+  ../testFractalParallelCompact". For this relatively small
+  simulation, the approximate parallel algorithm may actual take
+  longer(!) than a corresponding serial simulation. On a workstation
+  with an Intel Xeon 3.3 GHz processor using OpenMPI, the parallel
+  simulation took about a third of a minute -- even more inefficient
+  than the row-based decomposition. Also, while the serial code will
+  simply quit when it runs out of possible events to execute, the
+  parallel code will simply continue until the specified simulation
+  time is reached.
+
+  Visualizing the parallel results is done in the same manner as for
+  the example serial simulation. These results should be the same as
+  those in the "testdir_parallel_compact_ref" directory.
+
+- Change to the "testdir_parallel_bad" directory, which should be also
+  be empty. The command to run will depend on the details of one's MPI
+  installation and on the number of processors one has available. For
+  a system with at least four processors where "mpiexec" is used to
+  launch MPI programs, this command will be "mpiexec -np 4
+  ../testFractalParallelBad". This simulation will likely take far
+  less time than the previous parallel simulation, but the "nstop"
+  parameter for the parallel time stepping has been intentionally set
+  to a value that should produce an artifact where parts of the
+  growing simulated film concentrate on sector boundaries. (Compact
+  decomposition is used here, but this choice is more or less
+  arbitrary.)
+
+  Visualizing the parallel results is done in the same manner as for
+  the example serial simulation. These results should be the same as
+  those in the "testdir_parallel_bad_ref" directory.
+
+- To clean up after running the test simulation, type "make
+  cleanall". This will remove the testFractalSerial and
+  testFractalParallel* binaries, the output files from the simulation
+  runs, and miscellaneous object files.

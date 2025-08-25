@@ -1,0 +1,36 @@
+\doxysection{KMCThin\+Film\+::Time\+Incr\+::Scheme\+Param Namespace Reference}
+\hypertarget{namespaceKMCThinFilm_1_1TimeIncr_1_1SchemeParam}{}\label{namespaceKMCThinFilm_1_1TimeIncr_1_1SchemeParam}\index{KMCThinFilm::TimeIncr::SchemeParam@{KMCThinFilm::TimeIncr::SchemeParam}}
+\doxysubsubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{namespaceKMCThinFilm_1_1TimeIncr_1_1SchemeParam_a1ee2f5f6234ea51c6d8ae6993aee48ca}{Type}} \{ \mbox{\hyperlink{namespaceKMCThinFilm_1_1TimeIncr_1_1SchemeParam_a1ee2f5f6234ea51c6d8ae6993aee48caa1434deeb490996399bdff45a7eb194ee}{NSTOP}}
+, \mbox{\hyperlink{namespaceKMCThinFilm_1_1TimeIncr_1_1SchemeParam_a1ee2f5f6234ea51c6d8ae6993aee48caa381157d3b65fd9c6b64eb3c9c3d42f19}{TSTOP\+\_\+\+MAX}}
+, \mbox{\hyperlink{namespaceKMCThinFilm_1_1TimeIncr_1_1SchemeParam_a1ee2f5f6234ea51c6d8ae6993aee48caace4c77c06ed19a35d9e7ea189f7154b2}{TSTOP}}
+ \}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Namespace to enclose the \doxylink{namespaceKMCThinFilm_1_1TimeIncr_1_1SchemeParam_a1ee2f5f6234ea51c6d8ae6993aee48ca}{Scheme\+Param\+::\+Type} enumeration 
+
+\doxysubsection{Enumeration Type Documentation}
+\Hypertarget{namespaceKMCThinFilm_1_1TimeIncr_1_1SchemeParam_a1ee2f5f6234ea51c6d8ae6993aee48ca}\index{KMCThinFilm::TimeIncr::SchemeParam@{KMCThinFilm::TimeIncr::SchemeParam}!Type@{Type}}
+\index{Type@{Type}!KMCThinFilm::TimeIncr::SchemeParam@{KMCThinFilm::TimeIncr::SchemeParam}}
+\doxysubsubsection{\texorpdfstring{Type}{Type}}
+{\footnotesize\ttfamily \label{namespaceKMCThinFilm_1_1TimeIncr_1_1SchemeParam_a1ee2f5f6234ea51c6d8ae6993aee48ca} 
+enum \mbox{\hyperlink{namespaceKMCThinFilm_1_1TimeIncr_1_1SchemeParam_a1ee2f5f6234ea51c6d8ae6993aee48ca}{KMCThin\+Film\+::\+Time\+Incr\+::\+Scheme\+Param\+::\+Type}}}
+
+Parameters used in the parallel time-\/incrementing schemes \begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{NSTOP@{NSTOP}!KMCThinFilm::TimeIncr::SchemeParam@{KMCThinFilm::TimeIncr::SchemeParam}}\index{KMCThinFilm::TimeIncr::SchemeParam@{KMCThinFilm::TimeIncr::SchemeParam}!NSTOP@{NSTOP}}}\Hypertarget{namespaceKMCThinFilm_1_1TimeIncr_1_1SchemeParam_a1ee2f5f6234ea51c6d8ae6993aee48caa1434deeb490996399bdff45a7eb194ee}\label{namespaceKMCThinFilm_1_1TimeIncr_1_1SchemeParam_a1ee2f5f6234ea51c6d8ae6993aee48caa1434deeb490996399bdff45a7eb194ee} 
+NSTOP&This is a premultiplier used in adaptive time schemes where the time step takes the form $t_{stop} = NSTOP/P$, where {\itshape P} is some function of the available event propensities. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TSTOP\_MAX@{TSTOP\_MAX}!KMCThinFilm::TimeIncr::SchemeParam@{KMCThinFilm::TimeIncr::SchemeParam}}\index{KMCThinFilm::TimeIncr::SchemeParam@{KMCThinFilm::TimeIncr::SchemeParam}!TSTOP\_MAX@{TSTOP\_MAX}}}\Hypertarget{namespaceKMCThinFilm_1_1TimeIncr_1_1SchemeParam_a1ee2f5f6234ea51c6d8ae6993aee48caa381157d3b65fd9c6b64eb3c9c3d42f19}\label{namespaceKMCThinFilm_1_1TimeIncr_1_1SchemeParam_a1ee2f5f6234ea51c6d8ae6993aee48caa381157d3b65fd9c6b64eb3c9c3d42f19} 
+TSTOP\+\_\+\+MAX&Maximum time step for the adaptive schemes. The time step is set to this value if the step determined by the adaptive scheme would otherwise exceed it. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TSTOP@{TSTOP}!KMCThinFilm::TimeIncr::SchemeParam@{KMCThinFilm::TimeIncr::SchemeParam}}\index{KMCThinFilm::TimeIncr::SchemeParam@{KMCThinFilm::TimeIncr::SchemeParam}!TSTOP@{TSTOP}}}\Hypertarget{namespaceKMCThinFilm_1_1TimeIncr_1_1SchemeParam_a1ee2f5f6234ea51c6d8ae6993aee48caace4c77c06ed19a35d9e7ea189f7154b2}\label{namespaceKMCThinFilm_1_1TimeIncr_1_1SchemeParam_a1ee2f5f6234ea51c6d8ae6993aee48caace4c77c06ed19a35d9e7ea189f7154b2} 
+TSTOP&Time step used for scheme \doxylink{namespaceKMCThinFilm_1_1TimeIncr_1_1SchemeName_a9d8be73a26298e6c4379c28285902534a0ae0cc5daa6d4735cfc3a61cbd67f8e7}{Scheme\+Name\+::\+FIXED\+\_\+\+VALUE}. \\
+\hline
+
+\end{DoxyEnumFields}

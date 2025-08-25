@@ -1,0 +1,55 @@
+\doxysection{Cell\+Inds.\+hpp}
+\hypertarget{CellInds_8hpp_source}{}\label{CellInds_8hpp_source}\index{CellInds.hpp@{CellInds.hpp}}
+\mbox{\hyperlink{CellInds_8hpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ CELL\_INDS\_HPP}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ CELL\_INDS\_HPP}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}IJK.hpp"{}}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ Note:\ This\ header\ file\ is\ documented\ via\ Doxygen}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//\ <http://www.doxygen.org>.\ Comments\ for\ Doxygen\ begin\ with\ '/*!'\ or}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//\ '//!',\ and\ descriptions\ of\ functions,\ class\ and\ member\ functions}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ occur\ *before*\ their\ corresponding\ class\ declarations\ and\ function}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//\ prototypes.}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespaceKMCThinFilm}{KMCThinFilm}}\ \{}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00028\ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{classKMCThinFilm_1_1CellInds_a0534cf39ca2c6c8b35714eae3c97a151}{CellInds}}\ :\ \textcolor{keyword}{public}\ IJK\ \{}
+\DoxyCodeLine{00029\ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00030\ \ \ \ \ }
+\DoxyCodeLine{00032\ \ \ \ \ \mbox{\hyperlink{classKMCThinFilm_1_1CellInds_a0534cf39ca2c6c8b35714eae3c97a151}{CellInds}}()\ \{i\ =\ j\ =\ k\ =\ 0;\}}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00036\ \ \ \ \ \mbox{\hyperlink{classKMCThinFilm_1_1CellInds_a4c86adde21fec8a5ebcb3db217f0bca2}{CellInds}}(\textcolor{keywordtype}{int}\ ii\ ,\ }
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ jj\ ,\ }
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ kk\ =\ 0\ )\ \{}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ i\ =\ ii;\ j\ =\ jj;\ k\ =\ kk;}
+\DoxyCodeLine{00040\ \ \ \ \ \}}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \ \ \};}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00061\ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{classKMCThinFilm_1_1CellIndsOffset_af5409be7541eeb5c98f9ed771210b3cf}{CellIndsOffset}}\ :\ \textcolor{keyword}{public}\ IJK\ \{}
+\DoxyCodeLine{00062\ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00065\ \ \ \ \ \mbox{\hyperlink{classKMCThinFilm_1_1CellIndsOffset_af5409be7541eeb5c98f9ed771210b3cf}{CellIndsOffset}}()\ \{i\ =\ j\ =\ k\ =\ 0;\}}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00069\ \ \ \ \ \mbox{\hyperlink{classKMCThinFilm_1_1CellIndsOffset_a6d09182cb8481daba9d13a6815149258}{CellIndsOffset}}(\textcolor{keywordtype}{int}\ ii\ ,\ }
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ jj\ ,\ }
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ kk\ =\ 0\ )\ \{}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ i\ =\ ii;\ j\ =\ jj;\ k\ =\ kk;}
+\DoxyCodeLine{00073\ \ \ \ \ \}}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00076\ \ \ \ \ \mbox{\hyperlink{classKMCThinFilm_1_1CellIndsOffset_af5409be7541eeb5c98f9ed771210b3cf}{CellIndsOffset}}\ \mbox{\hyperlink{classKMCThinFilm_1_1CellIndsOffset_abea5561250cff2e69fd7fbcd908b1f5c}{operator-\/}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00077\ \ \ \};}
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00081\ \ \ \mbox{\hyperlink{classKMCThinFilm_1_1CellInds}{CellInds}}\ \mbox{\hyperlink{namespaceKMCThinFilm_a57489af951d041dc66872aea47fa3da2}{operator+}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classKMCThinFilm_1_1CellInds}{CellInds}}\ \&\ ci,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classKMCThinFilm_1_1CellIndsOffset}{CellIndsOffset}}\ \&\ offset);}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00085\ \ \ \mbox{\hyperlink{classKMCThinFilm_1_1CellIndsOffset}{CellIndsOffset}}\ \mbox{\hyperlink{namespaceKMCThinFilm_a57489af951d041dc66872aea47fa3da2}{operator+}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classKMCThinFilm_1_1CellIndsOffset}{CellIndsOffset}}\ \&\ offset1,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classKMCThinFilm_1_1CellIndsOffset}{CellIndsOffset}}\ \&\ offset2);}
+\DoxyCodeLine{00086\ }
+\DoxyCodeLine{00087\ \}}
+\DoxyCodeLine{00088\ }
+\DoxyCodeLine{00089\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ CELL\_INDS\_HPP\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

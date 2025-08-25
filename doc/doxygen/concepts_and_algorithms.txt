@@ -1,0 +1,391 @@
+/*! \page concepts_and_algorithms Concepts and algorithms
+
+    \section kMC_sim_overview Basics of kinetic Monte Carlo simulation as implemented in the ARL KMCThinFilm library
+
+    In the ARL KMCThinFilm library, a simulation is an object that
+    executes the <VAR>n</VAR>-fold way algorithm \cite Bor75, where at
+    a given time step in the simulation, the set of all possible
+    events in a system and their associated rate constants or
+    propensities (i.e. probabilities per unit time) is determined, and
+    one of these events is then randomly chosen to be executed, with
+    the choice weighted according the propensities of the possible
+    events. Following a later kMC work \cite Fic91, the simulation
+    time at each step is advanced by \f$-\ln{r}/p_{tot}\f$, where
+    <VAR>r</VAR> is a random number uniformly chosen from the open
+    interval (0,1), and \f$p_{tot}\f$ is the sum of all the
+    propensities of all possible events. To simplify the process of
+    determining the set of possible events, each possible event is
+    assumed to cause some sort of change to cells in a lattice. This
+    lattice is itself an object that is owned by the simulation
+    object, and it is initialized when the simulation object is
+    initialized. Possible events are assumed to be of one of two
+    kinds:
+
+    - <EM>Cell-centered</EM>. This is a type of event that originates
+      in the neighborhood of some lattice cell, and a propensity of an
+      instance of such an event at a particular cell is affected by
+      the states of cells in the neighborhood of that particular
+      cell. Adsorption, diffusion, or chemical reactions are examples
+      of such events. Since the propensities of related cell-centered
+      events can often be calculated using the same or almost the same
+      series of steps, types of cell-centered events may be collected
+      into one or more groups. A group of cell-centered event types
+      consists of the following components:
+
+      - An integer label identifying the group of event types.
+
+      - A set of the relative locations of the cells in the
+        aforementioned neighborhood, which are called
+        &ldquo;\link KMCThinFilm::CellIndsOffset offsets\endlink.&rdquo;
+
+      - A function or function object that calculates what amounts to
+        an array (or more precisely, an <a
+        href="http://www.cplusplus.com/reference/vector/">STL
+        vector</a>) of propensities, one for each instance of a type
+        of event in the group happening at a given cell. This
+        function/function object is given very limited access to the
+        lattice object owned by the simulation. In particular, it can
+        only read the states of lattice cells within the neighborhood
+        of cells defined by the offsets mentioned above.
+
+      - A group of functions or function objects, one for each type of
+        event in the group of cell-centered event types, that can
+        execute an instance of that event type about a given
+        cell. Each of these function/function objects can alter the
+        lattice that is owned by the simulation object, and not just
+        the cells of the lattice within a certain neighborhood of the
+        cell about which an event is centered. In addition, it has
+        read-only access to some aspects of the current \link
+        KMCThinFilm::SimulationState simulation state\endlink, such as
+        the elapsed simulation time. Optionally, for each
+        function/function object in the group, there may be a set of
+        offsets that indicate the relative locations of cells directly
+        changed by the execution of the event, and this may be used to
+        speed up the simulation.
+
+    - <EM>Over-lattice</EM>. This is a type of event that, from a
+      physical perspective, is assumed to have actually originated at
+      some point well above the lattice, out of the range of influence
+      of things that happen at the surface or interior of the
+      lattice. Deposition would be the chief example of this type of
+      event. An over-lattice event type consists of the following
+      components:
+
+      - An integer label identifying the type of event.
+
+      - A propensity per unit area, i.e., the propensity of the event
+        divided by the number of cells in a lattice monolayer. A
+        deposition flux given in terms of the number of monolayers per
+        unit time is already a propensity per unit area.
+
+      - A function or function object that can execute an instance of
+        this event type originating from a randomly picked cell at
+        the top of the lattice. This function/function object can
+        alter the lattice that is owned by the simulation object, and
+        if need be, it can alter cells that are far distant from the
+        originating randomly picked cell. It also has read-only access
+        to some aspects of the current
+        \link KMCThinFilm::SimulationState simulation state\endlink,
+        (e.g. elapsed simulation time).
+
+    After the simulation object is initialized, these event types are
+    added to the object. Once these types are added, the simulation is
+    then run for a certain amount of simulation time. A simulation can
+    also be restarted from where it left off, and before restarting,
+    event types can be added, modified, or removed from a simulation
+    object. For example, one could add both deposition and diffusion
+    event types to a simulation, run the simulation for \f$t_{dep}\f$
+    units of time, then remove the deposition event type, change the
+    objects that calculate the propensities of the diffusion event
+    type to those for a higher temperature, and then restart the
+    simulation from where it left off for \f$t_{anneal}\f$ units of
+    simulation time.
+
+    At the beginning of a simulation run, each cell of the lattice is
+    scanned in order to determine the initial set of possible events
+    and their propensities. When an event is executed at a time step,
+    the locations of the lattice cells directly changed by this event,
+    as well as certain cells within a neighborhood of these changed
+    cells, are recorded. The list of recorded cell indices, then, is
+    used to incrementally update the set of possible events and
+    propensities, avoiding the computational cost of scanning each
+    cell of the the lattice at each time step to refresh this
+    set. This list is constructed from the offsets used to define
+    cell-centered events. More precisely, it is constructed using a
+    master list of offsets that is generated at the beginning of the
+    simulation run, one that is the union of all the offsets of
+    cell-centered events. If <EM>auto-tracking</EM> is used to track
+    the locations of the directly affected cells, then when an event
+    is executed, for each cell \f$(a_n,b_n,c_n)\f$ directly changed by
+    the event, cell indices \f$(a_n,b_n,c_n)\f$, \f$(a_n - i_1, b_n -
+    j_1, c_n - k_1)\f$, \f$(a_n - i_2, b_n - j_2, c_n - k_2)\f$,
+    etc. will be added to the list of indices of cells affected by the
+    event, where \f$(i_1,j_1,k_1)\f$, \f$(i_2,j_2,k_2)\f$, &hellip;,
+    is the master list of offsets. When this list of indices is
+    constructed in this way, there may be redundancies in the
+    list. These redundancies won't lead to spurious results, but they
+    will lead to redundant propensity calculations, since a propensity
+    calculation is done for every item in the list. To avoid this,
+    <EM>semi-manual</EM> tracking may be used. To use this mode of
+    tracking for a cell-centered event, sets of offsets \f$\{O_1, O_2,
+    \dots\}\f$, indicating the relative locations of cells changed by
+    an event, must be specified for the type of this cell-centered
+    event. From this information and the master list of offsets, new
+    lists of offsets are constructed, one for each set \f$O_m\f$. For
+    each offset \f$(a^m_n,b^m_n,c^m_n)\f$ in set \f$O_m\f$, a list of
+    offsets \f$l^m_n = (a^m_n,b^m_n,c^m_n), (a^m_n - i_1, b^m_n - j_1,
+    c^m_n - k_1), (a^m_n - i_2, b^m_n - j_2, c^m_n - k_2)\f$, etc. is
+    generated, where \f$(i_1,j_1,k_1)\f$, \f$(i_2,j_2,k_2)\f$,
+    &hellip;, again is the master list of offsets. The list \f$L_m\f$
+    is then constructed as the union of all offsets in the lists
+    \f$l^m_1\f$, \f$l^m_2\f$, &hellip;. When an event is executed, for
+    each set \f$O_m\f$, one of the cells affected by the event is
+    designated as <EM>center</EM> \f$m\f$. For each center \f$m\f$,
+    the indices of the rest of the cells changed by the event are
+    formed adding the indices of this center to each of the offsets in
+    \f$O_m\f$. The list of recorded cell indices is then composed of
+    the indices of these centers, and the indices formed from adding
+    the indices of center \f$m\f$ to each of the offsets in
+    \f$L_m\f$. If the centers are far enough apart or there is only
+    one center, then the list of recorded cell indices should have no
+    redundant values.
+
+    The process of choosing a random event may be done with one of two
+    algorithms, which in the ARL KMCThinFilm library are called
+    <EM>solvers</EM>. One algorithm \cite Blu95 stores the
+    <VAR>N</VAR> possible events and partial sums of their
+    propensities in a binary tree and scales as \f$O(\log_2
+    N)\f$. Another algorithm stores possible events in a map where the
+    key is a propensity of a possible event, and the value associated
+    with that key is an array of possible events associated with that
+    propensity. This algorithm scales with the number of unique
+    propensity values in the system, which in many cases is
+    independent of the number of possible events <VAR>N</VAR>. This is
+    similar to another algorithm \cite Sch02, except that algorithm
+    used a two-dimensional array rather than a map. 
+
+    In addition to possible events, <EM>periodic actions</EM> can be
+    executed during a simulation as well. There are two types of
+    periodic actions: <EM>time-periodic</EM> actions, which occur
+    after every <VAR>t</VAR> units of simulation time, and
+    <EM>step-periodic</EM> actions, which occur after every
+    <VAR>M</VAR> time steps. These may perform various functions, from
+    I/O operations, e.g. to record to a file the state of the lattice
+    at various points during a simulation, or to even change the
+    lattice or quantities associated with it. Like possible events,
+    periodic actions can be added, changed, or removed from a
+    simulation object.
+
+    \section lattice_overview Lattices in the ARL KMCThinFilm library
+
+    A lattice in the ARL KMCThinFilm library is modeled as a stack of
+    two-dimensional arrays of cells, with each cell labeled with a
+    triplet of integer indices, as illustrated in the figure below.
+
+    \image html LatticeModel.png
+    \image latex LatticeModel.eps "" width=0.8\textwidth
+
+    Periodic boundary conditions always apply to the first two indices
+    of a cell, but not the third. In a manner similar to that of the
+    software SPPARKS &lt;http://spparks.sandia.gov>, each cell also
+    contains two one-dimensional arrays, one with integer values and
+    one with double precision floating-point values. The size of these
+    arrays is the same for all cells. The physical meaning of the
+    contents of the arrays is left up to the client application that
+    uses the ARL KMCThinFilm library; for a given application, they may be
+    used to identify species of a basis of atoms within a cell, or the
+    spatial coordinates of an atom in a cell in a possibly distorted
+    lattice, or, for a simpler solid-on-solid application, the height
+    of a column of atoms at \f$(i,j,0)\f$. The lattice need not be
+    cubic. If the cells are treated as those of a Bravais lattice with
+    primitive lattice vectors \f$\mathbf{a}_i\f$, \f$\mathbf{a}_j\f$,
+    and \f$\mathbf{a}_k\f$, then the physical location of cell
+    \f$(i,j,k)\f$ may be said to be \f$\mathbf{a}_i i + \mathbf{a}_j j
+    + \mathbf{a}_k k\f$. The sizes of the arrays in each cell of the
+    lattice, as well as the maximum values of the first two indices of
+    a cell, are fixed when the lattice is initialized, but additional
+    planes may be added to the lattice at any time step of the
+    simulation.
+
+    \section kmc_par_alg Parallel approximate Kinetic Monte Carlo algorithm
+
+    The lattice in a parallel kMC simulation is partitioned among the
+    processors in an MPI communicator. There are two methods of
+    decomposition. The simplest is row-based decomposition, shown
+    below.
+
+    \image html PartitionedLatticeRow.png
+    \image latex PartitionedLatticeRow.eps "" width=0.7\textwidth
+
+    In the above diagram, a lattice is divided among four processors
+    with ranks ranging from 0 to 3. Here, &ldquo;ghost sites&rdquo;
+    appear along the top and bottom of each partition of the
+    lattice. The ghost regions along the edges of each partition are
+    copies of the lattice sites of a neighboring processor, and in the
+    diagram, the processor from which they are copied is shown via
+    their color. Periodic boundary conditions are employed here, so
+    that the top of the rank 0 partition is connected to the bottom of
+    the rank 3 partition. Ghost regions are not needed for the left
+    and right sides. Alternatively, the lattice may be decomposed such
+    that the perimeter of each partition is minimized. Here, this is
+    called <EM>compact</EM> decomposition, and is shown below.
+
+     \image html PartitionedLatticeCompact.png
+     \image latex PartitionedLatticeCompact.eps "" width=0.8\textwidth
+
+    Now, ghost regions are along the whole boundary of each portion of
+    the lattice. Again, the lattice is shown divided among four
+    processors with ranks ranging from 0 to 3.
+
+    Attempting to do kMC simulations on each partition of the lattice
+    would lead to problems at the partition boundaries, since the
+    events done on each partition could lead to conflicting effects on
+    the ghost sites. To avoid this problem, an approximate kMC
+    algorithm was developed \cite Shim05, where each partition is
+    further subdivided into sectors, and at any given time in the
+    simulation, events are executed only for sites within one of these
+    sectors, as illustrated below for the case of compact
+    decomposition.
+
+    \image html ActiveSectorsCompact.png
+    \image latex ActiveSectorsCompact.eps "" width=0.5\textwidth
+
+    Partition boundaries are indicated by thick solid lines, while the
+    sector boundaries are indicated by thinner solid lines. Active
+    sectors are shown in the color corresponding to the rank of the
+    partition to which they belong. The dotted lines show the
+    boundaries of the regions affected by events that occur within the
+    active sectors. The parts of these regions that affect ghost sites
+    are shown in the color corresponding to the ranks of the sites of
+    which the ghost sites are copies. If row decomposition were used,
+    there would be two sectors per partition instead of four. Here,
+    in the above diagram, the active sectors happen to be the upper
+    left quadrants of the lattice partitions. At any given time in the
+    simulation, they could be the lower left, lower right, or upper
+    right quadrants, so long as the relative locations of these active
+    sectors are the same for all processors, that is, <EM>all</EM>
+    upper left, <EM>all</EM> lower left, and so on. Because the active
+    sectors all have the same relative location, the regions that are
+    affected by events happening within them do not overlap, as
+    illustrated by the diagram above.
+
+    With the sectors now defined, the approximate kMC algorithm can
+    proceed on each processor as follows:
+
+    -# Initialize the global time <VAR>t</VAR> to zero.
+
+    -# Determine the initial value of the stop time \f$t_{stop}\f$.
+
+    -# Repeat the following until <VAR>t</VAR> exceed the desired time
+       \f$t_{max}\f$:
+
+       -# Iterate over the sectors. For each sector visited,
+
+          -# initialize the local time \f$t_{local}\f$ to zero,
+          -# update the ghost sites and the set of possible
+             events affected by changes to the ghost sites,
+          -# run a normal serial kMC algorithm on the sites within the
+             sector, incrementing \f$t_{local}\f$ as each event is
+             executed until \f$t_{local} > t_{stop}\f$, but do not allow
+             the event that would cause \f$t_{local}\f$ to exceed
+             \f$t_{stop}\f$ to be executed, and
+          -# update the off-processor sites that correspond to the
+             ghost sites that have changed due to the events that have
+             occurred, and again update the set of possible events
+             affected by the ghost site updates.
+
+       -# Increment the global time <VAR>t</VAR> by
+          \f$t_{stop}\f$.
+
+       -# Update the value of \f$t_{stop}\f$.
+
+    The updates of the ghost sites that are performed when a sector is
+    visited do not involve communicating the entirety of the ghost
+    site regions bordering a sector, only the communication of
+    <em>changes</em> to each region.
+
+    In principle, the sequence in which the sectors are visited may be
+    random, so long as (1) each processor uses the same random
+    sequences (in order that the active sectors on each processor are
+    at the same relative location, as mentioned previously), and (2)
+    that four sectors are visited before the global time is
+    incremented. However, in the ARL KMCThinFilm library, the simpler
+    approach seen in another kMC code, SPPARKS \cite Plim23, is taken,
+    where each sector is simply visited in turn in a deterministic
+    loop. In the ARL KMCThinFilm library, this loop begins at the
+    upper left and then continues to the lower left, followed by the
+    lower right and upper right.
+
+    Compact decomposition, despite minimizing the perimeter of each
+    partition, may be slower than row-based decomposition, because the
+    former mode of decomposition requires twice as many sectors as the
+    latter, and each visit of a sector requires the communication of
+    ghosts. The volume of data communicated in row-based decomposition
+    may indeed be higher than that in compact decomposition. However,
+    since only changes to ghost regions are communicated, this volume
+    is not that high to begin with, so the communication overhead is
+    dominated more by the very acts of sending and receiving messages,
+    rather the costs associated with the size of the data
+    itself. Because of this, row-based decomposition is the default in
+    the ARL KMCThinFilm library.
+
+    The value of \f$t_{stop}\f$ may be determined by
+    various time-stepping schemes. The simplest of these is to set
+    \f$t_{stop}\f$ to a fixed value. The other schemes
+    are various kinds of adaptive algorithms, which attempt to
+    determine a reasonable value of \f$t_{stop}\f$ from
+    the propensities of the possible events in the simulation. In all
+    of these algorithms, the time step has the general form,
+    \f[
+    t_{stop} = \frac{n_{stop}}{F_{stop}}
+    \f]
+    where \f$n_{stop}\f$ is an adjustable parameter, and
+    \f$F_{stop}\f$ is a function that determines the
+    particular adaptive time step scheme. Here are the currently
+    available choices for \f$F_{stop}\f$:
+
+    - The maximum propensity of all currently possible cell-centered
+      events in the simulation. This is a simplified version of the
+      adaptive method of determining \f$F_{stop}\f$ recommended by
+      \cite Shim05. When this method is used, a good conservative
+      value of \f$n_{stop}\f$ is 1.0, though in some applications,
+      such as island coarsening, a value of up to 10.0 has been used
+      without much loss of accuracy \cite Shi07.
+
+    - The maximum of the average propensities per possible
+      cell-centered event from each sector. \f$F_{stop} = \max(p_s^1,
+      p_s^2, \dots, p_s^{N_{proc}})\f$, where \f$N_{proc}\f$ is the
+      number of processors and for the case of compact decomposition,
+      \f$p_s^n = \max(p_{s,UL}^n,p_{s,LL}^n,p_{s,LR}^n,p_{s,UR}^n)\f$,
+      where \f$p_{s,UL}^n\f$ is the average propensity of the events
+      in the upper-left sector of partition <VAR>n</VAR>, that is, the
+      sum of the propensities of all possible events in that sector
+      divided by the number of possible events, and similarly,
+      \f$p_{s,LL}^n\f$, \f$p_{s,LR}^n\f$, and \f$p_{s,UR}^n\f$ are the
+      mean propensities in the lower left, lower right, and upper
+      right sectors of partition <VAR>n</VAR>, as in SPPARKS
+      \cite Plim23. For this choice of \f$F_{stop}\f$, a reasonable starting
+      value for \f$n_{stop}\f$ is 1.0. Note that for a given value of
+      \f$n_{stop}\f$, this approach may be less conservative than the
+      previous one.
+
+    An additional optional parameter \f$t_{stop,max}\f$ may be used
+    with the adaptive schemes. If this parameter is set, then if
+    \f$n_{stop}/F_{stop} > t_{stop,max}\f$, \f$t_{stop}\f$ will equal
+    \f$t_{stop,max}\f$ instead of \f$n_{stop}/F_{stop}\f$. This may be
+    useful in cases where the adaptive scheme temporarily
+    overestimates \f$t_{stop}\f$ during a simulation.
+
+    In a parallel simulation, the propensity of an over-lattice event
+    is the propensity per unit area scaled by the in-plane area of a
+    <EM>sector</EM>, rather than the size of a whole monolayer. Also,
+    running a parallel simulation changes how periodic actions are
+    run. In a serial simulation, if a periodic action executes, it
+    executes shortly after an event has been executed. In a parallel
+    simulation, if a periodic action executes, it executes shortly
+    after \f$t_{stop}\f$ has been incremented, that is, outside of the
+    looping over sectors. This allows periodic actions to use MPI
+    calls for parallel communication, since a periodic action will
+    execute the same number of times on every processor.
+
+*/

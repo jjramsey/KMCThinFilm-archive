@@ -1,0 +1,44 @@
+\chapter{Compilation and installation}
+\hypertarget{compilation}{}\label{compilation}\index{Compilation and installation@{Compilation and installation}}
+\hypertarget{compilation_compilation_of_self}{}\doxysection{\texorpdfstring{Compiling and installing the library itself}{Compiling and installing the library itself}}\label{compilation_compilation_of_self}
+Compilation of the ARL \doxylink{namespaceKMCThinFilm}{KMCThin\+Film} library requires CMake \texorpdfstring{$<$}{<}\href{http://www.cmake.org}{\texttt{ http\+://www.\+cmake.\+org}}\texorpdfstring{$>$}{>} and Boost \texorpdfstring{$<$}{<}\href{http://www.boost.org}{\texttt{ http\+://www.\+boost.\+org}}\texorpdfstring{$>$}{>}. Optional dependencies are the random number generators DCMT, at least version 0.\+6.\+2 (for \doxylink{classKMCThinFilm_1_1RandNumGenDCMT}{KMCThin\+Film\+::\+Rand\+Num\+Gen\+DCMT}), and Rng\+Streams, at least version 1.\+0.\+1 (for \doxylink{classKMCThinFilm_1_1RandNumGenRngStreams}{KMCThin\+Film\+::\+Rand\+Num\+Gen\+Rng\+Streams}).
+
+On a Unix-\/like system, one may write a shell script such as the following in order to run the command-\/line version of CMake\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{preprocessor}{\#!/bin/sh}}
+\DoxyCodeLine{}
+\DoxyCodeLine{EXTRA\_ARGS=\$@}
+\DoxyCodeLine{}
+\DoxyCodeLine{KMC\_HOME=\textcolor{stringliteral}{"{}/path/to/KMCThinFilm/source-\/and-\/docs"{}}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{preprocessor}{\#CMAKE\_BUILD\_TYPE=DEBUG}}
+\DoxyCodeLine{CMAKE\_BUILD\_TYPE=RELEASE}
+\DoxyCodeLine{}
+\DoxyCodeLine{cmake\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ -\/D\ CMAKE\_BUILD\_TYPE:STRING=\$CMAKE\_BUILD\_TYPE\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ -\/D\ CMAKE\_INSTALL\_PREFIX:PATH=\textcolor{stringliteral}{"{}/path/to/desired/KMCThinFilm/install/location"{}}\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ -\/D\ BOOST\_ROOT:PATH=\textcolor{stringliteral}{"{}/path/to/Boost"{}}\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ -\/D\ KMC\_USE\_DCMT:BOOL=TRUE\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ -\/D\ DCMT\_ROOT:PATH=\textcolor{stringliteral}{"{}/path/to/dcmt0.6.2"{}}\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ -\/D\ KMC\_USE\_RNGSTREAMS:BOOL=TRUE\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ -\/D\ RNGSTREAMS\_ROOT:PATH=\textcolor{stringliteral}{"{}/path/to/RngStreams"{}}\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ -\/D\ CMAKE\_CXX\_FLAGS:STRING=\textcolor{stringliteral}{"{}-\/DMPICH\_IGNORE\_CXX\_SEEK"{}}\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ -\/D\ CMAKE\_CXX\_STANDARD=11\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \$EXTRA\_ARGS\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \$\{KMC\_HOME\}}
+
+\end{DoxyCode}
+
+
+Although the ARL \doxylink{namespaceKMCThinFilm}{KMCThin\+Film} code does not use C++11, recent enough versions of Boost {\itshape may}, so ``{\ttfamily -\/D CMAKE\+\_\+\+CXX\+\_\+\+STANDARD=11}'' is added to the above example script.
+
+If either {\ttfamily KMC\+\_\+\+USE\+\_\+\+DCMT} or {\ttfamily KMC\+\_\+\+USE\+\_\+\+RNGSTREAMS} is set to {\ttfamily FALSE}, the corresponding path, i.\+e. {\ttfamily DCMT\+\_\+\+ROOT} or {\ttfamily RNGSTREAMS\+\_\+\+ROOT} does not need to be specified. The extra compilation flag {\ttfamily -\/DMPICH\+\_\+\+IGNORE\+\_\+\+CXX\+\_\+\+SEEK} is only needed when compiling against certain MPI implementations, such as MPICH or Intel\+MPI. By default, an attempt will be made to compile both the serial and parallel versions of the library. If an MPI installation is not found, only the serial version will be built. To avoid attempting to compile the serial version, set the CMake variable {\ttfamily KMC\+\_\+\+BUILD\+\_\+\+SERIAL} to {\ttfamily FALSE}, and to avoid attempting to compile the parallel version, set the CMake variable {\ttfamily KMC\+\_\+\+BUILD\+\_\+\+PARALLEL} to {\ttfamily FALSE}. (One may set these variables false by adding {\ttfamily -\/D KMC\+\_\+\+BUILD\+\_\+\+SERIAL\+:BOOL=FALSE} or {\ttfamily -\/D KMC\+\_\+\+BUILD\+\_\+\+PARALLEL\+:BOOL=FALSE}, accordingly, to the command line executing CMake.) To avoid installing documentation, set the CMake variable {\ttfamily KMC\+\_\+\+INSTALL\+\_\+\+DOCS} to {\ttfamily FALSE}.
+
+The above shell script should be run from a directory {\bfseries{different}} from the directory containing the source and documentation of the ARL \doxylink{namespaceKMCThinFilm}{KMCThin\+Film} library. After the script is run, one may then type ``make'' and then ``make install''.\hypertarget{compilation_compilation_against}{}\doxysection{\texorpdfstring{Compiling against the library}{Compiling against the library}}\label{compilation_compilation_against}
+There are a couple things to note when compiling against the ARL \doxylink{namespaceKMCThinFilm}{KMCThin\+Film} library. First, there are two versions of the library, named ``KMCThin\+Film\+Serial'' and ``KMCThin\+Film\+Parallel.'' One must compile a given binary against exactly one of these. Second, {\itshape two} paths to ARL \doxylink{namespaceKMCThinFilm}{KMCThin\+Film} header files must be specified. If the root directory of the ARL \doxylink{namespaceKMCThinFilm}{KMCThin\+Film} installation is {\ttfamily \$\+KMC\+\_\+\+INST}, then one of the paths is simply {\ttfamily \$\+KMC\+\_\+\+INST/include}. The other path depends upon whether one is compiling against the serial or parallel version of the library. For the serial case, the other path is {\ttfamily \$\+KMC\+\_\+\+INST/include/\+KMCThin\+Film/serial}. For the parallel case, the other path is {\ttfamily \$\+KMC\+\_\+\+INST/include/\+KMCThin\+Film/parallel}. To repeat in brief,
+
+
+\begin{DoxyItemize}
+\item To compile a serial application, compile against the KMCThin\+Film\+Serial library binary and include {\ttfamily \$\+KMC\+\_\+\+INST/include} and {\ttfamily \$\+KMC\+\_\+\+INST/include/\+KMCThin\+Film/serial} in header search paths.
+\item To compile a parallel application, compile against the KMCThin\+Film\+Parallel library binary and include {\ttfamily \$\+KMC\+\_\+\+INST/include} and {\ttfamily \$\+KMC\+\_\+\+INST/include/\+KMCThin\+Film/parallel} in header search paths. 
+\end{DoxyItemize}

@@ -1,0 +1,23 @@
+\doxysection{test\+Ballistic\+Dep1/\+Init\+Lattice.\+cpp}
+\hypertarget{testBallisticDep1_2InitLattice_8cpp-example}{}\label{testBallisticDep1_2InitLattice_8cpp-example}An implementation file for an example implementation of a ballistic deposition model that defines a custom method for initializing empty cells of a lattice.
+
+This example is discussed in detail in the section ``\doxysectlink{illustrating_use_by_example_example_baldep}{Example\+: Implementations of a ballistic deposition model}{1},'' subsection ``\doxysectlink{illustrating_use_by_example_example_baldep_impl1}{First implementation}{2}.''
+
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ "{}InitLattice.hpp"{}}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ "{}EventsAndActions.hpp"{}}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keyword}{using\ namespace\ }\mbox{\hyperlink{namespaceKMCThinFilm}{KMCThinFilm}};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keywordtype}{void}\ SetEmptyCellWithRandColor::operator()(\textcolor{keyword}{const}\ \mbox{\hyperlink{classKMCThinFilm_1_1CellInds}{CellInds}}\ \&\ ci,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classKMCThinFilm_1_1Lattice}{Lattice}}\ \&\ lattice,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::vector<int>\ \&\ emptyIntVals,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::vector<double>\ \&\ emptyFloatVals)\ \{}
+\DoxyCodeLine{\ \ }
+\DoxyCodeLine{\ \ emptyFloatVals[BDFloatVal::COLOR]\ =\ rng\_-\/>getNumInOpenIntervalFrom0To1();}
+\DoxyCodeLine{\ \ }
+\DoxyCodeLine{\}}
+
+\end{DoxyCodeInclude}
+ 

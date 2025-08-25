@@ -1,0 +1,1680 @@
+/*! \page illustrating_use_by_example Illustrating the usage of the ARL KMCThinFilm library by example
+
+    Perhaps the best way to showcase the functionality of the
+    ARL KMCThinFilm library is to provide examples of its use, so several
+    examples will be shown here. The first example is a very basic
+    solid-on-solid model and only requires a two-dimensional
+    lattice. It is intended to give an overall sense of how the
+    library is meant to be used. The second example shows what is
+    needed to implement a parallel kinetic Monte Carlo simulation with
+    this library. The third example is slightly less simple in that it
+    shows how to implement a three-dimensional simulation, and it
+    shows a few other features of the library. The fourth example
+    involves a model of a patterned substrate that encourages
+    two-dimensional island formation at regular places along a
+    grid. It is meant to show how the ARL KMCThinFilm library can be used
+    to speed the implementation of models with features that could
+    require custom code to implement, and again shows some new
+    features of the library not mentioned in previous examples. It is
+    expected that these examples be read <EM>in order</EM>, since
+    matters discussed in detail in a previous example may be reviewed
+    only briefly, if at all, in later examples. It is also recommended
+    to read all of the examples, in order to get a better overview of
+    the library's features.
+
+    \section example_fractal Example: Implementation of a &ldquo;fractal&rdquo; solid-on-solid model
+
+    This example implements a &ldquo;fractal&rdquo; kinetic Monte
+    Carlo model (similar to that described in the work that developed
+    the approximate semirigorous parallel kMC \cite Shim05). In this
+    simple model, the lattice is simple cubic. The fractal model has
+    two kinds of possible events: deposition and diffusion. The
+    deposition flux, i.e. propensity per unit area, is <VAR>F</VAR>
+    monolayers per unit time. Here, diffusion is a hop of a particle
+    from one lattice site to a nearest neighboring site. Furthermore,
+    in this model, a particle can only diffuse if it has no lateral
+    nearest or next-nearest neighbors. This causes the particles to
+    form a surface somewhat reminiscent of snowflakes. If a diffusion
+    event can occur, it occurs with propensity <VAR>D</VAR>.
+
+    Since this is a solid-on-solid model, if a diffusing particle
+    moves to a site that is not just above another particle, then the
+    diffusing particle will fall until it lands on top of another
+    particle. This guarantees no vacancies, and it also means that the
+    three-dimensional <EM>true</EM> lattice, where each cell is either
+    occupied or unoccupied, does not have to be explicitly
+    modeled. Instead, a <EM>computational</EM> lattice is used that
+    has the same lateral dimensions as the cubic true lattice but
+    always contains only a single lattice plane, and the height of the
+    column of particles at cell \f$(i,j,0)\f$ of the true lattice is
+    recorded at cell \f$(i,j,0)\f$ of the lattice used for
+    computation.
+
+    There will actually be <EM>two</EM> implementations shown in this
+    example: one using auto-tracking to determine the cells affected
+    by an event, and one using semi-manual tracking.
+
+    \subsection ex_fractal_auto_tracking Using auto-tracking
+
+    The code for this example is in the directory
+    <TT>doc/example-code/testFractal</TT> of the ARL KMCThinFilm
+    installation. We will begin by viewing what is effectively the
+    driver file for the simulation code, <TT>testFractal.cpp</TT>,
+    which will show the general outline of the simulation, but leave
+    in a few &ldquo;blanks&rdquo; to be filled in, so to speak. To
+    fill in these blanks, we will then turn to the files
+    <TT>EventsAndActions.hpp</TT> and <TT>EventsAndActions.cpp</TT>,
+    where the implementation code lies.
+
+    \subsubsection ex_fractal_driver Examining the driver code
+
+    The header files needed by <TT>testFractal.cpp</TT> are as
+    follows:
+
+    \snippet testFractal/testFractal.cpp headers
+
+    The last of these headers, <TT>EventsAndActions.hpp</TT>, was
+    mentioned above and will be discussed in more detail later. The
+    remaining headers include the definitions for the
+    KMCThinFilm::Simulation class and a wrapper class for a Mersenne
+    Twister random number generator. Here, any available concrete
+    implementation of the KMCThinFilm::RandNumGen class could have
+    been used in place of KMCThinFilm::RandNumGenMT19937. In order to
+    avoid having to type the prefix
+    &ldquo;<CODE>KMCThinFilm::</CODE>&rdquo; repeatedly, the next line
+    is
+
+    \snippet testFractal/testFractal.cpp using decl
+
+    At the beginning of the <TT>main()</TT> function in
+    <TT>testFractal.cpp</TT>, we have the following hard-coded
+    parameters:
+
+    \snippet testFractal/testFractal.cpp hardcoded parameters
+
+    The first several parameters pertain to the fractal model
+    itself. Parameter <CODE>F</CODE> is the aforementioned deposition
+    flux <VAR>F</VAR>, while <CODE>DoverF</CODE> is
+    <VAR>D</VAR>/<VAR>F</VAR>. The parameter <CODE>maxCoverage</CODE>
+    indicates how many monolayers to deposit, and
+    <CODE>domainSize</CODE> will be used to set the size of the
+    lattice.
+
+    The last two parameters relate more to the computation of the
+    kinetic Monte Carlo simulation. The parameter <CODE>seed</CODE> is
+    the seed for the random number generator. Parameter
+    <CODE>sId</CODE> indicates which solver will be used to randomly
+    choose an event at a time step in the simulation.
+
+    \note
+    The parameters are only hard-coded in order to simplify the
+    example. In a more realistic simulation code, one could use, for
+    example, the Program Options library of Boost
+    &lt;http://www.boost.org> to input the parameters, especially since
+    Boost is already a dependency of the ARL KMCThinFilm library.
+
+    To determine the simulation time needed to deposit the desired
+    number of monolayers, <CODE>maxCoverage</CODE> is divided by the
+    flux <CODE>F</CODE>, so the next line of <TT>testFractal.cpp</TT>
+    reads
+
+    \snippet testFractal/testFractal.cpp deposition time
+
+    At this point, the simulation itself is initialized. To do this,
+    the parameters needed to initialize the lattice used in the
+    simulation are passed to the constructor of a
+    KMCThinFilm::Simulation object:
+
+    \snippet testFractal/testFractal.cpp initializing simulation
+
+    Here, the size of the array of integers in each lattice cell is
+    set to <CODE>FIntVal::SIZE</CODE>, which will turn out to be an
+    enumeration constant defined in <TT>EventsAndActions.hpp</TT>. It
+    was mentioned before that <CODE>domainSize</CODE> will be used to
+    set the size of the lattice. Now here, the lateral size of the
+    lattice has been set to <CODE>domainSize</CODE> &times;
+    <CODE>domainSize</CODE>.
+
+    The choice of solver and random number generator for the
+    simulation are now set:
+
+    \snippet testFractal/testFractal.cpp setting solver and rng
+
+    The order of the above statements matters, since
+    KMCThinFilm::Simulation::setRNG() must be called <EM>after</EM>
+    KMCThinFilm::Simulation::setSolver(). Here, a &ldquo;smart&rdquo;
+    pointer to an instance of a KMCThinFilm::RandNumGen class is
+    passed to our KMCThinFilm::Simulation object,
+    <CODE>sim</CODE>. Since this is a shared pointer, <CODE>sim</CODE>
+    does not exclusively own this pointer. Instead, this pointer
+    deletes itself when there are no more references to it. (Also, if
+    need be, other objects besides <CODE>sim</CODE> are allowed to
+    make use of this pointer to generate random numbers of their own,
+    but that will not be an issue in this simple example.)
+
+    At this point, <EM>possible events</EM> and <EM>periodic
+    actions</EM> may be added to the simulation. We begin by adding a
+    possible deposition event:
+
+    \snippet testFractal/testFractal.cpp adding overlattice events
+
+    This code adds possible so-called <EM>over-lattice</EM> events,
+    which are events that may originate from some randomly picked site
+    at the top of the lattice, as discussed in the section entitled
+    &ldquo;\ref kMC_sim_overview "".&rdquo; For example, deposition of a
+    particle can be modeled as an event where a particle appears
+    randomly at the top of the lattice and falls until it lands atop
+    an occupied lattice site.
+
+    The member function
+    KMCThinFilm::Simulation::reserveOverLatticeEvents() sets the
+    number of possible over-lattice events that will be added to the
+    simulation and reserves memory for them. Here, the number of such
+    events is <CODE>FOverLatticeEvents::SIZE</CODE>, another
+    enumeration constant defined in <TT>EventsAndActions.hpp</TT>. The
+    member function KMCThinFilm::Simulation::addOverLatticeEvent()
+    actually adds the event to the simulation. The three arguments
+    that it takes are an integer label identifying the event, which
+    here is another enumeration constant
+    <CODE>FOverLatticeEvents::DEPOSITION</CODE>; a propensity per unit
+    of in-plane area, that is, the flux <VAR>F</VAR>; and a function
+    or function object responsible for actually executing the event,
+    which here is <CODE>DepositionExecute</CODE>. (The actual
+    propensity of the event is the propensity per area scaled by the
+    size of a monolayer of lattice cells, i.e.,
+    <CODE>latParams.globalPlanarDims[0]</CODE> &times;
+    <CODE>latParams.globalPlanarDims[1]</CODE>.)
+
+    We now begin to add <EM>cell-centered</EM> events to the
+    simulation. Again, as discussed in the section entitled
+    &ldquo;\ref kMC_sim_overview,&rdquo; these events are called such
+    because such events originate in the neighborhood of some lattice
+    cell, and their propensities&mdash;unlike those of over-lattice
+    events&mdash;<EM>are</EM> affected by the states of cells in that
+    neighborhood. This neighborhood is defined via one or more
+    <EM>offsets</EM> from a central cell, as follows:
+
+    \snippet testFractal/testFractal.cpp making cellneighoffsets
+
+    The object <CODE>hopCNO</CODE> is a container of these offsets. In
+    its constructor, it is passed the number of offsets that it will
+    contain, which here is expressed as another enumeration constant,
+    <CODE>HopOffset::SIZE</CODE>. The actual offsets are added with
+    the KMCThinFilm::CellNeighOffsets::addOffset(), which takes an
+    integer label greater than zero and less than
+    <CODE>HopOffset::SIZE</CODE>, and the offset itself. The integer
+    label 0 (which is also <CODE>HopOffset::SELF</CODE>, a constant
+    that will be seen later) is not used as an argument to
+    KMCThinFilm::CellNeighOffsets::addOffset() because it is reserved
+    for the zero offset, i.e., <CODE>CellIndsOffset(0,0,0)</CODE>,
+    which is automatically included in a KMCThinFilm::CellNeighOffsets
+    object. The offsets added in the snippet of code above correspond
+    to the positions shown in the figure below:
+
+    \image html OffsetsFractalSim.png
+    \image latex OffsetsFractalSim.eps
+
+    Since the simulation is on a square lattice, <VAR>i</VAR> and
+    <VAR>j</VAR> happen to be orthogonal, and the axis along which
+    index <VAR>k</VAR> would point is perpendicularly out of the
+    plane. Also, because this is a two-dimensional simulation, the
+    third index of the offset, <VAR>k</VAR>, is always zero here.
+
+    Once the offsets are defined, cell-centered events can then be
+    added:
+    
+    \snippet testFractal/testFractal.cpp adding cellcentered events
+
+    The member function
+    KMCThinFilm::Simulation::reserveCellCenteredEventGroups() is
+    somewhat analogous to the member function
+    KMCThinFilm::Simulation::reserveOverLatticeEvents() mentioned
+    before. Unlike over-lattice events, though, similar types of
+    cell-centered events are grouped together. The first argument to
+    this function indicates the number of groups&mdash;which is just 1
+    in this case&mdash;while the second argument indicates the total
+    number of individual cell-centered event types, regardless of
+    grouping. Here, this number happens to be the enumeration constant
+    <CODE>FCellCenteredEvents::SIZE</CODE>.
+
+    Before actually adding a group of cell-centered event types, an
+    KMCThinFilm::EventExecutorGroup object must be constructed. This
+    object encapsulates a set of functions or function objects used to
+    execute one of the events in the group of event types, and its
+    constructor takes as an argument the number of function/function
+    objects to be added to the group. Functions and function objects are added to
+    the group in a manner similar to the way offsets are added to a
+    KMCThinFilm::CellNeighOffsets object. Here, the
+    KMCThinFilm::EventExecutorGroup::addEventExecutor() takes two
+    arguments: an integer label that is greater than or equal to zero and
+    less than <CODE>FCellCenteredEvents::SIZE</CODE>, and a
+    function/function object satisfying the
+    KMCThinFilm::EventExecutorAutoTrack signature.
+
+    A group of cell-centered event types is added by means of the
+    KMCThinFilm::Simulation::addCellCenteredEventGroup() member
+    function. This function takes four arguments: an integer label
+    identifying the event, which is arbitrarily set to one, a
+    KMCThinFilm::CellNeighOffsets object, which here is
+    <CODE>hopCNO</CODE>, a function or function object used to
+    calculate the propensity of the event, which here is the object
+    <CODE>HoppingPropensity(DoverF*F)</CODE>, and the aforementioned
+    KMCThinFilm::EventExecutorGroup object. Here, the constructor for
+    the <CODE>HoppingPropensity</CODE> function object class happens
+    to take an argument equal to the hopping propensity <VAR>D</VAR>,
+    but that will not necessarily be the case in general.
+
+    Finally, we define a time-periodic action, which here dumps the
+    state of the lattice to a file at regular intervals of simulation
+    time.
+
+    \snippet testFractal/testFractal.cpp adding printer
+
+    Again, we have a member function for reserving a type of object,
+    followed by a member function that adds the type of object. The
+    argument to KMCThinFilm::Simulation::reserveTimePeriodicActions()
+    is the number of time-periodic actions to be added, and as before,
+    this number is represented via an enumeration constant,
+    <CODE>PAction::SIZE</CODE>. The member function
+    KMCThinFilm::Simulation::addTimePeriodicAction() has four
+    arguments: an integer label, which here is another enumeration
+    constant <CODE>PAction::PRINT</CODE>; a function object to execute
+    the periodic action; the period for the action, which here is
+    taken to be 0.05 &times; <CODE>approxDepTime</CODE>; and a Boolean
+    flag to indicate if the action should be performed at the end of a
+    simulation run.
+
+    After all this setup, the simulation is then actually set to run
+    as follows:
+
+    \snippet testFractal/testFractal.cpp running simulation
+
+    Note that the simulation is run in two stages. In the first stage,
+    there is both diffusion and deposition for a certain amount of
+    time. Then deposition is stopped by removing the deposition event
+    from the simulation. In the second stage, the simulation is run
+    with only diffusion.
+
+    (By the way, in this particular fractal model, since particles
+    cannot diffuse if they have any nearest or next nearest neighbors,
+    the simulation soon runs out of particles that can diffuse because
+    the available particles soon acquire neighbors and thus become
+    fixed in place. This causes the simulation to run out of possible
+    events and end before the alloted simulation time is up.)
+
+    The general outline of the simulation, as indicated from the
+    driver code, is as follows. First, a simulation object is
+    initialized. Then, possible events and periodic actions are added
+    to the simulation. Finally, the simulation is then run. There are
+    still several &ldquo;blanks&rdquo; left. Some of these are the
+    enumeration constants. Others are the details of the functions or
+    function objects used to implement the possible events and
+    periodic actions. For these, we turn to an examination of the
+    implementation code in EventsAndActions.cpp and its associated
+    header file.
+    
+    \subsubsection ex_fractal_impl Examining the implementation code
+
+    We begin with the header file EventsAndActions.hpp. Here we see
+    that the enumerations, rather than being defined directly, are
+    generated from convenience macros defined in MakeEnum.hpp from the
+    ARL KMCThinFilm library. These macros define enumerations associated
+    with adding possible events and actions:
+
+    \snippet testFractal/EventsAndActions.hpp event and action enums
+
+    The enumerations defined through these macros all include a
+    constant containing the name &ldquo;<CODE>SIZE</CODE>&rdquo;,
+    which indicates the number of constants in the enumeration (not
+    including <CODE>SIZE</CODE> itself):
+    <CODE>FOverLatticeEvents::SIZE</CODE>,
+    <CODE>FCellCenteredEvents::SIZE</CODE>, and
+    <CODE>PAction::SIZE</CODE>.
+
+    The following convenience macro operates similarly:
+
+    \snippet testFractal/EventsAndActions.hpp lattice enum
+
+    However, the prefix of the enumerations from this macro is not
+    just the first argument of the macro, but the first argument plus
+    &ldquo;<CODE>IntVal</CODE>, hence why the constant
+    <CODE>FIntVal::SIZE</CODE> was seen in the driver code. This macro
+    also defines the constant <CODE>FIntVal::HEIGHT</CODE>, which will
+    be seen later in the implementation code.
+
+    The final macro invocation is
+
+    \snippet testFractal/EventsAndActions.hpp offset enum
+
+    This defines the enumeration used to label the offsets between the
+    cell about which an event is centered and the neighboring cells
+    that affect its propensity. Unlike the previously defined
+    enumerations, this one contains <EM>two</EM> special
+    constants. One of them is <CODE>HopOffset::SIZE</CODE>, which as
+    before is the number of constants in the enumeration (not
+    including <CODE>SIZE</CODE> itself). We have seen this constant
+    used in the driver code as the argument to a constructor of a
+    KMCThinFilm::CellNeighOffsets object. The other is
+    <CODE>HopOffset::SELF</CODE>, which identifies <CODE>\link
+    KMCThinFilm::CellIndsOffset CellIndsOffset(0,0,0)\endlink</CODE>,
+    the offset corresponding to the cell about which an event is
+    centered. This constant will be seen later in the implementation
+    code.
+
+    The rest of the lines of the file <TT>EventsAndActions.hpp</TT>
+    contain the declarations and definitions for the functions and
+    function objects that define possible events and a periodic
+    action. We now look at these and at their implementations in the
+    file <TT>EventsAndActions.cpp</TT>.
+
+    Here is the declararation for the function performing deposition:
+
+    \snippet testFractal/EventsAndActions.hpp dep execute
+
+    This function declaration satisfies the
+    KMCThinFilm::EventExecutorAutoTrack signature, because it accepts
+    arguments that are references to a KMCThinFilm::CellInds object, a
+    KMCThinFilm::SimulationState object, and a KMCThinFilm::Lattice
+    object, in that order. Furthermore, since this function is used to
+    alter the lattice, the reference to the KMCThinFilm::Lattice
+    object is <EM>not</EM> constant. The implementation of this
+    function is shown below. (It lacks the
+    &ldquo;<CODE>KMCThinFilm::</CODE>&rdquo; prefix because
+    <TT>EventsAndActions.cpp</TT> begins with the statement
+    &ldquo;<CODE>using namespace KMCThinFilm;</CODE>&rdquo;.)
+
+    \snippet testFractal/EventsAndActions.cpp dep execute
+
+    The argument <CODE>ci</CODE> represents the \link
+    KMCThinFilm::CellInds indices of a lattice cell\endlink. Since the
+    function executes an <EM>over-lattice</EM> event,
+    <CODE>ci.i</CODE> and <CODE>ci.j</CODE> are random values, and
+    <CODE>ci.k</CODE> is one less than the current number of lattice
+    planes&mdash;which for this two-dimensional simulation is simply
+    zero. Essentially what is happening is that the column height at
+    random location \f$(\mathtt{ci.i}, \mathtt{ci.j}, 0)\f$ in the
+    lattice is being incremented by one.
+
+    In principle, this could have been implemented as class for a
+    function <EM>object</EM>, that is, a class containing an overload
+    of <CODE>operator()</CODE>, but here it is an ordinary function
+    for the sake of simplicity. In some later examples, deposition
+    <EM>is</EM> implemented by a function object class.
+
+    \note
+    The <CODE>simState</CODE> argument is not used in this case
+    because the execution of this deposition event does not depend
+    upon time. On the other hand, if, for example, deposition were on
+    a rotating substrate, then it might be possible that deposition
+    could occur along a trajectory whose azimuth was \f$2\pi\omega
+    \times \mathtt{simState.elapsedTime()}\f$, where \f$\omega\f$ is
+    the rate of rotation \cite Cho05.
+
+    The function object class <CODE>HoppingPropensity</CODE> is
+    defined as follows:
+
+    \snippet testFractal/EventsAndActions.hpp hop prop
+
+    In this class, the private data member <CODE>D_</CODE> stores the
+    hopping propensity <VAR>D</VAR>. Also, this class satisfies the
+    KMCThinFilm::CellCenteredGroupPropensities signature, since it
+    contains an overload of <CODE>operator()</CODE> that takes as
+    arguments a constant reference to a KMCThinFilm::CellNeighProbe
+    object and <EM>non</EM>-constant reference to a
+    <CODE>std::vector</CODE> of double precision values. This second
+    argument is an output argument that will be the propensities of
+    hopping in various directions. Before an instance of this function
+    object class even has a chance to execute, the output argument
+    will have already been resized so that it has the same number of
+    elements as there are cell-centered events in the group associated
+    with this function object class, and these elements will have been
+    initialized to zero.
+
+    Here is the part of the implementation of the function
+    object class that actually calculates the propensity for hopping:
+
+    \snippet testFractal/EventsAndActions.cpp hop prop
+
+    In propensity calculations, access to the lattice is
+    <EM>indirect</EM> and occurs via the KMCThinFilm::CellNeighProbe
+    object. This object can only access cells that can be returned by
+    KMCThinFilm::CellNeighProbe::getCellToProbe, which takes the
+    integer label of an offset and returns an object that refers to
+    the cell whose indices are the indices of the cell about which the
+    event is centered plus that offset. If the cell indices about
+    which an object is centered are \f$(i,j,k)\f$, then
+    <CODE>getCellToProbe(HopOffset::UP)</CODE> returns an object
+    referring to the cell with indices \f$(i,j+1,k)\f$,
+    <CODE>getCellToProbe(HopOffset::DOWN)</CODE> returns an object
+    referring to the cell with indices \f$(i,j-1,k)\f$, and so
+    on. Also, <CODE>getCellToProbe(HopOffset::SELF)</CODE> returns an
+    object referring to the cell about which the event is centered,
+    that is, \f$(i,j,k)\f$. 
+
+    \note
+    The association of offsets with a
+    KMCThinFilm::CellCenteredGroupPropensities object is done in
+    \ref ex_fractal_driver "driver code" via calls to
+    KMCThinFilm::Simulation::addCellCenteredEventGroup().
+
+    The reason for using such indirect lattice access is that it
+    forces the implementation of cell-centered propensity calculations
+    to use well-defined local neighborhoods about the cell where an
+    event is centered, which makes the incremental update of the set
+    of possible events at each time step possible.
+
+    The actual propensity calculation itself is simple. The variable
+    <CODE>currHeight</CODE> is the height of the column of particles
+    at cell \f$(\mathtt{ci.i}, \mathtt{ci.j}, 0)\f$ in the true
+    lattice. The propensities stored in <CODE>propensityVec</CODE> are
+    already initially zero, so they only becomes equal to
+    <CODE>D_</CODE> if
+
+    - the cell \f$(\mathtt{ci.i}, \mathtt{ci.j}, \mathtt{currHeight} -
+      1)\f$ in the true lattice is occupied (i.e. the column height
+      stored at cell \f$(\mathtt{ci.i}, \mathtt{ci.j}, 0)\f$ of the
+      computational lattice is nonzero), and
+
+    - the lateral neighboring sites of cell \f$(\mathtt{ci.i},
+      \mathtt{ci.j}, \mathtt{currHeight} - 1)\f$ in the true lattice
+      are empty (i.e. the column height stored at cell
+      \f$(\mathtt{ci.i}, \mathtt{ci.j}, 0)\f$ in the computational
+      lattice is greater than the column heights stored in the nearest
+      and next-nearest neighbors of that cell).
+
+    For convenience and ease of reading, the indices used with
+    <CODE>propensityVec</CODE> are symbolic enumeration constants that
+    correspond to an event type,
+    i.e. <CODE>propensityVec[FCellCenteredEvents::HOP_LEFT]</CODE> is
+    the propensity for hopping to the left,
+    <CODE>propensityVec[FCellCenteredEvents::HOP_RIGHT]</CODE> is the
+    propensity for hopping to the right, and so on.
+
+    \note Lattice indices start from zero, which is why the indices of
+    the topmost particle of a column would be \f$(\mathtt{ci.i},
+    \mathtt{ci.j}, \mathtt{currHeight} - 1)\f$, where
+    <CODE>currHeight</CODE> is the height of the column of particles.
+
+    As a general rule, the propensity of an event centered at a cell
+    should be zero if it cannot happen at that particular cell.
+
+    The function object class <CODE>HoppingExecute</CODE> is
+    defined as follows:
+
+    \snippet testFractal/EventsAndActions.hpp hop exec
+
+    This class satisfies the KMCThinFilm::EventExecutorAutoTrack
+    signature, since it contains an overload of
+    <CODE>operator()</CODE> that accepts arguments that are references
+    to a KMCThinFilm::CellInds object, a KMCThinFilm::SimulationState
+    object, and a KMCThinFilm::Lattice object, in that order. Again,
+    since this operator is used to alter the lattice, the reference to
+    the KMCThinFilm::Lattice object is <EM>not</EM> constant. The
+    constructor for this class is as follows:
+
+    \snippet testFractal/EventsAndActions.cpp hop exec constructor
+
+    One can see from this constructor that the function object it
+    instantiates can do one of four possible events, namely a hop to
+    one of four nearest neighboring cells.
+
+    Here is the part of the implementation of the function object
+    class that actually executes the event:
+
+    \snippet testFractal/EventsAndActions.cpp hop exec op
+
+    Here, <CODE>ci</CODE> is the set of indices of a cell where the
+    cell-centered event can happen, rather than just some random
+    location at the top of the lattice as it is for an over-lattice
+    event. Since this particular model is two-dimensional,
+    <CODE>ci.k</CODE> is always zero. The hopping of a particle from
+    cell \f$(\mathtt{ci.i}, \mathtt{ci.j}, \mathtt{currFrom} - 1)\f$
+    in the true lattice to \f$(\mathtt{ciTo.i}, \mathtt{ciTo.j},
+    \mathtt{currTo})\f$ is represented in the computational lattice as
+    a decrement of the column height at <CODE>ci</CODE> and an
+    increment of the column height at <CODE>ciTo</CODE>.
+
+    Finally, the function object class <CODE>PrintASCII</CODE>, which
+    prints the state of the lattice to a text file, is defined as
+    follows:
+
+    \snippet testFractal/EventsAndActions.hpp print op
+
+    This code satisfies the function signature
+    KMCThinFilm::PeriodicAction, since it takes as arguments
+    references to a KMCThinFilm::SimulationState object and a
+    KMCThinFilm::Lattice object. While this particular periodic action
+    only dumps the state of the lattice, it is possible for a periodic
+    action to change the lattice, which is why the reference to the
+    KMCThinFilm::Lattice object is <EM>not</EM> constant.
+
+    Here is the implementation of the function object class:
+
+    \snippet testFractal/EventsAndActions.cpp print op
+
+    This code prints a header that indicates the minimum and maximum
+    values of in-plane lattice cell indices <VAR>i</VAR> and
+    <VAR>j</VAR>, and the elapsed time. It then prints the in-plane
+    indices of each cell and the column height stored at that cell.
+
+    Also, this code is written to in such a way as to facilitate
+    parallelization. Since this is a serial code,
+    KMCThinFilm::Lattice::getGlobalPlanarBBox() could have been used
+    in place of KMCThinFilm::Lattice::getLocalPlanarBBox()
+    to obtain the minimum and maximum values of the in-plane
+    indices. However, the code as written above will 
+    also work in parallel to produce a dump to a file of the part of the
+    lattice that a given processor owns, which would <EM>not</EM> be
+    true if KMCThinFilm::Lattice::getGlobalPlanarBBox() had been used.
+
+    \subsubsection Results
+
+    An overhead view of the surface of the &ldquo;fractal&rdquo; thin
+    film at various simulation times <VAR>t</VAR>, from 0.20 units to
+    its maximum value of 4.0 units, is shown below. Within a given
+    overhead view, black represents the smallest possible height of a
+    column of particles, and white represents the largest.
+
+    \image html testFractalSnapshots.png
+    \image latex testFractalSnapshots.eps "" width=5in
+
+    \subsection ex_fractal_sman_tracking Using semi-manual tracking
+
+    The code for this example, which is in the directory
+    <TT>doc/example-code/testFractal_semi_manual_track</TT> of the
+    ARL KMCThinFilm installation, is not much different from that used for
+    previous section &ldquo;\ref ex_fractal_auto_tracking "".&rdquo;
+
+    The source code for the driver file, <TT>testFractal.cpp</TT>,
+    mainly differs in how event types are added to the system. The
+    following code is used to add the over-lattice event type of
+    deposition to the simulation:
+
+    \snippet testFractal_semi_manual_track/testFractal.cpp adding overlattice events
+
+    The member function
+    KMCThinFilm::Simulation::reserveOverLatticeEvents() works the same
+    as before. What differs is the member function
+    KMCThinFilm::Simulation::addOverLatticeEvent(), which now has an
+    additional argument, <CODE>tmpExecCNO</CODE>, a
+    <CODE>std::vector</CODE> of KMCThinFilm::CellNeighOffsets
+    objects. For a given deposition event, only one lattice cell is
+    directly changed, so <CODE>tmpExecCNO</CODE> has only one element,
+    which in turn contains only one KMCThinFilm::CellNeighOffsets
+    instance, which contains only the offset that is present in every
+    such instance, \f$(0,0,0)\f$. The third argument of
+    KMCThinFilm::Simulation::addOverLatticeEvent() is also different,
+    since it satisfies the KMCThinFilm::EventExecutorSemiManualTrack
+    signature rather than the KMCThinFilm::EventExecutorAutoTrack
+    signature. The following code is used to add a group of
+    cell-centered event types:
+    
+    \snippet testFractal_semi_manual_track/testFractal.cpp adding cellcentered events
+
+    Here, the member functions
+    KMCThinFilm::Simulation::reserveCellCenteredEventGroups() and
+    KMCThinFilm::Simulation::addCellCenteredEventGroup() are the same
+    as before. What differs is the way entries are added to the
+    KMCThinFilm::EventExecutorGroup instance. Here,
+    KMCThinFilm::EventExecutorGroup::addEventExecutor() takes an
+    additional argument, the vector <CODE>tmpExecCNO</CODE>. This
+    vector still contains a single element each time it is used, but
+    since a hopping event changes two lattice cells, this single
+    element contains a KMCThinFilm::CellNeighOffsets instance with two
+    offsets: the ever-present offset \f$(0,0,0)\f$, corresponding to
+    the cell from which a particle hops, and an offset corresponding
+    to the cell to which a particle hops, which depends on the hopping
+    direction. The second argument to
+    KMCThinFilm::EventExecutorGroup::addEventExecutor() is also
+    different, since it satisfies the
+    KMCThinFilm::EventExecutorSemiManualTrack signature rather than
+    the KMCThinFilm::EventExecutorAutoTrack signature.
+
+    In <TT>EventsAndActions.hpp</TT>, here is the declararation for
+    the function performing deposition:
+
+    \snippet testFractal_semi_manual_track/EventsAndActions.hpp dep execute
+
+    This function declaration satisfies the
+    KMCThinFilm::EventExecutorSemiManualTrack signature, because it
+    accepts arguments that are references to a KMCThinFilm::CellInds
+    object, a KMCThinFilm::SimulationState object, a
+    KMCThinFilm::Lattice object, and a <CODE>std::vector</CODE> of
+    KMCThinFilm::CellsToChange objects, in that order. Here, the
+    reference to the KMCThinFilm::Lattice object <EM>is</EM> constant,
+    since changes to the lattice are forced to occur via
+    KMCThinFilm::CellsToChange objects. The implementation of this
+    function is shown below.
+
+    \snippet testFractal_semi_manual_track/EventsAndActions.cpp dep execute
+
+    In general, a KMCThinFilm::CellsToChange object contains a set of
+    offsets that specifies the relative positions of changed cells,
+    and the KMCThinFilm::CellsToChange::setCenter() member function
+    essentially provides an &ldquo;anchor&rdquo; used to translate
+    these relative positions to absolute ones. Given a center \f$(i_0,
+    j_0, k_0)\f$ and offsets \f$(0,0,0)\f$, \f$(o^1_i,o^1_j,o^1_k)\f$,
+    etc., the absolute coordinates of the cells to change become
+    \f$(i_0, j_0, k_0)\f$, \f$(i_0 + o^1_i, j_0 + o^1_j, k_0 +
+    o^1_k)\f$, etc. Because of how this over-lattice event was set up
+    in the driver code, the KMCThinFilm::CellsToChange object here
+    happens to contain only one offset, \f$(0,0,0)\f$, the indices of
+    the cell to be changed are just \f$(\mathtt{ci.i}, \mathtt{ci.j},
+    \mathtt{ci.k})\f$. The member function
+    KMCThinFilm::CellsToChange::setInt() performs the actual change to
+    the cell. This member function is analogous to
+    KMCThinFilm::Lattice::setInt(), except that its first argument is
+    an integer ID corresponding to one of the offsets stored in a
+    KMCThinFilm::CellsToChange object, rather than a set of cell
+    indices. An integer ID of zero always corresponds to the offset
+    \f$(0,0,0)\f$, and accordingly to the indices of the center, which
+    here is \f$(\mathtt{ci.i}, \mathtt{ci.j}, \mathtt{ci.k})\f$.
+
+    The function object class <CODE>HoppingExecute</CODE> is now
+    defined as follows:
+
+    \snippet testFractal_semi_manual_track/EventsAndActions.hpp hop exec
+
+    Since semi-manual tracking is used, this class satisfies the
+    KMCThinFilm::EventExecutorSemiManualTrack signature, rather than
+    the KMCThinFilm::EventExecutorAutoTrack signature. Unlike the
+    previous implementation of the <CODE>HoppingExecute</CODE> class,
+    this one has no private members to indicate the hopping direction,
+    because the hopping direction is determined from the
+    <CODE>ctcVec</CODE> argument. Here is the part of the
+    implementation of the function object class that actually executes
+    the event:
+
+    \snippet testFractal_semi_manual_track/EventsAndActions.cpp hop exec op
+
+    Here, <CODE>ctcVec</CODE> contains a KMCThinFilm::CellsToChange
+    object with <EM>two</EM> offsets: \f$(0,0,0)\f$, which corresponds
+    to the cell from which a particle hops, and an offset that
+    corresponds to the cell to which a particle hops, which depends on
+    the hopping direction. Here we see
+    KMCThinFilm::CellsToChange::getInt() as well as
+    KMCThinFilm::Lattice::getInt(). The former function is analogous
+    to the latter, with the former function using an integer
+    ID&mdash;corresponding to one of the offsets in a
+    KMCThinFilm::CellsToChange object&mdash;instead of cell
+    indices. The integer ID of offset \f$(0,0,0)\f$ is, as always,
+    0. The integer ID of the other offset can be inferred from the
+    portion of the driver code where the offset was set. For example,
+    for rightward hopping, the code to set the offset is
+
+    \snippet testFractal_semi_manual_track/testFractal.cpp setting execcno for rightward hop
+
+    The first argument of KMCThinFilm::CellNeighOffsets::addOffset(),
+    which here happens to be 1, is the integer ID for the offset
+    corresponding to the cell to which a particle hops.
+
+    The rest of the code of this implementation of a fractal
+    solid-on-solid model is the same as it is in \link
+    ex_fractal_auto_tracking the implementation using
+    auto-tracking\endlink.
+
+    \section example_fractal_par Example: Parallelizing an implementation of a &ldquo;fractal&rdquo; solid-on-solid model
+    
+    The code for this example is in the directory
+    <TT>doc/example-code/testFractal_parallel</TT> of the ARL KMCThinFilm
+    installation, and it is almost the same as that in
+    <TT>doc/example-code/testFractal_semi_manual_track</TT>. Some of
+    the most pertinent differences between the two codes will be
+    discussed here. The parallelized code is actually written so that
+    it can be compiled to either a serial application or an MPI
+    application.
+
+    The actual process of parallelizing the code described in the
+    previous section is actually straightforward. Only the driver
+    code, in <TT>testFractal.cpp</TT> differs from its serial
+    counterpart, though if the code for dumping the state of the
+    lattice to a file had been different, this might not have been the
+    case. The most obvious changes are near the beginning and the end
+    of the function <CODE>main()</CODE>, where <CODE>MPI_Init()</CODE>
+    and <CODE>MPI_Finalize() are called</CODE>:
+
+    \snippet testFractal_parallel/testFractal.cpp mpi init
+
+    \snippet testFractal_parallel/testFractal.cpp mpi finalize
+
+    In order for the driver code to be compilable as serial code,
+    these MPI calls are wrapped by the <CODE>\#if KMC_PARALLEL</CODE>
+    and <CODE>\#endif</CODE> preprocessor directives. Note that
+    <CODE>\#if</CODE> and <STRONG>not</STRONG> <CODE>\#ifdef</CODE> is
+    used here.
+
+    While most of the parameters near the beginning of
+    <CODE>main()</CODE> are the same as in the serial version of the
+    code, there is one minor change and one addition, which can be
+    seen below.
+
+    \snippet testFractal_parallel/testFractal.cpp hardcoded parameters
+
+    The minor change is just a renaming of the variable
+    <CODE>seed</CODE> to <CODE>seedGlobal</CODE>, which reflects a
+    change in how the random number generator is initialized in
+    parallel. The addition is the presence of an instance of
+    KMCThinFilm::TimeIncr::SchemeVars, which is used to set the choice
+    of parallel time stepping scheme and any parameter of it. A choice
+    of such a scheme is required to run a parallel Kinetic Monte Carlo
+    simulation. (Parallel time stepping is discussed in the section
+    entitled &ldquo;\ref kmc_par_alg "".&rdquo;) The preprocessor
+    variable <CODE>BAD_NSTOP</CODE> is used in this example to
+    determine whether the parameter \f$n_{stop}\f$ for the parallel
+    time stepping is set to a reasonable value for this simulation, or
+    to one that will produce artifacts.) Unlike the calls to MPI
+    functions, this addition does not have to be placed between
+    <CODE>\#if KMC_PARALLEL</CODE> and <CODE>\#endif</CODE>
+    directives. It simply has no effect in a serial simulation. This
+    is a common practice in the ARL KMCThinFilm library. Unless a part of
+    its programming interface explicitly involves an MPI data
+    structure, such as <CODE>MPI_Comm</CODE>, it will be both legal
+    and harmless in serial code.
+
+    Most of the initialization of the simulation, which is shown here,
+
+    \snippet testFractal_parallel/testFractal.cpp initializing simulation
+
+    is the same as in the serial simulation, except for a crucial
+    addition: specifying the values of the <CODE>ghostExtent</CODE>
+    member of the KMCThinFilm::LatticeParams object, which indicate
+    the extent of the ghost region at the edge of each lattice
+    plane. As with the reference to KMCThinFilm::TimeIncr::SchemeVars,
+    there is no need to wrap the statement
+    <CODE>latParams.ghostExtent[0] = latParams.ghostExtent[1] =
+    1</CODE> within <CODE>\#if KMC_PARALLEL</CODE> and
+    <CODE>\#endif</CODE>, since it simply has no effect in a serial
+    simulation. The preprocessor variable
+    <CODE>USE_COMPACT_DECOMP</CODE> is used in this example to
+    determine whether compact parallel decomposition is used instead
+    of the default row-based decomposition. (See the section entitled
+    &ldquo;\ref kmc_par_alg""&rdquo; for a description of methods of
+    decomposition.)
+
+    Also, in a parallel simulation, the KMCThinFilm::LatticeParams
+    object has an additional member of type <CODE>MPI_Comm</CODE>,
+    <CODE>latticeCommInitial</CODE>. By default, this is simply set to
+    <CODE>MPI_COMM_WORLD</CODE>, so there is typically no need to
+    explicitly specify it. However, since it is not defined in the
+    serial version of the ARL KMCThinFilm library, if there had been any
+    explicit reference to it in the driver code, it would have needed
+    to have been surrounded by <CODE>\#if KMC_PARALLEL</CODE> and
+    <CODE>\#endif</CODE>.
+
+    Setting the random number generator becomes slightly more
+    complicated in a parallel simulation, as shown below.
+
+    \snippet testFractal_parallel/testFractal.cpp setting rng
+
+    Here, in the serial version of the code, the
+    KMCThinFilm::RandNumGenMT19937 is used, while in parallel,
+    KMCThinFilm::RandNumGenDCMT is used. In principle,
+    KMCThinFilm::RandNumGenDCMT could be have been used for both
+    parallel and serial, but KMCThinFilm::RandNumGenMT19937 is
+    restricted to serial use. One should also note that the
+    constructor to parallel random number generators such as
+    KMCThinFilm::RandNumGenDCMT takes the MPI rank or processor ID as
+    an argument. Here, this is given by
+    KMCThinFilm::Simulation::procID().
+
+    Once KMCThinFilm::Simulation::setSolver() has been called, the
+    parallel time step scheme can now be set as follows.
+
+    \snippet testFractal_parallel/testFractal.cpp setting parallel time incr scheme
+
+    Again, there is no need to surround this by <CODE>\#if
+    KMC_PARALLEL</CODE> and <CODE>\#endif</CODE>, since it is just a
+    no-op in serial code.
+
+    Finally, there is a minor but needed change in the setup for
+    dumping the state of the lattice to files:
+
+    \snippet testFractal_parallel/testFractal.cpp adding printer
+
+    Whereas before in the purely serial code, the root of the names of
+    the dump files was just &ldquo;<CODE>snapshot</CODE>&rdquo;, now
+    it is a string that is unique to each MPI process. Here, each
+    process writes to its own file, which is not always optimal but
+    will suffice here. In serial code, <CODE>sim.commCoord(0)</CODE>
+    and <CODE>sim.commCoord(1)</CODE> both return an integer value of
+    zero.
+
+    When running the parallelized code, two things may be
+    noticed. First, for such a small simulation, it is likely to run
+    <EM>slower</EM> than the corresponding serial code. Second,
+    whereas the serial code will simply quit when it runs out of possible
+    events to execute, the parallel code will simply continue until
+    the specified simulation time is reached.
+
+    The results of the parallel simulations should be about the same as
+    those in the serial simulation, provided that the parameters for
+    the parallel time stepping algorithm are set appropriately. The
+    following results show what may happen if they are not set
+    correctly:
+
+    \image html testParBadSnapshots.png
+    \image latex testParBadSnapshots.eps "" width=5in
+
+    These snapshots of the simulated surface, at simulations times
+    <VAR>t</VAR> 1.0 through 4.0, contain artifacts that have been
+    described as a &ldquo;shish-kebob&rdquo; effect
+    \cite Plim23, where parts of the growing
+    simulated film concentrate on sector boundaries. Some instances of
+    these artifacts have been circled in red. The presence of these
+    artifacts indicates that the size of the parallel time steps is
+    too large.
+
+    \section example_baldep Example: Implementations of a ballistic deposition model
+
+    While the examples above showcased several features of the
+    ARL KMCThinFilm library, they were still two-dimensional. This
+    particular example is meant to show what is needed for a
+    simulation that requires a three-dimensional lattice. It will also
+    show a few other features of the ARL KMCThinFilm library.
+
+    What follows is a pair of example implementations that involve
+    ballistic deposition on a cubic lattice and a contrived
+    cell-centered event to change the &ldquo;color&rdquo; of a lattice
+    cell, which here is a floating-point number between zero and
+    one. In ballistic deposition, a depositing particle travels in a
+    straight line until it is close enough to another particle to
+    &ldquo;stick&rdquo; to it. The result is a deposit that can have
+    several vacancies and overhangs. For simplicity, the depositing
+    particles travel straight downward, which allows the use of
+    simplified algorithms that obviate the need to explicitly model
+    the actual travel of the particle. The propensity of the
+    cell-centered event is proportional to the number of occupied
+    nearest neighbors of a lattice cell, including those above and
+    below the cell, and the execution of the event changes the color
+    to an average of the the current cell color and the colors of its
+    occupied nearest neighbors.
+
+    In the simplified deposition algorithm \cite Meakin92,
+    there is both a cubic lattice, whose cells may either be occupied
+    or unoccupied, and an auxiliary two-dimensional array of active
+    zone height coordinates, which has the same lateral dimensions as
+    the cubic lattice and may be denoted as \f$h_a(i,j)\f$. Before any
+    deposition events begin, the elements of \f$h_a(i,j)\f$ are
+    initialized to zero. When a deposition event is chosen, in-plane
+    lattice coordinates \f$(i,j)\f$ are randomly chosen. Then, a
+    particle is placed at lattice site \f$\left(i,j,
+    h_a(i,j)\right)\f$, and for each in-plane coordinate
+    \f$(i_{neigh}, j_{neigh}) \in \{(i+1,j), (i-1,j), (i,j+1),
+    (i,j-1)\}\f$, the value of \f$h_a(i_{neigh}, j_{neigh})\f$ is
+    checked to see if is less than \f$h_a(i,j)\f$. If it is, then it
+    is increased it to the value of \f$h_a(i,j)\f$. After this,
+    \f$h_a(i,j)\f$ is incremented by one.
+
+    \subsection example_baldep_impl1 First implementation
+
+    The code for this implementation is in
+    <TT>doc/example-code/testBallisticDep1</TT> of the installation
+    directory of the ARL KMCThinFilm library. In this implementation,
+    auto-tracking has been used. Also, the values of the auxiliary
+    array \f$h_a(i,j)\f$ are stored within the first plane of the
+    lattice. Accordingly, in <TT>EventsAndActions.hpp</TT>, the
+    following enumeration,
+
+    \snippet testBallisticDep1/EventsAndActions.hpp lat enum
+
+    has been defined. The definition for the function object class
+    defining deposition is as follows:
+
+    \snippet testBallisticDep1/EventsAndActions.hpp dep exec
+
+    The vector <CODE>neighOffsets_</CODE> will be used to find the
+    in-plane neighboring lattice cells of the randomly chosen
+    deposition site. This vector is now initialized in the constructor
+    for the deposition function object:
+
+    \snippet testBallisticDep1/EventsAndActions.cpp dep exec constructor
+
+    The implementation of the operator that performs the actual
+    execution of the deposition event is shown below.
+
+    \snippet testBallisticDep1/EventsAndActions.cpp dep exec op
+
+    Again, the argument <CODE>ci</CODE> represents the \link
+    KMCThinFilm::CellInds indices of a lattice cell\endlink. The
+    operator executes an <EM>over-lattice</EM> event, so
+    <CODE>ci.i</CODE> and <CODE>ci.j</CODE> are already random
+    values. This takes care of the part of Meakin's algorithm where a
+    random pair of in-plane indices is chosen. The variable
+    <CODE>kDepAtom</CODE> is used to store the current active zone
+    height for the in-plane indices \f$(\mathtt{ci.i},
+    \mathtt{ci.j})\f$. Since the active zone heights are stored only
+    within the <EM>first</EM> plane of the lattice,
+    <CODE>ciInPlane.k</CODE> is zero.
+
+    Before placing a particle in the lattice cell at
+    <CODE>ciTo</CODE>, or \f$(\mathtt{ci.i}, \mathtt{ci.j},
+    \mathtt{kDepAtom})\f$, it must be ensured that this cell is
+    actually available in the computational lattice. This is what the
+    call to KMCThinFilm::Lattice::addPlanes() is for. The argument to
+    this member function, if positive, is the number of lattice planes
+    to add. Now <CODE>ci.k</CODE> is initially one less than the
+    maximum number of lattice planes, that is, the maximum possible
+    value of the third lattice coordinate, <VAR>k</VAR>. Accordingly,
+    if \f$\mathtt{ciTo.k} - \mathtt{ci.k}\f$ is positive, then it is
+    the number of planes that would need to be added to ensure that
+    <CODE>ciTo</CODE> is a valid set of indices. If it is zero or
+    negative, then no planes need to be added, and then the call to
+    KMCThinFilm::Lattice::addPlanes() will simply do nothing. Once the
+    call has been made, KMCThinFilm::Lattice::setInt() can be safely
+    called.
+
+    The remainder of the implementation of the operator performing
+    deposition, from the <CODE>for</CODE> loop onward, simply updates
+    the values of \f$h_a(i,j)\f$. The main feature of interest in this
+    remaining part is the
+    \link KMCThinFilm::operator+(const KMCThinFilm::CellInds &, const KMCThinFilm::CellIndsOffset &) &ldquo;<CODE>+</CODE>&rdquo; operator\endlink 
+    applied to <CODE>ciInPlane</CODE> and <CODE>*offsetItr</CODE>. The
+    meaning of this operator is such that the statement 
+
+    \code
+    CellInds neighInPlane = ciInPlane + *offsetItr;
+    \endcode
+
+    is equivalent to
+
+    \code
+    CellInds neighInPlane(ciInPlane.i + offsetItr->i,
+                          ciInPlane.j + offsetItr->j,
+                          ciInPlane.k + offsetItr->k);
+    \endcode
+
+    This operator is not commutative; the offset must be its second
+    operand.
+
+    Now normally, when KMCThinFilm::Lattice::addPlanes() is called,
+    the cells that it creates have the quantities associated with them
+    (e.g. those labeled as <CODE>BDIntVal::IS_OCCUPIED</CODE>,
+    <CODE>BDIntVal::ACTIVE_ZONE_HEIGHT</CODE>, and
+    <CODE>BDFloatVal::COLOR</CODE>) all set to zero. However, this can
+    be changed, and has been changed for this example. In the
+    initialization of the simulation done via these lines in
+    <TT>testBallisticDep.cpp</TT>,
+
+    \snippet testBallisticDep1/testBallisticDep.cpp init sim
+
+    a special function object, an instance of
+    <CODE>SetEmptyCellWithRandColor</CODE>, is used to initialize an
+    empty cell. This function object is defined and implemented in the
+    function files <TT>InitLattice.hpp</TT> and
+    <TT>InitLattice.cpp</TT>, respectively, which are shown below:
+
+    \include testBallisticDep1/InitLattice.hpp
+
+    \include testBallisticDep1/InitLattice.cpp
+
+    Here, even an &ldquo;empty&rdquo; lattice cell has a color
+    associated with it, which is randomly determined. Note that there
+    is no need to resize the vectors used as output arguments of
+    <CODE>SetEmptyCellWithRandColor::operator()</CODE>, since the
+    sizes of these vectors have already been set to the number of
+    integer and floating-point quantities, respectively, at each
+    lattice cell.
+
+    Since multiple lattice planes will be added during the course of
+    the simulation, <CODE>latParams.numPlanesToReserve</CODE> is set
+    to roughly the number of planes that might be added. This reserves
+    space in memory for those planes but does not add them to the
+    lattice outright. Actually adding the planes is done by
+    KMCThinFilm::Lattice::addPlanes(). <CODE>latParams.numPlanesToReserve</CODE>
+    is <EM>not</EM> a hard limit on the number of lattice planes that
+    may be added; it merely affects performance.
+
+    \note While this example of a means of initializing an empty
+    lattice is contrived, a not-so contrived example would be a case
+    where the lattice is distorted and the current coordinates of a
+    particle, which may be near rather than exactly at a lattice site,
+    are stored at a lattice cell. In a new empty cell, it would make
+    sense for these coordinates to be initialized not to zero, but
+    rather to some function of the lattice indices \f$(i,j,k)\f$,
+    e.g. \f$\mathbf{a}_i i + \mathbf{a}_j j + \mathbf{a}_k k +
+    \mathbf{b}\f$, where \f$\mathbf{a}_i\f$, \f$\mathbf{a}_j\f$, and
+    \f$\mathbf{a}_k\f$ are primitive lattice vectors and
+    \f$\mathbf{b}\f$ is a basis vector.
+
+    The enumeration associated with the offsets used in the function
+    object classes involved in the color change in a lattice cell is
+    as follows:
+
+    \snippet testBallisticDep1/EventsAndActions.hpp offset enum
+
+    The definition for the function object class defining the
+    propensity for the color change in a lattice cell is
+
+    \snippet testBallisticDep1/EventsAndActions.hpp mix prop
+
+    and its implementation is
+
+    \snippet testBallisticDep1/EventsAndActions.cpp mix prop op
+
+    There are a couple new things to note.
+
+    First, the contributions of the lateral nearest neighboring cells
+    are determined by looping over the <EM>numeric</EM> labels for the
+    offsets, 1 through 4, rather than the symbolic constants
+    <CODE>MIX_OFFSET::NORTH</CODE>, <CODE>MIX_OFFSET::SOUTH</CODE>,
+    <CODE>MIX_OFFSET::WEST</CODE>, and
+    <CODE>MIX_OFFSET::EAST</CODE>. This is perfectly legal; the
+    <VAR>N</VAR> enumeration constants listed in the arguments of
+    #KMC_MAKE_OFFSET_ENUM will correspond respectively to the numbers
+    1 through <VAR>N</VAR>. (Note that the number zero corresponds to
+    the offset <CODE>MIX_OFFSET::SELF</CODE>.) There is a tradeoff
+    here. Iterating over <EM>numeric</EM> labels for the offsets may
+    be less self-documenting, but using the symbolic enumeration
+    constants may involve more &ldquo;cut-and-paste&rdquo; code.
+
+    Second, when probing the non-lateral neighbors, the member
+    functions KMCThinFilm::CellNeighProbe::belowLatticeBottom() and
+    KMCThinFilm::CellNeighProbe::exceedsLatticeHeight() are used to
+    ensure that calls to KMCThinFilm::CellNeighProbe::getInt() are
+    only applied to KMCThinFilm::CellToProbe objects with valid
+    indices (due to the short-circuit evaluation of operators
+    <CODE>||</CODE> and <CODE>&&</CODE>). In two-dimensional serial
+    simulations, in-plane indices <VAR>i</VAR> and <VAR>j</VAR> are
+    always valid, because they are wrapped due to periodic boundary
+    conditions, and in two-dimensional parallel simulations, in-plane
+    indices <VAR>i</VAR> and <VAR>j</VAR> should always be valid if
+    the size of the ghost regions of the lattice has been properly
+    set. In three-dimensional simulations, index <VAR>k</VAR> could
+    easily be set to an invalid value, either a negative
+    value&mdash;referring to a cell effectively below the
+    computational lattice&mdash;or a value that is greater or equal to
+    the number of lattice planes&mdash;referring to a cell effectively
+    above the computational lattice. Note that cells below the lattice
+    are treated differently than those above it. Here, if cell indices
+    point to a cell that would be below the computational lattice,
+    <CODE>numNeighs</CODE> is incremented because such a cell is
+    understood as belonging to the substrate onto which a film is
+    being deposited. If cell indices point to a cell that would be
+    above the computational lattice, <CODE>numNeighs</CODE> is not
+    incremented, since such a cell is understood as belonging to the
+    empty space above the film.
+
+    The definition for the function object class that would execute
+    color mixing is as follows:
+
+    \snippet testBallisticDep1/EventsAndActions.hpp mix exec
+
+    Private member <CODE>mixCNO_</CODE> is simply a pointer to the
+    same set of offsets used to calculate the propensity for mixing,
+    as seen in the part of the driver code,
+    <TT>testBallisticDep.cpp</TT>, where cell-centered event types are
+    added to the simulation:
+
+    \snippet testBallisticDep1/testBallisticDep.cpp add cellcen events
+
+    Private member <CODE>numMixes_</CODE> will be used to keep track
+    of how many times a color mixing event is executed. One can see
+    from the above code and from the code of the constructor of
+    <CODE>ColorMixExecute</CODE> below,
+
+    \snippet testBallisticDep1/EventsAndActions.cpp mix exec ctor
+
+    that this private member points to the integer variable
+    <CODE>numMixes</CODE> in the driver code. After the simulation has
+    finished running, the value of <CODE>numMixes</CODE> will be
+    printed.
+
+    The implementation of the operator in the
+    <CODE>ColorMixExecute</CODE> class that executes color mixing is
+    shown below:
+
+    \snippet testBallisticDep1/EventsAndActions.cpp mix exec op
+
+    Whereas in the function object to calculate propensity, there were
+    special member functions to check whether index <VAR>k</VAR> of
+    some set of cell indices was less than zero or greater than or
+    equal to the lattice height, here such checks are performed
+    &ldquo;manually,&rdquo; so to speak. Also, again cells below the
+    computational lattice are here treated differently than those
+    above it. Cells below the lattice are again assumed to belong to
+    the substrate, and for this contrived example, each particle in
+    the substrate is assumed to have a random color. Cells above the
+    computational lattice are again assumed to belong to the empty
+    space above the deposited thin film, and thus do not contribute to
+    the new value of the color of the cell.
+
+    The periodic action used to dump the state of the lattice to a
+    file uses a file format called &ldquo;<a
+    href="http://www.visitusers.org/index.php?title=Reading_point_data">
+    Point3D</a>,&rdquo;, which can viewed with the software VisIt
+    &lt;http://visit.llnl.gov>. It is used to display arrangements of
+    particles colored according to some quantity, which in this case
+    is the so-callled color of each lattice cell. The last snapshot,
+    when viewed in VisIt, should look something like this:
+
+    \image html testBallisticDep1_visit3D.png
+    \image latex testBallisticDep1_visit3D.png "" width=0.8\textwidth
+
+    A slice of this snapshot in VisIt, showing particles with cell
+    index <VAR>j</VAR> = 50, should look something like this:
+
+    \image html testBallisticDep1_visit_slice_y50.png
+    \image latex testBallisticDep1_visit_slice_y50.png "" width=0.8\textwidth
+
+    \subsection example_baldep_impl2 Second implementation
+
+    One may have noticed a problem with the implementation of
+    ballistic deposition described above. While only the values of the
+    quantity labeled <CODE>BDIntVal::ACTIVE_ZONE_HEIGHT</CODE> in the
+    first lattice plane are used, this quantity is defined for all
+    cells of the lattice, which is somewhat wasteful. In this
+    alternate implementation, then, the values of the auxiliary array
+    \f$h_a(i,j)\f$ will be stored not within the first plane of the
+    lattice, but rather in a separate auxiliary array. Also,
+    semi-manual tracking will be used for this example. The code for
+    this new implementation is in
+    <TT>doc/example-code/testBallisticDep2</TT> of the installation
+    directory of the ARL KMCThinFilm library.
+
+    We begin by defining <CODE>IntArray2D</CODE> in
+    <TT>EventsAndActions.hpp</TT>, a type for a two-dimensional
+    integer array, using the multi-array implementation from Boost
+    &lt;http://www.boost.org>, and a shared pointer for that type,
+    also using a &ldquo;smart&rdquo; pointer implementation from the
+    Boost library:
+    
+    \snippet testBallisticDep2/EventsAndActions.hpp intarray2d def
+
+    In the definition of the function object class performing
+    ballistic deposition, 
+
+    \snippet testBallisticDep2/EventsAndActions.hpp dep exec
+
+    we have a shared pointer to an <CODE>IntArray2D</CODE> object,
+    <CODE>activeZoneHeights_</CODE>. The constructor takes a
+    KMCThinFilm::LatticePlanarBBox parameter object, which is used to
+    size the array to which <CODE>activeZoneHeights_</CODE> points:
+
+    \snippet testBallisticDep2/EventsAndActions.cpp dep exec constructor
+
+    In the driver code <TT>testBallisticDep.cpp</TT>, the
+    KMCThinFilm::LatticePlanarBBox parameter object passed to this
+    constructor contains the lateral bounds of the global lattice.
+
+    Finally, the implementation of ballistic deposition
+    is as follows:
+
+    \snippet testBallisticDep2/EventsAndActions.cpp dep exec op
+
+    Note that since <CODE>activeZoneHeights_</CODE> is an external
+    array, we use KMCThinFilm::Lattice::wrapI() and
+    KMCThinFilm::Lattice::wrapJ() to ensure that the array indices
+    used with <CODE>activeZoneHeights_</CODE> are correctly wrapped to
+    account for periodic boundary conditions. This was not necessary
+    when \f$h_a(i,j)\f$ was stored in the first plane of the lattice
+    and KMCThinFilm::Lattice::getInt() was used to access its
+    contents, since \link KMCThinFilm::Lattice::getInt()
+    getInt()\endlink automatically accounts for any periodic boundary
+    conditions. Also, since semi-manual tracking is used,
+    <CODE>lattice</CODE> is a <EM>constant</EM> reference, so planes
+    must be added to the lattice via the member function
+    KMCThinFilm::CellsToChange::addLatticePlanes().
+
+    One may ask why <CODE>activeZoneHeights_</CODE> is a pointer to an
+    array instead of just an array. The reason for this is that when
+    the <CODE>DepositionExecute</CODE> object is passed to
+    KMCThinFilm::Simulation::addOverLatticeEvent(), it is passed by
+    value. This would mean that there would be two copies of the
+    <CODE>activeZoneHeights_</CODE> array, one created when the
+    <CODE>DepositionExecute</CODE> object is constructed, and another
+    when a copy of this object is made to pass it by value. By using a
+    pointer, only a pointer to the array is copied. A
+    &ldquo;smart&rdquo; shared pointer is used so that it will
+    automatically be deleted when there are no more references to it.
+
+    One downside of this implementation is that it is more difficult
+    to parallelize than the previous one. With
+    <CODE>*activeZoneHeights_</CODE> as a separate array, the process
+    of splitting up the array, taking care of updates of ghost
+    entries, etc. has to be handled explicitly. The handling of MPI
+    communication could be done via a periodic action executed at each
+    step, though one would need to refactor the code so that a
+    <CODE>DepositionExecute</CODE> object and the function object
+    performing the periodic action could both access the array
+    containing \f$h_a(i,j)\f$.
+
+    The resulting simulated thin film produced by this implementation
+    is similar to that produced in the previous simulation but not the
+    same, even if the same seed to the random number generator has
+    been used. This is because the previous implementation contains
+    calls to <CODE>lattice.setInt(..., BDIntVal::ACTIVE_ZONE_HEIGHT,
+    ...)</CODE> in the function object that executes a deposition
+    event. This triggers the solvers in the simulation to examine the
+    possible events in the neighborhood of where the value of the
+    quantity labeled <CODE>BDIntVal::ACTIVE_ZONE_HEIGHT</CODE> has
+    been changed, which, due to implementation details in the
+    ARL KMCThinFilm library, ends up changing the order that possible
+    events with the same propensity are stored, which in turn affects
+    which event is randomly chosen at a time step.
+
+    \section example_pat_sub Example: Implementations of a patterned substrate model
+
+    This example is meant to show how the ARL KMCThinFilm library may
+    be used to implement models that are unusual in the sense that
+    they have features that would almost inevitably require custom
+    code to implement. An example of such a model is that of a
+    patterned substrate \cite Kur99. Like the fractal model, they use
+    solid-on-solid modeling of a cubic lattice, which again means that
+    the arrangement of atoms in the actual true lattice can be stored
+    in a two-dimensional computational lattice, such that
+    \f$(i,j,0)\f$ in the computational lattice stores the height of
+    the column of particles at \f$(i,j,0)\f$ in the true lattice. As
+    before, if a diffusing particle in the true lattice moves to a
+    nearest-neighboring site that is not just above another particle,
+    then the diffusing particle will fall until it lands on top of
+    another particle. Also, if the site to which a particle attempts
+    to move is occupied, then the particle will climb to the top of
+    the column of particles that contains that occupied site. Falling
+    and climbing are illustrated below, where an empty circle
+    indicates the old position of a particle and a dark filled circle
+    indicates the new position of a particle:
+
+    \image html FallingAndClimbingParticles.png
+    \image latex FallingAndClimbingParticles.eps "" height=1.5in
+
+    In one of the models of Kuronen et al., the propensity for the
+    hopping of a particle at a lattice cell is
+    \f[
+    p = k\exp\left(-\frac{E}{k_B T}\right)
+    \f]
+    where \f$k_B\f$ is the Boltzmann constant, <VAR>T</VAR> is
+    temperature, \f$k = kT/h\f$ with <VAR>h</VAR> being Planck's
+    constant, and
+    \f[
+    E = E_s(i,j) + n E_n
+    \f]
+    Here, <VAR>n</VAR> is the number of occupied lateral neighbors of
+    the cell, \f$E_n\f$ (= 0.18 eV) is a measure of the bond strength
+    between a particle and a lateral nearest neighboring
+    particle, and \f$E_s\f$ is a position-dependent diffusion barrier
+    dependent on the patterning of the substrate, which varies with
+    <VAR>i</VAR> and <VAR>j</VAR> as illustrated below, with brighter
+    colors indicating higher values.
+    
+    \image html tiled16x16Domain_annotated.png
+    \image latex tiled16x16Domain_annotated.eps "" height=3in
+
+    The above pattern consists of a 16 &times; 16 array of square
+    domains, and each domain is an array of 22 &times; 22
+    elements. This implies that the lattice has lateral dimensions
+    (16&sdot;22) &times; (16&sdot;22). At the edge of a domain,
+    \f$E_s\f$ is at its minimum value, 0.65 eV, and at the center of a
+    domain, it is at its maximum, 0.85 eV. \f$E_s\f$ varies
+    linearly between its minimum and maximum values.
+
+    The results of this patterned substrate model should be an
+    arrangement of islands centered about the parts of the substrate
+    where \f$E_s\f$ is maximum.
+
+    \subsection example_pat_sub_impl1 First implementation
+
+    The code for this implementation is in
+    <TT>doc/example-code/testPatternedSurface1</TT> of the
+    installation directory of the ARL KMCThinFilm library. In it, the
+    value \f$E_s(i,j)\f$ is stored at cell \f$(i,j,0)\f$ of the
+    computational lattice. This requires using a special method to
+    initialize the lattice. The values of \f$E_s(i,j)\f$ are stored in
+    a file (entitled <TT>tiled16x16Domain.dat</TT>) where the first
+    line contains the lateral dimensions of the lattice and subsequent
+    lines are of the form
+
+    \verbatim
+    i j E_s(i,j)
+    \endverbatim
+
+    where the first two numbers in the line are the lateral lattice
+    cell indices and the third number is the value of \f$E_s\f$ for
+    those indices.
+
+    We begin with the files <TT>InitLattice.hpp</TT> and
+    <TT>InitLattice.cpp</TT>, which contain the definition and
+    implementation of the function object than initializes the
+    lattice. The contents of the first file are
+
+    \include testPatternedSurface1/InitLattice.hpp
+
+    The constructor of the <CODE>InitLatticeFromFile</CODE> class here
+    takes as an argument the name of the input file containing the
+    values of \f$E_s\f$. The contents of <TT>InitLattice.cpp</TT> are
+    as follows:
+
+    \include testPatternedSurface1/InitLattice.cpp
+
+    This operator reads in the file containing the values of
+    \f$E_s(i,j)\f$, line by line, and stores these values in the
+    floating-point array element labeled <CODE>PSFloatVal::E_s</CODE>
+    in lattice cell \f$(i,j,0)\f$. The (global) lateral bounds of the
+    lattice have already been initialized before this operator has
+    even been invoked, so here there is a check to ensure that the
+    lateral bounds of the lattice indicated in the first line of the
+    file match the actual lateral bounds of the lattice. After this
+    check, the actual initialization begins. First, a lattice plane is
+    added with the KMCThinFilm::Lattice::addPlanes() member
+    function. Shortly afterward comes the reading in of the rest of
+    the file containing the values of \f$E_s(i,j)\f$. There is some
+    allowance for parallel implementation. The local bounds of indices
+    <VAR>i</VAR> and <VAR>j</VAR> are determined using
+    KMCThinFilm::Lattice::getLocalPlanarBBox. While each MPI process
+    would still read in the whole file, which is not that efficient,
+    the process would also only store the values of \f$E_s(i,j)\f$ for
+    the lattice cell indices <VAR>i</VAR> and <VAR>j</VAR> whose
+    values are within the previously determined local bounds.
+
+    In the driver file <TT>testPatternedSurface.cpp</TT>, the
+    simulation is initialized as follows:
+
+    \snippet testPatternedSurface1/testPatternedSurface.cpp initializing simulation
+
+    Here, <CODE>patternFName</CODE> is the name of the file containing
+    the values of \f$E_s(i,j)\f$. The first line of this file is read
+    in to determine the lateral dimensions of the lattice, and then
+    the file is closed. Afterwards, the <VAR>latInit</VAR> member of
+    the KMCThinFilm::LatticeParams parameter object is set to an
+    instance of the <CODE>InitLatticeFromFile</CODE> class, which is
+    of course initialized to read from the file with the name
+    <CODE>patternFName</CODE>. (This also means that this
+    implementation is a bit inelegant, since part of the file
+    <CODE>patternFName</CODE> will be read twice.)
+
+    This takes care of the initialization of the lattice.
+
+    Deposition here is done by the same means as in the example of the
+    fractal solid-on-solid model using auto-tracking, while the
+    execution of a hopping event is done by the same means as in the
+    example of the fractal solid-on-solid model using semi-manual
+    tracking. It is mainly the determination of a hopping event's
+    propensity that is different. The definition of the function
+    object class for determining propensity of hopping is shown below:
+
+    \snippet testPatternedSurface1/EventsAndActions.hpp hop prop
+
+    The constants <CODE>PhysConst::kB</CODE> and
+    <CODE>PhysConst::h</CODE> are merely the Boltzmann constant and
+    Planck's constant, and they are defined in the file
+    <TT>PhysicalConstants.hpp</TT> of this example code. The private
+    variables <CODE>E_n_</CODE>, <CODE>kBT_</CODE>, and
+    <CODE>k_</CODE> correspond to the aforementioned expressions
+    \f$E_n\f$, \f$k_B T\f$, and <VAR>k</VAR>. The implementation of
+    the function object class for determining hopping propensity is
+    shown below:
+
+    \snippet testPatternedSurface1/EventsAndActions.cpp hop prop
+
+    Here, <CODE>currHeight</CODE> is the height of the column of
+    particles at \f$(\mathtt{ci.i}, \mathtt{ci.j}, 0)\f$ in the true
+    lattice. Let \f$(i_{\mathrm{off}}, j_{\mathrm{off}})\f$ be an
+    offset of cell indices, which for <CODE>HopOffset::UP</CODE> is
+    \f$(0,+1)\f$, for <CODE>HopOffset::DOWN</CODE> is \f$(0,-1)\f$,
+    for <CODE>HopOffset::LEFT</CODE> is \f$(-1,0)\f$, and for
+    <CODE>HopOffset::RIGHT</CODE> is \f$(+1,0)\f$. If a column of
+    particles at \f$(\mathtt{ci.i} + i_{\mathrm{off}}, \mathtt{ci.j} +
+    j_{\mathrm{off}}, 0)\f$ is greater than or equal to
+    <CODE>currHeight</CODE>, that means that the site
+    \f$(\mathtt{ci.i}, \mathtt{ci.j}, \mathtt{currHeight} - 1)\f$ in
+    the true lattice has an occupied nearest neighbor at
+    \f$(\mathtt{ci.i} + i_{\mathrm{off}}, \mathtt{ci.j} +
+    j_{\mathrm{off}}, \mathtt{currHeight} - 1)\f$, and the variable
+    <CODE>n</CODE> is incremented accordingly. The calculation of the
+    propensity, then, follows straightforwardly from the
+    aforementioned formulas for the patterned substrate \cite Kur99.
+
+    An overhead view of the surface of the islands on the patterned
+    substrate at various simulation times <VAR>t</VAR>, from 2.27
+    units to its maximum value of 50.0 units, is shown below.
+
+    \image html testPatSubSnapshots.png
+    \image latex testPatSubSnapshots.eps "" width=5in
+
+    \subsection example_pat_sub_impl2 Second implementation
+
+    The previous implementation of the patterned substrate model
+    \cite Kur99 does not take advantage of the periodicity of
+    \f$E_s\f$. This new implementation will. Instead of storing values
+    of \f$E_s(i,j)\f$ in the computational lattice itself, they will
+    be stored in a small array used by the function object used to
+    calculate propensities. This means that no special means to
+    initialize the lattice is required.  The code for this
+    implementation is in
+    <TT>doc/example-code/testPatternedSurface2</TT> of the
+    installation directory of the ARL KMCThinFilm library.
+
+    The file containing the values of \f$E_s(i,j)\f$,
+    <TT>singleDomain.dat</TT> only contains the values of \f$E_s\f$
+    within a single domain of (22 &times; 22 array) elements. The
+    first line of this file contains the dimensions of this domain,
+    and the rest of the lines in this file have the following format,
+
+    \verbatim
+    i j E_s(i,j)
+    \endverbatim
+
+    where the first two numbers in the line are the indices of the
+    domain array and the third number is the value of \f$E_s\f$ for
+    those indices. In the driver code
+    <TT>testPatternedSurface.cpp</TT>, this file is read into an array
+    as follows,
+
+    \snippet testPatternedSurface2/testPatternedSurface.cpp reading in E_s
+
+    where <CODE>DblArray2D</CODE> is defined in
+    <TT>EventsAndActions.hpp</TT> as
+
+    \snippet testPatternedSurface2/EventsAndActions.hpp dblarray2d def
+
+    Again, we use the multi-array implementation from Boost
+    &lt;http://www.boost.org>. The function object for determining
+    hopping propensity is defined as follows:
+
+    \snippet testPatternedSurface2/EventsAndActions.hpp hop prop
+
+    This function object is similar to the corresponding one in the
+    previous implementation, except that now there is a new private
+    variable, <CODE>E_s_</CODE>, which points to an array containing
+    the values of \f$E_s(i,j)\f$ in a domain (and, of course, a
+    constructor with an argument used to set the value of this private
+    variable). The reason for <CODE>E_s_</CODE> being a pointer is
+    similar to the one for having <CODE>activeZoneHeights_</CODE> be a
+    pointer in the second implementation of the ballistic deposition
+    model. When an instance of the <CODE>HoppingPropensity</CODE>
+    object is passed to
+    KMCThinFilm::Simulation::addCellCenteredEventGroup(), it is passed by
+    value, and having <CODE>E_s_</CODE> be a pointer to an array
+    rather than the array itself means that only a pointer to the
+    array is copied rather than the whole array.
+
+    The function object for determining hopping propensity is
+    implemented as follows:
+
+    \snippet testPatternedSurface2/EventsAndActions.cpp hop prop
+
+    This function object is also similar to the corresponding one in
+    the previous implementation, except that
+
+    -# it actually accesses lattice cell indices, via the member
+       function KMCThinFilm::CellToProbe::inds(), and
+    
+    -# it converts the in-plane cell indices, <CODE>ciSelf.i</CODE>
+       and <CODE>ciSelf.j</CODE>, into indices
+       <CODE>coord_i_in_domain</CODE> and
+       <CODE>coord_j_in_domain</CODE> of the array to which
+       <CODE>E_s_</CODE> points.
+
+    The latter is more a matter for the particular kinetic Monte Carlo
+    model being implemented, but the former is more generally useful
+    functionality.
+
+    The rest of this implementation is the same as the previous one.
+    Provided that the same parameters, lattice dimensions, domain
+    dimensions, and seeding for the random number generator are used
+    in both this implementation and the previous one, the two
+    implementations should yield exactly the same results.
+
+*/
+
+/*! \example testFractal/testFractal.cpp
+  Driver file for the example implementation of a &ldquo;fractal&rdquo; solid-on-solid model, using auto-tracking
+ 
+  This example is discussed in detail in the section &ldquo;\ref ex_fractal_auto_tracking "".&rdquo;
+*/
+
+/*! \example testFractal/EventsAndActions.hpp
+  Header file for the example implementation of a &ldquo;fractal&rdquo; solid-on-solid model, using auto-tracking
+ 
+  This example is discussed in detail in the section &ldquo;\ref ex_fractal_auto_tracking "".&rdquo;
+*/
+
+/*! \example testFractal/EventsAndActions.cpp
+  Implementation file for the example implementation of a &ldquo;fractal&rdquo; solid-on-solid model, using auto-tracking
+ 
+  This example is discussed in detail in the section &ldquo;\ref ex_fractal_auto_tracking "".&rdquo;
+*/
+
+/*! \example testFractal_semi_manual_track/testFractal.cpp
+  Driver file for the example implementation of a &ldquo;fractal&rdquo; solid-on-solid model, using semi-manual tracking
+ 
+  This example is discussed in detail in the section &ldquo;\ref ex_fractal_sman_tracking "".&rdquo;
+*/
+
+/*! \example testFractal_semi_manual_track/EventsAndActions.hpp
+  Header file for the example implementation of a &ldquo;fractal&rdquo; solid-on-solid model, using semi-manual tracking
+ 
+  This example is discussed in detail in the section &ldquo;\ref ex_fractal_sman_tracking "".&rdquo;
+*/
+
+/*! \example testFractal_semi_manual_track/EventsAndActions.cpp
+  Implementation file for the example implementation of a &ldquo;fractal&rdquo; solid-on-solid model, using semi-manual tracking
+ 
+  This example is discussed in detail in the section &ldquo;\ref ex_fractal_sman_tracking "".&rdquo;
+*/
+
+/*! \example testFractal_parallel/testFractal.cpp
+  Driver file for the example implementation of a &ldquo;fractal&rdquo; solid-on-solid model that may be used in parallel.
+ 
+  This example is discussed in detail in the section &ldquo;\ref example_fractal_par "".&rdquo;
+*/
+
+/*! \example testBallisticDep1/testBallisticDep.cpp
+  Driver file for an example implementation of a ballistic deposition model
+ 
+  This example is discussed in detail in the section &ldquo;\ref example_baldep "",&rdquo; 
+  subsection &ldquo;\ref example_baldep_impl1 "".&rdquo; */
+
+/*! \example testBallisticDep1/EventsAndActions.hpp
+  Header file for an example implementation of a ballistic deposition model
+ 
+  This example is discussed in detail in the section &ldquo;\ref example_baldep,&rdquo; 
+  subsection &ldquo;\ref example_baldep_impl1 "".&rdquo;
+*/
+
+/*! \example testBallisticDep1/EventsAndActions.cpp
+  Primary implementation file for an example implementation of a ballistic deposition model
+ 
+  This example is discussed in detail in the section &ldquo;\ref example_baldep "",&rdquo; 
+  subsection &ldquo;\ref example_baldep_impl1 "".&rdquo;
+*/
+
+/*! \example testBallisticDep1/InitLattice.hpp
+  Header file for an example implementation of a ballistic deposition
+  model that defines a custom method for initializing empty cells of a
+  lattice.
+ 
+  This example is discussed in detail in the section &ldquo;\ref example_baldep "",&rdquo; 
+  subsection &ldquo;\ref example_baldep_impl1 "".&rdquo;
+*/
+
+/*! \example testBallisticDep1/InitLattice.cpp
+  An implementation file for an example implementation of a ballistic
+  deposition model that defines a custom method for initializing empty
+  cells of a lattice.
+ 
+  This example is discussed in detail in the section &ldquo;\ref example_baldep "",&rdquo; 
+  subsection &ldquo;\ref example_baldep_impl1 "".&rdquo;
+*/
+
+/*! \example testBallisticDep2/testBallisticDep.cpp
+  Driver file for an example implementation of a ballistic deposition model
+ 
+  This example is discussed in detail in the section &ldquo;\ref example_baldep,&rdquo; 
+  subsection &ldquo;\ref example_baldep_impl2 "".&rdquo; */
+
+/*! \example testBallisticDep2/EventsAndActions.hpp
+  Header file for an example implementation of a ballistic deposition model
+ 
+  This example is discussed in detail in the section &ldquo;\ref example_baldep "",&rdquo; 
+  subsection &ldquo;\ref example_baldep_impl2 "".&rdquo;
+*/
+
+/*! \example testBallisticDep2/EventsAndActions.cpp
+  Primary implementation file for an example implementation of a ballistic deposition model
+ 
+  This example is discussed in detail in the section &ldquo;\ref example_baldep "",&rdquo; 
+  subsection &ldquo;\ref example_baldep_impl2 "".&rdquo;
+*/
+
+/*! \example testPatternedSurface1/testPatternedSurface.cpp
+  Driver file for an example implementation of a model with a patterned substrate surface
+ 
+  This example is discussed in detail in the section &ldquo;\ref example_pat_sub,&rdquo; 
+  subsection &ldquo;\ref example_pat_sub_impl1 "".&rdquo; */
+
+/*! \example testPatternedSurface1/EventsAndActions.hpp
+  Header file for an example implementation of a model with a patterned substrate surface
+ 
+  This example is discussed in detail in the section &ldquo;\ref example_pat_sub "",&rdquo; 
+  subsection &ldquo;\ref example_pat_sub_impl1 "".&rdquo;
+*/
+
+/*! \example testPatternedSurface1/EventsAndActions.cpp
+  Primary implementation file for an example implementation of a model with a patterned substrate surface
+ 
+  This example is discussed in detail in the section &ldquo;\ref example_pat_sub "",&rdquo; 
+  subsection &ldquo;\ref example_pat_sub_impl1 "".&rdquo;
+*/
+
+/*! \example testPatternedSurface1/InitLattice.hpp 
+  Header file for an example implementation of a model with a
+  patterned substrate surface that defines a custom method for
+  initializing a lattice.
+ 
+  This example is discussed in detail in the section &ldquo;\ref example_pat_sub "",&rdquo; 
+  subsection &ldquo;\ref example_pat_sub_impl1 "".&rdquo;
+*/
+
+/*! \example testPatternedSurface1/InitLattice.cpp An implementation
+  file for an example implementation of a model with a patterned
+  substrate surface that defines a custom method for initializing a
+  lattice.
+ 
+  This example is discussed in detail in the section &ldquo;\ref example_pat_sub "",&rdquo; 
+  subsection &ldquo;\ref example_pat_sub_impl1 "".&rdquo;
+*/
+
+/*! \example testPatternedSurface1/PhysicalConstants.hpp 
+    Header file defining some physical constants for a model with a patterned
+    substrate surface.
+*/
+
+/*! \example testPatternedSurface2/testPatternedSurface.cpp
+  Driver file for another example implementation of a model with a patterned substrate surface
+ 
+  This example is discussed in detail in the section &ldquo;\ref example_pat_sub "",&rdquo; 
+  subsection &ldquo;\ref example_pat_sub_impl1 "".&rdquo; */
+
+/*! \example testPatternedSurface2/EventsAndActions.hpp
+  Header file for another example implementation of a model with a patterned substrate surface
+ 
+  This example is discussed in detail in the section &ldquo;\ref example_pat_sub "",&rdquo; 
+  subsection &ldquo;\ref example_pat_sub_impl1 "".&rdquo;
+*/
+
+/*! \example testPatternedSurface2/EventsAndActions.cpp
+  Implementation file for another example implementation of a model with a patterned substrate surface
+ 
+  This example is discussed in detail in the section &ldquo;\ref example_pat_sub "",&rdquo; 
+  subsection &ldquo;\ref example_pat_sub_impl1 "".&rdquo;
+*/

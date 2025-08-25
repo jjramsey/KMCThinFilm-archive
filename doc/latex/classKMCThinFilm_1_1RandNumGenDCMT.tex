@@ -1,0 +1,95 @@
+\doxysection{KMCThin\+Film\+::Rand\+Num\+Gen\+DCMT Class Reference}
+\hypertarget{classKMCThinFilm_1_1RandNumGenDCMT}{}\label{classKMCThinFilm_1_1RandNumGenDCMT}\index{KMCThinFilm::RandNumGenDCMT@{KMCThinFilm::RandNumGenDCMT}}
+
+
+{\ttfamily \#include $<$Rand\+Num\+Gen\+DCMT.\+hpp$>$}
+
+Inheritance diagram for KMCThin\+Film\+::Rand\+Num\+Gen\+DCMT\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classKMCThinFilm_1_1RandNumGenDCMT}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{classKMCThinFilm_1_1RandNumGenDCMT_a8b382ccad8268352985cc35e298296fd}{Period}} \{ \newline
+{\bfseries P521} = 521
+, {\bfseries P607} = 607
+, {\bfseries P1279} = 1279
+, {\bfseries P2203} = 2203
+, \newline
+{\bfseries P2281} = 2281
+, {\bfseries P3217} = 3217
+, {\bfseries P4253} = 4253
+, {\bfseries P4423} = 4423
+, \newline
+{\bfseries P9689} = 9689
+, {\bfseries P9941} = 9941
+, {\bfseries P11213} = 11213
+, {\bfseries P19937} = 19937
+, \newline
+{\bfseries P21701} = 21701
+, {\bfseries P23209} = 23209
+, {\bfseries P44497} = 44497
+ \}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classKMCThinFilm_1_1RandNumGenDCMT_aaba0c646a32c0741e141309ae0cd1422}{Rand\+Num\+Gen\+DCMT}} (int rank, uint32\+\_\+t seed, uint32\+\_\+t seed\+\_\+per\+Proc, \mbox{\hyperlink{classKMCThinFilm_1_1RandNumGenDCMT_a8b382ccad8268352985cc35e298296fd}{Period}} period=P521)
+\item 
+virtual double \mbox{\hyperlink{classKMCThinFilm_1_1RandNumGenDCMT_a372003214275ad9889895ff3fabab8d3}{get\+Num\+In\+Open\+Interval\+From0\+To1}} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Wrapper class for the parallel pseudorandom number generator library DCMT\+: "{}\+Dynamic Creator of Mersenne Twisters."{}
+
+DCMT is a parallel pseudorandom number generator by Makoto Matsumoto and Takuji Nishimura, and it is based on the serial Mersenne Twister pseudorandom number generator. The library may be obtained from this web page\+: \href{http://www.math.sci.hiroshima-u.ac.jp/~m-mat/MT/DC/dc.html}{\texttt{ http\+://www.\+math.\+sci.\+hiroshima-\/u.\+ac.\+jp/\texorpdfstring{$\sim$}{\string~}m-\/mat/\+MT/\+DC/dc.\+html}} \begin{Desc}
+\item[Examples]\par
+\mbox{\hyperlink{testFractal_parallel_2testFractal_8cpp-example}{test\+Fractal\+\_\+parallel/test\+Fractal.\+cpp}}.\end{Desc}
+
+
+\doxysubsection{Member Enumeration Documentation}
+\Hypertarget{classKMCThinFilm_1_1RandNumGenDCMT_a8b382ccad8268352985cc35e298296fd}\index{KMCThinFilm::RandNumGenDCMT@{KMCThinFilm::RandNumGenDCMT}!Period@{Period}}
+\index{Period@{Period}!KMCThinFilm::RandNumGenDCMT@{KMCThinFilm::RandNumGenDCMT}}
+\doxysubsubsection{\texorpdfstring{Period}{Period}}
+{\footnotesize\ttfamily \label{classKMCThinFilm_1_1RandNumGenDCMT_a8b382ccad8268352985cc35e298296fd} 
+enum \mbox{\hyperlink{classKMCThinFilm_1_1RandNumGenDCMT_a8b382ccad8268352985cc35e298296fd}{KMCThin\+Film\+::\+Rand\+Num\+Gen\+DCMT\+::\+Period}}}
+
+This enumeration forces the {\itshape period} argument of the \doxylink{classKMCThinFilm_1_1RandNumGenDCMT}{Rand\+Num\+Gen\+DCMT} constructor to be one of a certain number of discrete values.
+
+When the value of this enumeration is P{\itshape n}, where {\itshape n} is a number, then the period of the pseudorandom number stream is $2^n - 1$. The value of {\itshape n} is such that the period is a Mersenne prime. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classKMCThinFilm_1_1RandNumGenDCMT_aaba0c646a32c0741e141309ae0cd1422}\index{KMCThinFilm::RandNumGenDCMT@{KMCThinFilm::RandNumGenDCMT}!RandNumGenDCMT@{RandNumGenDCMT}}
+\index{RandNumGenDCMT@{RandNumGenDCMT}!KMCThinFilm::RandNumGenDCMT@{KMCThinFilm::RandNumGenDCMT}}
+\doxysubsubsection{\texorpdfstring{RandNumGenDCMT()}{RandNumGenDCMT()}}
+{\footnotesize\ttfamily \label{classKMCThinFilm_1_1RandNumGenDCMT_aaba0c646a32c0741e141309ae0cd1422} 
+KMCThin\+Film\+::\+Rand\+Num\+Gen\+DCMT\+::\+Rand\+Num\+Gen\+DCMT (\begin{DoxyParamCaption}\item[{int}]{rank}{, }\item[{uint32\+\_\+t}]{seed}{, }\item[{uint32\+\_\+t}]{seed\+\_\+per\+Proc}{, }\item[{\mbox{\hyperlink{classKMCThinFilm_1_1RandNumGenDCMT_a8b382ccad8268352985cc35e298296fd}{Period}}}]{period}{ = {\ttfamily P521}}\end{DoxyParamCaption})}
+
+Constructor, sets the initial state for each of the parallel streams of the pseudorandom number generator. 
+\begin{DoxyParams}{Parameters}
+{\em rank} & MPI rank of the processor  \\
+\hline
+{\em seed} & Global seed for the pseudorandom number generator  \\
+\hline
+{\em seed\+\_\+per\+Proc} & Per-\/processor seed for the pseudorandom number generator, should be different for each process  \\
+\hline
+{\em period} & Enumeration constant indicating the exponent for the period of the pseudorandom number stream \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classKMCThinFilm_1_1RandNumGenDCMT_a372003214275ad9889895ff3fabab8d3}\index{KMCThinFilm::RandNumGenDCMT@{KMCThinFilm::RandNumGenDCMT}!getNumInOpenIntervalFrom0To1@{getNumInOpenIntervalFrom0To1}}
+\index{getNumInOpenIntervalFrom0To1@{getNumInOpenIntervalFrom0To1}!KMCThinFilm::RandNumGenDCMT@{KMCThinFilm::RandNumGenDCMT}}
+\doxysubsubsection{\texorpdfstring{getNumInOpenIntervalFrom0To1()}{getNumInOpenIntervalFrom0To1()}}
+{\footnotesize\ttfamily \label{classKMCThinFilm_1_1RandNumGenDCMT_a372003214275ad9889895ff3fabab8d3} 
+virtual double KMCThin\+Film\+::\+Rand\+Num\+Gen\+DCMT\+::get\+Num\+In\+Open\+Interval\+From0\+To1 (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+Returns a (pseudo)random number between 0 and 1, not including either 0 or 1. 
+
+Implements \mbox{\hyperlink{classKMCThinFilm_1_1RandNumGen_a3669cf4b6fa2b6acc928bb9ddf24a30a}{KMCThin\+Film\+::\+Rand\+Num\+Gen}}.
+

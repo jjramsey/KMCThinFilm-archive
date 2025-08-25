@@ -1,0 +1,146 @@
+\doxysection{Simulation.\+hpp}
+\hypertarget{Simulation_8hpp_source}{}\label{Simulation_8hpp_source}\index{Simulation.hpp@{Simulation.hpp}}
+\mbox{\hyperlink{Simulation_8hpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ SIMULATION\_HPP}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ SIMULATION\_HPP}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}KMC\_Config.hpp"{}}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#if\ KMC\_PARALLEL}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <mpi.h>}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <boost/noncopyable.hpp>}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <boost/scoped\_ptr.hpp>}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{CellCenteredGroupPropensities_8hpp}{CellCenteredGroupPropensities.hpp}}"{}}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{EventExecutorGroup_8hpp}{EventExecutorGroup.hpp}}"{}}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{PeriodicAction_8hpp}{PeriodicAction.hpp}}"{}}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{CellNeighOffsets_8hpp}{CellNeighOffsets.hpp}}"{}}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{RandNumGen_8hpp}{RandNumGen.hpp}}"{}}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{TimeIncrSchemeVars_8hpp}{TimeIncrSchemeVars.hpp}}"{}}}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{IdsOfSolvers_8hpp}{IdsOfSolvers.hpp}}"{}}}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespaceKMCThinFilm}{KMCThinFilm}}\ \{}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{classKMCThinFilm_1_1Lattice}{Lattice}};}
+\DoxyCodeLine{00028\ \ \ }
+\DoxyCodeLine{00089\ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{classKMCThinFilm_1_1Simulation_ac5a1023e231685fda3a421e86beff980}{Simulation}}\ :\ \textcolor{keyword}{private}\ boost::noncopyable\ \{}
+\DoxyCodeLine{00090\ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00091\ }
+\DoxyCodeLine{00093\ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{classKMCThinFilm_1_1Simulation_ac5a1023e231685fda3a421e86beff980}{Simulation}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{structKMCThinFilm_1_1LatticeParams}{LatticeParams}}\ \&\ paramsForLattice\ );}
+\DoxyCodeLine{00103\ }
+\DoxyCodeLine{00105\ \ \ \ \ \mbox{\hyperlink{classKMCThinFilm_1_1Simulation_ac5a1023e231685fda3a421e86beff980}{\string~Simulation}}();}
+\DoxyCodeLine{00107\ }
+\DoxyCodeLine{00112\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classKMCThinFilm_1_1Simulation_ac09e29f5535debb54cd1fe50690dde3d}{nProcs}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00113\ }
+\DoxyCodeLine{00121\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classKMCThinFilm_1_1Simulation_a4007433a9f7d97dd149c2488b7d94e5b}{procID}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00122\ }
+\DoxyCodeLine{00123\ }
+\DoxyCodeLine{00135\ \textcolor{preprocessor}{\#if\ KMC\_PARALLEL}}
+\DoxyCodeLine{00136\ \ \ \ \ \textcolor{keyword}{const}\ MPI\_Comm\ \&\ \mbox{\hyperlink{classKMCThinFilm_1_1Simulation_a7fa4b341178e7b2bb32a598a72035b5b}{comm}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00137\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00138\ }
+\DoxyCodeLine{00143\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classKMCThinFilm_1_1Simulation_a80a53b16a011a515563dcf7911d3122f}{procPerDim}}(\textcolor{keywordtype}{int}\ dim)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00144\ }
+\DoxyCodeLine{00150\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classKMCThinFilm_1_1Simulation_ab25825583016491e2df8bbb377e5a59a}{commCoord}}(\textcolor{keywordtype}{int}\ dim)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00151\ }
+\DoxyCodeLine{00157\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classKMCThinFilm_1_1Simulation_a67278594ebc8ee6be87f153334bd4ab9}{getLatticeLocalPlanarBBox}}(\textcolor{keywordtype}{bool}\ wGhost\ ,}
+\DoxyCodeLine{00162\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structKMCThinFilm_1_1LatticePlanarBBox}{LatticePlanarBBox}}\ \&\ bbox\ )\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00166\ }
+\DoxyCodeLine{00172\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classKMCThinFilm_1_1Simulation_a1fa737caf023560abb4b862fe581c3de}{getLatticeSectorPlanarBBox}}(\textcolor{keywordtype}{int}\ sectNum\ ,}
+\DoxyCodeLine{00173\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structKMCThinFilm_1_1LatticePlanarBBox}{LatticePlanarBBox}}\ \&\ bbox\ )\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00182\ }
+\DoxyCodeLine{00187\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classKMCThinFilm_1_1Simulation_ae397f0319a4e978f1d754e7f8bedcd01}{getLatticeGlobalPlanarBBox}}(\mbox{\hyperlink{structKMCThinFilm_1_1LatticePlanarBBox}{LatticePlanarBBox}}\ \&\ bbox\ )\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00191\ }
+\DoxyCodeLine{00198\ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{classKMCThinFilm_1_1Simulation_ae70c8f71a13bf376234af627129cc4a4}{elapsedTime}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00199\ }
+\DoxyCodeLine{00205\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ \mbox{\hyperlink{classKMCThinFilm_1_1Simulation_a5a722b36af5090fa2b397ad3bebf70e4}{numLocalEvents}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00206\ }
+\DoxyCodeLine{00213\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ \mbox{\hyperlink{classKMCThinFilm_1_1Simulation_ac9436832964b46d46978671664445584}{numGlobalSteps}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00214\ }
+\DoxyCodeLine{00223\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classKMCThinFilm_1_1Simulation_a07827968543d9a9f2cbbdb356b5df8df}{reserveCellCenteredEventGroups}}(\textcolor{keywordtype}{int}\ numGroups,\ \textcolor{keywordtype}{int}\ numTotEvents);}
+\DoxyCodeLine{00224\ }
+\DoxyCodeLine{00226\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classKMCThinFilm_1_1Simulation_ada268bce065b942617fd1331b083626d}{addCellCenteredEventGroup}}(\textcolor{keywordtype}{int}\ eventGroupId\ ,}
+\DoxyCodeLine{00227\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classKMCThinFilm_1_1CellNeighOffsets}{CellNeighOffsets}}\ \&\ cno\ ,}
+\DoxyCodeLine{00239\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespaceKMCThinFilm_afc58c6c4948aa7d7243beb0990a563f1}{CellCenteredGroupPropensities}}\ propensities\ ,}
+\DoxyCodeLine{00249\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classKMCThinFilm_1_1EventExecutorGroup}{EventExecutorGroup}}\ \&\ eventExecutorGroup\ );}
+\DoxyCodeLine{00257\ }
+\DoxyCodeLine{00263\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classKMCThinFilm_1_1Simulation_a4caf800d8630e74210e0301da0238f6a}{changeCellCenteredEventGroup}}(\textcolor{keywordtype}{int}\ eventGroupId\ ,}
+\DoxyCodeLine{00264\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classKMCThinFilm_1_1CellNeighOffsets}{CellNeighOffsets}}\ \&\ cno\ ,}
+\DoxyCodeLine{00276\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespaceKMCThinFilm_afc58c6c4948aa7d7243beb0990a563f1}{CellCenteredGroupPropensities}}\ propensities\ ,}
+\DoxyCodeLine{00286\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classKMCThinFilm_1_1EventExecutorGroup}{EventExecutorGroup}}\ \&\ eventExecutorGroup\ );}
+\DoxyCodeLine{00294\ }
+\DoxyCodeLine{00299\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classKMCThinFilm_1_1Simulation_a0104e044fb41e47a1844de9e9b08c9dc}{removeCellCenteredEventGroup}}(\textcolor{keywordtype}{int}\ eventGroupId\ );}
+\DoxyCodeLine{00300\ }
+\DoxyCodeLine{00308\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classKMCThinFilm_1_1Simulation_a21587717d5f10a6ae3b8c3606752db13}{reserveOverLatticeEvents}}(\textcolor{keywordtype}{int}\ num);}
+\DoxyCodeLine{00309\ }
+\DoxyCodeLine{00323\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classKMCThinFilm_1_1Simulation_affa3dff53afd248546457944b98376d9}{addOverLatticeEvent}}(\textcolor{keywordtype}{int}\ eventId\ ,}
+\DoxyCodeLine{00324\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ propensityPerUnitArea\ ,}
+\DoxyCodeLine{00325\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespaceKMCThinFilm_a601f0f23e6b591202d40f27df34db951}{EventExecutorAutoTrack}}\ eventExecutor\ );}
+\DoxyCodeLine{00334\ }
+\DoxyCodeLine{00348\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classKMCThinFilm_1_1Simulation_a8513218aee1c117ec324b8a9cdef6ccf}{addOverLatticeEvent}}(\textcolor{keywordtype}{int}\ eventId\ ,}
+\DoxyCodeLine{00349\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ propensityPerUnitArea\ ,}
+\DoxyCodeLine{00350\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespaceKMCThinFilm_a92a9e6c3ced8703f95265e85d80f1797}{EventExecutorSemiManualTrack}}\ eventExecutor\ ,}
+\DoxyCodeLine{00359\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::vector<CellNeighOffsets>\ \&\ cnoVec\ );}
+\DoxyCodeLine{00362\ }
+\DoxyCodeLine{00369\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classKMCThinFilm_1_1Simulation_a3a45062725c9fe3a70e21200d01bafba}{changeOverLatticeEvent}}(\textcolor{keywordtype}{int}\ eventId\ ,}
+\DoxyCodeLine{00370\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ propensityPerUnitArea\ ,}
+\DoxyCodeLine{00371\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespaceKMCThinFilm_a601f0f23e6b591202d40f27df34db951}{EventExecutorAutoTrack}}\ eventExecutor\ );}
+\DoxyCodeLine{00380\ }
+\DoxyCodeLine{00387\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classKMCThinFilm_1_1Simulation_a1ddc6a10209942546b0e42392a1dbfe8}{changeOverLatticeEvent}}(\textcolor{keywordtype}{int}\ eventId\ ,}
+\DoxyCodeLine{00388\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ propensityPerUnitArea\ ,}
+\DoxyCodeLine{00389\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespaceKMCThinFilm_a92a9e6c3ced8703f95265e85d80f1797}{EventExecutorSemiManualTrack}}\ eventExecutor\ ,}
+\DoxyCodeLine{00398\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::vector<CellNeighOffsets>\ \&\ cnoVec\ );}
+\DoxyCodeLine{00401\ }
+\DoxyCodeLine{00406\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classKMCThinFilm_1_1Simulation_a6d349b62458c42fb92f6b9121fc069e4}{removeOverLatticeEvent}}(\textcolor{keywordtype}{int}\ eventId\ );}
+\DoxyCodeLine{00407\ }
+\DoxyCodeLine{00424\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classKMCThinFilm_1_1Simulation_afc44a336b2b972b690f29812e5358cc7}{trackCellsChangedByPeriodicActions}}(\textcolor{keywordtype}{bool}\ doTrack);}
+\DoxyCodeLine{00425\ }
+\DoxyCodeLine{00432\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classKMCThinFilm_1_1Simulation_af30c7df97cb00c239325b0500b971a40}{reserveTimePeriodicActions}}(\textcolor{keywordtype}{int}\ num);}
+\DoxyCodeLine{00433\ }
+\DoxyCodeLine{00439\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classKMCThinFilm_1_1Simulation_a2d0b886ef44d3acf0a8c018a7042e1d9}{addTimePeriodicAction}}(\textcolor{keywordtype}{int}\ actionId\ ,}
+\DoxyCodeLine{00440\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespaceKMCThinFilm_ab48bbcbabdf454a07e2f0edb47404abe}{PeriodicAction}}\ action\ ,}
+\DoxyCodeLine{00446\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ periodOfTime\ ,}
+\DoxyCodeLine{00447\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ doAtSimEnd\ );}
+\DoxyCodeLine{00452\ \ \ \ \ }
+\DoxyCodeLine{00458\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classKMCThinFilm_1_1Simulation_a2baf3e0cf9ae646f8bc09fc704316bb4}{changeTimePeriodicAction}}(\textcolor{keywordtype}{int}\ actionId\ ,}
+\DoxyCodeLine{00459\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespaceKMCThinFilm_ab48bbcbabdf454a07e2f0edb47404abe}{PeriodicAction}}\ action\ ,}
+\DoxyCodeLine{00465\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ periodOfTime\ ,}
+\DoxyCodeLine{00466\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ doAtSimEnd\ );}
+\DoxyCodeLine{00471\ }
+\DoxyCodeLine{00476\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classKMCThinFilm_1_1Simulation_a8297804adb609b8576fe78347f78e922}{removeTimePeriodicAction}}(\textcolor{keywordtype}{int}\ actionId\ );}
+\DoxyCodeLine{00477\ }
+\DoxyCodeLine{00484\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classKMCThinFilm_1_1Simulation_a734109081f5140cbf4b8e852a5fccfa8}{reserveStepPeriodicActions}}(\textcolor{keywordtype}{int}\ num);}
+\DoxyCodeLine{00485\ }
+\DoxyCodeLine{00491\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classKMCThinFilm_1_1Simulation_a5280f709245a66489eb357f488082528}{addStepPeriodicAction}}(\textcolor{keywordtype}{int}\ actionId\ ,}
+\DoxyCodeLine{00492\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespaceKMCThinFilm_ab48bbcbabdf454a07e2f0edb47404abe}{PeriodicAction}}\ action\ ,}
+\DoxyCodeLine{00498\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ periodOfSteps\ ,}
+\DoxyCodeLine{00499\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ doAtSimEnd\ );}
+\DoxyCodeLine{00504\ }
+\DoxyCodeLine{00510\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classKMCThinFilm_1_1Simulation_a529e986f0c320259497e08ac684c89d5}{changeStepPeriodicAction}}(\textcolor{keywordtype}{int}\ actionId\ ,}
+\DoxyCodeLine{00511\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespaceKMCThinFilm_ab48bbcbabdf454a07e2f0edb47404abe}{PeriodicAction}}\ action\ ,}
+\DoxyCodeLine{00517\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ periodOfSteps\ ,}
+\DoxyCodeLine{00518\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ doAtSimEnd\ );}
+\DoxyCodeLine{00523\ }
+\DoxyCodeLine{00528\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classKMCThinFilm_1_1Simulation_a543ca84790107365fbda969c51d4b375}{removeStepPeriodicAction}}(\textcolor{keywordtype}{int}\ actionId);}
+\DoxyCodeLine{00529\ }
+\DoxyCodeLine{00531\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classKMCThinFilm_1_1Simulation_adf613f2cf2520695a0fb2ddbbdfd2328}{setSolver}}(\mbox{\hyperlink{namespaceKMCThinFilm_1_1SolverId_a43b0b7ee9ab985e86a13450beb2c7523}{SolverId::Type}}\ sId);}
+\DoxyCodeLine{00532\ }
+\DoxyCodeLine{00537\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classKMCThinFilm_1_1Simulation_a24c009402c255dcb62083aab98eee47d}{setTimeIncrScheme}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classKMCThinFilm_1_1TimeIncr_1_1SchemeVars}{TimeIncr::SchemeVars}}\ \&\ vars);}
+\DoxyCodeLine{00538\ }
+\DoxyCodeLine{00542\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classKMCThinFilm_1_1Simulation_aab6ce6b8f7013c7ce3bcedb8fc3cc469}{setRNG}}(\mbox{\hyperlink{namespaceKMCThinFilm_a7b5f253610505f71091c404d12d05aee}{RandNumGenSharedPtr}}\ rng);}
+\DoxyCodeLine{00543\ }
+\DoxyCodeLine{00545\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classKMCThinFilm_1_1Simulation_a1062679abfb7c62e2ff817c5b12188c4}{run}}(\textcolor{keywordtype}{double}\ runTime\ );}
+\DoxyCodeLine{00546\ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00547\ \ \ \ \ \textcolor{keyword}{class\ }Impl\_;}
+\DoxyCodeLine{00548\ \ \ \ \ boost::scoped\_ptr<Impl\_>\ pImpl\_;}
+\DoxyCodeLine{00549\ \ \ \};}
+\DoxyCodeLine{00550\ }
+\DoxyCodeLine{00551\ \}}
+\DoxyCodeLine{00552\ }
+\DoxyCodeLine{00553\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ SIMULATION\_HPP\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

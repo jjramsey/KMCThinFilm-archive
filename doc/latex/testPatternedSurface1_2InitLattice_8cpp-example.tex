@@ -1,0 +1,64 @@
+\doxysection{test\+Patterned\+Surface1/\+Init\+Lattice.\+cpp}
+\hypertarget{testPatternedSurface1_2InitLattice_8cpp-example}{}\label{testPatternedSurface1_2InitLattice_8cpp-example}An implementation file for an example implementation of a model with a patterned substrate surface that defines a custom method for initializing a lattice.
+
+This example is discussed in detail in the section ``\doxysectlink{illustrating_use_by_example_example_pat_sub}{Example\+: Implementations of a patterned substrate model}{1},'' subsection ``\doxysectlink{illustrating_use_by_example_example_pat_sub_impl1}{First implementation}{2}.''
+
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ "{}InitLattice.hpp"{}}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ "{}EventsAndActions.hpp"{}}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <fstream>}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <boost/array.hpp>}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <boost/lexical\_cast.hpp>}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keyword}{using\ namespace\ }\mbox{\hyperlink{namespaceKMCThinFilm}{KMCThinFilm}};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keywordtype}{void}\ InitLatticeFromFile::operator()(\mbox{\hyperlink{classKMCThinFilm_1_1Lattice}{Lattice}}\ \&\ lattice)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{\ \ }
+\DoxyCodeLine{\ \ std::ifstream\ inpFile(inpFName\_.c\_str());}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ boost::array<int,2>\ globalPlanarDims;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ inpFile\ >>\ globalPlanarDims[0]\ >>\ globalPlanarDims[1];}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{structKMCThinFilm_1_1LatticePlanarBBox}{LatticePlanarBBox}}\ globalPlanarBBox;}
+\DoxyCodeLine{\ \ lattice.\mbox{\hyperlink{classKMCThinFilm_1_1Lattice_ac160d406b29dc80fb72551ad3d74ac3a}{getGlobalPlanarBBox}}(globalPlanarBBox);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{namespaceKMCThinFilm_acb9484dffdfd1584121f8a7c8bb8d924}{exitOnCondition}}((globalPlanarDims[0]\ !=\ (globalPlanarBBox.\mbox{\hyperlink{structKMCThinFilm_1_1LatticePlanarBBox_a8bc6629f20496b2845d66f924a04f35a}{imaxP1}}\ -\/\ globalPlanarBBox.\mbox{\hyperlink{structKMCThinFilm_1_1LatticePlanarBBox_a9de43623938e1ceb68c26feafd4cd009}{imin}}))\ ||}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (globalPlanarDims[1]\ !=\ (globalPlanarBBox.\mbox{\hyperlink{structKMCThinFilm_1_1LatticePlanarBBox_abedcda2c34e2bdfe0404e22838ed33dd}{jmaxP1}}\ -\/\ globalPlanarBBox.\mbox{\hyperlink{structKMCThinFilm_1_1LatticePlanarBBox_aa227140b560487687496bdbaef79d85e}{jmin}})),}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}Mismatch\ in\ lattice\ dimensions\ and\ dimensions\ of\ strain\ eng.\ den.\ array."{}});}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ lattice.\mbox{\hyperlink{classKMCThinFilm_1_1Lattice_aa36bda22ed2b0bc8d8737d3d63009765}{addPlanes}}(1);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{structKMCThinFilm_1_1LatticePlanarBBox}{LatticePlanarBBox}}\ localPlanarBBox;}
+\DoxyCodeLine{\ \ lattice.\mbox{\hyperlink{classKMCThinFilm_1_1Lattice_a1504ff860e046a8965b37dd437a74c52}{getLocalPlanarBBox}}(\textcolor{keyword}{false},\ localPlanarBBox);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{int}\ maxLineNumP1\ =\ (globalPlanarDims[0])*(globalPlanarDims[1]);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{classKMCThinFilm_1_1CellInds}{CellInds}}\ ci;\ ci.k\ =\ 0;}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ lineNum\ =\ 0;\ lineNum\ <\ maxLineNumP1;\ ++lineNum)\ \{}
+\DoxyCodeLine{\ \ \ \ }
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordtype}{int}\ i,\ j;}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordtype}{double}\ E\_s;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ inpFile\ >>\ i\ >>\ j\ >>\ E\_s;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{if}\ ((i\ >=\ localPlanarBBox.\mbox{\hyperlink{structKMCThinFilm_1_1LatticePlanarBBox_a9de43623938e1ceb68c26feafd4cd009}{imin}})\ \&\&\ (i\ <\ localPlanarBBox.\mbox{\hyperlink{structKMCThinFilm_1_1LatticePlanarBBox_a8bc6629f20496b2845d66f924a04f35a}{imaxP1}})\ \&\&\ }
+\DoxyCodeLine{\ \ \ \ \ \ \ \ (j\ >=\ localPlanarBBox.\mbox{\hyperlink{structKMCThinFilm_1_1LatticePlanarBBox_aa227140b560487687496bdbaef79d85e}{jmin}})\ \&\&\ (j\ <\ localPlanarBBox.\mbox{\hyperlink{structKMCThinFilm_1_1LatticePlanarBBox_abedcda2c34e2bdfe0404e22838ed33dd}{jmaxP1}}))\ \{}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \ \ ci.i\ =\ i;}
+\DoxyCodeLine{\ \ \ \ \ \ ci.j\ =\ j;}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \ \ \ \ lattice.\mbox{\hyperlink{classKMCThinFilm_1_1Lattice_aefe9601bf62fdb46d451d61fa017e691}{setFloat}}(ci,\ PSFloatVal::E\_s,\ E\_s);}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \}}
+\DoxyCodeLine{\ \ \ \ }
+\DoxyCodeLine{\ \ inpFile.close();}
+\DoxyCodeLine{}
+\DoxyCodeLine{\}}
+
+\end{DoxyCodeInclude}
+ 

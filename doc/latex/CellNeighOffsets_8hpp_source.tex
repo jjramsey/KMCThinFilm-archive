@@ -1,0 +1,44 @@
+\doxysection{Cell\+Neigh\+Offsets.\+hpp}
+\hypertarget{CellNeighOffsets_8hpp_source}{}\label{CellNeighOffsets_8hpp_source}\index{CellNeighOffsets.hpp@{CellNeighOffsets.hpp}}
+\mbox{\hyperlink{CellNeighOffsets_8hpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ CELL\_NEIGH\_OFFSETS\_HPP}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ CELL\_NEIGH\_OFFSETS\_HPP}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{CellInds_8hpp}{CellInds.hpp}}"{}}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <boost/scoped\_ptr.hpp>}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespaceKMCThinFilm}{KMCThinFilm}}\ \{}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00021\ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{classKMCThinFilm_1_1CellNeighOffsets_ae4b22e89dd2736a2d6e69c5efa88ad1e}{CellNeighOffsets}}\ \{}
+\DoxyCodeLine{00022\ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{classKMCThinFilm_1_1CellNeighOffsets_ae4b22e89dd2736a2d6e69c5efa88ad1e}{CellNeighOffsets}}(\textcolor{keywordtype}{int}\ numberOfOffsets\ );}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00028\ \ \ \ \ \mbox{\hyperlink{classKMCThinFilm_1_1CellNeighOffsets_ae4b22e89dd2736a2d6e69c5efa88ad1e}{CellNeighOffsets}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classKMCThinFilm_1_1CellNeighOffsets_ae4b22e89dd2736a2d6e69c5efa88ad1e}{CellNeighOffsets}}\ \&\ cno);}
+\DoxyCodeLine{00029\ \ \ \ \ \mbox{\hyperlink{classKMCThinFilm_1_1CellNeighOffsets_ae4b22e89dd2736a2d6e69c5efa88ad1e}{CellNeighOffsets}}\ \&\ operator=(\textcolor{keyword}{const}\ \mbox{\hyperlink{classKMCThinFilm_1_1CellNeighOffsets_ae4b22e89dd2736a2d6e69c5efa88ad1e}{CellNeighOffsets}}\ \&\ rhs);}
+\DoxyCodeLine{00031\ \ \ \ \ }
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classKMCThinFilm_1_1CellNeighOffsets_a7b983204101cef4973f685d3c68a0106}{addOffset}}(\textcolor{keywordtype}{int}\ whichOffset\ ,}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classKMCThinFilm_1_1CellIndsOffset}{CellIndsOffset}}\ \&\ offset\ );}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00044\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classKMCThinFilm_1_1CellNeighOffsets_ac0ff865663588ae531dd6b4251eca368}{resetOffsets}}(\textcolor{keywordtype}{int}\ numberOfNewOffsets);}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00049\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classKMCThinFilm_1_1CellNeighOffsets_aded2dfb4016a51aac9f7fe1b114fc261}{clearOffsets}}();}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00054\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classKMCThinFilm_1_1CellIndsOffset}{CellIndsOffset}}\ \&\ \mbox{\hyperlink{classKMCThinFilm_1_1CellNeighOffsets_acf082422c1ab26aa5144d98426f34ab2}{getOffset}}(\textcolor{keywordtype}{int}\ whichOffset\ \ )\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00057\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classKMCThinFilm_1_1CellNeighOffsets_a946a91c1759eb1dec7509984f4cdab03}{numOffsets}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00060\ \ \ \ \ \mbox{\hyperlink{classKMCThinFilm_1_1CellNeighOffsets_ae4b22e89dd2736a2d6e69c5efa88ad1e}{\string~CellNeighOffsets}}();}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00064\ \ \ \ \ \textcolor{keyword}{class\ }Impl\_;}
+\DoxyCodeLine{00065\ \ \ \ \ boost::scoped\_ptr<Impl\_>\ pImpl\_;}
+\DoxyCodeLine{00066\ \ \ \};}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00068\ \}}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ CELL\_NEIGH\_OFFSETS\_HPP\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

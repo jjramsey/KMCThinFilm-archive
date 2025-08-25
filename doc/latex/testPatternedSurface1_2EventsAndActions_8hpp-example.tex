@@ -1,0 +1,83 @@
+\doxysection{test\+Patterned\+Surface1/\+Events\+And\+Actions.\+hpp}
+\hypertarget{testPatternedSurface1_2EventsAndActions_8hpp-example}{}\label{testPatternedSurface1_2EventsAndActions_8hpp-example}Header file for an example implementation of a model with a patterned substrate surface
+
+This example is discussed in detail in the section ``\doxysectlink{illustrating_use_by_example_example_pat_sub}{Example\+: Implementations of a patterned substrate model}{1},'' subsection ``\doxysectlink{illustrating_use_by_example_example_pat_sub_impl1}{First implementation}{2}.''
+
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\textcolor{preprocessor}{\#ifndef\ EVENTS\_AND\_ACTIONS\_HPP}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#define\ EVENTS\_AND\_ACTIONS\_HPP}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{/*\ }}
+\DoxyCodeLine{\textcolor{comment}{\ \ \ Comments\ in\ this\ code\ of\ the\ form\ "{}//!\ [...]"{}\ are\ used\ to\ assist}}
+\DoxyCodeLine{\textcolor{comment}{\ \ \ Doxygen\ in\ documenting\ this\ file.}}
+\DoxyCodeLine{\textcolor{comment}{*/}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <KMCThinFilm/CellCenteredGroupPropensities.hpp>}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <KMCThinFilm/EventExecutor.hpp>}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <KMCThinFilm/MakeEnum.hpp>}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ "{}PhysicalConstants.hpp"{}}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\mbox{\hyperlink{MakeEnum_8hpp_a21a6e7611184f517474f1a4628e0e0cb}{KMC\_MAKE\_ID\_ENUM}}(PSOverLatticeEvents,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DEPOSITION);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\mbox{\hyperlink{MakeEnum_8hpp_a21a6e7611184f517474f1a4628e0e0cb}{KMC\_MAKE\_ID\_ENUM}}(PSCellCenteredEvents,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ HOP\_UP,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ HOP\_DOWN,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ HOP\_LEFT,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ HOP\_RIGHT);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\mbox{\hyperlink{MakeEnum_8hpp_a21a6e7611184f517474f1a4628e0e0cb}{KMC\_MAKE\_ID\_ENUM}}(PAction,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ PRINT);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\mbox{\hyperlink{MakeEnum_8hpp_ab74f47ea48cae4ae81e76e45c4fd67c4}{KMC\_MAKE\_LATTICE\_INTVAL\_ENUM}}(PS,\ HEIGHT);}
+\DoxyCodeLine{\mbox{\hyperlink{MakeEnum_8hpp_aa5359f8f13cbe2c11d54214f49fcf8e8}{KMC\_MAKE\_LATTICE\_FLOATVAL\_ENUM}}(PS,\ E\_s);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\mbox{\hyperlink{MakeEnum_8hpp_a18b06446141f866d52168964dbc824c7}{KMC\_MAKE\_OFFSET\_ENUM}}(HopOffset,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ UP,\ DOWN,\ LEFT,\ RIGHT);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keywordtype}{void}\ DepositionExecute(\textcolor{keyword}{const}\ \mbox{\hyperlink{classKMCThinFilm_1_1CellInds}{KMCThinFilm::CellInds}}\ \&\ ci,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classKMCThinFilm_1_1SimulationState}{KMCThinFilm::SimulationState}}\ \&\ simState,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classKMCThinFilm_1_1Lattice}{KMCThinFilm::Lattice}}\ \&\ lattice);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keyword}{class\ }HoppingPropensity\ \{}
+\DoxyCodeLine{\textcolor{keyword}{public}:}
+\DoxyCodeLine{\ \ HoppingPropensity(\textcolor{keywordtype}{double}\ E\_n,\ \textcolor{keywordtype}{double}\ T)\ }
+\DoxyCodeLine{\ \ \ \ :\ E\_n\_(E\_n),\ kBT\_(PhysConst::kB*T),\ k\_(kBT\_/PhysConst::h)}
+\DoxyCodeLine{\ \ \{\}}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{void}\ operator()(\textcolor{keyword}{const}\ KMCThinFilm::CellNeighProbe\ \&\ cnp,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::vector<double>\ \&\ propensityVec)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{\textcolor{keyword}{private}:}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{double}\ E\_n\_,\ kBT\_,\ k\_;}
+\DoxyCodeLine{\};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keyword}{class\ }HoppingExecute\ \{}
+\DoxyCodeLine{\textcolor{keyword}{public}:}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{void}\ operator()(\textcolor{keyword}{const}\ KMCThinFilm::CellInds\ \&\ ci,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ KMCThinFilm::SimulationState\ \&\ simState,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ KMCThinFilm::Lattice\ \&\ lattice,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::vector<KMCThinFilm::CellsToChange>\ \&\ ctcVec)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{\};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keyword}{class\ }PrintASCII\ \{}
+\DoxyCodeLine{\textcolor{keyword}{public}:}
+\DoxyCodeLine{\ \ PrintASCII(\textcolor{keyword}{const}\ std::string\ \&\ fNameRoot)}
+\DoxyCodeLine{\ \ \ \ :\ fNameRoot\_(fNameRoot),}
+\DoxyCodeLine{\ \ \ \ \ \ snapShotCntr\_(0)}
+\DoxyCodeLine{\ \ \{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{void}\ operator()(\textcolor{keyword}{const}\ KMCThinFilm::SimulationState\ \&\ simState,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ KMCThinFilm::Lattice\ \&\ lattice);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keyword}{private}:}
+\DoxyCodeLine{\ \ std::string\ fNameRoot\_;}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{int}\ snapShotCntr\_;}
+\DoxyCodeLine{\};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ EVENTS\_AND\_ACTIONS\_HPP\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCodeInclude}
+ 

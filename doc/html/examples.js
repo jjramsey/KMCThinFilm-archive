@@ -1,0 +1,27 @@
+var examples =
+[
+    [ "testFractal/testFractal.cpp", "testFractal_2testFractal_8cpp-example.html", null ],
+    [ "testFractal/EventsAndActions.hpp", "testFractal_2EventsAndActions_8hpp-example.html", null ],
+    [ "testFractal/EventsAndActions.cpp", "testFractal_2EventsAndActions_8cpp-example.html", null ],
+    [ "testFractal_semi_manual_track/testFractal.cpp", "testFractal_semi_manual_track_2testFractal_8cpp-example.html", null ],
+    [ "testFractal_semi_manual_track/EventsAndActions.hpp", "testFractal_semi_manual_track_2EventsAndActions_8hpp-example.html", null ],
+    [ "testFractal_semi_manual_track/EventsAndActions.cpp", "testFractal_semi_manual_track_2EventsAndActions_8cpp-example.html", null ],
+    [ "testFractal_parallel/testFractal.cpp", "testFractal_parallel_2testFractal_8cpp-example.html", null ],
+    [ "testBallisticDep1/testBallisticDep.cpp", "testBallisticDep1_2testBallisticDep_8cpp-example.html", null ],
+    [ "testBallisticDep1/EventsAndActions.hpp", "testBallisticDep1_2EventsAndActions_8hpp-example.html", null ],
+    [ "testBallisticDep1/EventsAndActions.cpp", "testBallisticDep1_2EventsAndActions_8cpp-example.html", null ],
+    [ "testBallisticDep1/InitLattice.hpp", "testBallisticDep1_2InitLattice_8hpp-example.html", null ],
+    [ "testBallisticDep1/InitLattice.cpp", "testBallisticDep1_2InitLattice_8cpp-example.html", null ],
+    [ "testBallisticDep2/testBallisticDep.cpp", "testBallisticDep2_2testBallisticDep_8cpp-example.html", null ],
+    [ "testBallisticDep2/EventsAndActions.hpp", "testBallisticDep2_2EventsAndActions_8hpp-example.html", null ],
+    [ "testBallisticDep2/EventsAndActions.cpp", "testBallisticDep2_2EventsAndActions_8cpp-example.html", null ],
+    [ "testPatternedSurface1/testPatternedSurface.cpp", "testPatternedSurface1_2testPatternedSurface_8cpp-example.html", null ],
+    [ "testPatternedSurface1/EventsAndActions.hpp", "testPatternedSurface1_2EventsAndActions_8hpp-example.html", null ],
+    [ "testPatternedSurface1/EventsAndActions.cpp", "testPatternedSurface1_2EventsAndActions_8cpp-example.html", null ],
+    [ "testPatternedSurface1/InitLattice.hpp", "testPatternedSurface1_2InitLattice_8hpp-example.html", null ],
+    [ "testPatternedSurface1/InitLattice.cpp", "testPatternedSurface1_2InitLattice_8cpp-example.html", null ],
+    [ "testPatternedSurface1/PhysicalConstants.hpp", "testPatternedSurface1_2PhysicalConstants_8hpp-example.html", null ],
+    [ "testPatternedSurface2/testPatternedSurface.cpp", "testPatternedSurface2_2testPatternedSurface_8cpp-example.html", null ],
+    [ "testPatternedSurface2/EventsAndActions.hpp", "testPatternedSurface2_2EventsAndActions_8hpp-example.html", null ],
+    [ "testPatternedSurface2/EventsAndActions.cpp", "testPatternedSurface2_2EventsAndActions_8cpp-example.html", null ]
+];

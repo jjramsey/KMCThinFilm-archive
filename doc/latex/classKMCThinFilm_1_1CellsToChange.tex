@@ -1,0 +1,148 @@
+\doxysection{KMCThin\+Film\+::Cells\+To\+Change Class Reference}
+\hypertarget{classKMCThinFilm_1_1CellsToChange}{}\label{classKMCThinFilm_1_1CellsToChange}\index{KMCThinFilm::CellsToChange@{KMCThinFilm::CellsToChange}}
+
+
+{\ttfamily \#include $<$Cells\+To\+Change.\+hpp$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classKMCThinFilm_1_1CellsToChange_a6753306ace3d33af03814bfb048498b5}{add\+Lattice\+Planes}} (int num\+Planes\+To\+Add)
+\item 
+const \mbox{\hyperlink{classKMCThinFilm_1_1CellInds}{Cell\+Inds}} \& \mbox{\hyperlink{classKMCThinFilm_1_1CellsToChange_ae76e3b5b096b7aa6988f059a7c2c78a4}{get\+Cell\+Inds}} (int which\+Offset) const
+\item 
+double \mbox{\hyperlink{classKMCThinFilm_1_1CellsToChange_a072e22624e2eafdb9dc8fd0067f763b5}{get\+Float}} (int which\+Offset, int which\+Float) const
+\item 
+int \mbox{\hyperlink{classKMCThinFilm_1_1CellsToChange_ae559a33ad8206a5e1c8cfd8803ccc765}{get\+Int}} (int which\+Offset, int which\+Int) const
+\item 
+void \mbox{\hyperlink{classKMCThinFilm_1_1CellsToChange_a8a56c1106701d5bc3409cd30343fee2c}{set\+Center}} (const \mbox{\hyperlink{classKMCThinFilm_1_1CellInds}{Cell\+Inds}} \&ci)
+\item 
+void \mbox{\hyperlink{classKMCThinFilm_1_1CellsToChange_a0e89c1262df5b89f00329e685a9871fa}{set\+Float}} (int which\+Offset, int which\+Float, double val)
+\item 
+void \mbox{\hyperlink{classKMCThinFilm_1_1CellsToChange_a62079b840cc200e37e2907ba2e394f78}{set\+Int}} (int which\+Offset, int which\+Int, int val)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classKMCThinFilm_1_1CellsToChange_aeb51e0a4c44d4192cfbdb79598859172}\label{classKMCThinFilm_1_1CellsToChange_aeb51e0a4c44d4192cfbdb79598859172} 
+class {\bfseries Simulation}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Class used to change the lattice when using a function object satisfying the \doxylink{namespaceKMCThinFilm_a92a9e6c3ced8703f95265e85d80f1797}{Event\+Executor\+Semi\+Manual\+Track} signature to execute an event.
+
+Instances of this class contain offsets that define the relative positions of cells that would be directly changed by the event. These relative positions can be translated to actual positions by setting the {\itshape center} of a \doxylink{classKMCThinFilm_1_1CellsToChange}{Cells\+To\+Change} instance, that is, the absolute coordinates of the cell associated with the offset $(0,0,0)$ stored within the instance. For example, if the offsets are $(0,0,0)$, $(0,\pm1,0)$, $(\pm1,0,0)$, and $(0,0,\pm1)$, and the center is $(a,b,c)$, then the absolute coordinates of the cells changed by the event would be $(a,b,c)$, $(a,b\pm1,c)$, $(a\pm1,b,c)$, and $(a,b,c\pm1)$. Once the absolute coordinates of the cells are defined, the values in the lattice associated with these cells can be changed via \doxylink{classKMCThinFilm_1_1CellsToChange_a62079b840cc200e37e2907ba2e394f78}{set\+Int()} and \doxylink{classKMCThinFilm_1_1CellsToChange_a0e89c1262df5b89f00329e685a9871fa}{set\+Float()}.
+
+The offsets are specified through the {\itshape cno\+Vec} argument in the following member functions\+:
+
+
+\begin{DoxyItemize}
+\item \doxylink{classKMCThinFilm_1_1EventExecutorGroup_a8138cfc7b591bd3136fcb8f4195815ec}{Event\+Executor\+Group\+::add\+Event\+Executor(int which\+Event, Event\+Executor\+Semi\+Manual\+Track ev\+Exec, const std\+::vector$<$\+Cell\+Neigh\+Offsets$>$ \& cno\+Vec)}
+\item \doxylink{classKMCThinFilm_1_1Simulation_a8513218aee1c117ec324b8a9cdef6ccf}{Simulation\+::add\+Over\+Lattice\+Event(int, double, Event\+Executor\+Semi\+Manual\+Track ev\+Exec, const std\+::vector$<$\+Cell\+Neigh\+Offsets$>$ \& cno\+Vec)}
+\end{DoxyItemize}
+
+The offsets specified in the first element of {\itshape cno\+Vec} correspond to the offsets stored in the first element of the argument of type std\+::vector$<$\+Cells\+To\+Change$>$\& in a \doxylink{namespaceKMCThinFilm_a92a9e6c3ced8703f95265e85d80f1797}{Event\+Executor\+Semi\+Manual\+Track} function object, the offsets specified in the second element of {\itshape cno\+Vec} correspond to the offsets stored in the second element of the argument of type std\+::vector$<$\+Cells\+To\+Change$>$\& in that same function object, etc. \begin{Desc}
+\item[Examples]\par
+\mbox{\hyperlink{testBallisticDep2_2EventsAndActions_8cpp-example}{test\+Ballistic\+Dep2/\+Events\+And\+Actions.\+cpp}}, \mbox{\hyperlink{testFractal_semi_manual_track_2EventsAndActions_8cpp-example}{test\+Fractal\+\_\+semi\+\_\+manual\+\_\+track/\+Events\+And\+Actions.\+cpp}}, \mbox{\hyperlink{testPatternedSurface1_2EventsAndActions_8cpp-example}{test\+Patterned\+Surface1/\+Events\+And\+Actions.\+cpp}}, and \mbox{\hyperlink{testPatternedSurface2_2EventsAndActions_8cpp-example}{test\+Patterned\+Surface2/\+Events\+And\+Actions.\+cpp}}.\end{Desc}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classKMCThinFilm_1_1CellsToChange_a6753306ace3d33af03814bfb048498b5}\index{KMCThinFilm::CellsToChange@{KMCThinFilm::CellsToChange}!addLatticePlanes@{addLatticePlanes}}
+\index{addLatticePlanes@{addLatticePlanes}!KMCThinFilm::CellsToChange@{KMCThinFilm::CellsToChange}}
+\doxysubsubsection{\texorpdfstring{addLatticePlanes()}{addLatticePlanes()}}
+{\footnotesize\ttfamily \label{classKMCThinFilm_1_1CellsToChange_a6753306ace3d33af03814bfb048498b5} 
+void KMCThin\+Film\+::\+Cells\+To\+Change\+::add\+Lattice\+Planes (\begin{DoxyParamCaption}\item[{int}]{num\+Planes\+To\+Add}{}\end{DoxyParamCaption})}
+
+Adds zero or more layers to a given lattice, increasing the maximum value of the third lattice cell coordinate.
+
+Note that if {\itshape num\+Planes\+To\+Add} is non-\/positive, this member function does nothing.
+
+\begin{DoxySeeAlso}{See also}
+\doxylink{classKMCThinFilm_1_1Lattice_aa36bda22ed2b0bc8d8737d3d63009765}{Lattice\+::add\+Planes()} 
+\end{DoxySeeAlso}
+\begin{Desc}
+\item[Examples]\par
+\mbox{\hyperlink{testBallisticDep2_2EventsAndActions_8cpp-example}{test\+Ballistic\+Dep2/\+Events\+And\+Actions.\+cpp}}.\end{Desc}
+\Hypertarget{classKMCThinFilm_1_1CellsToChange_ae76e3b5b096b7aa6988f059a7c2c78a4}\index{KMCThinFilm::CellsToChange@{KMCThinFilm::CellsToChange}!getCellInds@{getCellInds}}
+\index{getCellInds@{getCellInds}!KMCThinFilm::CellsToChange@{KMCThinFilm::CellsToChange}}
+\doxysubsubsection{\texorpdfstring{getCellInds()}{getCellInds()}}
+{\footnotesize\ttfamily \label{classKMCThinFilm_1_1CellsToChange_ae76e3b5b096b7aa6988f059a7c2c78a4} 
+const \mbox{\hyperlink{classKMCThinFilm_1_1CellInds}{Cell\+Inds}} \& KMCThin\+Film\+::\+Cells\+To\+Change\+::get\+Cell\+Inds (\begin{DoxyParamCaption}\item[{int}]{which\+Offset}{}\end{DoxyParamCaption}) const}
+
+Returns the absolute coordinates that become associated with the offset ID {\itshape which\+Offset} once \doxylink{classKMCThinFilm_1_1CellsToChange_a8a56c1106701d5bc3409cd30343fee2c}{set\+Center()} has been called.
+
+Obviously, \doxylink{classKMCThinFilm_1_1CellsToChange_a8a56c1106701d5bc3409cd30343fee2c}{set\+Center()} {\bfseries{MUST}} be called before this function. \Hypertarget{classKMCThinFilm_1_1CellsToChange_a072e22624e2eafdb9dc8fd0067f763b5}\index{KMCThinFilm::CellsToChange@{KMCThinFilm::CellsToChange}!getFloat@{getFloat}}
+\index{getFloat@{getFloat}!KMCThinFilm::CellsToChange@{KMCThinFilm::CellsToChange}}
+\doxysubsubsection{\texorpdfstring{getFloat()}{getFloat()}}
+{\footnotesize\ttfamily \label{classKMCThinFilm_1_1CellsToChange_a072e22624e2eafdb9dc8fd0067f763b5} 
+double KMCThin\+Film\+::\+Cells\+To\+Change\+::get\+Float (\begin{DoxyParamCaption}\item[{int}]{which\+Offset}{, }\item[{int}]{which\+Float}{}\end{DoxyParamCaption}) const}
+
+Returns the value of double-\/precision array element {\itshape which\+Float} at the lattice cell associated with offset ID {\itshape which\+Offset}.
+
+Given a lattice object instance {\ttfamily lattice} and a \doxylink{classKMCThinFilm_1_1CellsToChange}{Cells\+To\+Change} instance {\ttfamily ctc}, this function is essentially equivalent to {\ttfamily lattice.\+get\+Float(ctc.\+get\+Cell\+Inds(which\+Offset), which\+Float)}.
+
+\doxylink{classKMCThinFilm_1_1CellsToChange_a8a56c1106701d5bc3409cd30343fee2c}{set\+Center()} {\bfseries{MUST}} be called before this function.
+
+\begin{DoxySeeAlso}{See also}
+\doxylink{classKMCThinFilm_1_1Lattice_a825ef41025b740e190d60d097f9d9ae5}{Lattice\+::get\+Float()} 
+\end{DoxySeeAlso}
+\Hypertarget{classKMCThinFilm_1_1CellsToChange_ae559a33ad8206a5e1c8cfd8803ccc765}\index{KMCThinFilm::CellsToChange@{KMCThinFilm::CellsToChange}!getInt@{getInt}}
+\index{getInt@{getInt}!KMCThinFilm::CellsToChange@{KMCThinFilm::CellsToChange}}
+\doxysubsubsection{\texorpdfstring{getInt()}{getInt()}}
+{\footnotesize\ttfamily \label{classKMCThinFilm_1_1CellsToChange_ae559a33ad8206a5e1c8cfd8803ccc765} 
+int KMCThin\+Film\+::\+Cells\+To\+Change\+::get\+Int (\begin{DoxyParamCaption}\item[{int}]{which\+Offset}{, }\item[{int}]{which\+Int}{}\end{DoxyParamCaption}) const}
+
+Returns the value of integer array element {\itshape which\+Int} at the lattice cell associated with offset ID {\itshape which\+Offset}.
+
+Given a lattice object instance {\ttfamily lattice} and a \doxylink{classKMCThinFilm_1_1CellsToChange}{Cells\+To\+Change} instance {\ttfamily ctc}, this function is essentially equivalent to {\ttfamily lattice.\+get\+Int(ctc.\+get\+Cell\+Inds(which\+Offset), which\+Int)}
+
+\doxylink{classKMCThinFilm_1_1CellsToChange_a8a56c1106701d5bc3409cd30343fee2c}{set\+Center()} {\bfseries{MUST}} be called before this function.
+
+\begin{DoxySeeAlso}{See also}
+\doxylink{classKMCThinFilm_1_1Lattice_aff659b471f414c579a51fe280b218ef1}{Lattice\+::get\+Int()} 
+\end{DoxySeeAlso}
+\begin{Desc}
+\item[Examples]\par
+\mbox{\hyperlink{testFractal_semi_manual_track_2EventsAndActions_8cpp-example}{test\+Fractal\+\_\+semi\+\_\+manual\+\_\+track/\+Events\+And\+Actions.\+cpp}}, \mbox{\hyperlink{testPatternedSurface1_2EventsAndActions_8cpp-example}{test\+Patterned\+Surface1/\+Events\+And\+Actions.\+cpp}}, and \mbox{\hyperlink{testPatternedSurface2_2EventsAndActions_8cpp-example}{test\+Patterned\+Surface2/\+Events\+And\+Actions.\+cpp}}.\end{Desc}
+\Hypertarget{classKMCThinFilm_1_1CellsToChange_a8a56c1106701d5bc3409cd30343fee2c}\index{KMCThinFilm::CellsToChange@{KMCThinFilm::CellsToChange}!setCenter@{setCenter}}
+\index{setCenter@{setCenter}!KMCThinFilm::CellsToChange@{KMCThinFilm::CellsToChange}}
+\doxysubsubsection{\texorpdfstring{setCenter()}{setCenter()}}
+{\footnotesize\ttfamily \label{classKMCThinFilm_1_1CellsToChange_a8a56c1106701d5bc3409cd30343fee2c} 
+void KMCThin\+Film\+::\+Cells\+To\+Change\+::set\+Center (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classKMCThinFilm_1_1CellInds}{Cell\+Inds}} \&}]{ci}{}\end{DoxyParamCaption})}
+
+Sets to {\itshape ci} the absolute coordinates of the cell associated with the offset $(0,0,0)$ stored within a \doxylink{classKMCThinFilm_1_1CellsToChange}{Cells\+To\+Change} object. \begin{Desc}
+\item[Examples]\par
+\mbox{\hyperlink{testBallisticDep2_2EventsAndActions_8cpp-example}{test\+Ballistic\+Dep2/\+Events\+And\+Actions.\+cpp}}, \mbox{\hyperlink{testFractal_semi_manual_track_2EventsAndActions_8cpp-example}{test\+Fractal\+\_\+semi\+\_\+manual\+\_\+track/\+Events\+And\+Actions.\+cpp}}, \mbox{\hyperlink{testPatternedSurface1_2EventsAndActions_8cpp-example}{test\+Patterned\+Surface1/\+Events\+And\+Actions.\+cpp}}, and \mbox{\hyperlink{testPatternedSurface2_2EventsAndActions_8cpp-example}{test\+Patterned\+Surface2/\+Events\+And\+Actions.\+cpp}}.\end{Desc}
+\Hypertarget{classKMCThinFilm_1_1CellsToChange_a0e89c1262df5b89f00329e685a9871fa}\index{KMCThinFilm::CellsToChange@{KMCThinFilm::CellsToChange}!setFloat@{setFloat}}
+\index{setFloat@{setFloat}!KMCThinFilm::CellsToChange@{KMCThinFilm::CellsToChange}}
+\doxysubsubsection{\texorpdfstring{setFloat()}{setFloat()}}
+{\footnotesize\ttfamily \label{classKMCThinFilm_1_1CellsToChange_a0e89c1262df5b89f00329e685a9871fa} 
+void KMCThin\+Film\+::\+Cells\+To\+Change\+::set\+Float (\begin{DoxyParamCaption}\item[{int}]{which\+Offset}{, }\item[{int}]{which\+Float}{, }\item[{double}]{val}{}\end{DoxyParamCaption})}
+
+Sets the value of double-\/precision array element {\itshape which\+Float} at lattice cell associated with offset ID {\itshape which\+Offset} to {\itshape val}.
+
+\doxylink{classKMCThinFilm_1_1CellsToChange_a8a56c1106701d5bc3409cd30343fee2c}{set\+Center()} {\bfseries{MUST}} be called before this function.
+
+\begin{DoxySeeAlso}{See also}
+\doxylink{classKMCThinFilm_1_1Lattice_aefe9601bf62fdb46d451d61fa017e691}{Lattice\+::set\+Float()} 
+\end{DoxySeeAlso}
+\begin{Desc}
+\item[Examples]\par
+\mbox{\hyperlink{testBallisticDep2_2EventsAndActions_8cpp-example}{test\+Ballistic\+Dep2/\+Events\+And\+Actions.\+cpp}}.\end{Desc}
+\Hypertarget{classKMCThinFilm_1_1CellsToChange_a62079b840cc200e37e2907ba2e394f78}\index{KMCThinFilm::CellsToChange@{KMCThinFilm::CellsToChange}!setInt@{setInt}}
+\index{setInt@{setInt}!KMCThinFilm::CellsToChange@{KMCThinFilm::CellsToChange}}
+\doxysubsubsection{\texorpdfstring{setInt()}{setInt()}}
+{\footnotesize\ttfamily \label{classKMCThinFilm_1_1CellsToChange_a62079b840cc200e37e2907ba2e394f78} 
+void KMCThin\+Film\+::\+Cells\+To\+Change\+::set\+Int (\begin{DoxyParamCaption}\item[{int}]{which\+Offset}{, }\item[{int}]{which\+Int}{, }\item[{int}]{val}{}\end{DoxyParamCaption})}
+
+Sets the value of integer array element {\itshape which\+Int} at lattice cell associated with offset ID {\itshape which\+Offset} to {\itshape val}.
+
+\doxylink{classKMCThinFilm_1_1CellsToChange_a8a56c1106701d5bc3409cd30343fee2c}{set\+Center()} {\bfseries{MUST}} be called before this function.
+
+\begin{DoxySeeAlso}{See also}
+\doxylink{classKMCThinFilm_1_1Lattice_a81beda29c4c8722cb047f7f2ce0a09ce}{Lattice\+::set\+Int()} 
+\end{DoxySeeAlso}
+\begin{Desc}
+\item[Examples]\par
+\mbox{\hyperlink{testBallisticDep2_2EventsAndActions_8cpp-example}{test\+Ballistic\+Dep2/\+Events\+And\+Actions.\+cpp}}, \mbox{\hyperlink{testFractal_semi_manual_track_2EventsAndActions_8cpp-example}{test\+Fractal\+\_\+semi\+\_\+manual\+\_\+track/\+Events\+And\+Actions.\+cpp}}, \mbox{\hyperlink{testPatternedSurface1_2EventsAndActions_8cpp-example}{test\+Patterned\+Surface1/\+Events\+And\+Actions.\+cpp}}, and \mbox{\hyperlink{testPatternedSurface2_2EventsAndActions_8cpp-example}{test\+Patterned\+Surface2/\+Events\+And\+Actions.\+cpp}}.\end{Desc}

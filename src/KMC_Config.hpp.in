@@ -1,0 +1,6 @@
+#ifndef KMC_CONFIG_HPP
+#define KMC_CONFIG_HPP
+
+#define KMC_PARALLEL @KMC_PARALLEL@
+
+#endif /* KMC_CONFIG_HPP */

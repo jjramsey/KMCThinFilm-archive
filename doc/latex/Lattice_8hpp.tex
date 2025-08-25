@@ -1,0 +1,45 @@
+\doxysection{Lattice.\+hpp File Reference}
+\hypertarget{Lattice_8hpp}{}\label{Lattice_8hpp}\index{Lattice.hpp@{Lattice.hpp}}
+
+
+Defines the Lattice class and related parameter objects and typedefs.  
+
+
+{\ttfamily \#include "{}KMC\+\_\+\+Config.\+hpp"{}}\newline
+{\ttfamily \#include $<$vector$>$}\newline
+{\ttfamily \#include $<$deque$>$}\newline
+{\ttfamily \#include $<$set$>$}\newline
+{\ttfamily \#include $<$mpi.\+h$>$}\newline
+{\ttfamily \#include $<$boost/array.\+hpp$>$}\newline
+{\ttfamily \#include $<$boost/function.\+hpp$>$}\newline
+{\ttfamily \#include $<$boost/noncopyable.\+hpp$>$}\newline
+{\ttfamily \#include $<$boost/scoped\+\_\+ptr.\+hpp$>$}\newline
+{\ttfamily \#include "{}Cell\+Inds.\+hpp"{}}\newline
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classKMCThinFilm_1_1AddEmptyPlanes}{KMCThin\+Film\+::\+Add\+Empty\+Planes}}
+\item 
+class \mbox{\hyperlink{classKMCThinFilm_1_1Lattice}{KMCThin\+Film\+::\+Lattice}}
+\item 
+struct \mbox{\hyperlink{structKMCThinFilm_1_1LatticeParams}{KMCThin\+Film\+::\+Lattice\+Params}}
+\item 
+struct \mbox{\hyperlink{structKMCThinFilm_1_1LatticePlanarBBox}{KMCThin\+Film\+::\+Lattice\+Planar\+BBox}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+namespace \mbox{\hyperlink{namespaceKMCThinFilm}{KMCThin\+Film}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef boost\+::function$<$ void(\mbox{\hyperlink{classKMCThinFilm_1_1Lattice}{Lattice}} \&lattice)$>$ \mbox{\hyperlink{namespaceKMCThinFilm_a716044de50c29c8bb9118f8dbeb3d4bf}{KMCThin\+Film\+::\+Lattice\+Initializer}}
+\item 
+typedef boost\+::function$<$ void(const \mbox{\hyperlink{classKMCThinFilm_1_1CellInds}{Cell\+Inds}} \&, const \mbox{\hyperlink{classKMCThinFilm_1_1Lattice}{Lattice}} \&, std\+::vector$<$ int $>$ \&empty\+Int\+Vals, std\+::vector$<$ double $>$ \&empty\+Float\+Vals)$>$ \mbox{\hyperlink{namespaceKMCThinFilm_a92970705c2d791c5497beb06d88c8fa3}{KMCThin\+Film\+::\+Set\+Empty\+Cell\+Vals}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Defines the Lattice class and related parameter objects and typedefs. 
+

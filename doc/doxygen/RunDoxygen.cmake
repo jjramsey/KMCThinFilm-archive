@@ -1,0 +1,5 @@
+file(READ "../../VERSION" KMC_THIN_FILM_VERSION_STRING)
+include(../../KMCThinFilmVersion.cmake)
+configure_file(Doxyfile.in Doxyfile)
+execute_process(COMMAND doxygen)
+file(REMOVE Doxyfile)

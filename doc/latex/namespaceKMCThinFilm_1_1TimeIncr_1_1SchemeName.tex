@@ -1,0 +1,36 @@
+\doxysection{KMCThin\+Film\+::Time\+Incr\+::Scheme\+Name Namespace Reference}
+\hypertarget{namespaceKMCThinFilm_1_1TimeIncr_1_1SchemeName}{}\label{namespaceKMCThinFilm_1_1TimeIncr_1_1SchemeName}\index{KMCThinFilm::TimeIncr::SchemeName@{KMCThinFilm::TimeIncr::SchemeName}}
+\doxysubsubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{namespaceKMCThinFilm_1_1TimeIncr_1_1SchemeName_a9d8be73a26298e6c4379c28285902534}{Type}} \{ \mbox{\hyperlink{namespaceKMCThinFilm_1_1TimeIncr_1_1SchemeName_a9d8be73a26298e6c4379c28285902534ad72ce3a3804cccdfc67fd4debe9cfe9c}{MAX\+\_\+\+AVG\+\_\+\+PROPENSITY\+\_\+\+PER\+\_\+\+POSS\+\_\+\+EVENT}}
+, \mbox{\hyperlink{namespaceKMCThinFilm_1_1TimeIncr_1_1SchemeName_a9d8be73a26298e6c4379c28285902534a3ba84d51e2172abe5f6b178f98071d3f}{MAX\+\_\+\+SINGLE\+\_\+\+PROPENSITY}}
+, \mbox{\hyperlink{namespaceKMCThinFilm_1_1TimeIncr_1_1SchemeName_a9d8be73a26298e6c4379c28285902534a0ae0cc5daa6d4735cfc3a61cbd67f8e7}{FIXED\+\_\+\+VALUE}}
+ \}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Namespace to enclose the \doxylink{namespaceKMCThinFilm_1_1TimeIncr_1_1SchemeName_a9d8be73a26298e6c4379c28285902534}{Scheme\+Name\+::\+Type} enumeration 
+
+\doxysubsection{Enumeration Type Documentation}
+\Hypertarget{namespaceKMCThinFilm_1_1TimeIncr_1_1SchemeName_a9d8be73a26298e6c4379c28285902534}\index{KMCThinFilm::TimeIncr::SchemeName@{KMCThinFilm::TimeIncr::SchemeName}!Type@{Type}}
+\index{Type@{Type}!KMCThinFilm::TimeIncr::SchemeName@{KMCThinFilm::TimeIncr::SchemeName}}
+\doxysubsubsection{\texorpdfstring{Type}{Type}}
+{\footnotesize\ttfamily \label{namespaceKMCThinFilm_1_1TimeIncr_1_1SchemeName_a9d8be73a26298e6c4379c28285902534} 
+enum \mbox{\hyperlink{namespaceKMCThinFilm_1_1TimeIncr_1_1SchemeName_a9d8be73a26298e6c4379c28285902534}{KMCThin\+Film\+::\+Time\+Incr\+::\+Scheme\+Name\+::\+Type}}}
+
+Types of parallel time-\/incrementing schemes \begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MAX\_AVG\_PROPENSITY\_PER\_POSS\_EVENT@{MAX\_AVG\_PROPENSITY\_PER\_POSS\_EVENT}!KMCThinFilm::TimeIncr::SchemeName@{KMCThinFilm::TimeIncr::SchemeName}}\index{KMCThinFilm::TimeIncr::SchemeName@{KMCThinFilm::TimeIncr::SchemeName}!MAX\_AVG\_PROPENSITY\_PER\_POSS\_EVENT@{MAX\_AVG\_PROPENSITY\_PER\_POSS\_EVENT}}}\Hypertarget{namespaceKMCThinFilm_1_1TimeIncr_1_1SchemeName_a9d8be73a26298e6c4379c28285902534ad72ce3a3804cccdfc67fd4debe9cfe9c}\label{namespaceKMCThinFilm_1_1TimeIncr_1_1SchemeName_a9d8be73a26298e6c4379c28285902534ad72ce3a3804cccdfc67fd4debe9cfe9c} 
+MAX\+\_\+\+AVG\+\_\+\+PROPENSITY\+\_\+\+PER\+\_\+\+POSS\+\_\+\+EVENT&Scheme where the time step is inversely proportional to the maximum of the average propensities per possible event from all sectors, where the average propensity per possible event is the sum of all propensities in a sector divided by the number of possible events in that sector. This is similar to the adaptive time step scheme used in SPPARKS (\href{http://spparks.sandia.gov/}{\texttt{ http\+://spparks.\+sandia.\+gov/}}). \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MAX\_SINGLE\_PROPENSITY@{MAX\_SINGLE\_PROPENSITY}!KMCThinFilm::TimeIncr::SchemeName@{KMCThinFilm::TimeIncr::SchemeName}}\index{KMCThinFilm::TimeIncr::SchemeName@{KMCThinFilm::TimeIncr::SchemeName}!MAX\_SINGLE\_PROPENSITY@{MAX\_SINGLE\_PROPENSITY}}}\Hypertarget{namespaceKMCThinFilm_1_1TimeIncr_1_1SchemeName_a9d8be73a26298e6c4379c28285902534a3ba84d51e2172abe5f6b178f98071d3f}\label{namespaceKMCThinFilm_1_1TimeIncr_1_1SchemeName_a9d8be73a26298e6c4379c28285902534a3ba84d51e2172abe5f6b178f98071d3f} 
+MAX\+\_\+\+SINGLE\+\_\+\+PROPENSITY&Scheme where the time step is inversely proportional to largest event propensity available in the simulation. This is similar to the adaptive time step scheme suggested by Shim and Amar in {\itshape Physical Review B}, vol. 71, 125432 (2005). \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{FIXED\_VALUE@{FIXED\_VALUE}!KMCThinFilm::TimeIncr::SchemeName@{KMCThinFilm::TimeIncr::SchemeName}}\index{KMCThinFilm::TimeIncr::SchemeName@{KMCThinFilm::TimeIncr::SchemeName}!FIXED\_VALUE@{FIXED\_VALUE}}}\Hypertarget{namespaceKMCThinFilm_1_1TimeIncr_1_1SchemeName_a9d8be73a26298e6c4379c28285902534a0ae0cc5daa6d4735cfc3a61cbd67f8e7}\label{namespaceKMCThinFilm_1_1TimeIncr_1_1SchemeName_a9d8be73a26298e6c4379c28285902534a0ae0cc5daa6d4735cfc3a61cbd67f8e7} 
+FIXED\+\_\+\+VALUE&Scheme where the time step is a fixed value. \\
+\hline
+
+\end{DoxyEnumFields}

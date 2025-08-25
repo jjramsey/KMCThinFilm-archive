@@ -1,0 +1,64 @@
+\doxysection{Event\+Executor\+Group.\+hpp}
+\hypertarget{EventExecutorGroup_8hpp_source}{}\label{EventExecutorGroup_8hpp_source}\index{EventExecutorGroup.hpp@{EventExecutorGroup.hpp}}
+\mbox{\hyperlink{EventExecutorGroup_8hpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ EVENT\_EXECUTOR\_GROUP\_HPP}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ EVENT\_EXECUTOR\_GROUP\_HPP}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <boost/scoped\_ptr.hpp>}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{CellInds_8hpp}{CellInds.hpp}}"{}}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{CellNeighOffsets_8hpp}{CellNeighOffsets.hpp}}"{}}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{EventExecutor_8hpp}{EventExecutor.hpp}}"{}}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespaceKMCThinFilm}{KMCThinFilm}}\ \{}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00023\ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{classKMCThinFilm_1_1EventExecutorGroup_a27c93530b79798193039b622693cfedd}{EventExecutorGroup}}\ \{}
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keyword}{friend}\ \textcolor{keyword}{class\ }Simulation;}
+\DoxyCodeLine{00025\ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{classKMCThinFilm_1_1EventExecutorGroup_a27c93530b79798193039b622693cfedd}{EventExecutorGroup}}(\textcolor{keywordtype}{int}\ numEventsInGroup\ );}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00036\ \ \ \ \ \mbox{\hyperlink{classKMCThinFilm_1_1EventExecutorGroup_a27c93530b79798193039b622693cfedd}{EventExecutorGroup}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classKMCThinFilm_1_1EventExecutorGroup_a27c93530b79798193039b622693cfedd}{EventExecutorGroup}}\ \&\ eeg);}
+\DoxyCodeLine{00037\ \ \ \ \ \mbox{\hyperlink{classKMCThinFilm_1_1EventExecutorGroup_a27c93530b79798193039b622693cfedd}{EventExecutorGroup}}\ \&\ operator=(\textcolor{keyword}{const}\ \mbox{\hyperlink{classKMCThinFilm_1_1EventExecutorGroup_a27c93530b79798193039b622693cfedd}{EventExecutorGroup}}\ \&\ rhs);}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00042\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classKMCThinFilm_1_1EventExecutorGroup_a109dab6bc920f3fd6cf7df5d8076a61f}{addEventExecutor}}(\textcolor{keywordtype}{int}\ whichEvent\ ,}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespaceKMCThinFilm_a601f0f23e6b591202d40f27df34db951}{EventExecutorAutoTrack}}\ evExec\ );}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00067\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classKMCThinFilm_1_1EventExecutorGroup_a8138cfc7b591bd3136fcb8f4195815ec}{addEventExecutor}}(\textcolor{keywordtype}{int}\ whichEvent\ ,}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespaceKMCThinFilm_a92a9e6c3ced8703f95265e85d80f1797}{EventExecutorSemiManualTrack}}\ evExec\ ,}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::vector<CellNeighOffsets>\ \&\ cnoVec\ \ );}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00079\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classKMCThinFilm_1_1EventExecutorGroup_a58845befe777f2a52a814c460b477a14}{resetGroup}}(\textcolor{keywordtype}{int}\ numEventsInGroup);}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00082\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classKMCThinFilm_1_1EventExecutorGroup_a34b3e0438f79b33e34c9a65ada1aee85}{clearGroup}}();}
+\DoxyCodeLine{00083\ }
+\DoxyCodeLine{00085\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classKMCThinFilm_1_1EventExecutorGroup_a361ed7cd4b5c2b1507049cf054551bc9}{numEventExecutors}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00086\ }
+\DoxyCodeLine{00088\ \ \ \ \ \mbox{\hyperlink{classKMCThinFilm_1_1EventExecutorGroup_a27c93530b79798193039b622693cfedd}{\string~EventExecutorGroup}}();}
+\DoxyCodeLine{00090\ }
+\DoxyCodeLine{00091\ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00092\ \ \ \ \ }
+\DoxyCodeLine{00093\ \ \ \ \ \textcolor{keyword}{struct\ }EventExecEnum\ \{}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \textcolor{keyword}{enum}\ Type\ \{AUTO,\ SEMIMANUAL\};}
+\DoxyCodeLine{00095\ \ \ \ \ \};}
+\DoxyCodeLine{00096\ \ \ \ \ }
+\DoxyCodeLine{00097\ \ \ \ \ \textcolor{comment}{//\ To\ be\ used\ by\ Simulation\ class}}
+\DoxyCodeLine{00098\ \ \ \ \ EventExecEnum::Type\ getEventExecutorType(\textcolor{keywordtype}{int}\ whichEvent)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00099\ \ \ \ \ }
+\DoxyCodeLine{00100\ \ \ \ \ \mbox{\hyperlink{namespaceKMCThinFilm_a601f0f23e6b591202d40f27df34db951}{EventExecutorAutoTrack}}\ getEventExecutorAutoTrack(\textcolor{keywordtype}{int}\ whichEvent)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00101\ \ \ \ \ \mbox{\hyperlink{namespaceKMCThinFilm_a92a9e6c3ced8703f95265e85d80f1797}{EventExecutorSemiManualTrack}}\ getEventExecutorSemiManualTrack(\textcolor{keywordtype}{int}\ whichEvent)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00102\ \ \ \ \ \textcolor{keyword}{const}\ std::vector<CellNeighOffsets>\ \&\ getEventExecutorOffsetsVec(\textcolor{keywordtype}{int}\ whichEvent)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00103\ }
+\DoxyCodeLine{00104\ \ \ \ \ \textcolor{keyword}{class\ }Impl\_;}
+\DoxyCodeLine{00105\ \ \ \ \ boost::scoped\_ptr<Impl\_>\ pImpl\_;}
+\DoxyCodeLine{00106\ \ \ \};}
+\DoxyCodeLine{00107\ }
+\DoxyCodeLine{00108\ \}}
+\DoxyCodeLine{00109\ }
+\DoxyCodeLine{00110\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ EVENT\_EXECUTOR\_GROUP\_HPP\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

@@ -1,0 +1,15 @@
+\chapter{Introduction to the ARL KMCThin\+Film library}
+\hypertarget{index}{}\label{index}\index{Introduction to the ARL KMCThinFilm library@{Introduction to the ARL KMCThinFilm library}}
+The ARL \doxylink{namespaceKMCThinFilm}{KMCThin\+Film} library is designed to assist researchers in creating kinetic Monte Carlo (k\+MC) simulations of thin film growth where the particles involved in the growth (which may be atoms, molecules, or some sort of coarse-\/grained ``effective'' particle) are assumed to be restricted to be on or near the sites of a lattice. What the library contains\+:
+
+
+\begin{DoxyItemize}
+\item A \doxysectlink{concepts_and_algorithms_lattice_overview}{general lattice class}{1} that represents the lattice as a three-\/dimensional array of cells---but not necessarily in a cubic or orthogonal arrangement---where each cell contains an array of integers and/or floating-\/point numbers that may be used for a variety of purposes, such as whether a site within a cell is occupied, or the coordinates of an atom near a lattice site (for models where atoms may be on a distorted lattice).
+\item \doxylink{namespaceKMCThinFilm_1_1SolverId}{Solvers} that select and execute events at each time step of a simulation.
+\item Hooks to add possible events, such as \doxylink{classKMCThinFilm_1_1Simulation_affa3dff53afd248546457944b98376d9}{deposition}, \doxylink{classKMCThinFilm_1_1Simulation_ada268bce065b942617fd1331b083626d}{diffusion, or a reaction}, in accordance with an implementation of a desired physical model.
+\item Hooks to add actions that run \doxylink{classKMCThinFilm_1_1Simulation_a2d0b886ef44d3acf0a8c018a7042e1d9}{every {\itshape t} seconds of simulation time} or \doxylink{classKMCThinFilm_1_1Simulation_a5280f709245a66489eb357f488082528}{every {\itshape N} time steps}. These actions may simply dump the state of the lattice at various points during a simulation, or to alter it.
+\item A \doxylink{classKMCThinFilm_1_1RandNumGen}{virtual class interface for random number generators}, to allow generators not included with the ARL \doxylink{namespaceKMCThinFilm}{KMCThin\+Film} library to be used.
+\item \doxysectlink{concepts_and_algorithms_kmc_par_alg}{Implementation of an approximate parallel k\+MC algorithm}{1}.
+\end{DoxyItemize}
+
+However, this library does {\itshape not} contain details about the physics of any particular k\+MC model. For example, there is no assumption that the model must be solid-\/on-\/solid, or that the lattice be simple cubic. The library also does not require that the rates of k\+MC events be determined via a particular theory, e.\+g. harmonic transition state theory. Aside from the assumptions that the model (1) involves sites on a lattice and (2) has periodic boundary conditions along the in-\/plane dimensions, the library\textquotesingle{}s framework should be fairly flexible. The downside of this flexibility, of course, is the need to write additional code to create a complete k\+MC application. Use of this library, though, should still be far simpler than writing an entire k\+MC application from scratch. 

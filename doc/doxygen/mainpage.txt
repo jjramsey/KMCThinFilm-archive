@@ -1,0 +1,62 @@
+/*! \mainpage Introduction to the ARL KMCThinFilm library
+
+    The ARL KMCThinFilm library is designed to assist researchers in
+    creating kinetic Monte Carlo (kMC) simulations of thin film growth
+    where the particles involved in the growth (which may be atoms,
+    molecules, or some sort of coarse-grained &ldquo;effective&rdquo;
+    particle) are assumed to be restricted to be on or near the sites
+    of a lattice. What the library contains:
+
+    - A \ref lattice_overview "general lattice class" that
+      represents the lattice as a three-dimensional array of
+      cells&mdash;but not necessarily in a cubic or orthogonal
+      arrangement&mdash;where each cell contains an array of integers
+      and/or floating-point numbers that may be used for a variety of
+      purposes, such as whether a site within a cell is occupied, or
+      the coordinates of an atom near a lattice site (for models where
+      atoms may be on a distorted lattice).
+
+    - \link KMCThinFilm::SolverId Solvers\endlink that select and
+      execute events at each time step of a simulation.
+    
+    - Hooks to add possible events, such as \link
+      KMCThinFilm::Simulation::addOverLatticeEvent deposition\endlink,
+      \link KMCThinFilm::Simulation::addCellCenteredEventGroup diffusion,
+      or a reaction\endlink, in accordance with an implementation of a
+      desired physical model.
+
+    - Hooks to add actions that run \link
+      KMCThinFilm::Simulation::addTimePeriodicAction every <EM>t</EM>
+      seconds of simulation time\endlink or \link
+      KMCThinFilm::Simulation::addStepPeriodicAction every <EM>N</EM>
+      time steps\endlink. These actions may simply dump the state
+      of the lattice at various points during a simulation, or to
+      alter it.
+
+    - A \link KMCThinFilm::RandNumGen virtual class interface for
+      random number generators\endlink, to allow generators not
+      included with the ARL KMCThinFilm library to be used.
+    
+    - \ref kmc_par_alg "Implementation of an approximate parallel kMC algorithm".
+
+    However, this library does <EM>not</EM> contain details about the
+    physics of any particular kMC model. For example, there is no
+    assumption that the model must be solid-on-solid, or that the
+    lattice be simple cubic. The library also does not require that
+    the rates of kMC events be determined via a particular theory,
+    e.g. harmonic transition state theory. Aside from the assumptions
+    that the model (1) involves sites on a lattice and (2) has
+    periodic boundary conditions along the in-plane dimensions, the
+    library's framework should be fairly flexible. The downside of
+    this flexibility, of course, is the need to write additional code
+    to create a complete kMC application. Use of this library, though,
+    should still be far simpler than writing an entire kMC application
+    from scratch.
+
+*/
+
+/*! \namespace KMCThinFilm
+
+   This is the namespace that contains all the class definitions and
+   functions of the ARL KMCThinFilm library.
+*/

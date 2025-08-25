@@ -1,0 +1,624 @@
+\doxysection{KMCThin\+Film\+::Lattice Class Reference}
+\hypertarget{classKMCThinFilm_1_1Lattice}{}\label{classKMCThinFilm_1_1Lattice}\index{KMCThinFilm::Lattice@{KMCThinFilm::Lattice}}
+
+
+{\ttfamily \#include $<$Lattice.\+hpp$>$}
+
+Inheritance diagram for KMCThin\+Film\+::Lattice\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classKMCThinFilm_1_1Lattice}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classKMCThinFilm_1_1Lattice_ae8e2c418fc3fd1bcd0ca61c3647d6462}{Lattice}} (const \mbox{\hyperlink{structKMCThinFilm_1_1LatticeParams}{Lattice\+Params}} \&params\+For\+Lattice)
+\item 
+void \mbox{\hyperlink{classKMCThinFilm_1_1Lattice_aa36bda22ed2b0bc8d8737d3d63009765}{add\+Planes}} (int num\+Planes\+To\+Add)
+\item 
+bool \mbox{\hyperlink{classKMCThinFilm_1_1Lattice_a22bdff6d2d8478783350f84ccd73ba70}{add\+To\+Export\+Buffer\+If\+Needed}} (const \mbox{\hyperlink{classKMCThinFilm_1_1CellInds}{Cell\+Inds}} \&ci)
+\item 
+void \mbox{\hyperlink{classKMCThinFilm_1_1Lattice_a5cb4134926e0f9d17dc4ee0a9606d98a}{clear\+Ghosts\+To\+Send}} ()
+\item 
+const MPI\+\_\+\+Comm \& \mbox{\hyperlink{classKMCThinFilm_1_1Lattice_aef0511e825e463bc1f91df0720513c86}{comm}} () const
+\item 
+int \mbox{\hyperlink{classKMCThinFilm_1_1Lattice_a0236ed2c0c17d92a5ab01f61519f8983}{comm\+Coord}} (int dim) const
+\item 
+int \mbox{\hyperlink{classKMCThinFilm_1_1Lattice_a79fcfbbdb100a422553f1648019aab1a}{curr\+Height}} () const
+\item 
+double \mbox{\hyperlink{classKMCThinFilm_1_1Lattice_a825ef41025b740e190d60d097f9d9ae5}{get\+Float}} (const \mbox{\hyperlink{classKMCThinFilm_1_1CellInds}{Cell\+Inds}} \&ci, int which\+Float) const
+\item 
+void \mbox{\hyperlink{classKMCThinFilm_1_1Lattice_ac160d406b29dc80fb72551ad3d74ac3a}{get\+Global\+Planar\+BBox}} (\mbox{\hyperlink{structKMCThinFilm_1_1LatticePlanarBBox}{Lattice\+Planar\+BBox}} \&bbox) const
+\item 
+int \mbox{\hyperlink{classKMCThinFilm_1_1Lattice_aff659b471f414c579a51fe280b218ef1}{get\+Int}} (const \mbox{\hyperlink{classKMCThinFilm_1_1CellInds}{Cell\+Inds}} \&ci, int which\+Int) const
+\item 
+void \mbox{\hyperlink{classKMCThinFilm_1_1Lattice_a1504ff860e046a8965b37dd437a74c52}{get\+Local\+Planar\+BBox}} (bool w\+Ghost, \mbox{\hyperlink{structKMCThinFilm_1_1LatticePlanarBBox}{Lattice\+Planar\+BBox}} \&bbox) const
+\item 
+const std\+::vector$<$ std\+::vector$<$ IJK $>$ $>$ \& \mbox{\hyperlink{classKMCThinFilm_1_1Lattice_afc38b275efbadecc0800d5b77ad8841d}{get\+Received\+Ghost\+Inds}} () const
+\item 
+const std\+::vector$<$ std\+::vector$<$ IJK $>$ $>$ \& \mbox{\hyperlink{classKMCThinFilm_1_1Lattice_a7b1f19702b428a80fe886a5d24ae4f05}{get\+Received\+Local\+Inds}} () const
+\item 
+void \mbox{\hyperlink{classKMCThinFilm_1_1Lattice_ae6d9adbfdcd256875c8b9b6b281c648c}{get\+Sector\+Planar\+BBox}} (int sect\+Num, \mbox{\hyperlink{structKMCThinFilm_1_1LatticePlanarBBox}{Lattice\+Planar\+BBox}} \&bbox) const
+\item 
+int \mbox{\hyperlink{classKMCThinFilm_1_1Lattice_ab88c96bfe79958ad29842a6ce72c77a8}{ghost\+Extent}} (int dim) const
+\item 
+int \mbox{\hyperlink{classKMCThinFilm_1_1Lattice_af88c2bfaa3f80c7efc19402c0d24a50b}{n\+Floats\+Per\+Cell}} () const
+\item 
+int \mbox{\hyperlink{classKMCThinFilm_1_1Lattice_ae141f7cd71bbbdf12dffe12e0dc0f115}{n\+Ints\+Per\+Cell}} () const
+\item 
+int \mbox{\hyperlink{classKMCThinFilm_1_1Lattice_ad48a237aac1ffb943bf8b49de148da89}{n\+Procs}} () const
+\item 
+int \mbox{\hyperlink{classKMCThinFilm_1_1Lattice_a3bf12bd319b270be69241404305470ca}{num\+Sectors}} () const
+\item 
+int \mbox{\hyperlink{classKMCThinFilm_1_1Lattice_ab3e6a5e45049adf3e15a9716eae02de1}{planes\+Reserved}} () const
+\item 
+int \mbox{\hyperlink{classKMCThinFilm_1_1Lattice_aec4668447dc65f0a0be67b53519db0d5}{proc\+ID}} () const
+\item 
+int \mbox{\hyperlink{classKMCThinFilm_1_1Lattice_ab21e3aa48b60071c245ac1d3e4c8b6d9}{proc\+Per\+Dim}} (int dim) const
+\item 
+void \mbox{\hyperlink{classKMCThinFilm_1_1Lattice_ae6ed07b1fe933e225797e516d3a4f776}{recv\+Ghosts}} (int sect\+Num)
+\item 
+void \mbox{\hyperlink{classKMCThinFilm_1_1Lattice_a453210b26b7b82606bb10c3f1029cdad}{recv\+Ghosts\+Update}} (int sect\+Num)
+\item 
+void \mbox{\hyperlink{classKMCThinFilm_1_1Lattice_ae7545e7f3d017242dd25d7ee7dd71458}{reserve\+Planes}} (int num\+Total\+Planes\+To\+Reserve)
+\item 
+int \mbox{\hyperlink{classKMCThinFilm_1_1Lattice_a51bd26f57ef3eb7ba005eb2a4570478e}{sector\+Of\+Indices}} (const \mbox{\hyperlink{classKMCThinFilm_1_1CellInds}{Cell\+Inds}} \&ci) const
+\item 
+void \mbox{\hyperlink{classKMCThinFilm_1_1Lattice_ac4c58a1cfa17486667fe07f2cfa167cb}{send\+Ghosts}} (int sect\+Num)
+\item 
+void \mbox{\hyperlink{classKMCThinFilm_1_1Lattice_a11f64bd02c9f4d55da74388d69d3d0bb}{send\+Ghosts\+Update}} (int sect\+Num)
+\item 
+void \mbox{\hyperlink{classKMCThinFilm_1_1Lattice_aefe9601bf62fdb46d451d61fa017e691}{set\+Float}} (const \mbox{\hyperlink{classKMCThinFilm_1_1CellInds}{Cell\+Inds}} \&ci, int which\+Int, double val)
+\item 
+void \mbox{\hyperlink{classKMCThinFilm_1_1Lattice_a81beda29c4c8722cb047f7f2ce0a09ce}{set\+Int}} (const \mbox{\hyperlink{classKMCThinFilm_1_1CellInds}{Cell\+Inds}} \&ci, int which\+Int, int val)
+\item 
+int \mbox{\hyperlink{classKMCThinFilm_1_1Lattice_ad86c9013774b072638db5527ced49cf8}{wrapI}} (const \mbox{\hyperlink{classKMCThinFilm_1_1CellInds}{Cell\+Inds}} \&ci) const
+\item 
+int \mbox{\hyperlink{classKMCThinFilm_1_1Lattice_a837c173e46cb56875b02dbdb27da71c9}{wrapJ}} (const \mbox{\hyperlink{classKMCThinFilm_1_1CellInds}{Cell\+Inds}} \&ci) const
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classKMCThinFilm_1_1Lattice_aeb51e0a4c44d4192cfbdb79598859172}\label{classKMCThinFilm_1_1Lattice_aeb51e0a4c44d4192cfbdb79598859172} 
+class {\bfseries Simulation}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+A lattice that may be distributed over several processors.
+
+This lattice is designed to be simple but general. It is represented as a three-\/dimensional array, which can not only be used for square or simple cubic lattices, but also lattices of other physical shapes, such as the part of layer {\itshape k} of a simple hexagonal lattice shown below\+:
+
+\begin{DoxyVerb}    (0,1,k)-----(1,1,k)----(2,1,k)----(3,1,k)---(4,1,k)
+      / \        / \        / \        / \        /
+     /   \      /   \      /   \      /   \      /
+    /     \    /     \    /     \    /     \    /
+   /       \  /       \  /       \  /       \  /
+  /_________\/_________\/_________\/_________\/
+(0,0,k)   (1,0,k)   (2,0,k)     (3,0,k)   (4,0,k)
+\end{DoxyVerb}
+
+
+For further flexibility, each site may effectively contain an array of integers and/or an array of double-\/precision floating point numbers. The lengths of these arrays is the same for all sites on the lattice. \begin{Desc}
+\item[Examples]\par
+\mbox{\hyperlink{testBallisticDep1_2EventsAndActions_8cpp-example}{test\+Ballistic\+Dep1/\+Events\+And\+Actions.\+cpp}}, \mbox{\hyperlink{testBallisticDep1_2EventsAndActions_8hpp-example}{test\+Ballistic\+Dep1/\+Events\+And\+Actions.\+hpp}}, \mbox{\hyperlink{testBallisticDep1_2InitLattice_8cpp-example}{test\+Ballistic\+Dep1/\+Init\+Lattice.\+cpp}}, \mbox{\hyperlink{testBallisticDep1_2InitLattice_8hpp-example}{test\+Ballistic\+Dep1/\+Init\+Lattice.\+hpp}}, \mbox{\hyperlink{testBallisticDep2_2EventsAndActions_8cpp-example}{test\+Ballistic\+Dep2/\+Events\+And\+Actions.\+cpp}}, \mbox{\hyperlink{testBallisticDep2_2EventsAndActions_8hpp-example}{test\+Ballistic\+Dep2/\+Events\+And\+Actions.\+hpp}}, \mbox{\hyperlink{testFractal_2EventsAndActions_8cpp-example}{test\+Fractal/\+Events\+And\+Actions.\+cpp}}, \mbox{\hyperlink{testFractal_2EventsAndActions_8hpp-example}{test\+Fractal/\+Events\+And\+Actions.\+hpp}}, \mbox{\hyperlink{testFractal_semi_manual_track_2EventsAndActions_8cpp-example}{test\+Fractal\+\_\+semi\+\_\+manual\+\_\+track/\+Events\+And\+Actions.\+cpp}}, \mbox{\hyperlink{testFractal_semi_manual_track_2EventsAndActions_8hpp-example}{test\+Fractal\+\_\+semi\+\_\+manual\+\_\+track/\+Events\+And\+Actions.\+hpp}}, \mbox{\hyperlink{testPatternedSurface1_2EventsAndActions_8cpp-example}{test\+Patterned\+Surface1/\+Events\+And\+Actions.\+cpp}}, \mbox{\hyperlink{testPatternedSurface1_2EventsAndActions_8hpp-example}{test\+Patterned\+Surface1/\+Events\+And\+Actions.\+hpp}}, \mbox{\hyperlink{testPatternedSurface1_2InitLattice_8cpp-example}{test\+Patterned\+Surface1/\+Init\+Lattice.\+cpp}}, \mbox{\hyperlink{testPatternedSurface1_2InitLattice_8hpp-example}{test\+Patterned\+Surface1/\+Init\+Lattice.\+hpp}}, \mbox{\hyperlink{testPatternedSurface2_2EventsAndActions_8cpp-example}{test\+Patterned\+Surface2/\+Events\+And\+Actions.\+cpp}}, and \mbox{\hyperlink{testPatternedSurface2_2EventsAndActions_8hpp-example}{test\+Patterned\+Surface2/\+Events\+And\+Actions.\+hpp}}.\end{Desc}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classKMCThinFilm_1_1Lattice_ae8e2c418fc3fd1bcd0ca61c3647d6462}\index{KMCThinFilm::Lattice@{KMCThinFilm::Lattice}!Lattice@{Lattice}}
+\index{Lattice@{Lattice}!KMCThinFilm::Lattice@{KMCThinFilm::Lattice}}
+\doxysubsubsection{\texorpdfstring{Lattice()}{Lattice()}}
+{\footnotesize\ttfamily \label{classKMCThinFilm_1_1Lattice_ae8e2c418fc3fd1bcd0ca61c3647d6462} 
+KMCThin\+Film\+::\+Lattice\+::\+Lattice (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structKMCThinFilm_1_1LatticeParams}{Lattice\+Params}} \&}]{params\+For\+Lattice}{}\end{DoxyParamCaption})}
+
+\mbox{[}{\bfseries{ADVANCED}}\mbox{]} Constructor of a \doxylink{classKMCThinFilm_1_1Lattice}{Lattice} object
+
+Unless one is debugging or testing an application that uses ARL \doxylink{namespaceKMCThinFilm}{KMCThin\+Film}, there is little point in calling this directly, since when a \doxylink{classKMCThinFilm_1_1Simulation}{Simulation} object is constructed, it builds a \doxylink{classKMCThinFilm_1_1Lattice}{Lattice} object internally for its own use. 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classKMCThinFilm_1_1Lattice_aa36bda22ed2b0bc8d8737d3d63009765}\index{KMCThinFilm::Lattice@{KMCThinFilm::Lattice}!addPlanes@{addPlanes}}
+\index{addPlanes@{addPlanes}!KMCThinFilm::Lattice@{KMCThinFilm::Lattice}}
+\doxysubsubsection{\texorpdfstring{addPlanes()}{addPlanes()}}
+{\footnotesize\ttfamily \label{classKMCThinFilm_1_1Lattice_aa36bda22ed2b0bc8d8737d3d63009765} 
+void KMCThin\+Film\+::\+Lattice\+::add\+Planes (\begin{DoxyParamCaption}\item[{int}]{num\+Planes\+To\+Add}{}\end{DoxyParamCaption})}
+
+Adds zero or more layers to a given lattice, increasing the maximum value of the third lattice cell coordinate.
+
+Note that if {\itshape num\+Planes\+To\+Add} is non-\/positive, this member function does nothing. This behavior may be used to conditionally add lattice planes. For example,
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{comment}{//\ Lattice\ object\ named\ "{}lattice"{}\ defined\ above}}
+\DoxyCodeLine{}
+\DoxyCodeLine{CellInds\ ci;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{//\ Misc.\ calcs\ ...}}
+\DoxyCodeLine{}
+\DoxyCodeLine{ci.k\ =\ someFunction(...);}
+\DoxyCodeLine{kMax\ =\ lattice.currHeight()\ -\/\ 1;}
+\DoxyCodeLine{}
+\DoxyCodeLine{lattice.addPlanes(ci.k\ -\/\ kMax);\ \textcolor{comment}{//\ Only\ adds\ a\ lattice\ plane\ if\ ci.k\ exceeds\ kMax}}
+\DoxyCodeLine{}
+\DoxyCodeLine{lattice.setInt(ci,\ whichInt,\ anotherFunction(...));}
+
+\end{DoxyCode}
+ \begin{Desc}
+\item[Examples]\par
+\mbox{\hyperlink{testBallisticDep1_2EventsAndActions_8cpp-example}{test\+Ballistic\+Dep1/\+Events\+And\+Actions.\+cpp}}, and \mbox{\hyperlink{testPatternedSurface1_2InitLattice_8cpp-example}{test\+Patterned\+Surface1/\+Init\+Lattice.\+cpp}}.\end{Desc}
+\Hypertarget{classKMCThinFilm_1_1Lattice_a22bdff6d2d8478783350f84ccd73ba70}\index{KMCThinFilm::Lattice@{KMCThinFilm::Lattice}!addToExportBufferIfNeeded@{addToExportBufferIfNeeded}}
+\index{addToExportBufferIfNeeded@{addToExportBufferIfNeeded}!KMCThinFilm::Lattice@{KMCThinFilm::Lattice}}
+\doxysubsubsection{\texorpdfstring{addToExportBufferIfNeeded()}{addToExportBufferIfNeeded()}}
+{\footnotesize\ttfamily \label{classKMCThinFilm_1_1Lattice_a22bdff6d2d8478783350f84ccd73ba70} 
+bool KMCThin\+Film\+::\+Lattice\+::add\+To\+Export\+Buffer\+If\+Needed (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classKMCThinFilm_1_1CellInds}{Cell\+Inds}} \&}]{ci}{}\end{DoxyParamCaption})}
+
+\mbox{[}{\bfseries{ADVANCED}}\mbox{]} Adds {\itshape ci} to the lists of \doxylink{classKMCThinFilm_1_1CellInds}{Cell\+Inds} objects to be sent to other processors, provided that {\itshape ci} is either in a ghost region or in the part of the boundary of the lattice that is sent to other processors. Returns true if {\itshape ci} is in a ghost region.
+
+This should typically be used between a pair of calls to \doxylink{classKMCThinFilm_1_1Lattice_a453210b26b7b82606bb10c3f1029cdad}{recv\+Ghosts\+Update(i)} and \doxylink{classKMCThinFilm_1_1Lattice_a11f64bd02c9f4d55da74388d69d3d0bb}{send\+Ghosts\+Update(i)}, where the value of {\itshape i} is the same for both calls. If ghosts are never exported, then \doxylink{classKMCThinFilm_1_1Lattice_a5cb4134926e0f9d17dc4ee0a9606d98a}{clear\+Ghosts\+To\+Send()} should be used in place of \doxylink{classKMCThinFilm_1_1Lattice_a11f64bd02c9f4d55da74388d69d3d0bb}{send\+Ghosts\+Update()}, and calls to \doxylink{classKMCThinFilm_1_1Lattice_a22bdff6d2d8478783350f84ccd73ba70}{add\+To\+Export\+Buffer\+If\+Needed()} may be called before any calls to \doxylink{classKMCThinFilm_1_1Lattice_a453210b26b7b82606bb10c3f1029cdad}{recv\+Ghosts\+Update()}. \Hypertarget{classKMCThinFilm_1_1Lattice_a5cb4134926e0f9d17dc4ee0a9606d98a}\index{KMCThinFilm::Lattice@{KMCThinFilm::Lattice}!clearGhostsToSend@{clearGhostsToSend}}
+\index{clearGhostsToSend@{clearGhostsToSend}!KMCThinFilm::Lattice@{KMCThinFilm::Lattice}}
+\doxysubsubsection{\texorpdfstring{clearGhostsToSend()}{clearGhostsToSend()}}
+{\footnotesize\ttfamily \label{classKMCThinFilm_1_1Lattice_a5cb4134926e0f9d17dc4ee0a9606d98a} 
+void KMCThin\+Film\+::\+Lattice\+::clear\+Ghosts\+To\+Send (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+\mbox{[}{\bfseries{ADVANCED}}\mbox{]} Clears any ghosts that would be sent by a call to \doxylink{classKMCThinFilm_1_1Lattice_a11f64bd02c9f4d55da74388d69d3d0bb}{send\+Ghosts\+Update()} \Hypertarget{classKMCThinFilm_1_1Lattice_aef0511e825e463bc1f91df0720513c86}\index{KMCThinFilm::Lattice@{KMCThinFilm::Lattice}!comm@{comm}}
+\index{comm@{comm}!KMCThinFilm::Lattice@{KMCThinFilm::Lattice}}
+\doxysubsubsection{\texorpdfstring{comm()}{comm()}}
+{\footnotesize\ttfamily \label{classKMCThinFilm_1_1Lattice_aef0511e825e463bc1f91df0720513c86} 
+const MPI\+\_\+\+Comm \& KMCThin\+Film\+::\+Lattice\+::comm (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+The MPI communicator used by the lattice for interchange of ghosts, if the preprocessor variable KMC\+\_\+\+PARALLEL is non-\/zero. {\bfseries{Not available in the serial version of the ARL \doxylink{namespaceKMCThinFilm}{KMCThin\+Film} library.}}
+
+This is {\itshape not} the same as the {\itshape lattice\+Comm\+Initial} member of the \doxylink{structKMCThinFilm_1_1LatticeParams}{Lattice\+Params} object used to construct the lattice. While it contains the same number of processors as {\itshape lattice\+Comm\+Initial}, the lines of code
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{int}\ rank;}
+\DoxyCodeLine{LatticeParams\ latParams;}
+\DoxyCodeLine{MPI\_Comm\_rank(latParams.latticeCommInitial,\ \&rank);}
+
+\end{DoxyCode}
+
+
+and
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{comment}{//\ Lattice\ object\ named\ "{}lattice"{}\ defined\ above}}
+\DoxyCodeLine{\textcolor{keywordtype}{int}\ rank;}
+\DoxyCodeLine{MPI\_Comm\_rank(lattice.comm(),\ \&rank);}
+
+\end{DoxyCode}
+
+
+may not return the same value for {\itshape rank}. \Hypertarget{classKMCThinFilm_1_1Lattice_a0236ed2c0c17d92a5ab01f61519f8983}\index{KMCThinFilm::Lattice@{KMCThinFilm::Lattice}!commCoord@{commCoord}}
+\index{commCoord@{commCoord}!KMCThinFilm::Lattice@{KMCThinFilm::Lattice}}
+\doxysubsubsection{\texorpdfstring{commCoord()}{commCoord()}}
+{\footnotesize\ttfamily \label{classKMCThinFilm_1_1Lattice_a0236ed2c0c17d92a5ab01f61519f8983} 
+int KMCThin\+Film\+::\+Lattice\+::comm\+Coord (\begin{DoxyParamCaption}\item[{int}]{dim}{}\end{DoxyParamCaption}) const}
+
+Coordinates for a processor in an MPI Cartesian topology along in-\/plane dimension {\itshape dim} for a given processor.
+
+For example, if the lattice is partitioned as follows,
+
+\begin{DoxyVerb}*-----*-----*-----*
+|  3  |  4  |  5  |
+*-----*-----*-----*
+|  0  |  1  |  2  |
+*-----*-----*-----*
+\end{DoxyVerb}
+
+
+where the numbers 0, 1, 2, etc., denote processor ranks, then if the MPI rank of a processor is 4, then comm\+Coord(0) returns a value of 1, and comm\+Coord(0) returns a value of 2. The coordinates for all processor ranks in the above partitioned lattice are shown below\+:
+
+\begin{DoxyVerb}*-----*-----*-----*
+|(1,0)|(1,1)|(1,2)|
+*-----*-----*-----*
+|(0,0)|(0,1)|(0,2)|
+*-----*-----*-----*
+\end{DoxyVerb}
+
+
+Note that the coordinates described here are {\itshape not} the same as the coordinates of a lattice cell.
+
+\begin{DoxySeeAlso}{See also}
+\doxylink{classKMCThinFilm_1_1Lattice_ab21e3aa48b60071c245ac1d3e4c8b6d9}{proc\+Per\+Dim()} 
+\end{DoxySeeAlso}
+\Hypertarget{classKMCThinFilm_1_1Lattice_a79fcfbbdb100a422553f1648019aab1a}\index{KMCThinFilm::Lattice@{KMCThinFilm::Lattice}!currHeight@{currHeight}}
+\index{currHeight@{currHeight}!KMCThinFilm::Lattice@{KMCThinFilm::Lattice}}
+\doxysubsubsection{\texorpdfstring{currHeight()}{currHeight()}}
+{\footnotesize\ttfamily \label{classKMCThinFilm_1_1Lattice_a79fcfbbdb100a422553f1648019aab1a} 
+int KMCThin\+Film\+::\+Lattice\+::curr\+Height (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+The current number of lattice planes.
+
+This is also one larger than the maximum value of the third lattice coordinate.
+
+\begin{DoxySeeAlso}{See also}
+\doxylink{classKMCThinFilm_1_1Lattice_a1504ff860e046a8965b37dd437a74c52}{get\+Local\+Planar\+BBox()} \doxylink{classKMCThinFilm_1_1Lattice_ae6d9adbfdcd256875c8b9b6b281c648c}{get\+Sector\+Planar\+BBox()} 
+\end{DoxySeeAlso}
+\begin{Desc}
+\item[Examples]\par
+\mbox{\hyperlink{testBallisticDep1_2EventsAndActions_8cpp-example}{test\+Ballistic\+Dep1/\+Events\+And\+Actions.\+cpp}}, and \mbox{\hyperlink{testBallisticDep2_2EventsAndActions_8cpp-example}{test\+Ballistic\+Dep2/\+Events\+And\+Actions.\+cpp}}.\end{Desc}
+\Hypertarget{classKMCThinFilm_1_1Lattice_a825ef41025b740e190d60d097f9d9ae5}\index{KMCThinFilm::Lattice@{KMCThinFilm::Lattice}!getFloat@{getFloat}}
+\index{getFloat@{getFloat}!KMCThinFilm::Lattice@{KMCThinFilm::Lattice}}
+\doxysubsubsection{\texorpdfstring{getFloat()}{getFloat()}}
+{\footnotesize\ttfamily \label{classKMCThinFilm_1_1Lattice_a825ef41025b740e190d60d097f9d9ae5} 
+double KMCThin\+Film\+::\+Lattice\+::get\+Float (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classKMCThinFilm_1_1CellInds}{Cell\+Inds}} \&}]{ci}{, }\item[{int}]{which\+Float}{}\end{DoxyParamCaption}) const}
+
+Returns the value of double-\/precision array element {\itshape which\+Float} at lattice cell indices {\itshape ci}.
+
+The value of {\itshape which\+Float} ranges from 0 to \doxylink{classKMCThinFilm_1_1Lattice_af88c2bfaa3f80c7efc19402c0d24a50b}{n\+Floats\+Per\+Cell()} -\/ 1.
+
+\begin{DoxySeeAlso}{See also}
+\doxylink{classKMCThinFilm_1_1Lattice_aff659b471f414c579a51fe280b218ef1}{get\+Int()} \doxylink{classKMCThinFilm_1_1Lattice_aefe9601bf62fdb46d451d61fa017e691}{set\+Float()} \doxylink{classKMCThinFilm_1_1Lattice_a81beda29c4c8722cb047f7f2ce0a09ce}{set\+Int()} 
+\end{DoxySeeAlso}
+\begin{Desc}
+\item[Examples]\par
+\mbox{\hyperlink{testBallisticDep1_2EventsAndActions_8cpp-example}{test\+Ballistic\+Dep1/\+Events\+And\+Actions.\+cpp}}, and \mbox{\hyperlink{testBallisticDep2_2EventsAndActions_8cpp-example}{test\+Ballistic\+Dep2/\+Events\+And\+Actions.\+cpp}}.\end{Desc}
+\Hypertarget{classKMCThinFilm_1_1Lattice_ac160d406b29dc80fb72551ad3d74ac3a}\index{KMCThinFilm::Lattice@{KMCThinFilm::Lattice}!getGlobalPlanarBBox@{getGlobalPlanarBBox}}
+\index{getGlobalPlanarBBox@{getGlobalPlanarBBox}!KMCThinFilm::Lattice@{KMCThinFilm::Lattice}}
+\doxysubsubsection{\texorpdfstring{getGlobalPlanarBBox()}{getGlobalPlanarBBox()}}
+{\footnotesize\ttfamily \label{classKMCThinFilm_1_1Lattice_ac160d406b29dc80fb72551ad3d74ac3a} 
+void KMCThin\+Film\+::\+Lattice\+::get\+Global\+Planar\+BBox (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structKMCThinFilm_1_1LatticePlanarBBox}{Lattice\+Planar\+BBox}} \&}]{bbox}{}\end{DoxyParamCaption}) const}
+
+Obtain limiting values of the global lattice coordinates.
+
+"{}\+BBox"{} here is short for "{}bounding box."{}
+
+Note that this function in general {\itshape cannot} be used to determine lattice coordinate values for use with \doxylink{classKMCThinFilm_1_1Lattice_aff659b471f414c579a51fe280b218ef1}{get\+Int()}, \doxylink{classKMCThinFilm_1_1Lattice_a81beda29c4c8722cb047f7f2ce0a09ce}{set\+Int()}, \doxylink{classKMCThinFilm_1_1Lattice_a825ef41025b740e190d60d097f9d9ae5}{get\+Float()}, and \doxylink{classKMCThinFilm_1_1Lattice_aefe9601bf62fdb46d451d61fa017e691}{set\+Float()}, since those functions require local lattice coordinates. To obtain limiting values for local lattice coordinates, use \doxylink{classKMCThinFilm_1_1Lattice_a1504ff860e046a8965b37dd437a74c52}{get\+Local\+Planar\+BBox()} or \doxylink{classKMCThinFilm_1_1Lattice_ae6d9adbfdcd256875c8b9b6b281c648c}{get\+Sector\+Planar\+BBox()} instead.
+
+\begin{DoxySeeAlso}{See also}
+\doxylink{classKMCThinFilm_1_1Lattice_a1504ff860e046a8965b37dd437a74c52}{get\+Local\+Planar\+BBox()} \doxylink{classKMCThinFilm_1_1Lattice_ae6d9adbfdcd256875c8b9b6b281c648c}{get\+Sector\+Planar\+BBox()} 
+\end{DoxySeeAlso}
+
+\begin{DoxyParams}{Parameters}
+{\em bbox} & Bounding box of the global lattice coordinates. \\
+\hline
+\end{DoxyParams}
+\begin{Desc}
+\item[Examples]\par
+\mbox{\hyperlink{testPatternedSurface1_2InitLattice_8cpp-example}{test\+Patterned\+Surface1/\+Init\+Lattice.\+cpp}}.\end{Desc}
+\Hypertarget{classKMCThinFilm_1_1Lattice_aff659b471f414c579a51fe280b218ef1}\index{KMCThinFilm::Lattice@{KMCThinFilm::Lattice}!getInt@{getInt}}
+\index{getInt@{getInt}!KMCThinFilm::Lattice@{KMCThinFilm::Lattice}}
+\doxysubsubsection{\texorpdfstring{getInt()}{getInt()}}
+{\footnotesize\ttfamily \label{classKMCThinFilm_1_1Lattice_aff659b471f414c579a51fe280b218ef1} 
+int KMCThin\+Film\+::\+Lattice\+::get\+Int (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classKMCThinFilm_1_1CellInds}{Cell\+Inds}} \&}]{ci}{, }\item[{int}]{which\+Int}{}\end{DoxyParamCaption}) const}
+
+Returns the value of integer array element {\itshape which\+Int} at lattice cell indices {\itshape ci}.
+
+The value of {\itshape which\+Int} ranges from 0 to \doxylink{classKMCThinFilm_1_1Lattice_ae141f7cd71bbbdf12dffe12e0dc0f115}{n\+Ints\+Per\+Cell()} -\/ 1.
+
+\begin{DoxySeeAlso}{See also}
+\doxylink{classKMCThinFilm_1_1Lattice_a825ef41025b740e190d60d097f9d9ae5}{get\+Float()} \doxylink{classKMCThinFilm_1_1Lattice_aefe9601bf62fdb46d451d61fa017e691}{set\+Float()} \doxylink{classKMCThinFilm_1_1Lattice_a81beda29c4c8722cb047f7f2ce0a09ce}{set\+Int()} 
+\end{DoxySeeAlso}
+\begin{Desc}
+\item[Examples]\par
+\mbox{\hyperlink{testBallisticDep1_2EventsAndActions_8cpp-example}{test\+Ballistic\+Dep1/\+Events\+And\+Actions.\+cpp}}, \mbox{\hyperlink{testBallisticDep2_2EventsAndActions_8cpp-example}{test\+Ballistic\+Dep2/\+Events\+And\+Actions.\+cpp}}, \mbox{\hyperlink{testFractal_2EventsAndActions_8cpp-example}{test\+Fractal/\+Events\+And\+Actions.\+cpp}}, \mbox{\hyperlink{testFractal_semi_manual_track_2EventsAndActions_8cpp-example}{test\+Fractal\+\_\+semi\+\_\+manual\+\_\+track/\+Events\+And\+Actions.\+cpp}}, \mbox{\hyperlink{testPatternedSurface1_2EventsAndActions_8cpp-example}{test\+Patterned\+Surface1/\+Events\+And\+Actions.\+cpp}}, and \mbox{\hyperlink{testPatternedSurface2_2EventsAndActions_8cpp-example}{test\+Patterned\+Surface2/\+Events\+And\+Actions.\+cpp}}.\end{Desc}
+\Hypertarget{classKMCThinFilm_1_1Lattice_a1504ff860e046a8965b37dd437a74c52}\index{KMCThinFilm::Lattice@{KMCThinFilm::Lattice}!getLocalPlanarBBox@{getLocalPlanarBBox}}
+\index{getLocalPlanarBBox@{getLocalPlanarBBox}!KMCThinFilm::Lattice@{KMCThinFilm::Lattice}}
+\doxysubsubsection{\texorpdfstring{getLocalPlanarBBox()}{getLocalPlanarBBox()}}
+{\footnotesize\ttfamily \label{classKMCThinFilm_1_1Lattice_a1504ff860e046a8965b37dd437a74c52} 
+void KMCThin\+Film\+::\+Lattice\+::get\+Local\+Planar\+BBox (\begin{DoxyParamCaption}\item[{bool}]{w\+Ghost}{, }\item[{\mbox{\hyperlink{structKMCThinFilm_1_1LatticePlanarBBox}{Lattice\+Planar\+BBox}} \&}]{bbox}{}\end{DoxyParamCaption}) const}
+
+Obtain limiting values of the local lattice coordinates.
+
+"{}\+BBox"{} here is short for "{}bounding box."{}
+
+A typical use for this member function would be something like this\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{comment}{//\ Lattice\ object\ named\ "{}lattice"{}\ defined\ above}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keywordtype}{bool}\ includeGhosts\ =\ myBooleanFunc(...);}
+\DoxyCodeLine{}
+\DoxyCodeLine{LatticePlanarBBox\ localPlanarBBox;\ \ \ \ \ \ }
+\DoxyCodeLine{lattice.getLocalPlanarBBox(includeGhosts,\ localPlanarBBox);}
+\DoxyCodeLine{kMaxP1\ =\ lattice.currHeight();}
+\DoxyCodeLine{}
+\DoxyCodeLine{CellInds\ ci;}
+\DoxyCodeLine{\textcolor{keywordflow}{for}\ (ci.k\ =\ 0;\ ci.k\ <\ kMaxP1;\ ++(ci.k))\ \{}
+\DoxyCodeLine{\ \ \ \textcolor{keywordflow}{for}\ (ci.i\ =\ localPlanarBBox.imin;\ ci.i\ <\ localPlanarBBox.imaxP1;\ ++(ci.i))\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \textcolor{keywordflow}{for}\ (ci.j\ =\ localPlanarBBox.jmin;\ ci.j\ <\ localPlanarBBox.jmaxP1;\ ++(ci.j))\ \{}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Some\ calcs\ ...}}
+\DoxyCodeLine{\ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ lattice.setInt(ci,\ WHICH\_INT,\ someFunc(...));\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Other\ calcs\ ...}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \}}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+
+
+\begin{DoxySeeAlso}{See also}
+\doxylink{classKMCThinFilm_1_1Lattice_ae6d9adbfdcd256875c8b9b6b281c648c}{get\+Sector\+Planar\+BBox()} \doxylink{classKMCThinFilm_1_1Lattice_ac160d406b29dc80fb72551ad3d74ac3a}{get\+Global\+Planar\+BBox()} 
+\end{DoxySeeAlso}
+
+\begin{DoxyParams}{Parameters}
+{\em w\+Ghost} & Indicates whether minimum and maximum values for lattice cell coordinates include the coordinates of ghost lattice cells.  \\
+\hline
+{\em bbox} & Bounding box of the local lattice coordinates. \\
+\hline
+\end{DoxyParams}
+\begin{Desc}
+\item[Examples]\par
+\mbox{\hyperlink{testBallisticDep1_2EventsAndActions_8cpp-example}{test\+Ballistic\+Dep1/\+Events\+And\+Actions.\+cpp}}, \mbox{\hyperlink{testBallisticDep2_2EventsAndActions_8cpp-example}{test\+Ballistic\+Dep2/\+Events\+And\+Actions.\+cpp}}, \mbox{\hyperlink{testFractal_2EventsAndActions_8cpp-example}{test\+Fractal/\+Events\+And\+Actions.\+cpp}}, \mbox{\hyperlink{testFractal_semi_manual_track_2EventsAndActions_8cpp-example}{test\+Fractal\+\_\+semi\+\_\+manual\+\_\+track/\+Events\+And\+Actions.\+cpp}}, \mbox{\hyperlink{testPatternedSurface1_2EventsAndActions_8cpp-example}{test\+Patterned\+Surface1/\+Events\+And\+Actions.\+cpp}}, \mbox{\hyperlink{testPatternedSurface1_2InitLattice_8cpp-example}{test\+Patterned\+Surface1/\+Init\+Lattice.\+cpp}}, and \mbox{\hyperlink{testPatternedSurface2_2EventsAndActions_8cpp-example}{test\+Patterned\+Surface2/\+Events\+And\+Actions.\+cpp}}.\end{Desc}
+\Hypertarget{classKMCThinFilm_1_1Lattice_afc38b275efbadecc0800d5b77ad8841d}\index{KMCThinFilm::Lattice@{KMCThinFilm::Lattice}!getReceivedGhostInds@{getReceivedGhostInds}}
+\index{getReceivedGhostInds@{getReceivedGhostInds}!KMCThinFilm::Lattice@{KMCThinFilm::Lattice}}
+\doxysubsubsection{\texorpdfstring{getReceivedGhostInds()}{getReceivedGhostInds()}}
+{\footnotesize\ttfamily \label{classKMCThinFilm_1_1Lattice_afc38b275efbadecc0800d5b77ad8841d} 
+const std\+::vector$<$ std\+::vector$<$ IJK $>$ $>$ \& KMCThin\+Film\+::\+Lattice\+::get\+Received\+Ghost\+Inds (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+\mbox{[}{\bfseries{ADVANCED}}\mbox{]} Returns the lists of the indices of cells that are changed by the latest call to \doxylink{classKMCThinFilm_1_1Lattice_a453210b26b7b82606bb10c3f1029cdad}{recv\+Ghosts\+Update()}. \Hypertarget{classKMCThinFilm_1_1Lattice_a7b1f19702b428a80fe886a5d24ae4f05}\index{KMCThinFilm::Lattice@{KMCThinFilm::Lattice}!getReceivedLocalInds@{getReceivedLocalInds}}
+\index{getReceivedLocalInds@{getReceivedLocalInds}!KMCThinFilm::Lattice@{KMCThinFilm::Lattice}}
+\doxysubsubsection{\texorpdfstring{getReceivedLocalInds()}{getReceivedLocalInds()}}
+{\footnotesize\ttfamily \label{classKMCThinFilm_1_1Lattice_a7b1f19702b428a80fe886a5d24ae4f05} 
+const std\+::vector$<$ std\+::vector$<$ IJK $>$ $>$ \& KMCThin\+Film\+::\+Lattice\+::get\+Received\+Local\+Inds (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+\mbox{[}{\bfseries{ADVANCED}}\mbox{]} Returns the lists of the indices of cells that are changed by the latest call to \doxylink{classKMCThinFilm_1_1Lattice_a11f64bd02c9f4d55da74388d69d3d0bb}{send\+Ghosts\+Update()}. \Hypertarget{classKMCThinFilm_1_1Lattice_ae6d9adbfdcd256875c8b9b6b281c648c}\index{KMCThinFilm::Lattice@{KMCThinFilm::Lattice}!getSectorPlanarBBox@{getSectorPlanarBBox}}
+\index{getSectorPlanarBBox@{getSectorPlanarBBox}!KMCThinFilm::Lattice@{KMCThinFilm::Lattice}}
+\doxysubsubsection{\texorpdfstring{getSectorPlanarBBox()}{getSectorPlanarBBox()}}
+{\footnotesize\ttfamily \label{classKMCThinFilm_1_1Lattice_ae6d9adbfdcd256875c8b9b6b281c648c} 
+void KMCThin\+Film\+::\+Lattice\+::get\+Sector\+Planar\+BBox (\begin{DoxyParamCaption}\item[{int}]{sect\+Num}{, }\item[{\mbox{\hyperlink{structKMCThinFilm_1_1LatticePlanarBBox}{Lattice\+Planar\+BBox}} \&}]{bbox}{}\end{DoxyParamCaption}) const}
+
+Obtain limiting values of the local lattice coordinates for a particular sector or sublattice.
+
+"{}\+BBox"{} here is short for "{}bounding box."{}
+
+A typical use for this member function would be something like this\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{comment}{//\ Lattice\ object\ named\ "{}lattice"{}\ defined\ above}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ sectNum\ =\ 0;\ i\ <\ lattice.numSectors();\ ++i)\ \{}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ lattice.recvGhosts(sectNum);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ LatticePlanarBBox\ sectorPlanarBBox;}
+\DoxyCodeLine{\ \ \ lattice.getSectorPlanarBBox(sectNum,\ sectorPlanarBBox);}
+\DoxyCodeLine{\ \ \ kMaxP1\ =\ lattice.currHeight();}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ CellInds\ ci;}
+\DoxyCodeLine{\ \ \ \textcolor{keywordflow}{for}\ (ci.k\ =\ 0;\ ci.k\ <\ kMaxP1;\ ++(ci.k))\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \textcolor{keywordflow}{for}\ (ci.i\ =\ sectorPlanarBBox.imin;\ ci.i\ <\ sectorPlanarBBox.imaxP1;\ ++(ci.i))\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (ci.j\ =\ sectorPlanarBBox.jmin;\ ci.j\ <\ sectorPlanarBBox.jmaxP1;\ ++(ci.j))\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Some\ calcs\ ...}}
+\DoxyCodeLine{\ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ lattice.setFloat(ci,\ FLT\_VAL1,\ someFunc(...));}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Other\ calcs\ ...}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ lattice.sendGhosts(sectNum);}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+
+
+Note that unlike \doxylink{classKMCThinFilm_1_1Lattice_a1504ff860e046a8965b37dd437a74c52}{get\+Local\+Planar\+BBox()}, the minimum and maximum lattice coordinate values do not include the coordinates of ghost lattice cells.
+
+\begin{DoxySeeAlso}{See also}
+\doxylink{classKMCThinFilm_1_1Lattice_a1504ff860e046a8965b37dd437a74c52}{get\+Local\+Planar\+BBox()} \doxylink{classKMCThinFilm_1_1Lattice_ac160d406b29dc80fb72551ad3d74ac3a}{get\+Global\+Planar\+BBox()} \doxylink{classKMCThinFilm_1_1Lattice_a3bf12bd319b270be69241404305470ca}{num\+Sectors()} 
+\end{DoxySeeAlso}
+
+\begin{DoxyParams}{Parameters}
+{\em sect\+Num} & Sector number, ranging from 0 to \doxylink{classKMCThinFilm_1_1Lattice_a3bf12bd319b270be69241404305470ca}{num\+Sectors()} -\/ 1  \\
+\hline
+{\em bbox} & Bounding box of the lattice coordinates within the sector. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classKMCThinFilm_1_1Lattice_ab88c96bfe79958ad29842a6ce72c77a8}\index{KMCThinFilm::Lattice@{KMCThinFilm::Lattice}!ghostExtent@{ghostExtent}}
+\index{ghostExtent@{ghostExtent}!KMCThinFilm::Lattice@{KMCThinFilm::Lattice}}
+\doxysubsubsection{\texorpdfstring{ghostExtent()}{ghostExtent()}}
+{\footnotesize\ttfamily \label{classKMCThinFilm_1_1Lattice_ab88c96bfe79958ad29842a6ce72c77a8} 
+int KMCThin\+Film\+::\+Lattice\+::ghost\+Extent (\begin{DoxyParamCaption}\item[{int}]{dim}{}\end{DoxyParamCaption}) const}
+
+Thickness of the ghost region along in-\/plane dimension {\itshape dim}.
+
+Dimension 0 is the dimension along which the first lattice cell index varies, and dimension 1 is the dimension along which the second lattice cell index varies.
+
+\begin{DoxySeeAlso}{See also}
+\doxylink{classKMCThinFilm_1_1Lattice_a0236ed2c0c17d92a5ab01f61519f8983}{comm\+Coord()} 
+\end{DoxySeeAlso}
+\Hypertarget{classKMCThinFilm_1_1Lattice_af88c2bfaa3f80c7efc19402c0d24a50b}\index{KMCThinFilm::Lattice@{KMCThinFilm::Lattice}!nFloatsPerCell@{nFloatsPerCell}}
+\index{nFloatsPerCell@{nFloatsPerCell}!KMCThinFilm::Lattice@{KMCThinFilm::Lattice}}
+\doxysubsubsection{\texorpdfstring{nFloatsPerCell()}{nFloatsPerCell()}}
+{\footnotesize\ttfamily \label{classKMCThinFilm_1_1Lattice_af88c2bfaa3f80c7efc19402c0d24a50b} 
+int KMCThin\+Film\+::\+Lattice\+::n\+Floats\+Per\+Cell (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+Length of the double-\/precision floating-\/point array at each lattice cell. \Hypertarget{classKMCThinFilm_1_1Lattice_ae141f7cd71bbbdf12dffe12e0dc0f115}\index{KMCThinFilm::Lattice@{KMCThinFilm::Lattice}!nIntsPerCell@{nIntsPerCell}}
+\index{nIntsPerCell@{nIntsPerCell}!KMCThinFilm::Lattice@{KMCThinFilm::Lattice}}
+\doxysubsubsection{\texorpdfstring{nIntsPerCell()}{nIntsPerCell()}}
+{\footnotesize\ttfamily \label{classKMCThinFilm_1_1Lattice_ae141f7cd71bbbdf12dffe12e0dc0f115} 
+int KMCThin\+Film\+::\+Lattice\+::n\+Ints\+Per\+Cell (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+Length of the integer array at each lattice cell. \Hypertarget{classKMCThinFilm_1_1Lattice_ad48a237aac1ffb943bf8b49de148da89}\index{KMCThinFilm::Lattice@{KMCThinFilm::Lattice}!nProcs@{nProcs}}
+\index{nProcs@{nProcs}!KMCThinFilm::Lattice@{KMCThinFilm::Lattice}}
+\doxysubsubsection{\texorpdfstring{nProcs()}{nProcs()}}
+{\footnotesize\ttfamily \label{classKMCThinFilm_1_1Lattice_ad48a237aac1ffb943bf8b49de148da89} 
+int KMCThin\+Film\+::\+Lattice\+::n\+Procs (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+Number of processors over which the lattice is distributed. \Hypertarget{classKMCThinFilm_1_1Lattice_a3bf12bd319b270be69241404305470ca}\index{KMCThinFilm::Lattice@{KMCThinFilm::Lattice}!numSectors@{numSectors}}
+\index{numSectors@{numSectors}!KMCThinFilm::Lattice@{KMCThinFilm::Lattice}}
+\doxysubsubsection{\texorpdfstring{numSectors()}{numSectors()}}
+{\footnotesize\ttfamily \label{classKMCThinFilm_1_1Lattice_a3bf12bd319b270be69241404305470ca} 
+int KMCThin\+Film\+::\+Lattice\+::num\+Sectors (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+If the preprocessor variable KMC\+\_\+\+PARALLEL is zero, then this always returns 1. Otherwise, this is the number of sectors (or sublattices) used in the approximate parallel Kinetic Monte Carlo algorithm used by this library.
+
+For a discussion of what these sectors are, see Y. Shim and J. G. Amar, "{}\+Semirigorous synchronous sublattice algorithm for parallel Kinetic Monte Carlo simulation of thin film growth"{}, Physical Review B, vol. 71, 125432 (2005) or S. Plimpton et al., "{}\+Crossing the Mesoscale No-\/\+Man\textquotesingle{}s Land via Parallel Kinetic Monte \+Carlo"{}, Sandia National Laboratories Technical Report SAND2009-\/6226 (2009). \Hypertarget{classKMCThinFilm_1_1Lattice_ab3e6a5e45049adf3e15a9716eae02de1}\index{KMCThinFilm::Lattice@{KMCThinFilm::Lattice}!planesReserved@{planesReserved}}
+\index{planesReserved@{planesReserved}!KMCThinFilm::Lattice@{KMCThinFilm::Lattice}}
+\doxysubsubsection{\texorpdfstring{planesReserved()}{planesReserved()}}
+{\footnotesize\ttfamily \label{classKMCThinFilm_1_1Lattice_ab3e6a5e45049adf3e15a9716eae02de1} 
+int KMCThin\+Film\+::\+Lattice\+::planes\+Reserved (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+Returns the number of planes reserved for the lattice (but not necessarily added to the lattice yet).
+
+Note that while this should be at least the number of planes that were explicitly reserved, it may be more than that. \Hypertarget{classKMCThinFilm_1_1Lattice_aec4668447dc65f0a0be67b53519db0d5}\index{KMCThinFilm::Lattice@{KMCThinFilm::Lattice}!procID@{procID}}
+\index{procID@{procID}!KMCThinFilm::Lattice@{KMCThinFilm::Lattice}}
+\doxysubsubsection{\texorpdfstring{procID()}{procID()}}
+{\footnotesize\ttfamily \label{classKMCThinFilm_1_1Lattice_aec4668447dc65f0a0be67b53519db0d5} 
+int KMCThin\+Film\+::\+Lattice\+::proc\+ID (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+When the preprocessor variable KMC\+\_\+\+PARALLEL is zero, this always returns zero. Otherwise, this is the MPI rank of the local process, where the communicator for that process is given by \doxylink{classKMCThinFilm_1_1Lattice_aef0511e825e463bc1f91df0720513c86}{Lattice\+::comm()}. \Hypertarget{classKMCThinFilm_1_1Lattice_ab21e3aa48b60071c245ac1d3e4c8b6d9}\index{KMCThinFilm::Lattice@{KMCThinFilm::Lattice}!procPerDim@{procPerDim}}
+\index{procPerDim@{procPerDim}!KMCThinFilm::Lattice@{KMCThinFilm::Lattice}}
+\doxysubsubsection{\texorpdfstring{procPerDim()}{procPerDim()}}
+{\footnotesize\ttfamily \label{classKMCThinFilm_1_1Lattice_ab21e3aa48b60071c245ac1d3e4c8b6d9} 
+int KMCThin\+Film\+::\+Lattice\+::proc\+Per\+Dim (\begin{DoxyParamCaption}\item[{int}]{dim}{}\end{DoxyParamCaption}) const}
+
+The number of processors along in-\/plane dimension {\itshape dim}.
+
+For example, if the lattice is partitioned as follows,
+
+\begin{DoxyVerb}*-----*-----*-----*
+|  3  |  4  |  5  |
+*-----*-----*-----*
+|  0  |  1  |  2  |
+*-----*-----*-----*
+\end{DoxyVerb}
+
+
+then proc\+Per\+Dim(0) returns a value of 3, and proc\+Per\+Dim(2) returns a value of 2.
+
+\begin{DoxySeeAlso}{See also}
+\doxylink{classKMCThinFilm_1_1Lattice_a0236ed2c0c17d92a5ab01f61519f8983}{comm\+Coord()} 
+\end{DoxySeeAlso}
+\Hypertarget{classKMCThinFilm_1_1Lattice_ae6ed07b1fe933e225797e516d3a4f776}\index{KMCThinFilm::Lattice@{KMCThinFilm::Lattice}!recvGhosts@{recvGhosts}}
+\index{recvGhosts@{recvGhosts}!KMCThinFilm::Lattice@{KMCThinFilm::Lattice}}
+\doxysubsubsection{\texorpdfstring{recvGhosts()}{recvGhosts()}}
+{\footnotesize\ttfamily \label{classKMCThinFilm_1_1Lattice_ae6ed07b1fe933e225797e516d3a4f776} 
+void KMCThin\+Film\+::\+Lattice\+::recv\+Ghosts (\begin{DoxyParamCaption}\item[{int}]{sect\+Num}{}\end{DoxyParamCaption})}
+
+\mbox{[}{\bfseries{ADVANCED}}\mbox{]} Update {\itshape all} the ghost lattice cells from data received from other processors.
+
+This member function does not keep track of which lattice sites are actually changed during the update, unlike \doxylink{classKMCThinFilm_1_1Lattice_a453210b26b7b82606bb10c3f1029cdad}{recv\+Ghosts\+Update()}. 
+\begin{DoxyParams}{Parameters}
+{\em sect\+Num} & Sector number, ranging from 0 to \doxylink{classKMCThinFilm_1_1Lattice_a3bf12bd319b270be69241404305470ca}{num\+Sectors()} -\/ 1 \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classKMCThinFilm_1_1Lattice_a453210b26b7b82606bb10c3f1029cdad}\index{KMCThinFilm::Lattice@{KMCThinFilm::Lattice}!recvGhostsUpdate@{recvGhostsUpdate}}
+\index{recvGhostsUpdate@{recvGhostsUpdate}!KMCThinFilm::Lattice@{KMCThinFilm::Lattice}}
+\doxysubsubsection{\texorpdfstring{recvGhostsUpdate()}{recvGhostsUpdate()}}
+{\footnotesize\ttfamily \label{classKMCThinFilm_1_1Lattice_a453210b26b7b82606bb10c3f1029cdad} 
+void KMCThin\+Film\+::\+Lattice\+::recv\+Ghosts\+Update (\begin{DoxyParamCaption}\item[{int}]{sect\+Num}{}\end{DoxyParamCaption})}
+
+\mbox{[}{\bfseries{ADVANCED}}\mbox{]} Updates ghost lattice cells from data received from other processors, but only updates the cells that are supposed to have actually changed. Processors use \doxylink{classKMCThinFilm_1_1Lattice_a22bdff6d2d8478783350f84ccd73ba70}{add\+To\+Export\+Buffer\+If\+Needed()} to mark the cells that will be received by a call to this function. 
+\begin{DoxyParams}{Parameters}
+{\em sect\+Num} & Sector number, ranging from 0 to \doxylink{classKMCThinFilm_1_1Lattice_a3bf12bd319b270be69241404305470ca}{num\+Sectors()} -\/ 1 \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classKMCThinFilm_1_1Lattice_ae7545e7f3d017242dd25d7ee7dd71458}\index{KMCThinFilm::Lattice@{KMCThinFilm::Lattice}!reservePlanes@{reservePlanes}}
+\index{reservePlanes@{reservePlanes}!KMCThinFilm::Lattice@{KMCThinFilm::Lattice}}
+\doxysubsubsection{\texorpdfstring{reservePlanes()}{reservePlanes()}}
+{\footnotesize\ttfamily \label{classKMCThinFilm_1_1Lattice_ae7545e7f3d017242dd25d7ee7dd71458} 
+void KMCThin\+Film\+::\+Lattice\+::reserve\+Planes (\begin{DoxyParamCaption}\item[{int}]{num\+Total\+Planes\+To\+Reserve}{}\end{DoxyParamCaption})}
+
+\mbox{[}{\bfseries{ADVANCED}}\mbox{]} Reserves space in memory for adding planes to a lattice\textsuperscript{\texorpdfstring{$\ast$}{*}}, but does not actually add any additional planes. {\bfseries{Almost certainly unnecessary if \doxylink{structKMCThinFilm_1_1LatticeParams_a1b5bd22cee6f39342f07f59fb31866c9}{Lattice\+Params\+::num\+Planes\+To\+Reserve} has been set to an appropriate value}}.
+
+The relationship between \doxylink{classKMCThinFilm_1_1Lattice_ae7545e7f3d017242dd25d7ee7dd71458}{reserve\+Planes()} and \doxylink{classKMCThinFilm_1_1Lattice_aa36bda22ed2b0bc8d8737d3d63009765}{add\+Planes()} is somewhat analogous to that of the std\+::vector member functions reserve() and push\+\_\+back(). The former only allocates space in memory, while the latter is responsible for appending actual values (i.\+e. lattice planes). Note that if {\itshape num\+Total\+Planes\+To\+Reserve} is too small, it is not an error, though it may affect performance somewhat.
+
+\textsuperscript{\texorpdfstring{$\ast$}{*}}Or at least pointers for those planes.
+
+\begin{DoxySeeAlso}{See also}
+\doxylink{classKMCThinFilm_1_1Lattice_aa36bda22ed2b0bc8d8737d3d63009765}{add\+Planes()} 
+\end{DoxySeeAlso}
+\Hypertarget{classKMCThinFilm_1_1Lattice_a51bd26f57ef3eb7ba005eb2a4570478e}\index{KMCThinFilm::Lattice@{KMCThinFilm::Lattice}!sectorOfIndices@{sectorOfIndices}}
+\index{sectorOfIndices@{sectorOfIndices}!KMCThinFilm::Lattice@{KMCThinFilm::Lattice}}
+\doxysubsubsection{\texorpdfstring{sectorOfIndices()}{sectorOfIndices()}}
+{\footnotesize\ttfamily \label{classKMCThinFilm_1_1Lattice_a51bd26f57ef3eb7ba005eb2a4570478e} 
+int KMCThin\+Film\+::\+Lattice\+::sector\+Of\+Indices (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classKMCThinFilm_1_1CellInds}{Cell\+Inds}} \&}]{ci}{}\end{DoxyParamCaption}) const}
+
+Returns the sector to which a set of cell indices {\itshape ci} belongs.
+
+If {\itshape ci} is within a ghost region, then this function returns -\/1.
+
+In serial, this always returns zero. \Hypertarget{classKMCThinFilm_1_1Lattice_ac4c58a1cfa17486667fe07f2cfa167cb}\index{KMCThinFilm::Lattice@{KMCThinFilm::Lattice}!sendGhosts@{sendGhosts}}
+\index{sendGhosts@{sendGhosts}!KMCThinFilm::Lattice@{KMCThinFilm::Lattice}}
+\doxysubsubsection{\texorpdfstring{sendGhosts()}{sendGhosts()}}
+{\footnotesize\ttfamily \label{classKMCThinFilm_1_1Lattice_ac4c58a1cfa17486667fe07f2cfa167cb} 
+void KMCThin\+Film\+::\+Lattice\+::send\+Ghosts (\begin{DoxyParamCaption}\item[{int}]{sect\+Num}{}\end{DoxyParamCaption})}
+
+\mbox{[}{\bfseries{ADVANCED}}\mbox{]} Send data from {\itshape all} the ghost lattice cells to update the off-\/process cells to which the ghosts correspond.
+
+This member function does not keep track of which lattice sites are actually changed during the update, unlike \doxylink{classKMCThinFilm_1_1Lattice_a11f64bd02c9f4d55da74388d69d3d0bb}{send\+Ghosts\+Update()}. 
+\begin{DoxyParams}{Parameters}
+{\em sect\+Num} & Sector number, ranging from 0 to \doxylink{classKMCThinFilm_1_1Lattice_a3bf12bd319b270be69241404305470ca}{num\+Sectors()} -\/ 1 \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classKMCThinFilm_1_1Lattice_a11f64bd02c9f4d55da74388d69d3d0bb}\index{KMCThinFilm::Lattice@{KMCThinFilm::Lattice}!sendGhostsUpdate@{sendGhostsUpdate}}
+\index{sendGhostsUpdate@{sendGhostsUpdate}!KMCThinFilm::Lattice@{KMCThinFilm::Lattice}}
+\doxysubsubsection{\texorpdfstring{sendGhostsUpdate()}{sendGhostsUpdate()}}
+{\footnotesize\ttfamily \label{classKMCThinFilm_1_1Lattice_a11f64bd02c9f4d55da74388d69d3d0bb} 
+void KMCThin\+Film\+::\+Lattice\+::send\+Ghosts\+Update (\begin{DoxyParamCaption}\item[{int}]{sect\+Num}{}\end{DoxyParamCaption})}
+
+\mbox{[}{\bfseries{ADVANCED}}\mbox{]} Sends data from the ghost lattice cells to update the (usually off-\/process) cells to which the ghosts correspond, but only updates the cells that are supposed to have actually changed. Processors use \doxylink{classKMCThinFilm_1_1Lattice_a22bdff6d2d8478783350f84ccd73ba70}{add\+To\+Export\+Buffer\+If\+Needed()} to mark the cells that will be received by a call to this function. 
+\begin{DoxyParams}{Parameters}
+{\em sect\+Num} & Sector number, ranging from 0 to \doxylink{classKMCThinFilm_1_1Lattice_a3bf12bd319b270be69241404305470ca}{num\+Sectors()} -\/ 1 \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classKMCThinFilm_1_1Lattice_aefe9601bf62fdb46d451d61fa017e691}\index{KMCThinFilm::Lattice@{KMCThinFilm::Lattice}!setFloat@{setFloat}}
+\index{setFloat@{setFloat}!KMCThinFilm::Lattice@{KMCThinFilm::Lattice}}
+\doxysubsubsection{\texorpdfstring{setFloat()}{setFloat()}}
+{\footnotesize\ttfamily \label{classKMCThinFilm_1_1Lattice_aefe9601bf62fdb46d451d61fa017e691} 
+void KMCThin\+Film\+::\+Lattice\+::set\+Float (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classKMCThinFilm_1_1CellInds}{Cell\+Inds}} \&}]{ci}{, }\item[{int}]{which\+Int}{, }\item[{double}]{val}{}\end{DoxyParamCaption})}
+
+Sets to {\itshape val} the value of double-\/precision array element {\itshape which\+Float} at lattice cell indices {\itshape ci}.
+
+The value of {\itshape which\+Float} ranges from 0 to \doxylink{classKMCThinFilm_1_1Lattice_af88c2bfaa3f80c7efc19402c0d24a50b}{n\+Floats\+Per\+Cell()} -\/ 1.
+
+\begin{DoxySeeAlso}{See also}
+\doxylink{classKMCThinFilm_1_1Lattice_a825ef41025b740e190d60d097f9d9ae5}{get\+Float()} \doxylink{classKMCThinFilm_1_1Lattice_aff659b471f414c579a51fe280b218ef1}{get\+Int()} \doxylink{classKMCThinFilm_1_1Lattice_a81beda29c4c8722cb047f7f2ce0a09ce}{set\+Int()} 
+\end{DoxySeeAlso}
+\begin{Desc}
+\item[Examples]\par
+\mbox{\hyperlink{testBallisticDep1_2EventsAndActions_8cpp-example}{test\+Ballistic\+Dep1/\+Events\+And\+Actions.\+cpp}}, and \mbox{\hyperlink{testPatternedSurface1_2InitLattice_8cpp-example}{test\+Patterned\+Surface1/\+Init\+Lattice.\+cpp}}.\end{Desc}
+\Hypertarget{classKMCThinFilm_1_1Lattice_a81beda29c4c8722cb047f7f2ce0a09ce}\index{KMCThinFilm::Lattice@{KMCThinFilm::Lattice}!setInt@{setInt}}
+\index{setInt@{setInt}!KMCThinFilm::Lattice@{KMCThinFilm::Lattice}}
+\doxysubsubsection{\texorpdfstring{setInt()}{setInt()}}
+{\footnotesize\ttfamily \label{classKMCThinFilm_1_1Lattice_a81beda29c4c8722cb047f7f2ce0a09ce} 
+void KMCThin\+Film\+::\+Lattice\+::set\+Int (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classKMCThinFilm_1_1CellInds}{Cell\+Inds}} \&}]{ci}{, }\item[{int}]{which\+Int}{, }\item[{int}]{val}{}\end{DoxyParamCaption})}
+
+Sets to {\itshape val} the value of integer array element {\itshape which\+Int} at lattice cell indices {\itshape ci}.
+
+The value of {\itshape which\+Int} ranges from 0 to \doxylink{classKMCThinFilm_1_1Lattice_ae141f7cd71bbbdf12dffe12e0dc0f115}{n\+Ints\+Per\+Cell()} -\/ 1.
+
+\begin{DoxySeeAlso}{See also}
+\doxylink{classKMCThinFilm_1_1Lattice_a825ef41025b740e190d60d097f9d9ae5}{get\+Float()} \doxylink{classKMCThinFilm_1_1Lattice_aff659b471f414c579a51fe280b218ef1}{get\+Int()} \doxylink{classKMCThinFilm_1_1Lattice_aefe9601bf62fdb46d451d61fa017e691}{set\+Float()} 
+\end{DoxySeeAlso}
+\begin{Desc}
+\item[Examples]\par
+\mbox{\hyperlink{testBallisticDep1_2EventsAndActions_8cpp-example}{test\+Ballistic\+Dep1/\+Events\+And\+Actions.\+cpp}}, \mbox{\hyperlink{testFractal_2EventsAndActions_8cpp-example}{test\+Fractal/\+Events\+And\+Actions.\+cpp}}, \mbox{\hyperlink{testPatternedSurface1_2EventsAndActions_8cpp-example}{test\+Patterned\+Surface1/\+Events\+And\+Actions.\+cpp}}, and \mbox{\hyperlink{testPatternedSurface2_2EventsAndActions_8cpp-example}{test\+Patterned\+Surface2/\+Events\+And\+Actions.\+cpp}}.\end{Desc}
+\Hypertarget{classKMCThinFilm_1_1Lattice_ad86c9013774b072638db5527ced49cf8}\index{KMCThinFilm::Lattice@{KMCThinFilm::Lattice}!wrapI@{wrapI}}
+\index{wrapI@{wrapI}!KMCThinFilm::Lattice@{KMCThinFilm::Lattice}}
+\doxysubsubsection{\texorpdfstring{wrapI()}{wrapI()}}
+{\footnotesize\ttfamily \label{classKMCThinFilm_1_1Lattice_ad86c9013774b072638db5527ced49cf8} 
+int KMCThin\+Film\+::\+Lattice\+::wrapI (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classKMCThinFilm_1_1CellInds}{Cell\+Inds}} \&}]{ci}{}\end{DoxyParamCaption}) const}
+
+Returns a wrapped version of ci.\+i to account for periodic boundary conditions.
+
+This is likely to only be useful in serial simulations.
+
+Furthermore, the member functions \doxylink{classKMCThinFilm_1_1Lattice_aff659b471f414c579a51fe280b218ef1}{get\+Int()}, \doxylink{classKMCThinFilm_1_1Lattice_a825ef41025b740e190d60d097f9d9ae5}{get\+Float()}, \doxylink{classKMCThinFilm_1_1Lattice_a81beda29c4c8722cb047f7f2ce0a09ce}{set\+Int()}, and \doxylink{classKMCThinFilm_1_1Lattice_aefe9601bf62fdb46d451d61fa017e691}{set\+Float()} {\itshape already} account for periodic boundary conditions, so this function is mostly needed for circumstances where one is doing arithmetic of cell indices. \begin{Desc}
+\item[Examples]\par
+\mbox{\hyperlink{testBallisticDep2_2EventsAndActions_8cpp-example}{test\+Ballistic\+Dep2/\+Events\+And\+Actions.\+cpp}}.\end{Desc}
+\Hypertarget{classKMCThinFilm_1_1Lattice_a837c173e46cb56875b02dbdb27da71c9}\index{KMCThinFilm::Lattice@{KMCThinFilm::Lattice}!wrapJ@{wrapJ}}
+\index{wrapJ@{wrapJ}!KMCThinFilm::Lattice@{KMCThinFilm::Lattice}}
+\doxysubsubsection{\texorpdfstring{wrapJ()}{wrapJ()}}
+{\footnotesize\ttfamily \label{classKMCThinFilm_1_1Lattice_a837c173e46cb56875b02dbdb27da71c9} 
+int KMCThin\+Film\+::\+Lattice\+::wrapJ (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classKMCThinFilm_1_1CellInds}{Cell\+Inds}} \&}]{ci}{}\end{DoxyParamCaption}) const}
+
+Returns a wrapped version of ci.\+j to account for periodic boundary conditions.
+
+This is likely to only be useful in serial simulations, though it perhaps may be of use if row-\/based decomposition is used in parallel simulations.
+
+Furthermore, the member functions \doxylink{classKMCThinFilm_1_1Lattice_aff659b471f414c579a51fe280b218ef1}{get\+Int()}, \doxylink{classKMCThinFilm_1_1Lattice_a825ef41025b740e190d60d097f9d9ae5}{get\+Float()}, \doxylink{classKMCThinFilm_1_1Lattice_a81beda29c4c8722cb047f7f2ce0a09ce}{set\+Int()}, and \doxylink{classKMCThinFilm_1_1Lattice_aefe9601bf62fdb46d451d61fa017e691}{set\+Float()} {\itshape already} account for periodic boundary conditions, so this function is mostly needed for circumstances where one is doing arithmetic of cell indices. \begin{Desc}
+\item[Examples]\par
+\mbox{\hyperlink{testBallisticDep2_2EventsAndActions_8cpp-example}{test\+Ballistic\+Dep2/\+Events\+And\+Actions.\+cpp}}.\end{Desc}

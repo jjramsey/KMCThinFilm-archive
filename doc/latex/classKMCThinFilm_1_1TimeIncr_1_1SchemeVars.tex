@@ -1,0 +1,104 @@
+\doxysection{KMCThin\+Film\+::Time\+Incr\+::Scheme\+Vars Class Reference}
+\hypertarget{classKMCThinFilm_1_1TimeIncr_1_1SchemeVars}{}\label{classKMCThinFilm_1_1TimeIncr_1_1SchemeVars}\index{KMCThinFilm::TimeIncr::SchemeVars@{KMCThinFilm::TimeIncr::SchemeVars}}
+
+
+{\ttfamily \#include $<$Time\+Incr\+Scheme\+Vars.\+hpp$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespaceKMCThinFilm_1_1TimeIncr_1_1SchemeName_a9d8be73a26298e6c4379c28285902534}{Scheme\+Name\+::\+Type}} \mbox{\hyperlink{classKMCThinFilm_1_1TimeIncr_1_1SchemeVars_a8a6b278ab771b3ca06ce8c5478ebec94}{get\+Scheme\+Name}} () const
+\item 
+double \mbox{\hyperlink{classKMCThinFilm_1_1TimeIncr_1_1SchemeVars_a74523fbff49d74027dff1532d500155d}{get\+Scheme\+Param\+If\+Available}} (\mbox{\hyperlink{namespaceKMCThinFilm_1_1TimeIncr_1_1SchemeParam_a1ee2f5f6234ea51c6d8ae6993aee48ca}{Scheme\+Param\+::\+Type}} param\+Name, bool \&is\+Available) const
+\item 
+double \mbox{\hyperlink{classKMCThinFilm_1_1TimeIncr_1_1SchemeVars_a935e8443003476cefda9e4b06416032d}{get\+Scheme\+Param\+Or\+Die}} (\mbox{\hyperlink{namespaceKMCThinFilm_1_1TimeIncr_1_1SchemeParam_a1ee2f5f6234ea51c6d8ae6993aee48ca}{Scheme\+Param\+::\+Type}} param\+Name, const std\+::string \&msg\+If\+Die) const
+\item 
+double \mbox{\hyperlink{classKMCThinFilm_1_1TimeIncr_1_1SchemeVars_a25605a924e6301a9ac472ebd0c37d370}{get\+Scheme\+Param\+Or\+Return\+Default\+Val}} (\mbox{\hyperlink{namespaceKMCThinFilm_1_1TimeIncr_1_1SchemeParam_a1ee2f5f6234ea51c6d8ae6993aee48ca}{Scheme\+Param\+::\+Type}} param\+Name, double default\+Val) const
+\item 
+void \mbox{\hyperlink{classKMCThinFilm_1_1TimeIncr_1_1SchemeVars_a9c534dc3967fe996205a22d3b4eb9efc}{set\+Scheme\+Name}} (\mbox{\hyperlink{namespaceKMCThinFilm_1_1TimeIncr_1_1SchemeName_a9d8be73a26298e6c4379c28285902534}{Scheme\+Name\+::\+Type}} name)
+\item 
+void \mbox{\hyperlink{classKMCThinFilm_1_1TimeIncr_1_1SchemeVars_a791374d98d976927c656d4adabe19f8d}{set\+Scheme\+Param}} (\mbox{\hyperlink{namespaceKMCThinFilm_1_1TimeIncr_1_1SchemeParam_a1ee2f5f6234ea51c6d8ae6993aee48ca}{Scheme\+Param\+::\+Type}} param\+Name, double param\+Val)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Type of object used to store parameters for the parallel time stepping schemes.
+
+Note that in a typical use of a class instance of this, the set\texorpdfstring{$\ast$}{*}() functions will tend to be used rather than the get\texorpdfstring{$\ast$}{*}() functions. However, the get\texorpdfstring{$\ast$}{*}() functions are exposed for the sake of testing and debugging. \begin{Desc}
+\item[Examples]\par
+\mbox{\hyperlink{testFractal_parallel_2testFractal_8cpp-example}{test\+Fractal\+\_\+parallel/test\+Fractal.\+cpp}}.\end{Desc}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classKMCThinFilm_1_1TimeIncr_1_1SchemeVars_a8a6b278ab771b3ca06ce8c5478ebec94}\index{KMCThinFilm::TimeIncr::SchemeVars@{KMCThinFilm::TimeIncr::SchemeVars}!getSchemeName@{getSchemeName}}
+\index{getSchemeName@{getSchemeName}!KMCThinFilm::TimeIncr::SchemeVars@{KMCThinFilm::TimeIncr::SchemeVars}}
+\doxysubsubsection{\texorpdfstring{getSchemeName()}{getSchemeName()}}
+{\footnotesize\ttfamily \label{classKMCThinFilm_1_1TimeIncr_1_1SchemeVars_a8a6b278ab771b3ca06ce8c5478ebec94} 
+\mbox{\hyperlink{namespaceKMCThinFilm_1_1TimeIncr_1_1SchemeName_a9d8be73a26298e6c4379c28285902534}{Scheme\+Name\+::\+Type}} KMCThin\+Film\+::\+Time\+Incr\+::\+Scheme\+Vars\+::get\+Scheme\+Name (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+Returns the name of the time-\/stepping scheme set by \doxylink{classKMCThinFilm_1_1TimeIncr_1_1SchemeVars_a9c534dc3967fe996205a22d3b4eb9efc}{set\+Scheme\+Name()}. \Hypertarget{classKMCThinFilm_1_1TimeIncr_1_1SchemeVars_a74523fbff49d74027dff1532d500155d}\index{KMCThinFilm::TimeIncr::SchemeVars@{KMCThinFilm::TimeIncr::SchemeVars}!getSchemeParamIfAvailable@{getSchemeParamIfAvailable}}
+\index{getSchemeParamIfAvailable@{getSchemeParamIfAvailable}!KMCThinFilm::TimeIncr::SchemeVars@{KMCThinFilm::TimeIncr::SchemeVars}}
+\doxysubsubsection{\texorpdfstring{getSchemeParamIfAvailable()}{getSchemeParamIfAvailable()}}
+{\footnotesize\ttfamily \label{classKMCThinFilm_1_1TimeIncr_1_1SchemeVars_a74523fbff49d74027dff1532d500155d} 
+double KMCThin\+Film\+::\+Time\+Incr\+::\+Scheme\+Vars\+::get\+Scheme\+Param\+If\+Available (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespaceKMCThinFilm_1_1TimeIncr_1_1SchemeParam_a1ee2f5f6234ea51c6d8ae6993aee48ca}{Scheme\+Param\+::\+Type}}}]{param\+Name}{, }\item[{bool \&}]{is\+Available}{}\end{DoxyParamCaption}) const}
+
+Returns the value of the parameter, if it has been set.
+
+It is not an error if the parameter was not set, but if it wasn\textquotesingle{}t, then the return value is likely garbage. 
+\begin{DoxyParams}{Parameters}
+{\em param\+Name} & Name of parameter  \\
+\hline
+{\em is\+Available} & If this is false, then the parameter was not set. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classKMCThinFilm_1_1TimeIncr_1_1SchemeVars_a935e8443003476cefda9e4b06416032d}\index{KMCThinFilm::TimeIncr::SchemeVars@{KMCThinFilm::TimeIncr::SchemeVars}!getSchemeParamOrDie@{getSchemeParamOrDie}}
+\index{getSchemeParamOrDie@{getSchemeParamOrDie}!KMCThinFilm::TimeIncr::SchemeVars@{KMCThinFilm::TimeIncr::SchemeVars}}
+\doxysubsubsection{\texorpdfstring{getSchemeParamOrDie()}{getSchemeParamOrDie()}}
+{\footnotesize\ttfamily \label{classKMCThinFilm_1_1TimeIncr_1_1SchemeVars_a935e8443003476cefda9e4b06416032d} 
+double KMCThin\+Film\+::\+Time\+Incr\+::\+Scheme\+Vars\+::get\+Scheme\+Param\+Or\+Die (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespaceKMCThinFilm_1_1TimeIncr_1_1SchemeParam_a1ee2f5f6234ea51c6d8ae6993aee48ca}{Scheme\+Param\+::\+Type}}}]{param\+Name}{, }\item[{const std\+::string \&}]{msg\+If\+Die}{}\end{DoxyParamCaption}) const}
+
+Returns the value of the parameter or causes the KMC application to terminate with an error message. 
+\begin{DoxyParams}{Parameters}
+{\em param\+Name} & Name of parameter  \\
+\hline
+{\em msg\+If\+Die} & Error message printed if the parameter was not set. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classKMCThinFilm_1_1TimeIncr_1_1SchemeVars_a25605a924e6301a9ac472ebd0c37d370}\index{KMCThinFilm::TimeIncr::SchemeVars@{KMCThinFilm::TimeIncr::SchemeVars}!getSchemeParamOrReturnDefaultVal@{getSchemeParamOrReturnDefaultVal}}
+\index{getSchemeParamOrReturnDefaultVal@{getSchemeParamOrReturnDefaultVal}!KMCThinFilm::TimeIncr::SchemeVars@{KMCThinFilm::TimeIncr::SchemeVars}}
+\doxysubsubsection{\texorpdfstring{getSchemeParamOrReturnDefaultVal()}{getSchemeParamOrReturnDefaultVal()}}
+{\footnotesize\ttfamily \label{classKMCThinFilm_1_1TimeIncr_1_1SchemeVars_a25605a924e6301a9ac472ebd0c37d370} 
+double KMCThin\+Film\+::\+Time\+Incr\+::\+Scheme\+Vars\+::get\+Scheme\+Param\+Or\+Return\+Default\+Val (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespaceKMCThinFilm_1_1TimeIncr_1_1SchemeParam_a1ee2f5f6234ea51c6d8ae6993aee48ca}{Scheme\+Param\+::\+Type}}}]{param\+Name}{, }\item[{double}]{default\+Val}{}\end{DoxyParamCaption}) const}
+
+Returns the value of the parameter if it has been set, and returns a default value otherwise. 
+\begin{DoxyParams}{Parameters}
+{\em param\+Name} & Name of parameter  \\
+\hline
+{\em default\+Val} & The value to be returned if the parameter was not set. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classKMCThinFilm_1_1TimeIncr_1_1SchemeVars_a9c534dc3967fe996205a22d3b4eb9efc}\index{KMCThinFilm::TimeIncr::SchemeVars@{KMCThinFilm::TimeIncr::SchemeVars}!setSchemeName@{setSchemeName}}
+\index{setSchemeName@{setSchemeName}!KMCThinFilm::TimeIncr::SchemeVars@{KMCThinFilm::TimeIncr::SchemeVars}}
+\doxysubsubsection{\texorpdfstring{setSchemeName()}{setSchemeName()}}
+{\footnotesize\ttfamily \label{classKMCThinFilm_1_1TimeIncr_1_1SchemeVars_a9c534dc3967fe996205a22d3b4eb9efc} 
+void KMCThin\+Film\+::\+Time\+Incr\+::\+Scheme\+Vars\+::set\+Scheme\+Name (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespaceKMCThinFilm_1_1TimeIncr_1_1SchemeName_a9d8be73a26298e6c4379c28285902534}{Scheme\+Name\+::\+Type}}}]{name}{}\end{DoxyParamCaption})}
+
+Sets the name of the time-\/stepping scheme to be used. \begin{Desc}
+\item[Examples]\par
+\mbox{\hyperlink{testFractal_parallel_2testFractal_8cpp-example}{test\+Fractal\+\_\+parallel/test\+Fractal.\+cpp}}.\end{Desc}
+\Hypertarget{classKMCThinFilm_1_1TimeIncr_1_1SchemeVars_a791374d98d976927c656d4adabe19f8d}\index{KMCThinFilm::TimeIncr::SchemeVars@{KMCThinFilm::TimeIncr::SchemeVars}!setSchemeParam@{setSchemeParam}}
+\index{setSchemeParam@{setSchemeParam}!KMCThinFilm::TimeIncr::SchemeVars@{KMCThinFilm::TimeIncr::SchemeVars}}
+\doxysubsubsection{\texorpdfstring{setSchemeParam()}{setSchemeParam()}}
+{\footnotesize\ttfamily \label{classKMCThinFilm_1_1TimeIncr_1_1SchemeVars_a791374d98d976927c656d4adabe19f8d} 
+void KMCThin\+Film\+::\+Time\+Incr\+::\+Scheme\+Vars\+::set\+Scheme\+Param (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespaceKMCThinFilm_1_1TimeIncr_1_1SchemeParam_a1ee2f5f6234ea51c6d8ae6993aee48ca}{Scheme\+Param\+::\+Type}}}]{param\+Name}{, }\item[{double}]{param\+Val}{}\end{DoxyParamCaption})}
+
+Sets a parameter of the time-\/stepping scheme to be used. 
+\begin{DoxyParams}{Parameters}
+{\em param\+Name} & Name of parameter  \\
+\hline
+{\em param\+Val} & Value of parameter \\
+\hline
+\end{DoxyParams}
+\begin{Desc}
+\item[Examples]\par
+\mbox{\hyperlink{testFractal_parallel_2testFractal_8cpp-example}{test\+Fractal\+\_\+parallel/test\+Fractal.\+cpp}}.\end{Desc}

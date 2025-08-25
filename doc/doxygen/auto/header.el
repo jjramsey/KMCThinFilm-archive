@@ -1,0 +1,37 @@
+(TeX-add-style-hook "header"
+ (lambda ()
+    (TeX-add-symbols
+     "hY")
+    (TeX-run-style-hooks
+     "doxygen"
+     "inputenc"
+     "utf8"
+     "pspicture"
+     "ps2pdf"
+     "hyperref"
+     "pdftex"
+     "unicode"
+     "framed"
+     "fancyhdr"
+     "ifpdf"
+     "mathptmx"
+     "fontenc"
+     "T1"
+     "alltt"
+     "textcomp"
+     "color"
+     "listings"
+     "float"
+     "fixltx2e"
+     "multirow"
+     "multicol"
+     "graphicx"
+     "makeidx"
+     "parskip"
+     "geometry"
+     "latex2e"
+     "bk10"
+     "book"
+     "letterpaper"
+     "twoside")))
+

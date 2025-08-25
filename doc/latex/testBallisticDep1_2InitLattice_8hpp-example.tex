@@ -1,0 +1,31 @@
+\doxysection{test\+Ballistic\+Dep1/\+Init\+Lattice.\+hpp}
+\hypertarget{testBallisticDep1_2InitLattice_8hpp-example}{}\label{testBallisticDep1_2InitLattice_8hpp-example}Header file for an example implementation of a ballistic deposition model that defines a custom method for initializing empty cells of a lattice.
+
+This example is discussed in detail in the section ``\doxysectlink{illustrating_use_by_example_example_baldep}{Example\+: Implementations of a ballistic deposition model}{1},'' subsection ``\doxysectlink{illustrating_use_by_example_example_baldep_impl1}{First implementation}{2}.''
+
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\textcolor{preprocessor}{\#ifndef\ INIT\_LATTICE\_HPP}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#define\ INIT\_LATTICE\_HPP}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <KMCThinFilm/Lattice.hpp>}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <KMCThinFilm/RandNumGen.hpp>}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keyword}{class\ }SetEmptyCellWithRandColor\ \{}
+\DoxyCodeLine{\textcolor{keyword}{public}:}
+\DoxyCodeLine{\ \ SetEmptyCellWithRandColor(\mbox{\hyperlink{namespaceKMCThinFilm_a7b5f253610505f71091c404d12d05aee}{KMCThinFilm::RandNumGenSharedPtr}}\ rng)}
+\DoxyCodeLine{\ \ \ \ :\ rng\_(rng)}
+\DoxyCodeLine{\ \ \{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{void}\ operator()(\textcolor{keyword}{const}\ KMCThinFilm::CellInds\ \&\ ci,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ KMCThinFilm::Lattice\ \&\ lattice,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::vector<int>\ \&\ emptyIntVals,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::vector<double>\ \&\ emptyFloatVals);}
+\DoxyCodeLine{\textcolor{keyword}{private}:}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{namespaceKMCThinFilm_a7b5f253610505f71091c404d12d05aee}{KMCThinFilm::RandNumGenSharedPtr}}\ rng\_;}
+\DoxyCodeLine{\};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ INIT\_LATTICE\_HPP\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCodeInclude}
+ 

@@ -1,0 +1,49 @@
+\doxysection{KMCThin\+Film\+::Rand\+Num\+Gen\+MT19937 Class Reference}
+\hypertarget{classKMCThinFilm_1_1RandNumGenMT19937}{}\label{classKMCThinFilm_1_1RandNumGenMT19937}\index{KMCThinFilm::RandNumGenMT19937@{KMCThinFilm::RandNumGenMT19937}}
+
+
+{\ttfamily \#include $<$Rand\+Num\+Gen\+MT19937.\+hpp$>$}
+
+Inheritance diagram for KMCThin\+Film\+::Rand\+Num\+Gen\+MT19937\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classKMCThinFilm_1_1RandNumGenMT19937}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classKMCThinFilm_1_1RandNumGenMT19937_af6aa949c0c59271fb9c3ddae309312ac}{Rand\+Num\+Gen\+MT19937}} (unsigned int seed)
+\item 
+virtual double \mbox{\hyperlink{classKMCThinFilm_1_1RandNumGenMT19937_abff0a620f02f3e42519697f10f0fedfa}{get\+Num\+In\+Open\+Interval\+From0\+To1}} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Wrapper class for the {\itshape serial} Mersenne Twister pseudorandom number generator with a period of $2^{19937} - 1$.
+
+This is not recommended for parallel simulations. \begin{Desc}
+\item[Examples]\par
+\mbox{\hyperlink{testBallisticDep1_2testBallisticDep_8cpp-example}{test\+Ballistic\+Dep1/test\+Ballistic\+Dep.\+cpp}}, \mbox{\hyperlink{testBallisticDep2_2testBallisticDep_8cpp-example}{test\+Ballistic\+Dep2/test\+Ballistic\+Dep.\+cpp}}, \mbox{\hyperlink{testFractal_2testFractal_8cpp-example}{test\+Fractal/test\+Fractal.\+cpp}}, \mbox{\hyperlink{testFractal_parallel_2testFractal_8cpp-example}{test\+Fractal\+\_\+parallel/test\+Fractal.\+cpp}}, \mbox{\hyperlink{testFractal_semi_manual_track_2testFractal_8cpp-example}{test\+Fractal\+\_\+semi\+\_\+manual\+\_\+track/test\+Fractal.\+cpp}}, \mbox{\hyperlink{testPatternedSurface1_2testPatternedSurface_8cpp-example}{test\+Patterned\+Surface1/test\+Patterned\+Surface.\+cpp}}, and \mbox{\hyperlink{testPatternedSurface2_2testPatternedSurface_8cpp-example}{test\+Patterned\+Surface2/test\+Patterned\+Surface.\+cpp}}.\end{Desc}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classKMCThinFilm_1_1RandNumGenMT19937_af6aa949c0c59271fb9c3ddae309312ac}\index{KMCThinFilm::RandNumGenMT19937@{KMCThinFilm::RandNumGenMT19937}!RandNumGenMT19937@{RandNumGenMT19937}}
+\index{RandNumGenMT19937@{RandNumGenMT19937}!KMCThinFilm::RandNumGenMT19937@{KMCThinFilm::RandNumGenMT19937}}
+\doxysubsubsection{\texorpdfstring{RandNumGenMT19937()}{RandNumGenMT19937()}}
+{\footnotesize\ttfamily \label{classKMCThinFilm_1_1RandNumGenMT19937_af6aa949c0c59271fb9c3ddae309312ac} 
+KMCThin\+Film\+::\+Rand\+Num\+Gen\+MT19937\+::\+Rand\+Num\+Gen\+MT19937 (\begin{DoxyParamCaption}\item[{unsigned int}]{seed}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Constructor, sets the initial state for the pseudorandom number generator. 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classKMCThinFilm_1_1RandNumGenMT19937_abff0a620f02f3e42519697f10f0fedfa}\index{KMCThinFilm::RandNumGenMT19937@{KMCThinFilm::RandNumGenMT19937}!getNumInOpenIntervalFrom0To1@{getNumInOpenIntervalFrom0To1}}
+\index{getNumInOpenIntervalFrom0To1@{getNumInOpenIntervalFrom0To1}!KMCThinFilm::RandNumGenMT19937@{KMCThinFilm::RandNumGenMT19937}}
+\doxysubsubsection{\texorpdfstring{getNumInOpenIntervalFrom0To1()}{getNumInOpenIntervalFrom0To1()}}
+{\footnotesize\ttfamily \label{classKMCThinFilm_1_1RandNumGenMT19937_abff0a620f02f3e42519697f10f0fedfa} 
+virtual double KMCThin\+Film\+::\+Rand\+Num\+Gen\+MT19937\+::get\+Num\+In\+Open\+Interval\+From0\+To1 (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+Returns a (pseudo)random number between 0 and 1, not including either 0 or 1. 
+
+Implements \mbox{\hyperlink{classKMCThinFilm_1_1RandNumGen_a3669cf4b6fa2b6acc928bb9ddf24a30a}{KMCThin\+Film\+::\+Rand\+Num\+Gen}}.
+

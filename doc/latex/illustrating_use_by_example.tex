@@ -1,0 +1,1633 @@
+\chapter{Illustrating the usage of the ARL KMCThin\+Film library by example}
+\hypertarget{illustrating_use_by_example}{}\label{illustrating_use_by_example}\index{Illustrating the usage of the ARL KMCThinFilm library by example@{Illustrating the usage of the ARL KMCThinFilm library by example}}
+Perhaps the best way to showcase the functionality of the ARL \doxylink{namespaceKMCThinFilm}{KMCThin\+Film} library is to provide examples of its use, so several examples will be shown here. The first example is a very basic solid-\/on-\/solid model and only requires a two-\/dimensional lattice. It is intended to give an overall sense of how the library is meant to be used. The second example shows what is needed to implement a parallel kinetic Monte Carlo simulation with this library. The third example is slightly less simple in that it shows how to implement a three-\/dimensional simulation, and it shows a few other features of the library. The fourth example involves a model of a patterned substrate that encourages two-\/dimensional island formation at regular places along a grid. It is meant to show how the ARL \doxylink{namespaceKMCThinFilm}{KMCThin\+Film} library can be used to speed the implementation of models with features that could require custom code to implement, and again shows some new features of the library not mentioned in previous examples. It is expected that these examples be read {\itshape in order}, since matters discussed in detail in a previous example may be reviewed only briefly, if at all, in later examples. It is also recommended to read all of the examples, in order to get a better overview of the library\textquotesingle{}s features.\hypertarget{illustrating_use_by_example_example_fractal}{}\doxysection{\texorpdfstring{Example\+: Implementation of a ``fractal'' solid-\/on-\/solid model}{Example\+: Implementation of a ``fractal'' solid-\/on-\/solid model}}\label{illustrating_use_by_example_example_fractal}
+This example implements a ``fractal'' kinetic Monte Carlo model (similar to that described in the work that developed the approximate semirigorous parallel k\+MC \cite{shim05}). In this simple model, the lattice is simple cubic. The fractal model has two kinds of possible events\+: deposition and diffusion. The deposition flux, i.\+e. propensity per unit area, is {\itshape F} monolayers per unit time. Here, diffusion is a hop of a particle from one lattice site to a nearest neighboring site. Furthermore, in this model, a particle can only diffuse if it has no lateral nearest or next-\/nearest neighbors. This causes the particles to form a surface somewhat reminiscent of snowflakes. If a diffusion event can occur, it occurs with propensity {\itshape D}.
+
+Since this is a solid-\/on-\/solid model, if a diffusing particle moves to a site that is not just above another particle, then the diffusing particle will fall until it lands on top of another particle. This guarantees no vacancies, and it also means that the three-\/dimensional {\itshape true} lattice, where each cell is either occupied or unoccupied, does not have to be explicitly modeled. Instead, a {\itshape computational} lattice is used that has the same lateral dimensions as the cubic true lattice but always contains only a single lattice plane, and the height of the column of particles at cell $(i,j,0)$ of the true lattice is recorded at cell $(i,j,0)$ of the lattice used for computation.
+
+There will actually be {\itshape two} implementations shown in this example\+: one using auto-\/tracking to determine the cells affected by an event, and one using semi-\/manual tracking.\hypertarget{illustrating_use_by_example_ex_fractal_auto_tracking}{}\doxysubsection{\texorpdfstring{Using auto-\/tracking}{Using auto-\/tracking}}\label{illustrating_use_by_example_ex_fractal_auto_tracking}
+The code for this example is in the directory {\ttfamily doc/example-\/code/test\+Fractal} of the ARL \doxylink{namespaceKMCThinFilm}{KMCThin\+Film} installation. We will begin by viewing what is effectively the driver file for the simulation code, {\ttfamily test\+Fractal.\+cpp}, which will show the general outline of the simulation, but leave in a few ``blanks'' to be filled in, so to speak. To fill in these blanks, we will then turn to the files {\ttfamily Events\+And\+Actions.\+hpp} and {\ttfamily Events\+And\+Actions.\+cpp}, where the implementation code lies.\hypertarget{illustrating_use_by_example_ex_fractal_driver}{}\doxysubsubsection{\texorpdfstring{Examining the driver code}{Examining the driver code}}\label{illustrating_use_by_example_ex_fractal_driver}
+The header files needed by {\ttfamily test\+Fractal.\+cpp} are as follows\+:
+
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <KMCThinFilm/Simulation.hpp>}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <KMCThinFilm/RandNumGenMT19937.hpp>}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ "{}EventsAndActions.hpp"{}}}
+
+\end{DoxyCodeInclude}
+
+
+The last of these headers, {\ttfamily Events\+And\+Actions.\+hpp}, was mentioned above and will be discussed in more detail later. The remaining headers include the definitions for the \doxylink{classKMCThinFilm_1_1Simulation}{KMCThin\+Film\+::\+Simulation} class and a wrapper class for a Mersenne Twister random number generator. Here, any available concrete implementation of the \doxylink{classKMCThinFilm_1_1RandNumGen}{KMCThin\+Film\+::\+Rand\+Num\+Gen} class could have been used in place of \doxylink{classKMCThinFilm_1_1RandNumGenMT19937}{KMCThin\+Film\+::\+Rand\+Num\+Gen\+MT19937}. In order to avoid having to type the prefix ``{\ttfamily \doxylink{namespaceKMCThinFilm}{KMCThin\+Film}\+:\+:}'' repeatedly, the next line is
+
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\textcolor{keyword}{using\ namespace\ }\mbox{\hyperlink{namespaceKMCThinFilm}{KMCThinFilm}};}
+
+\end{DoxyCodeInclude}
+
+
+At the beginning of the {\ttfamily main()} function in {\ttfamily test\+Fractal.\+cpp}, we have the following hard-\/coded parameters\+:
+
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{double}\ F\ =\ 1,\ DoverF\ =\ 1e5,\ maxCoverage\ =\ 4;}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{int}\ domainSize\ =\ 256;}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ seed\ =\ 42;}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{namespaceKMCThinFilm_1_1SolverId_a43b0b7ee9ab985e86a13450beb2c7523}{SolverId::Type}}\ sId\ =\ \mbox{\hyperlink{namespaceKMCThinFilm_1_1SolverId_a43b0b7ee9ab985e86a13450beb2c7523a66b6c59bbaeb00525c6dd96af1b33563}{SolverId::DYNAMIC\_SCHULZE}};}
+
+\end{DoxyCodeInclude}
+
+
+The first several parameters pertain to the fractal model itself. Parameter {\ttfamily F} is the aforementioned deposition flux {\itshape F}, while {\ttfamily DoverF} is {\itshape D}/{\itshape F}. The parameter {\ttfamily max\+Coverage} indicates how many monolayers to deposit, and {\ttfamily domain\+Size} will be used to set the size of the lattice.
+
+The last two parameters relate more to the computation of the kinetic Monte Carlo simulation. The parameter {\ttfamily seed} is the seed for the random number generator. Parameter {\ttfamily s\+Id} indicates which solver will be used to randomly choose an event at a time step in the simulation.
+
+\begin{DoxyNote}{Note}
+The parameters are only hard-\/coded in order to simplify the example. In a more realistic simulation code, one could use, for example, the Program Options library of Boost \texorpdfstring{$<$}{<}\href{http://www.boost.org}{\texttt{ http\+://www.\+boost.\+org}}\texorpdfstring{$>$}{>} to input the parameters, especially since Boost is already a dependency of the ARL \doxylink{namespaceKMCThinFilm}{KMCThin\+Film} library.
+\end{DoxyNote}
+To determine the simulation time needed to deposit the desired number of monolayers, {\ttfamily max\+Coverage} is divided by the flux {\ttfamily F}, so the next line of {\ttfamily test\+Fractal.\+cpp} reads
+
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{double}\ approxDepTime\ =\ maxCoverage/F;}
+
+\end{DoxyCodeInclude}
+
+
+At this point, the simulation itself is initialized. To do this, the parameters needed to initialize the lattice used in the simulation are passed to the constructor of a \doxylink{classKMCThinFilm_1_1Simulation}{KMCThin\+Film\+::\+Simulation} object\+:
+
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{structKMCThinFilm_1_1LatticeParams}{LatticeParams}}\ latParams;}
+\DoxyCodeLine{\ \ latParams.\mbox{\hyperlink{structKMCThinFilm_1_1LatticeParams_a7a9d46d27758a276fd20d9c18156371a}{numIntsPerCell}}\ =\ FIntVal::SIZE;}
+\DoxyCodeLine{\ \ latParams.\mbox{\hyperlink{structKMCThinFilm_1_1LatticeParams_a3a3cc62a6fb5fdda00ed2c63e1ff1020}{globalPlanarDims}}[0]\ =\ latParams.\mbox{\hyperlink{structKMCThinFilm_1_1LatticeParams_a3a3cc62a6fb5fdda00ed2c63e1ff1020}{globalPlanarDims}}[1]\ =\ domainSize;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{classKMCThinFilm_1_1Simulation}{Simulation}}\ sim(latParams);}
+
+\end{DoxyCodeInclude}
+
+
+Here, the size of the array of integers in each lattice cell is set to {\ttfamily FInt\+Val\+::\+SIZE}, which will turn out to be an enumeration constant defined in {\ttfamily Events\+And\+Actions.\+hpp}. It was mentioned before that {\ttfamily domain\+Size} will be used to set the size of the lattice. Now here, the lateral size of the lattice has been set to {\ttfamily domain\+Size} {$\times$} {\ttfamily domain\+Size}.
+
+The choice of solver and random number generator for the simulation are now set\+:
+
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\ \ sim.setSolver(sId);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{namespaceKMCThinFilm_a7b5f253610505f71091c404d12d05aee}{RandNumGenSharedPtr}}\ rng(\textcolor{keyword}{new}\ \mbox{\hyperlink{classKMCThinFilm_1_1RandNumGenMT19937}{RandNumGenMT19937}}(seed));}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ sim.setRNG(rng);}
+
+\end{DoxyCodeInclude}
+
+
+The order of the above statements matters, since \doxylink{classKMCThinFilm_1_1Simulation_aab6ce6b8f7013c7ce3bcedb8fc3cc469}{KMCThin\+Film\+::\+Simulation\+::set\+RNG()} must be called {\itshape after} \doxylink{classKMCThinFilm_1_1Simulation_adf613f2cf2520695a0fb2ddbbdfd2328}{KMCThin\+Film\+::\+Simulation\+::set\+Solver()}. Here, a ``smart'' pointer to an instance of a \doxylink{classKMCThinFilm_1_1RandNumGen}{KMCThin\+Film\+::\+Rand\+Num\+Gen} class is passed to our \doxylink{classKMCThinFilm_1_1Simulation}{KMCThin\+Film\+::\+Simulation} object, {\ttfamily sim}. Since this is a shared pointer, {\ttfamily sim} does not exclusively own this pointer. Instead, this pointer deletes itself when there are no more references to it. (Also, if need be, other objects besides {\ttfamily sim} are allowed to make use of this pointer to generate random numbers of their own, but that will not be an issue in this simple example.)
+
+At this point, {\itshape possible events} and {\itshape periodic actions} may be added to the simulation. We begin by adding a possible deposition event\+:
+
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\ \ sim.reserveOverLatticeEvents(FOverLatticeEvents::SIZE);}
+\DoxyCodeLine{\ \ sim.addOverLatticeEvent(FOverLatticeEvents::DEPOSITION,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ F,\ DepositionExecute);}
+
+\end{DoxyCodeInclude}
+
+
+This code adds possible so-\/called {\itshape over-\/lattice} events, which are events that may originate from some randomly picked site at the top of the lattice, as discussed in the section entitled ``\doxysectlink{concepts_and_algorithms_kMC_sim_overview}{Basics of kinetic Monte Carlo simulation as implemented in the ARL KMCThin\+Film library}{1}.'' For example, deposition of a particle can be modeled as an event where a particle appears randomly at the top of the lattice and falls until it lands atop an occupied lattice site.
+
+The member function \doxylink{classKMCThinFilm_1_1Simulation_a21587717d5f10a6ae3b8c3606752db13}{KMCThin\+Film\+::\+Simulation\+::reserve\+Over\+Lattice\+Events()} sets the number of possible over-\/lattice events that will be added to the simulation and reserves memory for them. Here, the number of such events is {\ttfamily FOver\+Lattice\+Events\+::\+SIZE}, another enumeration constant defined in {\ttfamily Events\+And\+Actions.\+hpp}. The member function \doxylink{classKMCThinFilm_1_1Simulation_affa3dff53afd248546457944b98376d9}{KMCThin\+Film\+::\+Simulation\+::add\+Over\+Lattice\+Event()} actually adds the event to the simulation. The three arguments that it takes are an integer label identifying the event, which here is another enumeration constant {\ttfamily FOver\+Lattice\+Events\+::\+DEPOSITION}; a propensity per unit of in-\/plane area, that is, the flux {\itshape F}; and a function or function object responsible for actually executing the event, which here is {\ttfamily Deposition\+Execute}. (The actual propensity of the event is the propensity per area scaled by the size of a monolayer of lattice cells, i.\+e., {\ttfamily lat\+Params.\+global\+Planar\+Dims\mbox{[}0\mbox{]}} {$\times$} {\ttfamily lat\+Params.\+global\+Planar\+Dims\mbox{[}1\mbox{]}}.)
+
+We now begin to add {\itshape cell-\/centered} events to the simulation. Again, as discussed in the section entitled ``\doxysectlink{concepts_and_algorithms_kMC_sim_overview}{Basics of kinetic Monte Carlo simulation as implemented in the ARL KMCThin\+Film library}{1},'' these events are called such because such events originate in the neighborhood of some lattice cell, and their propensities---unlike those of over-\/lattice events---{\itshape are} affected by the states of cells in that neighborhood. This neighborhood is defined via one or more {\itshape offsets} from a central cell, as follows\+:
+
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{classKMCThinFilm_1_1CellNeighOffsets}{CellNeighOffsets}}\ hopCNO(HopOffset::SIZE);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ hopCNO.addOffset(HopOffset::UP,\ \ \ \ \mbox{\hyperlink{classKMCThinFilm_1_1CellIndsOffset}{CellIndsOffset}}(0,+1,0));}
+\DoxyCodeLine{\ \ hopCNO.addOffset(HopOffset::DOWN,\ \ \mbox{\hyperlink{classKMCThinFilm_1_1CellIndsOffset}{CellIndsOffset}}(0,-\/1,0));}
+\DoxyCodeLine{\ \ hopCNO.addOffset(HopOffset::LEFT,\ \ \mbox{\hyperlink{classKMCThinFilm_1_1CellIndsOffset}{CellIndsOffset}}(-\/1,0,0));}
+\DoxyCodeLine{\ \ hopCNO.addOffset(HopOffset::RIGHT,\ \mbox{\hyperlink{classKMCThinFilm_1_1CellIndsOffset}{CellIndsOffset}}(+1,0,0));}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ hopCNO.addOffset(HopOffset::RIGHT\_UP,\ \ \ \mbox{\hyperlink{classKMCThinFilm_1_1CellIndsOffset}{CellIndsOffset}}(+1,+1,0));}
+\DoxyCodeLine{\ \ hopCNO.addOffset(HopOffset::RIGHT\_DOWN,\ \mbox{\hyperlink{classKMCThinFilm_1_1CellIndsOffset}{CellIndsOffset}}(+1,-\/1,0));}
+\DoxyCodeLine{\ \ hopCNO.addOffset(HopOffset::LEFT\_UP,\ \ \ \ \mbox{\hyperlink{classKMCThinFilm_1_1CellIndsOffset}{CellIndsOffset}}(-\/1,+1,0));}
+\DoxyCodeLine{\ \ hopCNO.addOffset(HopOffset::LEFT\_DOWN,\ \ \mbox{\hyperlink{classKMCThinFilm_1_1CellIndsOffset}{CellIndsOffset}}(-\/1,-\/1,0));}
+
+\end{DoxyCodeInclude}
+
+
+The object {\ttfamily hop\+CNO} is a container of these offsets. In its constructor, it is passed the number of offsets that it will contain, which here is expressed as another enumeration constant, {\ttfamily Hop\+Offset\+::\+SIZE}. The actual offsets are added with the \doxylink{classKMCThinFilm_1_1CellNeighOffsets_a7b983204101cef4973f685d3c68a0106}{KMCThin\+Film\+::\+Cell\+Neigh\+Offsets\+::add\+Offset()}, which takes an integer label greater than zero and less than {\ttfamily Hop\+Offset\+::\+SIZE}, and the offset itself. The integer label 0 (which is also {\ttfamily Hop\+Offset\+::\+SELF}, a constant that will be seen later) is not used as an argument to \doxylink{classKMCThinFilm_1_1CellNeighOffsets_a7b983204101cef4973f685d3c68a0106}{KMCThin\+Film\+::\+Cell\+Neigh\+Offsets\+::add\+Offset()} because it is reserved for the zero offset, i.\+e., {\ttfamily Cell\+Inds\+Offset(0,0,0)}, which is automatically included in a \doxylink{classKMCThinFilm_1_1CellNeighOffsets}{KMCThin\+Film\+::\+Cell\+Neigh\+Offsets} object. The offsets added in the snippet of code above correspond to the positions shown in the figure below\+:
+
+ 
+\begin{DoxyImageNoCaption}
+  \mbox{\includegraphics[width=\textwidth,height=\textheight/2,keepaspectratio=true]{OffsetsFractalSim}}
+\end{DoxyImageNoCaption}
+
+
+Since the simulation is on a square lattice, {\itshape i} and {\itshape j} happen to be orthogonal, and the axis along which index {\itshape k} would point is perpendicularly out of the plane. Also, because this is a two-\/dimensional simulation, the third index of the offset, {\itshape k}, is always zero here.
+
+Once the offsets are defined, cell-\/centered events can then be added\+:
+
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\ \ sim.reserveCellCenteredEventGroups(1,FCellCenteredEvents::SIZE);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{classKMCThinFilm_1_1EventExecutorGroup}{EventExecutorGroup}}\ hopExecs(FCellCenteredEvents::SIZE);}
+\DoxyCodeLine{\ \ hopExecs.addEventExecutor(FCellCenteredEvents::HOP\_LEFT,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ HoppingExecute(FCellCenteredEvents::HOP\_LEFT));}
+\DoxyCodeLine{\ \ hopExecs.addEventExecutor(FCellCenteredEvents::HOP\_RIGHT,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ HoppingExecute(FCellCenteredEvents::HOP\_RIGHT));}
+\DoxyCodeLine{\ \ hopExecs.addEventExecutor(FCellCenteredEvents::HOP\_UP,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ HoppingExecute(FCellCenteredEvents::HOP\_UP));}
+\DoxyCodeLine{\ \ hopExecs.addEventExecutor(FCellCenteredEvents::HOP\_DOWN,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ HoppingExecute(FCellCenteredEvents::HOP\_DOWN));}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ sim.addCellCenteredEventGroup(1,\ hopCNO,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ HoppingPropensity(DoverF*F),}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ hopExecs);}
+
+\end{DoxyCodeInclude}
+
+
+The member function \doxylink{classKMCThinFilm_1_1Simulation_a07827968543d9a9f2cbbdb356b5df8df}{KMCThin\+Film\+::\+Simulation\+::reserve\+Cell\+Centered\+Event\+Groups()} is somewhat analogous to the member function \doxylink{classKMCThinFilm_1_1Simulation_a21587717d5f10a6ae3b8c3606752db13}{KMCThin\+Film\+::\+Simulation\+::reserve\+Over\+Lattice\+Events()} mentioned before. Unlike over-\/lattice events, though, similar types of cell-\/centered events are grouped together. The first argument to this function indicates the number of groups---which is just 1 in this case---while the second argument indicates the total number of individual cell-\/centered event types, regardless of grouping. Here, this number happens to be the enumeration constant {\ttfamily FCell\+Centered\+Events\+::\+SIZE}.
+
+Before actually adding a group of cell-\/centered event types, an \doxylink{classKMCThinFilm_1_1EventExecutorGroup}{KMCThin\+Film\+::\+Event\+Executor\+Group} object must be constructed. This object encapsulates a set of functions or function objects used to execute one of the events in the group of event types, and its constructor takes as an argument the number of function/function objects to be added to the group. Functions and function objects are added to the group in a manner similar to the way offsets are added to a \doxylink{classKMCThinFilm_1_1CellNeighOffsets}{KMCThin\+Film\+::\+Cell\+Neigh\+Offsets} object. Here, the \doxylink{classKMCThinFilm_1_1EventExecutorGroup_a109dab6bc920f3fd6cf7df5d8076a61f}{KMCThin\+Film\+::\+Event\+Executor\+Group\+::add\+Event\+Executor()} takes two arguments\+: an integer label that is greater than or equal to zero and less than {\ttfamily FCell\+Centered\+Events\+::\+SIZE}, and a function/function object satisfying the \doxylink{namespaceKMCThinFilm_a601f0f23e6b591202d40f27df34db951}{KMCThin\+Film\+::\+Event\+Executor\+Auto\+Track} signature.
+
+A group of cell-\/centered event types is added by means of the \doxylink{classKMCThinFilm_1_1Simulation_ada268bce065b942617fd1331b083626d}{KMCThin\+Film\+::\+Simulation\+::add\+Cell\+Centered\+Event\+Group()} member function. This function takes four arguments\+: an integer label identifying the event, which is arbitrarily set to one, a \doxylink{classKMCThinFilm_1_1CellNeighOffsets}{KMCThin\+Film\+::\+Cell\+Neigh\+Offsets} object, which here is {\ttfamily hop\+CNO}, a function or function object used to calculate the propensity of the event, which here is the object {\ttfamily Hopping\+Propensity(\+Dover\+F\texorpdfstring{$\ast$}{*}\+F)}, and the aforementioned \doxylink{classKMCThinFilm_1_1EventExecutorGroup}{KMCThin\+Film\+::\+Event\+Executor\+Group} object. Here, the constructor for the {\ttfamily Hopping\+Propensity} function object class happens to take an argument equal to the hopping propensity {\itshape D}, but that will not necessarily be the case in general.
+
+Finally, we define a time-\/periodic action, which here dumps the state of the lattice to a file at regular intervals of simulation time.
+
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\ \ sim.reserveTimePeriodicActions(PAction::SIZE);}
+\DoxyCodeLine{\ \ sim.addTimePeriodicAction(PAction::PRINT,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ PrintASCII(\textcolor{stringliteral}{"{}snapshot"{}}),}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0.05*approxDepTime,\ \textcolor{keyword}{true});}
+
+\end{DoxyCodeInclude}
+
+
+Again, we have a member function for reserving a type of object, followed by a member function that adds the type of object. The argument to \doxylink{classKMCThinFilm_1_1Simulation_af30c7df97cb00c239325b0500b971a40}{KMCThin\+Film\+::\+Simulation\+::reserve\+Time\+Periodic\+Actions()} is the number of time-\/periodic actions to be added, and as before, this number is represented via an enumeration constant, {\ttfamily PAction\+::\+SIZE}. The member function \doxylink{classKMCThinFilm_1_1Simulation_a2d0b886ef44d3acf0a8c018a7042e1d9}{KMCThin\+Film\+::\+Simulation\+::add\+Time\+Periodic\+Action()} has four arguments\+: an integer label, which here is another enumeration constant {\ttfamily PAction\+::\+PRINT}; a function object to execute the periodic action; the period for the action, which here is taken to be 0.\+05 {$\times$} {\ttfamily approx\+Dep\+Time}; and a Boolean flag to indicate if the action should be performed at the end of a simulation run.
+
+After all this setup, the simulation is then actually set to run as follows\+:
+
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\ \ sim.run(approxDepTime);}
+\DoxyCodeLine{\ \ sim.removeOverLatticeEvent(FOverLatticeEvents::DEPOSITION);}
+\DoxyCodeLine{\ \ sim.run(0.1*approxDepTime);}
+
+\end{DoxyCodeInclude}
+
+
+Note that the simulation is run in two stages. In the first stage, there is both diffusion and deposition for a certain amount of time. Then deposition is stopped by removing the deposition event from the simulation. In the second stage, the simulation is run with only diffusion.
+
+(By the way, in this particular fractal model, since particles cannot diffuse if they have any nearest or next nearest neighbors, the simulation soon runs out of particles that can diffuse because the available particles soon acquire neighbors and thus become fixed in place. This causes the simulation to run out of possible events and end before the alloted simulation time is up.)
+
+The general outline of the simulation, as indicated from the driver code, is as follows. First, a simulation object is initialized. Then, possible events and periodic actions are added to the simulation. Finally, the simulation is then run. There are still several ``blanks'' left. Some of these are the enumeration constants. Others are the details of the functions or function objects used to implement the possible events and periodic actions. For these, we turn to an examination of the implementation code in Events\+And\+Actions.\+cpp and its associated header file.\hypertarget{illustrating_use_by_example_ex_fractal_impl}{}\doxysubsubsection{\texorpdfstring{Examining the implementation code}{Examining the implementation code}}\label{illustrating_use_by_example_ex_fractal_impl}
+We begin with the header file Events\+And\+Actions.\+hpp. Here we see that the enumerations, rather than being defined directly, are generated from convenience macros defined in \doxylink{MakeEnum_8hpp}{Make\+Enum.\+hpp} from the ARL \doxylink{namespaceKMCThinFilm}{KMCThin\+Film} library. These macros define enumerations associated with adding possible events and actions\+:
+
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\mbox{\hyperlink{MakeEnum_8hpp_a21a6e7611184f517474f1a4628e0e0cb}{KMC\_MAKE\_ID\_ENUM}}(FOverLatticeEvents,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DEPOSITION);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\mbox{\hyperlink{MakeEnum_8hpp_a21a6e7611184f517474f1a4628e0e0cb}{KMC\_MAKE\_ID\_ENUM}}(FCellCenteredEvents,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ HOP\_UP,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ HOP\_DOWN,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ HOP\_LEFT,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ HOP\_RIGHT);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\mbox{\hyperlink{MakeEnum_8hpp_a21a6e7611184f517474f1a4628e0e0cb}{KMC\_MAKE\_ID\_ENUM}}(PAction,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ PRINT);}
+
+\end{DoxyCodeInclude}
+
+
+The enumerations defined through these macros all include a constant containing the name ``{\ttfamily SIZE}'', which indicates the number of constants in the enumeration (not including {\ttfamily SIZE} itself)\+: {\ttfamily FOver\+Lattice\+Events\+::\+SIZE}, {\ttfamily FCell\+Centered\+Events\+::\+SIZE}, and {\ttfamily PAction\+::\+SIZE}.
+
+The following convenience macro operates similarly\+:
+
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\mbox{\hyperlink{MakeEnum_8hpp_ab74f47ea48cae4ae81e76e45c4fd67c4}{KMC\_MAKE\_LATTICE\_INTVAL\_ENUM}}(F,\ HEIGHT);}
+
+\end{DoxyCodeInclude}
+
+
+However, the prefix of the enumerations from this macro is not just the first argument of the macro, but the first argument plus ``{\ttfamily Int\+Val}, hence why the constant {\ttfamily FInt\+Val\+::\+SIZE} was seen in the driver code. This macro also defines the constant {\ttfamily FInt\+Val\+::\+HEIGHT}, which will be seen later in the implementation code.
+
+The final macro invocation is
+
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\mbox{\hyperlink{MakeEnum_8hpp_a18b06446141f866d52168964dbc824c7}{KMC\_MAKE\_OFFSET\_ENUM}}(HopOffset,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ UP,\ DOWN,\ LEFT,\ RIGHT,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ RIGHT\_UP,\ RIGHT\_DOWN,\ LEFT\_UP,\ LEFT\_DOWN);}
+
+\end{DoxyCodeInclude}
+
+
+This defines the enumeration used to label the offsets between the cell about which an event is centered and the neighboring cells that affect its propensity. Unlike the previously defined enumerations, this one contains {\itshape two} special constants. One of them is {\ttfamily Hop\+Offset\+::\+SIZE}, which as before is the number of constants in the enumeration (not including {\ttfamily SIZE} itself). We have seen this constant used in the driver code as the argument to a constructor of a \doxylink{classKMCThinFilm_1_1CellNeighOffsets}{KMCThin\+Film\+::\+Cell\+Neigh\+Offsets} object. The other is {\ttfamily Hop\+Offset\+::\+SELF}, which identifies {\ttfamily \doxylink{classKMCThinFilm_1_1CellIndsOffset}{Cell\+Inds\+Offset(0,0,0)}}, the offset corresponding to the cell about which an event is centered. This constant will be seen later in the implementation code.
+
+The rest of the lines of the file {\ttfamily Events\+And\+Actions.\+hpp} contain the declarations and definitions for the functions and function objects that define possible events and a periodic action. We now look at these and at their implementations in the file {\ttfamily Events\+And\+Actions.\+cpp}.
+
+Here is the declararation for the function performing deposition\+:
+
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{void}\ DepositionExecute(\textcolor{keyword}{const}\ \mbox{\hyperlink{classKMCThinFilm_1_1CellInds}{KMCThinFilm::CellInds}}\ \&\ ci,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classKMCThinFilm_1_1SimulationState}{KMCThinFilm::SimulationState}}\ \&\ simState,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classKMCThinFilm_1_1Lattice}{KMCThinFilm::Lattice}}\ \&\ lattice);}
+
+\end{DoxyCodeInclude}
+
+
+This function declaration satisfies the \doxylink{namespaceKMCThinFilm_a601f0f23e6b591202d40f27df34db951}{KMCThin\+Film\+::\+Event\+Executor\+Auto\+Track} signature, because it accepts arguments that are references to a \doxylink{classKMCThinFilm_1_1CellInds}{KMCThin\+Film\+::\+Cell\+Inds} object, a \doxylink{classKMCThinFilm_1_1SimulationState}{KMCThin\+Film\+::\+Simulation\+State} object, and a \doxylink{classKMCThinFilm_1_1Lattice}{KMCThin\+Film\+::\+Lattice} object, in that order. Furthermore, since this function is used to alter the lattice, the reference to the \doxylink{classKMCThinFilm_1_1Lattice}{KMCThin\+Film\+::\+Lattice} object is {\itshape not} constant. The implementation of this function is shown below. (It lacks the ``{\ttfamily \doxylink{namespaceKMCThinFilm}{KMCThin\+Film}\+:\+:}'' prefix because {\ttfamily Events\+And\+Actions.\+cpp} begins with the statement ``{\ttfamily using namespace \doxylink{namespaceKMCThinFilm}{KMCThin\+Film};}''.)
+
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{void}\ DepositionExecute(\textcolor{keyword}{const}\ \mbox{\hyperlink{classKMCThinFilm_1_1CellInds}{CellInds}}\ \&\ ci,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classKMCThinFilm_1_1SimulationState}{SimulationState}}\ \&\ simState,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classKMCThinFilm_1_1Lattice}{Lattice}}\ \&\ lattice)\ \{}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{int}\ currVal\ =\ lattice.\mbox{\hyperlink{classKMCThinFilm_1_1Lattice_aff659b471f414c579a51fe280b218ef1}{getInt}}(ci,\ FIntVal::HEIGHT);}
+\DoxyCodeLine{\ \ lattice.\mbox{\hyperlink{classKMCThinFilm_1_1Lattice_a81beda29c4c8722cb047f7f2ce0a09ce}{setInt}}(ci,\ FIntVal::HEIGHT,\ currVal\ +\ 1);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\}}
+
+\end{DoxyCodeInclude}
+
+
+The argument {\ttfamily ci} represents the \doxylink{classKMCThinFilm_1_1CellInds}{indices of a lattice cell}. Since the function executes an {\itshape over-\/lattice} event, {\ttfamily ci.\+i} and {\ttfamily ci.\+j} are random values, and {\ttfamily ci.\+k} is one less than the current number of lattice planes---which for this two-\/dimensional simulation is simply zero. Essentially what is happening is that the column height at random location $(\mathtt{ci.i}, \mathtt{ci.j}, 0)$ in the lattice is being incremented by one.
+
+In principle, this could have been implemented as class for a function {\itshape object}, that is, a class containing an overload of {\ttfamily operator()}, but here it is an ordinary function for the sake of simplicity. In some later examples, deposition {\itshape is} implemented by a function object class.
+
+\begin{DoxyNote}{Note}
+The {\ttfamily sim\+State} argument is not used in this case because the execution of this deposition event does not depend upon time. On the other hand, if, for example, deposition were on a rotating substrate, then it might be possible that deposition could occur along a trajectory whose azimuth was  $2\pi\omega
+\times \mathtt{simState.elapsedTime()}$, where $\omega$ is the rate of rotation \cite{cho05}.
+\end{DoxyNote}
+The function object class {\ttfamily Hopping\+Propensity} is defined as follows\+:
+
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\textcolor{keyword}{class\ }HoppingPropensity\ \{}
+\DoxyCodeLine{\textcolor{keyword}{public}:}
+\DoxyCodeLine{\ \ HoppingPropensity(\textcolor{keywordtype}{double}\ D)\ :\ D\_(D)\ \{\}}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{void}\ operator()(\textcolor{keyword}{const}\ KMCThinFilm::CellNeighProbe\ \&\ cnp,\ }
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::vector<double>\ \&\ propensityVec)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{\textcolor{keyword}{private}:}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{double}\ D\_;}
+\DoxyCodeLine{\};}
+
+\end{DoxyCodeInclude}
+
+
+In this class, the private data member {\ttfamily D\+\_\+} stores the hopping propensity {\itshape D}. Also, this class satisfies the \doxylink{namespaceKMCThinFilm_afc58c6c4948aa7d7243beb0990a563f1}{KMCThin\+Film\+::\+Cell\+Centered\+Group\+Propensities} signature, since it contains an overload of {\ttfamily operator()} that takes as arguments a constant reference to a \doxylink{classKMCThinFilm_1_1CellNeighProbe}{KMCThin\+Film\+::\+Cell\+Neigh\+Probe} object and {\itshape non}-\/constant reference to a {\ttfamily std\+::vector} of double precision values. This second argument is an output argument that will be the propensities of hopping in various directions. Before an instance of this function object class even has a chance to execute, the output argument will have already been resized so that it has the same number of elements as there are cell-\/centered events in the group associated with this function object class, and these elements will have been initialized to zero.
+
+Here is the part of the implementation of the function object class that actually calculates the propensity for hopping\+:
+
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{void}\ HoppingPropensity::operator()(\textcolor{keyword}{const}\ \mbox{\hyperlink{classKMCThinFilm_1_1CellNeighProbe}{CellNeighProbe}}\ \&\ cnp,\ }
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::vector<double>\ \&\ propensityVec)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{int}\ currHeight\ =\ cnp.\mbox{\hyperlink{classKMCThinFilm_1_1CellNeighProbe_a7be3ba45264054167a243f15a1954b92}{getInt}}(cnp.\mbox{\hyperlink{classKMCThinFilm_1_1CellNeighProbe_a1ba997186f6326b525dd66df4254d198}{getCellToProbe}}(HopOffset::SELF),\ FIntVal::HEIGHT);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{if}\ (currHeight\ >\ 0)\ \{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{if}\ ((currHeight\ >\ cnp.\mbox{\hyperlink{classKMCThinFilm_1_1CellNeighProbe_a7be3ba45264054167a243f15a1954b92}{getInt}}(cnp.\mbox{\hyperlink{classKMCThinFilm_1_1CellNeighProbe_a1ba997186f6326b525dd66df4254d198}{getCellToProbe}}(HopOffset::UP),\ FIntVal::HEIGHT))}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \&\&\ (currHeight\ >\ cnp.\mbox{\hyperlink{classKMCThinFilm_1_1CellNeighProbe_a7be3ba45264054167a243f15a1954b92}{getInt}}(cnp.\mbox{\hyperlink{classKMCThinFilm_1_1CellNeighProbe_a1ba997186f6326b525dd66df4254d198}{getCellToProbe}}(HopOffset::DOWN),\ FIntVal::HEIGHT))}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \&\&\ (currHeight\ >\ cnp.\mbox{\hyperlink{classKMCThinFilm_1_1CellNeighProbe_a7be3ba45264054167a243f15a1954b92}{getInt}}(cnp.\mbox{\hyperlink{classKMCThinFilm_1_1CellNeighProbe_a1ba997186f6326b525dd66df4254d198}{getCellToProbe}}(HopOffset::LEFT),\ FIntVal::HEIGHT))}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \&\&\ (currHeight\ >\ cnp.\mbox{\hyperlink{classKMCThinFilm_1_1CellNeighProbe_a7be3ba45264054167a243f15a1954b92}{getInt}}(cnp.\mbox{\hyperlink{classKMCThinFilm_1_1CellNeighProbe_a1ba997186f6326b525dd66df4254d198}{getCellToProbe}}(HopOffset::RIGHT),\ FIntVal::HEIGHT))}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \&\&\ (currHeight\ >\ cnp.\mbox{\hyperlink{classKMCThinFilm_1_1CellNeighProbe_a7be3ba45264054167a243f15a1954b92}{getInt}}(cnp.\mbox{\hyperlink{classKMCThinFilm_1_1CellNeighProbe_a1ba997186f6326b525dd66df4254d198}{getCellToProbe}}(HopOffset::RIGHT\_UP),\ FIntVal::HEIGHT))}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \&\&\ (currHeight\ >\ cnp.\mbox{\hyperlink{classKMCThinFilm_1_1CellNeighProbe_a7be3ba45264054167a243f15a1954b92}{getInt}}(cnp.\mbox{\hyperlink{classKMCThinFilm_1_1CellNeighProbe_a1ba997186f6326b525dd66df4254d198}{getCellToProbe}}(HopOffset::RIGHT\_DOWN),\ FIntVal::HEIGHT))}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \&\&\ (currHeight\ >\ cnp.\mbox{\hyperlink{classKMCThinFilm_1_1CellNeighProbe_a7be3ba45264054167a243f15a1954b92}{getInt}}(cnp.\mbox{\hyperlink{classKMCThinFilm_1_1CellNeighProbe_a1ba997186f6326b525dd66df4254d198}{getCellToProbe}}(HopOffset::LEFT\_UP),\ FIntVal::HEIGHT))}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \&\&\ (currHeight\ >\ cnp.\mbox{\hyperlink{classKMCThinFilm_1_1CellNeighProbe_a7be3ba45264054167a243f15a1954b92}{getInt}}(cnp.\mbox{\hyperlink{classKMCThinFilm_1_1CellNeighProbe_a1ba997186f6326b525dd66df4254d198}{getCellToProbe}}(HopOffset::LEFT\_DOWN),\ FIntVal::HEIGHT)))\ \{}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \ \ propensityVec[FCellCenteredEvents::HOP\_LEFT]\ =\ }
+\DoxyCodeLine{\ \ \ \ \ \ \ \ propensityVec[FCellCenteredEvents::HOP\_RIGHT]\ =\ }
+\DoxyCodeLine{\ \ \ \ \ \ \ \ propensityVec[FCellCenteredEvents::HOP\_UP]\ =\ }
+\DoxyCodeLine{\ \ \ \ \ \ \ \ propensityVec[FCellCenteredEvents::HOP\_DOWN]\ =\ D\_;}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{\ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\}}
+
+\end{DoxyCodeInclude}
+
+
+In propensity calculations, access to the lattice is {\itshape indirect} and occurs via the \doxylink{classKMCThinFilm_1_1CellNeighProbe}{KMCThin\+Film\+::\+Cell\+Neigh\+Probe} object. This object can only access cells that can be returned by \doxylink{classKMCThinFilm_1_1CellNeighProbe_a1ba997186f6326b525dd66df4254d198}{KMCThin\+Film\+::\+Cell\+Neigh\+Probe\+::get\+Cell\+To\+Probe}, which takes the integer label of an offset and returns an object that refers to the cell whose indices are the indices of the cell about which the event is centered plus that offset. If the cell indices about which an object is centered are $(i,j,k)$, then {\ttfamily get\+Cell\+To\+Probe(\+Hop\+Offset\+::\+UP)} returns an object referring to the cell with indices $(i,j+1,k)$, {\ttfamily get\+Cell\+To\+Probe(\+Hop\+Offset\+::\+DOWN)} returns an object referring to the cell with indices $(i,j-1,k)$, and so on. Also, {\ttfamily get\+Cell\+To\+Probe(\+Hop\+Offset\+::\+SELF)} returns an object referring to the cell about which the event is centered, that is, $(i,j,k)$.
+
+\begin{DoxyNote}{Note}
+The association of offsets with a \doxylink{namespaceKMCThinFilm_afc58c6c4948aa7d7243beb0990a563f1}{KMCThin\+Film\+::\+Cell\+Centered\+Group\+Propensities} object is done in \doxysectlink{illustrating_use_by_example_ex_fractal_driver}{driver code}{3} via calls to \doxylink{classKMCThinFilm_1_1Simulation_ada268bce065b942617fd1331b083626d}{KMCThin\+Film\+::\+Simulation\+::add\+Cell\+Centered\+Event\+Group()}.
+\end{DoxyNote}
+The reason for using such indirect lattice access is that it forces the implementation of cell-\/centered propensity calculations to use well-\/defined local neighborhoods about the cell where an event is centered, which makes the incremental update of the set of possible events at each time step possible.
+
+The actual propensity calculation itself is simple. The variable {\ttfamily curr\+Height} is the height of the column of particles at cell $(\mathtt{ci.i}, \mathtt{ci.j}, 0)$ in the true lattice. The propensities stored in {\ttfamily propensity\+Vec} are already initially zero, so they only becomes equal to {\ttfamily D\+\_\+} if
+
+
+\begin{DoxyItemize}
+\item the cell  $(\mathtt{ci.i}, \mathtt{ci.j}, \mathtt{currHeight} -
+  1)$ in the true lattice is occupied (i.\+e. the column height stored at cell $(\mathtt{ci.i}, \mathtt{ci.j}, 0)$ of the computational lattice is nonzero), and
+\item the lateral neighboring sites of cell  $(\mathtt{ci.i},
+  \mathtt{ci.j}, \mathtt{currHeight} - 1)$ in the true lattice are empty (i.\+e. the column height stored at cell $(\mathtt{ci.i}, \mathtt{ci.j}, 0)$ in the computational lattice is greater than the column heights stored in the nearest and next-\/nearest neighbors of that cell).
+\end{DoxyItemize}
+
+For convenience and ease of reading, the indices used with {\ttfamily propensity\+Vec} are symbolic enumeration constants that correspond to an event type, i.\+e. {\ttfamily propensity\+Vec\mbox{[}FCell\+Centered\+Events\+::\+HOP\+\_\+\+LEFT\mbox{]}} is the propensity for hopping to the left, {\ttfamily propensity\+Vec\mbox{[}FCell\+Centered\+Events\+::\+HOP\+\_\+\+RIGHT\mbox{]}} is the propensity for hopping to the right, and so on.
+
+\begin{DoxyNote}{Note}
+Lattice indices start from zero, which is why the indices of the topmost particle of a column would be  $(\mathtt{ci.i},
+\mathtt{ci.j}, \mathtt{currHeight} - 1)$, where {\ttfamily curr\+Height} is the height of the column of particles.
+\end{DoxyNote}
+As a general rule, the propensity of an event centered at a cell should be zero if it cannot happen at that particular cell.
+
+The function object class {\ttfamily Hopping\+Execute} is defined as follows\+:
+
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\textcolor{keyword}{class\ }HoppingExecute\ \{}
+\DoxyCodeLine{\textcolor{keyword}{public}:}
+\DoxyCodeLine{\ \ HoppingExecute(FCellCenteredEvents::Type\ hopDir);}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{void}\ operator()(\textcolor{keyword}{const}\ KMCThinFilm::CellInds\ \&\ ci,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ KMCThinFilm::SimulationState\ \&\ simState,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ KMCThinFilm::Lattice\ \&\ lattice)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{\textcolor{keyword}{private}:}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{int}\ jump\_i\_,\ jump\_j\_;}
+\DoxyCodeLine{\};}
+
+\end{DoxyCodeInclude}
+
+
+This class satisfies the \doxylink{namespaceKMCThinFilm_a601f0f23e6b591202d40f27df34db951}{KMCThin\+Film\+::\+Event\+Executor\+Auto\+Track} signature, since it contains an overload of {\ttfamily operator()} that accepts arguments that are references to a \doxylink{classKMCThinFilm_1_1CellInds}{KMCThin\+Film\+::\+Cell\+Inds} object, a \doxylink{classKMCThinFilm_1_1SimulationState}{KMCThin\+Film\+::\+Simulation\+State} object, and a \doxylink{classKMCThinFilm_1_1Lattice}{KMCThin\+Film\+::\+Lattice} object, in that order. Again, since this operator is used to alter the lattice, the reference to the \doxylink{classKMCThinFilm_1_1Lattice}{KMCThin\+Film\+::\+Lattice} object is {\itshape not} constant. The constructor for this class is as follows\+:
+
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{HoppingExecute::HoppingExecute(FCellCenteredEvents::Type\ hopDir)\ \{}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{switch}\ (hopDir)\ \{}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{case}\ FCellCenteredEvents::HOP\_UP:}
+\DoxyCodeLine{\ \ \ \ jump\_i\_\ =\ 0;}
+\DoxyCodeLine{\ \ \ \ jump\_j\_\ =\ 1;}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{case}\ FCellCenteredEvents::HOP\_DOWN:}
+\DoxyCodeLine{\ \ \ \ jump\_i\_\ =\ 0;}
+\DoxyCodeLine{\ \ \ \ jump\_j\_\ =\ -\/1;}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{case}\ FCellCenteredEvents::HOP\_LEFT:}
+\DoxyCodeLine{\ \ \ \ jump\_i\_\ =\ -\/1;}
+\DoxyCodeLine{\ \ \ \ jump\_j\_\ =\ 0;}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{case}\ FCellCenteredEvents::HOP\_RIGHT:}
+\DoxyCodeLine{\ \ \ \ jump\_i\_\ =\ 1;}
+\DoxyCodeLine{\ \ \ \ jump\_j\_\ =\ 0;}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{namespaceKMCThinFilm_a77bd0cec2abe3a269140d80cfea34ed8}{exitWithMsg}}(\textcolor{stringliteral}{"{}Bad\ hop\ direction!"{}});}
+\DoxyCodeLine{\ \ \}}
+\DoxyCodeLine{\}}
+
+\end{DoxyCodeInclude}
+
+
+One can see from this constructor that the function object it instantiates can do one of four possible events, namely a hop to one of four nearest neighboring cells.
+
+Here is the part of the implementation of the function object class that actually executes the event\+:
+
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{void}\ HoppingExecute::operator()(\textcolor{keyword}{const}\ \mbox{\hyperlink{classKMCThinFilm_1_1CellInds}{CellInds}}\ \&\ ci,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classKMCThinFilm_1_1SimulationState}{SimulationState}}\ \&\ simState,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classKMCThinFilm_1_1Lattice}{Lattice}}\ \&\ lattice)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{classKMCThinFilm_1_1CellInds}{CellInds}}\ ciTo(ci.i\ +\ jump\_i\_,\ ci.j\ +\ jump\_j\_,\ ci.k);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{int}\ currFrom\ =\ lattice.\mbox{\hyperlink{classKMCThinFilm_1_1Lattice_aff659b471f414c579a51fe280b218ef1}{getInt}}(ci,\ FIntVal::HEIGHT);}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{int}\ currTo\ =\ lattice.\mbox{\hyperlink{classKMCThinFilm_1_1Lattice_aff659b471f414c579a51fe280b218ef1}{getInt}}(ciTo,\ FIntVal::HEIGHT);}
+\DoxyCodeLine{\ \ }
+\DoxyCodeLine{\ \ lattice.\mbox{\hyperlink{classKMCThinFilm_1_1Lattice_a81beda29c4c8722cb047f7f2ce0a09ce}{setInt}}(ci,\ FIntVal::HEIGHT,\ currFrom\ -\/\ 1);}
+\DoxyCodeLine{\ \ lattice.\mbox{\hyperlink{classKMCThinFilm_1_1Lattice_a81beda29c4c8722cb047f7f2ce0a09ce}{setInt}}(ciTo,\ FIntVal::HEIGHT,\ currTo\ +\ 1);}
+\DoxyCodeLine{\}}
+
+\end{DoxyCodeInclude}
+
+
+Here, {\ttfamily ci} is the set of indices of a cell where the cell-\/centered event can happen, rather than just some random location at the top of the lattice as it is for an over-\/lattice event. Since this particular model is two-\/dimensional, {\ttfamily ci.\+k} is always zero. The hopping of a particle from cell $(\mathtt{ci.i}, \mathtt{ci.j}, \mathtt{currFrom} - 1)$ in the true lattice to  $(\mathtt{ciTo.i}, \mathtt{ciTo.j},
+\mathtt{currTo})$ is represented in the computational lattice as a decrement of the column height at {\ttfamily ci} and an increment of the column height at {\ttfamily ci\+To}.
+
+Finally, the function object class {\ttfamily Print\+ASCII}, which prints the state of the lattice to a text file, is defined as follows\+:
+
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\textcolor{keyword}{class\ }PrintASCII\ \{}
+\DoxyCodeLine{\textcolor{keyword}{public}:}
+\DoxyCodeLine{\ \ PrintASCII(\textcolor{keyword}{const}\ std::string\ \&\ fNameRoot)}
+\DoxyCodeLine{\ \ \ \ :\ fNameRoot\_(fNameRoot),}
+\DoxyCodeLine{\ \ \ \ \ \ snapShotCntr\_(0)}
+\DoxyCodeLine{\ \ \{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{void}\ operator()(\textcolor{keyword}{const}\ KMCThinFilm::SimulationState\ \&\ simState,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ KMCThinFilm::Lattice\ \&\ lattice);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keyword}{private}:}
+\DoxyCodeLine{\ \ std::string\ fNameRoot\_;}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{int}\ snapShotCntr\_;}
+\DoxyCodeLine{\};}
+
+\end{DoxyCodeInclude}
+
+
+This code satisfies the function signature \doxylink{namespaceKMCThinFilm_ab48bbcbabdf454a07e2f0edb47404abe}{KMCThin\+Film\+::\+Periodic\+Action}, since it takes as arguments references to a \doxylink{classKMCThinFilm_1_1SimulationState}{KMCThin\+Film\+::\+Simulation\+State} object and a \doxylink{classKMCThinFilm_1_1Lattice}{KMCThin\+Film\+::\+Lattice} object. While this particular periodic action only dumps the state of the lattice, it is possible for a periodic action to change the lattice, which is why the reference to the \doxylink{classKMCThinFilm_1_1Lattice}{KMCThin\+Film\+::\+Lattice} object is {\itshape not} constant.
+
+Here is the implementation of the function object class\+:
+
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{void}\ PrintASCII::operator()(\textcolor{keyword}{const}\ \mbox{\hyperlink{classKMCThinFilm_1_1SimulationState}{SimulationState}}\ \&\ simState,\ \mbox{\hyperlink{classKMCThinFilm_1_1Lattice}{Lattice}}\ \&\ lattice)\ \{}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ ++snapShotCntr\_;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ std::string\ fName\ =\ fNameRoot\_\ +\ boost::lexical\_cast<std::string>(snapShotCntr\_)\ +\ \textcolor{stringliteral}{"{}.dat"{}};}
+\DoxyCodeLine{\ \ \ \ }
+\DoxyCodeLine{\ \ std::ofstream\ outFile(fName.c\_str());}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{structKMCThinFilm_1_1LatticePlanarBBox}{LatticePlanarBBox}}\ localPlanarBBox;}
+\DoxyCodeLine{\ \ lattice.\mbox{\hyperlink{classKMCThinFilm_1_1Lattice_a1504ff860e046a8965b37dd437a74c52}{getLocalPlanarBBox}}(\textcolor{keyword}{false},\ localPlanarBBox);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{int}\ iminGlobal\ =\ localPlanarBBox.\mbox{\hyperlink{structKMCThinFilm_1_1LatticePlanarBBox_a9de43623938e1ceb68c26feafd4cd009}{imin}};}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{int}\ jminGlobal\ =\ localPlanarBBox.\mbox{\hyperlink{structKMCThinFilm_1_1LatticePlanarBBox_aa227140b560487687496bdbaef79d85e}{jmin}};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{comment}{//\ "{}P1"{}\ here\ is\ short\ for\ "{}Plus\ 1"{}.}}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{int}\ imaxP1Global\ =\ localPlanarBBox.\mbox{\hyperlink{structKMCThinFilm_1_1LatticePlanarBBox_a8bc6629f20496b2845d66f924a04f35a}{imaxP1}};}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{int}\ jmaxP1Global\ =\ localPlanarBBox.\mbox{\hyperlink{structKMCThinFilm_1_1LatticePlanarBBox_abedcda2c34e2bdfe0404e22838ed33dd}{jmaxP1}};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ outFile\ <<\ \textcolor{stringliteral}{"{}\#\ "{}}\ <<\ iminGlobal\ <<\ \textcolor{stringliteral}{"{}\ "{}}\ <<\ imaxP1Global\ <<\ \textcolor{stringliteral}{"{}\ "{}}\ <<\ jminGlobal\ <<\ \textcolor{stringliteral}{"{}\ "{}}\ <<\ jmaxP1Global}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ <<\ \textcolor{stringliteral}{"{}\ time:"{}}\ <<\ simState.\mbox{\hyperlink{classKMCThinFilm_1_1SimulationState_a01882b6444dedf12543e0a9e7f763f02}{elapsedTime}}()\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{classKMCThinFilm_1_1CellInds}{CellInds}}\ ci;\ ci.k\ =\ 0;}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{for}\ (ci.i\ =\ localPlanarBBox.\mbox{\hyperlink{structKMCThinFilm_1_1LatticePlanarBBox_a9de43623938e1ceb68c26feafd4cd009}{imin}};\ ci.i\ <\ localPlanarBBox.\mbox{\hyperlink{structKMCThinFilm_1_1LatticePlanarBBox_a8bc6629f20496b2845d66f924a04f35a}{imaxP1}};\ ++(ci.i))\ \{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{for}\ (ci.j\ =\ localPlanarBBox.\mbox{\hyperlink{structKMCThinFilm_1_1LatticePlanarBBox_aa227140b560487687496bdbaef79d85e}{jmin}};\ ci.j\ <\ localPlanarBBox.\mbox{\hyperlink{structKMCThinFilm_1_1LatticePlanarBBox_abedcda2c34e2bdfe0404e22838ed33dd}{jmaxP1}};\ ++(ci.j))\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ outFile\ <<\ ci.i\ <<\ \textcolor{stringliteral}{"{}\ "{}}\ <<\ ci.j\ <<\ \textcolor{stringliteral}{"{}\ "{}}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ lattice.\mbox{\hyperlink{classKMCThinFilm_1_1Lattice_aff659b471f414c579a51fe280b218ef1}{getInt}}(ci,\ FIntVal::HEIGHT)\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}};}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{\ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ outFile.close();}
+\DoxyCodeLine{\}}
+
+\end{DoxyCodeInclude}
+
+
+This code prints a header that indicates the minimum and maximum values of in-\/plane lattice cell indices {\itshape i} and {\itshape j}, and the elapsed time. It then prints the in-\/plane indices of each cell and the column height stored at that cell.
+
+Also, this code is written to in such a way as to facilitate parallelization. Since this is a serial code, \doxylink{classKMCThinFilm_1_1Lattice_ac160d406b29dc80fb72551ad3d74ac3a}{KMCThin\+Film\+::\+Lattice\+::get\+Global\+Planar\+BBox()} could have been used in place of \doxylink{classKMCThinFilm_1_1Lattice_a1504ff860e046a8965b37dd437a74c52}{KMCThin\+Film\+::\+Lattice\+::get\+Local\+Planar\+BBox()} to obtain the minimum and maximum values of the in-\/plane indices. However, the code as written above will also work in parallel to produce a dump to a file of the part of the lattice that a given processor owns, which would {\itshape not} be true if \doxylink{classKMCThinFilm_1_1Lattice_ac160d406b29dc80fb72551ad3d74ac3a}{KMCThin\+Film\+::\+Lattice\+::get\+Global\+Planar\+BBox()} had been used.\hypertarget{illustrating_use_by_example_Results}{}\doxysubsubsection{\texorpdfstring{Results}{Results}}\label{illustrating_use_by_example_Results}
+An overhead view of the surface of the ``fractal'' thin film at various simulation times {\itshape t}, from 0.\+20 units to its maximum value of 4.\+0 units, is shown below. Within a given overhead view, black represents the smallest possible height of a column of particles, and white represents the largest.
+
+ 
+\begin{DoxyImageNoCaption}
+  \mbox{\includegraphics[width=5in]{testFractalSnapshots}}
+\end{DoxyImageNoCaption}
+\hypertarget{illustrating_use_by_example_ex_fractal_sman_tracking}{}\doxysubsection{\texorpdfstring{Using semi-\/manual tracking}{Using semi-\/manual tracking}}\label{illustrating_use_by_example_ex_fractal_sman_tracking}
+The code for this example, which is in the directory {\ttfamily doc/example-\/code/test\+Fractal\+\_\+semi\+\_\+manual\+\_\+track} of the ARL \doxylink{namespaceKMCThinFilm}{KMCThin\+Film} installation, is not much different from that used for previous section ``\doxysectlink{illustrating_use_by_example_ex_fractal_auto_tracking}{Using auto-\/tracking}{2}.''
+
+The source code for the driver file, {\ttfamily test\+Fractal.\+cpp}, mainly differs in how event types are added to the system. The following code is used to add the over-\/lattice event type of deposition to the simulation\+:
+
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\ \ std::vector<CellNeighOffsets>\ tmpExecCNO;}
+\DoxyCodeLine{\ \ tmpExecCNO.reserve(1);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ sim.reserveOverLatticeEvents(FOverLatticeEvents::SIZE);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ tmpExecCNO.push\_back(\mbox{\hyperlink{classKMCThinFilm_1_1CellNeighOffsets}{CellNeighOffsets}}(1));}
+\DoxyCodeLine{\ \ sim.reserveOverLatticeEvents(FOverLatticeEvents::SIZE);}
+\DoxyCodeLine{\ \ sim.addOverLatticeEvent(FOverLatticeEvents::DEPOSITION,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ F,\ DepositionExecute,\ tmpExecCNO);}
+
+\end{DoxyCodeInclude}
+
+
+The member function \doxylink{classKMCThinFilm_1_1Simulation_a21587717d5f10a6ae3b8c3606752db13}{KMCThin\+Film\+::\+Simulation\+::reserve\+Over\+Lattice\+Events()} works the same as before. What differs is the member function \doxylink{classKMCThinFilm_1_1Simulation_affa3dff53afd248546457944b98376d9}{KMCThin\+Film\+::\+Simulation\+::add\+Over\+Lattice\+Event()}, which now has an additional argument, {\ttfamily tmp\+Exec\+CNO}, a {\ttfamily std\+::vector} of \doxylink{classKMCThinFilm_1_1CellNeighOffsets}{KMCThin\+Film\+::\+Cell\+Neigh\+Offsets} objects. For a given deposition event, only one lattice cell is directly changed, so {\ttfamily tmp\+Exec\+CNO} has only one element, which in turn contains only one \doxylink{classKMCThinFilm_1_1CellNeighOffsets}{KMCThin\+Film\+::\+Cell\+Neigh\+Offsets} instance, which contains only the offset that is present in every such instance, $(0,0,0)$. The third argument of \doxylink{classKMCThinFilm_1_1Simulation_affa3dff53afd248546457944b98376d9}{KMCThin\+Film\+::\+Simulation\+::add\+Over\+Lattice\+Event()} is also different, since it satisfies the \doxylink{namespaceKMCThinFilm_a92a9e6c3ced8703f95265e85d80f1797}{KMCThin\+Film\+::\+Event\+Executor\+Semi\+Manual\+Track} signature rather than the \doxylink{namespaceKMCThinFilm_a601f0f23e6b591202d40f27df34db951}{KMCThin\+Film\+::\+Event\+Executor\+Auto\+Track} signature. The following code is used to add a group of cell-\/centered event types\+:
+
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\ \ sim.reserveCellCenteredEventGroups(1,FCellCenteredEvents::SIZE);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{classKMCThinFilm_1_1EventExecutorGroup}{EventExecutorGroup}}\ hopExecs(FCellCenteredEvents::SIZE);}
+\DoxyCodeLine{\ \ tmpExecCNO.clear();}
+\DoxyCodeLine{\ \ tmpExecCNO.push\_back(\mbox{\hyperlink{classKMCThinFilm_1_1CellNeighOffsets}{CellNeighOffsets}}(2));}
+\DoxyCodeLine{\ \ tmpExecCNO.back().addOffset(1,\ hopCNO.getOffset(HopOffset::LEFT));}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ hopExecs.addEventExecutor(FCellCenteredEvents::HOP\_LEFT,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ HoppingExecute(),\ tmpExecCNO);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ tmpExecCNO.back().resetOffsets(2);}
+\DoxyCodeLine{\ \ tmpExecCNO.back().addOffset(1,\ hopCNO.getOffset(HopOffset::RIGHT));}
+\DoxyCodeLine{\ \ hopExecs.addEventExecutor(FCellCenteredEvents::HOP\_RIGHT,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ HoppingExecute(),\ tmpExecCNO);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ tmpExecCNO.back().resetOffsets(2);}
+\DoxyCodeLine{\ \ tmpExecCNO.back().addOffset(1,\ hopCNO.getOffset(HopOffset::UP));}
+\DoxyCodeLine{\ \ hopExecs.addEventExecutor(FCellCenteredEvents::HOP\_UP,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ HoppingExecute(),\ tmpExecCNO);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ tmpExecCNO.back().resetOffsets(2);}
+\DoxyCodeLine{\ \ tmpExecCNO.back().addOffset(1,\ hopCNO.getOffset(HopOffset::DOWN));}
+\DoxyCodeLine{\ \ hopExecs.addEventExecutor(FCellCenteredEvents::HOP\_DOWN,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ HoppingExecute(),\ tmpExecCNO);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ sim.addCellCenteredEventGroup(1,\ hopCNO,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ HoppingPropensity(DoverF*F),}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ hopExecs);}
+
+\end{DoxyCodeInclude}
+
+
+Here, the member functions \doxylink{classKMCThinFilm_1_1Simulation_a07827968543d9a9f2cbbdb356b5df8df}{KMCThin\+Film\+::\+Simulation\+::reserve\+Cell\+Centered\+Event\+Groups()} and \doxylink{classKMCThinFilm_1_1Simulation_ada268bce065b942617fd1331b083626d}{KMCThin\+Film\+::\+Simulation\+::add\+Cell\+Centered\+Event\+Group()} are the same as before. What differs is the way entries are added to the \doxylink{classKMCThinFilm_1_1EventExecutorGroup}{KMCThin\+Film\+::\+Event\+Executor\+Group} instance. Here, \doxylink{classKMCThinFilm_1_1EventExecutorGroup_a109dab6bc920f3fd6cf7df5d8076a61f}{KMCThin\+Film\+::\+Event\+Executor\+Group\+::add\+Event\+Executor()} takes an additional argument, the vector {\ttfamily tmp\+Exec\+CNO}. This vector still contains a single element each time it is used, but since a hopping event changes two lattice cells, this single element contains a \doxylink{classKMCThinFilm_1_1CellNeighOffsets}{KMCThin\+Film\+::\+Cell\+Neigh\+Offsets} instance with two offsets\+: the ever-\/present offset $(0,0,0)$, corresponding to the cell from which a particle hops, and an offset corresponding to the cell to which a particle hops, which depends on the hopping direction. The second argument to \doxylink{classKMCThinFilm_1_1EventExecutorGroup_a109dab6bc920f3fd6cf7df5d8076a61f}{KMCThin\+Film\+::\+Event\+Executor\+Group\+::add\+Event\+Executor()} is also different, since it satisfies the \doxylink{namespaceKMCThinFilm_a92a9e6c3ced8703f95265e85d80f1797}{KMCThin\+Film\+::\+Event\+Executor\+Semi\+Manual\+Track} signature rather than the \doxylink{namespaceKMCThinFilm_a601f0f23e6b591202d40f27df34db951}{KMCThin\+Film\+::\+Event\+Executor\+Auto\+Track} signature.
+
+In {\ttfamily Events\+And\+Actions.\+hpp}, here is the declararation for the function performing deposition\+:
+
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{void}\ DepositionExecute(\textcolor{keyword}{const}\ \mbox{\hyperlink{classKMCThinFilm_1_1CellInds}{KMCThinFilm::CellInds}}\ \&\ ci,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classKMCThinFilm_1_1SimulationState}{KMCThinFilm::SimulationState}}\ \&\ simState,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classKMCThinFilm_1_1Lattice}{KMCThinFilm::Lattice}}\ \&\ lattice,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::vector<KMCThinFilm::CellsToChange>\ \&\ ctcVec);}
+
+\end{DoxyCodeInclude}
+
+
+This function declaration satisfies the \doxylink{namespaceKMCThinFilm_a92a9e6c3ced8703f95265e85d80f1797}{KMCThin\+Film\+::\+Event\+Executor\+Semi\+Manual\+Track} signature, because it accepts arguments that are references to a \doxylink{classKMCThinFilm_1_1CellInds}{KMCThin\+Film\+::\+Cell\+Inds} object, a \doxylink{classKMCThinFilm_1_1SimulationState}{KMCThin\+Film\+::\+Simulation\+State} object, a \doxylink{classKMCThinFilm_1_1Lattice}{KMCThin\+Film\+::\+Lattice} object, and a {\ttfamily std\+::vector} of \doxylink{classKMCThinFilm_1_1CellsToChange}{KMCThin\+Film\+::\+Cells\+To\+Change} objects, in that order. Here, the reference to the \doxylink{classKMCThinFilm_1_1Lattice}{KMCThin\+Film\+::\+Lattice} object {\itshape is} constant, since changes to the lattice are forced to occur via \doxylink{classKMCThinFilm_1_1CellsToChange}{KMCThin\+Film\+::\+Cells\+To\+Change} objects. The implementation of this function is shown below.
+
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{void}\ DepositionExecute(\textcolor{keyword}{const}\ \mbox{\hyperlink{classKMCThinFilm_1_1CellInds}{CellInds}}\ \&\ ci,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classKMCThinFilm_1_1SimulationState}{SimulationState}}\ \&\ simState,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classKMCThinFilm_1_1Lattice}{KMCThinFilm::Lattice}}\ \&\ lattice,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::vector<KMCThinFilm::CellsToChange>\ \&\ ctcVec)\ \{}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{classKMCThinFilm_1_1CellsToChange}{CellsToChange}}\ \&\ ctc\ =\ ctcVec[0];}
+\DoxyCodeLine{\ \ ctc.\mbox{\hyperlink{classKMCThinFilm_1_1CellsToChange_a8a56c1106701d5bc3409cd30343fee2c}{setCenter}}(ci);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{int}\ currVal\ =\ lattice.\mbox{\hyperlink{classKMCThinFilm_1_1Lattice_aff659b471f414c579a51fe280b218ef1}{getInt}}(ci,\ FIntVal::HEIGHT);}
+\DoxyCodeLine{\ \ ctc.\mbox{\hyperlink{classKMCThinFilm_1_1CellsToChange_a62079b840cc200e37e2907ba2e394f78}{setInt}}(0,\ FIntVal::HEIGHT,\ currVal\ +\ 1);}
+\DoxyCodeLine{\}}
+
+\end{DoxyCodeInclude}
+
+
+In general, a \doxylink{classKMCThinFilm_1_1CellsToChange}{KMCThin\+Film\+::\+Cells\+To\+Change} object contains a set of offsets that specifies the relative positions of changed cells, and the \doxylink{classKMCThinFilm_1_1CellsToChange_a8a56c1106701d5bc3409cd30343fee2c}{KMCThin\+Film\+::\+Cells\+To\+Change\+::set\+Center()} member function essentially provides an ``anchor'' used to translate these relative positions to absolute ones. Given a center  $(i_0,
+j_0, k_0)$ and offsets $(0,0,0)$, $(o^1_i,o^1_j,o^1_k)$, etc., the absolute coordinates of the cells to change become $(i_0, j_0, k_0)$,  $(i_0 + o^1_i, j_0 + o^1_j, k_0 +
+o^1_k)$, etc. Because of how this over-\/lattice event was set up in the driver code, the \doxylink{classKMCThinFilm_1_1CellsToChange}{KMCThin\+Film\+::\+Cells\+To\+Change} object here happens to contain only one offset, $(0,0,0)$, the indices of the cell to be changed are just  $(\mathtt{ci.i}, \mathtt{ci.j},
+\mathtt{ci.k})$. The member function \doxylink{classKMCThinFilm_1_1CellsToChange_a62079b840cc200e37e2907ba2e394f78}{KMCThin\+Film\+::\+Cells\+To\+Change\+::set\+Int()} performs the actual change to the cell. This member function is analogous to \doxylink{classKMCThinFilm_1_1Lattice_a81beda29c4c8722cb047f7f2ce0a09ce}{KMCThin\+Film\+::\+Lattice\+::set\+Int()}, except that its first argument is an integer ID corresponding to one of the offsets stored in a \doxylink{classKMCThinFilm_1_1CellsToChange}{KMCThin\+Film\+::\+Cells\+To\+Change} object, rather than a set of cell indices. An integer ID of zero always corresponds to the offset $(0,0,0)$, and accordingly to the indices of the center, which here is $(\mathtt{ci.i}, \mathtt{ci.j}, \mathtt{ci.k})$.
+
+The function object class {\ttfamily Hopping\+Execute} is now defined as follows\+:
+
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\textcolor{keyword}{class\ }HoppingExecute\ \{}
+\DoxyCodeLine{\textcolor{keyword}{public}:}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{void}\ operator()(\textcolor{keyword}{const}\ KMCThinFilm::CellInds\ \&\ ci,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ KMCThinFilm::SimulationState\ \&\ simState,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ KMCThinFilm::Lattice\ \&\ lattice,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::vector<KMCThinFilm::CellsToChange>\ \&\ ctcVec)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{\};}
+
+\end{DoxyCodeInclude}
+
+
+Since semi-\/manual tracking is used, this class satisfies the \doxylink{namespaceKMCThinFilm_a92a9e6c3ced8703f95265e85d80f1797}{KMCThin\+Film\+::\+Event\+Executor\+Semi\+Manual\+Track} signature, rather than the \doxylink{namespaceKMCThinFilm_a601f0f23e6b591202d40f27df34db951}{KMCThin\+Film\+::\+Event\+Executor\+Auto\+Track} signature. Unlike the previous implementation of the {\ttfamily Hopping\+Execute} class, this one has no private members to indicate the hopping direction, because the hopping direction is determined from the {\ttfamily ctc\+Vec} argument. Here is the part of the implementation of the function object class that actually executes the event\+:
+
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{void}\ HoppingExecute::operator()(\textcolor{keyword}{const}\ \mbox{\hyperlink{classKMCThinFilm_1_1CellInds}{CellInds}}\ \&\ ci,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classKMCThinFilm_1_1SimulationState}{SimulationState}}\ \&\ simState,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classKMCThinFilm_1_1Lattice}{KMCThinFilm::Lattice}}\ \&\ lattice,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::vector<KMCThinFilm::CellsToChange>\ \&\ ctcVec)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{classKMCThinFilm_1_1CellsToChange}{CellsToChange}}\ \&\ ctc\ =\ ctcVec[0];}
+\DoxyCodeLine{\ \ ctc.\mbox{\hyperlink{classKMCThinFilm_1_1CellsToChange_a8a56c1106701d5bc3409cd30343fee2c}{setCenter}}(ci);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{int}\ currFrom\ =\ lattice.\mbox{\hyperlink{classKMCThinFilm_1_1Lattice_aff659b471f414c579a51fe280b218ef1}{getInt}}(ci,\ FIntVal::HEIGHT);}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{int}\ currTo\ =\ ctc.\mbox{\hyperlink{classKMCThinFilm_1_1CellsToChange_ae559a33ad8206a5e1c8cfd8803ccc765}{getInt}}(1,\ FIntVal::HEIGHT);}
+\DoxyCodeLine{\ \ }
+\DoxyCodeLine{\ \ ctc.\mbox{\hyperlink{classKMCThinFilm_1_1CellsToChange_a62079b840cc200e37e2907ba2e394f78}{setInt}}(0,\ FIntVal::HEIGHT,\ currFrom\ -\/\ 1);}
+\DoxyCodeLine{\ \ ctc.\mbox{\hyperlink{classKMCThinFilm_1_1CellsToChange_a62079b840cc200e37e2907ba2e394f78}{setInt}}(1,\ FIntVal::HEIGHT,\ currTo\ +\ 1);}
+\DoxyCodeLine{\}}
+
+\end{DoxyCodeInclude}
+
+
+Here, {\ttfamily ctc\+Vec} contains a \doxylink{classKMCThinFilm_1_1CellsToChange}{KMCThin\+Film\+::\+Cells\+To\+Change} object with {\itshape two} offsets\+: $(0,0,0)$, which corresponds to the cell from which a particle hops, and an offset that corresponds to the cell to which a particle hops, which depends on the hopping direction. Here we see \doxylink{classKMCThinFilm_1_1CellsToChange_ae559a33ad8206a5e1c8cfd8803ccc765}{KMCThin\+Film\+::\+Cells\+To\+Change\+::get\+Int()} as well as \doxylink{classKMCThinFilm_1_1Lattice_aff659b471f414c579a51fe280b218ef1}{KMCThin\+Film\+::\+Lattice\+::get\+Int()}. The former function is analogous to the latter, with the former function using an integer ID---corresponding to one of the offsets in a \doxylink{classKMCThinFilm_1_1CellsToChange}{KMCThin\+Film\+::\+Cells\+To\+Change} object---instead of cell indices. The integer ID of offset $(0,0,0)$ is, as always,
+\begin{DoxyEnumerate}
+\item The integer ID of the other offset can be inferred from the portion of the driver code where the offset was set. For example, for rightward hopping, the code to set the offset is
+\end{DoxyEnumerate}
+
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\ \ tmpExecCNO.back().resetOffsets(2);}
+\DoxyCodeLine{\ \ tmpExecCNO.back().addOffset(1,\ hopCNO.getOffset(HopOffset::RIGHT));}
+\DoxyCodeLine{\ \ hopExecs.addEventExecutor(FCellCenteredEvents::HOP\_RIGHT,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ HoppingExecute(),\ tmpExecCNO);}
+
+\end{DoxyCodeInclude}
+
+
+The first argument of \doxylink{classKMCThinFilm_1_1CellNeighOffsets_a7b983204101cef4973f685d3c68a0106}{KMCThin\+Film\+::\+Cell\+Neigh\+Offsets\+::add\+Offset()}, which here happens to be 1, is the integer ID for the offset corresponding to the cell to which a particle hops.
+
+The rest of the code of this implementation of a fractal solid-\/on-\/solid model is the same as it is in \doxylink{illustrating_use_by_example_ex_fractal_auto_tracking}{the implementation using auto-\/tracking}.\hypertarget{illustrating_use_by_example_example_fractal_par}{}\doxysection{\texorpdfstring{Example\+: Parallelizing an implementation of a ``fractal'' solid-\/on-\/solid model}{Example\+: Parallelizing an implementation of a ``fractal'' solid-\/on-\/solid model}}\label{illustrating_use_by_example_example_fractal_par}
+The code for this example is in the directory {\ttfamily doc/example-\/code/test\+Fractal\+\_\+parallel} of the ARL \doxylink{namespaceKMCThinFilm}{KMCThin\+Film} installation, and it is almost the same as that in {\ttfamily doc/example-\/code/test\+Fractal\+\_\+semi\+\_\+manual\+\_\+track}. Some of the most pertinent differences between the two codes will be discussed here. The parallelized code is actually written so that it can be compiled to either a serial application or an MPI application.
+
+The actual process of parallelizing the code described in the previous section is actually straightforward. Only the driver code, in {\ttfamily test\+Fractal.\+cpp} differs from its serial counterpart, though if the code for dumping the state of the lattice to a file had been different, this might not have been the case. The most obvious changes are near the beginning and the end of the function {\ttfamily main()}, where {\ttfamily MPI\+\_\+\+Init()} and {\ttfamily MPI\+\_\+\+Finalize() are called}\+:
+
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\textcolor{preprocessor}{\#if\ KMC\_PARALLEL}}
+\DoxyCodeLine{\ \ MPI\_Init(\&argc,\ \&argv);}
+\DoxyCodeLine{\textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCodeInclude}
+
+
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\textcolor{preprocessor}{\#if\ KMC\_PARALLEL}}
+\DoxyCodeLine{\ \ MPI\_Finalize();}
+\DoxyCodeLine{\textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCodeInclude}
+
+
+In order for the driver code to be compilable as serial code, these MPI calls are wrapped by the {\ttfamily \#if KMC\+\_\+\+PARALLEL} and {\ttfamily \#endif} preprocessor directives. Note that {\ttfamily \#if} and {\bfseries{not}} {\ttfamily \#ifdef} is used here.
+
+While most of the parameters near the beginning of {\ttfamily main()} are the same as in the serial version of the code, there is one minor change and one addition, which can be seen below.
+
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{double}\ F\ =\ 1,\ DoverF\ =\ 1e5,\ maxCoverage\ =\ 4;}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{int}\ domainSize\ =\ 256;}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ seedGlobal\ =\ 42;}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{namespaceKMCThinFilm_1_1SolverId_a43b0b7ee9ab985e86a13450beb2c7523}{SolverId::Type}}\ sId\ =\ \mbox{\hyperlink{namespaceKMCThinFilm_1_1SolverId_a43b0b7ee9ab985e86a13450beb2c7523a66b6c59bbaeb00525c6dd96af1b33563}{SolverId::DYNAMIC\_SCHULZE}};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{classKMCThinFilm_1_1TimeIncr_1_1SchemeVars}{TimeIncr::SchemeVars}}\ schemeVars;}
+\DoxyCodeLine{\ \ schemeVars.\mbox{\hyperlink{classKMCThinFilm_1_1TimeIncr_1_1SchemeVars_a9c534dc3967fe996205a22d3b4eb9efc}{setSchemeName}}(\mbox{\hyperlink{namespaceKMCThinFilm_1_1TimeIncr_1_1SchemeName_a9d8be73a26298e6c4379c28285902534ad72ce3a3804cccdfc67fd4debe9cfe9c}{TimeIncr::SchemeName::MAX\_AVG\_PROPENSITY\_PER\_POSS\_EVENT}});}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ schemeVars.\mbox{\hyperlink{classKMCThinFilm_1_1TimeIncr_1_1SchemeVars_a791374d98d976927c656d4adabe19f8d}{setSchemeParam}}(\mbox{\hyperlink{namespaceKMCThinFilm_1_1TimeIncr_1_1SchemeParam_a1ee2f5f6234ea51c6d8ae6993aee48caa1434deeb490996399bdff45a7eb194ee}{TimeIncr::SchemeParam::NSTOP}},\ }
+\DoxyCodeLine{\#ifndef\ BAD\_NSTOP}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 1}
+\DoxyCodeLine{\#\textcolor{keywordflow}{else}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 100}
+\DoxyCodeLine{\#endif}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ );}
+
+\end{DoxyCodeInclude}
+
+
+The minor change is just a renaming of the variable {\ttfamily seed} to {\ttfamily seed\+Global}, which reflects a change in how the random number generator is initialized in parallel. The addition is the presence of an instance of \doxylink{classKMCThinFilm_1_1TimeIncr_1_1SchemeVars}{KMCThin\+Film\+::\+Time\+Incr\+::\+Scheme\+Vars}, which is used to set the choice of parallel time stepping scheme and any parameter of it. A choice of such a scheme is required to run a parallel Kinetic Monte Carlo simulation. (Parallel time stepping is discussed in the section entitled ``\doxysectlink{concepts_and_algorithms_kmc_par_alg}{Parallel approximate Kinetic Monte Carlo algorithm}{1}.'') The preprocessor variable {\ttfamily BAD\+\_\+\+NSTOP} is used in this example to determine whether the parameter $n_{stop}$ for the parallel time stepping is set to a reasonable value for this simulation, or to one that will produce artifacts.) Unlike the calls to MPI functions, this addition does not have to be placed between {\ttfamily \#if KMC\+\_\+\+PARALLEL} and {\ttfamily \#endif} directives. It simply has no effect in a serial simulation. This is a common practice in the ARL \doxylink{namespaceKMCThinFilm}{KMCThin\+Film} library. Unless a part of its programming interface explicitly involves an MPI data structure, such as {\ttfamily MPI\+\_\+\+Comm}, it will be both legal and harmless in serial code.
+
+Most of the initialization of the simulation, which is shown here,
+
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{structKMCThinFilm_1_1LatticeParams}{LatticeParams}}\ latParams;}
+\DoxyCodeLine{\ \ latParams.\mbox{\hyperlink{structKMCThinFilm_1_1LatticeParams_a7a9d46d27758a276fd20d9c18156371a}{numIntsPerCell}}\ =\ FIntVal::SIZE;}
+\DoxyCodeLine{\ \ latParams.\mbox{\hyperlink{structKMCThinFilm_1_1LatticeParams_a3a3cc62a6fb5fdda00ed2c63e1ff1020}{globalPlanarDims}}[0]\ =\ latParams.\mbox{\hyperlink{structKMCThinFilm_1_1LatticeParams_a3a3cc62a6fb5fdda00ed2c63e1ff1020}{globalPlanarDims}}[1]\ =\ domainSize;}
+\DoxyCodeLine{\ \ latParams.\mbox{\hyperlink{structKMCThinFilm_1_1LatticeParams_addb121738727b46ba00c2c71996f4272}{ghostExtent}}[0]\ =\ latParams.\mbox{\hyperlink{structKMCThinFilm_1_1LatticeParams_addb121738727b46ba00c2c71996f4272}{ghostExtent}}[1]\ =\ 1;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{preprocessor}{\#ifdef\ USE\_COMPACT\_DECOMP}}
+\DoxyCodeLine{\ \ latParams.\mbox{\hyperlink{structKMCThinFilm_1_1LatticeParams_a02f5a1a7568e0d94d0127260b4e9dd05}{parallelDecomp}}\ =\ \mbox{\hyperlink{structKMCThinFilm_1_1LatticeParams_ad3f37769b5b30a8f3e941743271def8aa8fc91ae7961264b3e4b8a0706bc01968}{LatticeParams::COMPACT}};}
+\DoxyCodeLine{\textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{classKMCThinFilm_1_1Simulation}{Simulation}}\ sim(latParams);}
+
+\end{DoxyCodeInclude}
+
+
+is the same as in the serial simulation, except for a crucial addition\+: specifying the values of the {\ttfamily ghost\+Extent} member of the \doxylink{structKMCThinFilm_1_1LatticeParams}{KMCThin\+Film\+::\+Lattice\+Params} object, which indicate the extent of the ghost region at the edge of each lattice plane. As with the reference to \doxylink{classKMCThinFilm_1_1TimeIncr_1_1SchemeVars}{KMCThin\+Film\+::\+Time\+Incr\+::\+Scheme\+Vars}, there is no need to wrap the statement {\ttfamily lat\+Params.\+ghost\+Extent\mbox{[}0\mbox{]} = lat\+Params.\+ghost\+Extent\mbox{[}1\mbox{]} = 1} within {\ttfamily \#if KMC\+\_\+\+PARALLEL} and {\ttfamily \#endif}, since it simply has no effect in a serial simulation. The preprocessor variable {\ttfamily USE\+\_\+\+COMPACT\+\_\+\+DECOMP} is used in this example to determine whether compact parallel decomposition is used instead of the default row-\/based decomposition. (See the section entitled ``\doxysectlink{concepts_and_algorithms_kmc_par_alg}{Parallel approximate Kinetic Monte Carlo algorithm}{1}"{}"{}'' for a description of methods of decomposition.)
+
+Also, in a parallel simulation, the \doxylink{structKMCThinFilm_1_1LatticeParams}{KMCThin\+Film\+::\+Lattice\+Params} object has an additional member of type {\ttfamily MPI\+\_\+\+Comm}, {\ttfamily lattice\+Comm\+Initial}. By default, this is simply set to {\ttfamily MPI\+\_\+\+COMM\+\_\+\+WORLD}, so there is typically no need to explicitly specify it. However, since it is not defined in the serial version of the ARL \doxylink{namespaceKMCThinFilm}{KMCThin\+Film} library, if there had been any explicit reference to it in the driver code, it would have needed to have been surrounded by {\ttfamily \#if KMC\+\_\+\+PARALLEL} and {\ttfamily \#endif}.
+
+Setting the random number generator becomes slightly more complicated in a parallel simulation, as shown below.
+
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\textcolor{preprocessor}{\#if\ KMC\_PARALLEL}}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{namespaceKMCThinFilm_a7b5f253610505f71091c404d12d05aee}{RandNumGenSharedPtr}}\ rng(\textcolor{keyword}{new}\ \mbox{\hyperlink{classKMCThinFilm_1_1RandNumGenDCMT}{RandNumGenDCMT}}(sim.procID(),}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ seedGlobal,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 123*sim.procID()\ +\ 456,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ RandNumGenDCMT::P521));}
+\DoxyCodeLine{\textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{namespaceKMCThinFilm_a7b5f253610505f71091c404d12d05aee}{RandNumGenSharedPtr}}\ rng(\textcolor{keyword}{new}\ \mbox{\hyperlink{classKMCThinFilm_1_1RandNumGenMT19937}{RandNumGenMT19937}}(seedGlobal));}
+\DoxyCodeLine{\textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ sim.setRNG(rng);}
+
+\end{DoxyCodeInclude}
+
+
+Here, in the serial version of the code, the \doxylink{classKMCThinFilm_1_1RandNumGenMT19937}{KMCThin\+Film\+::\+Rand\+Num\+Gen\+MT19937} is used, while in parallel, \doxylink{classKMCThinFilm_1_1RandNumGenDCMT}{KMCThin\+Film\+::\+Rand\+Num\+Gen\+DCMT} is used. In principle, \doxylink{classKMCThinFilm_1_1RandNumGenDCMT}{KMCThin\+Film\+::\+Rand\+Num\+Gen\+DCMT} could be have been used for both parallel and serial, but \doxylink{classKMCThinFilm_1_1RandNumGenMT19937}{KMCThin\+Film\+::\+Rand\+Num\+Gen\+MT19937} is restricted to serial use. One should also note that the constructor to parallel random number generators such as \doxylink{classKMCThinFilm_1_1RandNumGenDCMT}{KMCThin\+Film\+::\+Rand\+Num\+Gen\+DCMT} takes the MPI rank or processor ID as an argument. Here, this is given by \doxylink{classKMCThinFilm_1_1Simulation_a4007433a9f7d97dd149c2488b7d94e5b}{KMCThin\+Film\+::\+Simulation\+::proc\+ID()}.
+
+Once \doxylink{classKMCThinFilm_1_1Simulation_adf613f2cf2520695a0fb2ddbbdfd2328}{KMCThin\+Film\+::\+Simulation\+::set\+Solver()} has been called, the parallel time step scheme can now be set as follows.
+
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\ \ sim.setTimeIncrScheme(schemeVars);}
+
+\end{DoxyCodeInclude}
+
+
+Again, there is no need to surround this by {\ttfamily \#if KMC\+\_\+\+PARALLEL} and {\ttfamily \#endif}, since it is just a no-\/op in serial code.
+
+Finally, there is a minor but needed change in the setup for dumping the state of the lattice to files\+:
+
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\ \ sim.reserveTimePeriodicActions(PAction::SIZE);}
+\DoxyCodeLine{\ \ sim.addTimePeriodicAction(PAction::PRINT,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ PrintASCII(\textcolor{stringliteral}{"{}outFile\_ProcCoords"{}}\ +\ }
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ boost::lexical\_cast<std::string>(sim.commCoord(0))\ +\ \textcolor{stringliteral}{"{}\_"{}}\ +}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ boost::lexical\_cast<std::string>(sim.commCoord(1))\ +\ \textcolor{stringliteral}{"{}\_snapshot"{}}),}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0.05*approxDepTime,\ \textcolor{keyword}{true});}
+
+\end{DoxyCodeInclude}
+
+
+Whereas before in the purely serial code, the root of the names of the dump files was just ``{\ttfamily snapshot}'', now it is a string that is unique to each MPI process. Here, each process writes to its own file, which is not always optimal but will suffice here. In serial code, {\ttfamily sim.\+comm\+Coord(0)} and {\ttfamily sim.\+comm\+Coord(1)} both return an integer value of zero.
+
+When running the parallelized code, two things may be noticed. First, for such a small simulation, it is likely to run {\itshape slower} than the corresponding serial code. Second, whereas the serial code will simply quit when it runs out of possible events to execute, the parallel code will simply continue until the specified simulation time is reached.
+
+The results of the parallel simulations should be about the same as those in the serial simulation, provided that the parameters for the parallel time stepping algorithm are set appropriately. The following results show what may happen if they are not set correctly\+:
+
+ 
+\begin{DoxyImageNoCaption}
+  \mbox{\includegraphics[width=5in]{testParBadSnapshots}}
+\end{DoxyImageNoCaption}
+
+
+These snapshots of the simulated surface, at simulations times {\itshape t} 1.\+0 through 4.\+0, contain artifacts that have been described as a ``shish-\/kebob'' effect \cite{plim23}, where parts of the growing simulated film concentrate on sector boundaries. Some instances of these artifacts have been circled in red. The presence of these artifacts indicates that the size of the parallel time steps is too large.\hypertarget{illustrating_use_by_example_example_baldep}{}\doxysection{\texorpdfstring{Example\+: Implementations of a ballistic deposition model}{Example\+: Implementations of a ballistic deposition model}}\label{illustrating_use_by_example_example_baldep}
+While the examples above showcased several features of the ARL \doxylink{namespaceKMCThinFilm}{KMCThin\+Film} library, they were still two-\/dimensional. This particular example is meant to show what is needed for a simulation that requires a three-\/dimensional lattice. It will also show a few other features of the ARL \doxylink{namespaceKMCThinFilm}{KMCThin\+Film} library.
+
+What follows is a pair of example implementations that involve ballistic deposition on a cubic lattice and a contrived cell-\/centered event to change the ``color'' of a lattice cell, which here is a floating-\/point number between zero and one. In ballistic deposition, a depositing particle travels in a straight line until it is close enough to another particle to ``stick'' to it. The result is a deposit that can have several vacancies and overhangs. For simplicity, the depositing particles travel straight downward, which allows the use of simplified algorithms that obviate the need to explicitly model the actual travel of the particle. The propensity of the cell-\/centered event is proportional to the number of occupied nearest neighbors of a lattice cell, including those above and below the cell, and the execution of the event changes the color to an average of the the current cell color and the colors of its occupied nearest neighbors.
+
+In the simplified deposition algorithm \cite{meakin92}, there is both a cubic lattice, whose cells may either be occupied or unoccupied, and an auxiliary two-\/dimensional array of active zone height coordinates, which has the same lateral dimensions as the cubic lattice and may be denoted as $h_a(i,j)$. Before any deposition events begin, the elements of $h_a(i,j)$ are initialized to zero. When a deposition event is chosen, in-\/plane lattice coordinates $(i,j)$ are randomly chosen. Then, a particle is placed at lattice site  $\left(i,j,
+h_a(i,j)\right)$, and for each in-\/plane coordinate  $(i_{neigh}, j_{neigh}) \in \{(i+1,j), (i-1,j), (i,j+1),
+(i,j-1)\}$, the value of $h_a(i_{neigh}, j_{neigh})$ is checked to see if is less than $h_a(i,j)$. If it is, then it is increased it to the value of $h_a(i,j)$. After this, $h_a(i,j)$ is incremented by one.\hypertarget{illustrating_use_by_example_example_baldep_impl1}{}\doxysubsection{\texorpdfstring{First implementation}{First implementation}}\label{illustrating_use_by_example_example_baldep_impl1}
+The code for this implementation is in {\ttfamily doc/example-\/code/test\+Ballistic\+Dep1} of the installation directory of the ARL \doxylink{namespaceKMCThinFilm}{KMCThin\+Film} library. In this implementation, auto-\/tracking has been used. Also, the values of the auxiliary array $h_a(i,j)$ are stored within the first plane of the lattice. Accordingly, in {\ttfamily Events\+And\+Actions.\+hpp}, the following enumeration,
+
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\mbox{\hyperlink{MakeEnum_8hpp_ab74f47ea48cae4ae81e76e45c4fd67c4}{KMC\_MAKE\_LATTICE\_INTVAL\_ENUM}}(BD,\ IS\_OCCUPIED,\ ACTIVE\_ZONE\_HEIGHT);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\mbox{\hyperlink{MakeEnum_8hpp_aa5359f8f13cbe2c11d54214f49fcf8e8}{KMC\_MAKE\_LATTICE\_FLOATVAL\_ENUM}}(BD,\ COLOR);}
+
+\end{DoxyCodeInclude}
+
+
+has been defined. The definition for the function object class defining deposition is as follows\+:
+
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\textcolor{keyword}{class\ }DepositionExecute\ \{}
+\DoxyCodeLine{\textcolor{keyword}{public}:}
+\DoxyCodeLine{\ \ DepositionExecute();}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{void}\ operator()(\textcolor{keyword}{const}\ KMCThinFilm::CellInds\ \&\ ci,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ KMCThinFilm::SimulationState\ \&\ simState,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ KMCThinFilm::Lattice\ \&\ lattice);}
+\DoxyCodeLine{\textcolor{keyword}{private}:}
+\DoxyCodeLine{\ \ std::vector<KMCThinFilm::CellIndsOffset>\ neighOffsets\_;}
+\DoxyCodeLine{\};}
+
+\end{DoxyCodeInclude}
+
+
+The vector {\ttfamily neigh\+Offsets\+\_\+} will be used to find the in-\/plane neighboring lattice cells of the randomly chosen deposition site. This vector is now initialized in the constructor for the deposition function object\+:
+
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{DepositionExecute::DepositionExecute()\ \{}
+\DoxyCodeLine{\ \ }
+\DoxyCodeLine{\ \ neighOffsets\_.reserve(4);}
+\DoxyCodeLine{\ \ neighOffsets\_.push\_back(\mbox{\hyperlink{classKMCThinFilm_1_1CellIndsOffset}{CellIndsOffset}}(\ 0,-\/1));}
+\DoxyCodeLine{\ \ neighOffsets\_.push\_back(\mbox{\hyperlink{classKMCThinFilm_1_1CellIndsOffset}{CellIndsOffset}}(\ 0,+1));}
+\DoxyCodeLine{\ \ neighOffsets\_.push\_back(\mbox{\hyperlink{classKMCThinFilm_1_1CellIndsOffset}{CellIndsOffset}}(-\/1,\ 0));}
+\DoxyCodeLine{\ \ neighOffsets\_.push\_back(\mbox{\hyperlink{classKMCThinFilm_1_1CellIndsOffset}{CellIndsOffset}}(+1,\ 0));}
+\DoxyCodeLine{}
+\DoxyCodeLine{\}}
+
+\end{DoxyCodeInclude}
+
+
+The implementation of the operator that performs the actual execution of the deposition event is shown below.
+
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{void}\ DepositionExecute::operator()(\textcolor{keyword}{const}\ \mbox{\hyperlink{classKMCThinFilm_1_1CellInds}{CellInds}}\ \&\ ci,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classKMCThinFilm_1_1SimulationState}{SimulationState}}\ \&\ simState,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classKMCThinFilm_1_1Lattice}{Lattice}}\ \&\ lattice)\ \{}
+\DoxyCodeLine{\ \ }
+\DoxyCodeLine{\ \ \textcolor{comment}{/*\ Ballistic\ deposition\ algorithm\ for\ cubic\ lattices\ from\ Meakin\ and}}
+\DoxyCodeLine{\textcolor{comment}{\ \ \ \ \ Krug,\ Physical\ Review\ A,\ vol.\ 46,\ num.\ 6,\ pp.\ 3390-\/3399\ (1992).*/}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{classKMCThinFilm_1_1CellInds}{CellInds}}\ ciInPlane(ci.i,\ ci.j,\ 0);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{int}\ kDepAtom\ =\ lattice.\mbox{\hyperlink{classKMCThinFilm_1_1Lattice_aff659b471f414c579a51fe280b218ef1}{getInt}}(ciInPlane,\ BDIntVal::ACTIVE\_ZONE\_HEIGHT);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{classKMCThinFilm_1_1CellInds}{CellInds}}\ ciTo(ci.i,\ ci.j,\ kDepAtom);}
+\DoxyCodeLine{\ \ }
+\DoxyCodeLine{\ \ lattice.\mbox{\hyperlink{classKMCThinFilm_1_1Lattice_aa36bda22ed2b0bc8d8737d3d63009765}{addPlanes}}(ciTo.k\ -\/\ ci.k);}
+\DoxyCodeLine{\ \ lattice.\mbox{\hyperlink{classKMCThinFilm_1_1Lattice_a81beda29c4c8722cb047f7f2ce0a09ce}{setInt}}(ciTo,\ BDIntVal::IS\_OCCUPIED,\ 1);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{for}\ (std::vector<CellIndsOffset>::const\_iterator\ offsetItr\ =\ neighOffsets\_.begin(),}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ offsetItrEnd\ =\ neighOffsets\_.end();\ offsetItr\ !=\ offsetItrEnd;\ ++offsetItr)\ \{}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{classKMCThinFilm_1_1CellInds}{CellInds}}\ neighInPlane\ =\ ciInPlane\ +\ *offsetItr;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{if}\ (lattice.\mbox{\hyperlink{classKMCThinFilm_1_1Lattice_aff659b471f414c579a51fe280b218ef1}{getInt}}(neighInPlane,\ BDIntVal::ACTIVE\_ZONE\_HEIGHT)\ <\ kDepAtom)\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ lattice.\mbox{\hyperlink{classKMCThinFilm_1_1Lattice_a81beda29c4c8722cb047f7f2ce0a09ce}{setInt}}(neighInPlane,\ BDIntVal::ACTIVE\_ZONE\_HEIGHT,\ kDepAtom);}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{\ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ lattice.\mbox{\hyperlink{classKMCThinFilm_1_1Lattice_a81beda29c4c8722cb047f7f2ce0a09ce}{setInt}}(ciInPlane,\ BDIntVal::ACTIVE\_ZONE\_HEIGHT,\ kDepAtom\ +\ 1);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\}}
+
+\end{DoxyCodeInclude}
+
+
+Again, the argument {\ttfamily ci} represents the \doxylink{classKMCThinFilm_1_1CellInds}{indices of a lattice cell}. The operator executes an {\itshape over-\/lattice} event, so {\ttfamily ci.\+i} and {\ttfamily ci.\+j} are already random values. This takes care of the part of Meakin\textquotesingle{}s algorithm where a random pair of in-\/plane indices is chosen. The variable {\ttfamily k\+Dep\+Atom} is used to store the current active zone height for the in-\/plane indices  $(\mathtt{ci.i},
+\mathtt{ci.j})$. Since the active zone heights are stored only within the {\itshape first} plane of the lattice, {\ttfamily ci\+In\+Plane.\+k} is zero.
+
+Before placing a particle in the lattice cell at {\ttfamily ci\+To}, or  $(\mathtt{ci.i}, \mathtt{ci.j},
+\mathtt{kDepAtom})$, it must be ensured that this cell is actually available in the computational lattice. This is what the call to \doxylink{classKMCThinFilm_1_1Lattice_aa36bda22ed2b0bc8d8737d3d63009765}{KMCThin\+Film\+::\+Lattice\+::add\+Planes()} is for. The argument to this member function, if positive, is the number of lattice planes to add. Now {\ttfamily ci.\+k} is initially one less than the maximum number of lattice planes, that is, the maximum possible value of the third lattice coordinate, {\itshape k}. Accordingly, if $\mathtt{ciTo.k} - \mathtt{ci.k}$ is positive, then it is the number of planes that would need to be added to ensure that {\ttfamily ci\+To} is a valid set of indices. If it is zero or negative, then no planes need to be added, and then the call to \doxylink{classKMCThinFilm_1_1Lattice_aa36bda22ed2b0bc8d8737d3d63009765}{KMCThin\+Film\+::\+Lattice\+::add\+Planes()} will simply do nothing. Once the call has been made, \doxylink{classKMCThinFilm_1_1Lattice_a81beda29c4c8722cb047f7f2ce0a09ce}{KMCThin\+Film\+::\+Lattice\+::set\+Int()} can be safely called.
+
+The remainder of the implementation of the operator performing deposition, from the {\ttfamily for} loop onward, simply updates the values of $h_a(i,j)$. The main feature of interest in this remaining part is the \doxylink{namespaceKMCThinFilm_a57489af951d041dc66872aea47fa3da2}{``{\ttfamily +}'' operator} applied to {\ttfamily ci\+In\+Plane} and {\ttfamily \texorpdfstring{$\ast$}{*}offset\+Itr}. The meaning of this operator is such that the statement
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{CellInds\ neighInPlane\ =\ ciInPlane\ +\ *offsetItr;}
+
+\end{DoxyCode}
+
+
+is equivalent to
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{CellInds\ neighInPlane(ciInPlane.i\ +\ offsetItr-\/>i,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ciInPlane.j\ +\ offsetItr-\/>j,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ciInPlane.k\ +\ offsetItr-\/>k);}
+
+\end{DoxyCode}
+
+
+This operator is not commutative; the offset must be its second operand.
+
+Now normally, when \doxylink{classKMCThinFilm_1_1Lattice_aa36bda22ed2b0bc8d8737d3d63009765}{KMCThin\+Film\+::\+Lattice\+::add\+Planes()} is called, the cells that it creates have the quantities associated with them (e.\+g. those labeled as {\ttfamily BDInt\+Val\+::\+IS\+\_\+\+OCCUPIED}, {\ttfamily BDInt\+Val\+::\+ACTIVE\+\_\+\+ZONE\+\_\+\+HEIGHT}, and {\ttfamily BDFloat\+Val\+::\+COLOR}) all set to zero. However, this can be changed, and has been changed for this example. In the initialization of the simulation done via these lines in {\ttfamily test\+Ballistic\+Dep.\+cpp},
+
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{namespaceKMCThinFilm_a7b5f253610505f71091c404d12d05aee}{RandNumGenSharedPtr}}\ rng(\textcolor{keyword}{new}\ \mbox{\hyperlink{classKMCThinFilm_1_1RandNumGenMT19937}{RandNumGenMT19937}}(seed));}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{structKMCThinFilm_1_1LatticeParams}{LatticeParams}}\ latParams;}
+\DoxyCodeLine{\ \ latParams.\mbox{\hyperlink{structKMCThinFilm_1_1LatticeParams_a7a9d46d27758a276fd20d9c18156371a}{numIntsPerCell}}\ =\ BDIntVal::SIZE;}
+\DoxyCodeLine{\ \ latParams.\mbox{\hyperlink{structKMCThinFilm_1_1LatticeParams_a55263f7f4ef826b814ffeaae27ddf687}{numFloatsPerCell}}\ =\ BDFloatVal::SIZE;}
+\DoxyCodeLine{\ \ latParams.\mbox{\hyperlink{structKMCThinFilm_1_1LatticeParams_a3a3cc62a6fb5fdda00ed2c63e1ff1020}{globalPlanarDims}}[0]\ =\ latParams.\mbox{\hyperlink{structKMCThinFilm_1_1LatticeParams_a3a3cc62a6fb5fdda00ed2c63e1ff1020}{globalPlanarDims}}[1]\ =\ domainSize;}
+\DoxyCodeLine{\ \ latParams.\mbox{\hyperlink{structKMCThinFilm_1_1LatticeParams_afc58fe3eed9df51a18d9a3fe2ed3b8d1}{setEmptyCellVals}}\ =\ SetEmptyCellWithRandColor(rng);}
+\DoxyCodeLine{\ \ latParams.\mbox{\hyperlink{structKMCThinFilm_1_1LatticeParams_a1b5bd22cee6f39342f07f59fb31866c9}{numPlanesToReserve}}\ =\ 100;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{classKMCThinFilm_1_1Simulation}{Simulation}}\ sim(latParams);}
+
+\end{DoxyCodeInclude}
+
+
+a special function object, an instance of {\ttfamily Set\+Empty\+Cell\+With\+Rand\+Color}, is used to initialize an empty cell. This function object is defined and implemented in the function files {\ttfamily Init\+Lattice.\+hpp} and {\ttfamily Init\+Lattice.\+cpp}, respectively, which are shown below\+:
+
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\textcolor{preprocessor}{\#ifndef\ INIT\_LATTICE\_HPP}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#define\ INIT\_LATTICE\_HPP}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <KMCThinFilm/Lattice.hpp>}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <KMCThinFilm/RandNumGen.hpp>}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keyword}{class\ }SetEmptyCellWithRandColor\ \{}
+\DoxyCodeLine{\textcolor{keyword}{public}:}
+\DoxyCodeLine{\ \ SetEmptyCellWithRandColor(\mbox{\hyperlink{namespaceKMCThinFilm_a7b5f253610505f71091c404d12d05aee}{KMCThinFilm::RandNumGenSharedPtr}}\ rng)}
+\DoxyCodeLine{\ \ \ \ :\ rng\_(rng)}
+\DoxyCodeLine{\ \ \{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{void}\ operator()(\textcolor{keyword}{const}\ KMCThinFilm::CellInds\ \&\ ci,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ KMCThinFilm::Lattice\ \&\ lattice,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::vector<int>\ \&\ emptyIntVals,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::vector<double>\ \&\ emptyFloatVals);}
+\DoxyCodeLine{\textcolor{keyword}{private}:}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{namespaceKMCThinFilm_a7b5f253610505f71091c404d12d05aee}{KMCThinFilm::RandNumGenSharedPtr}}\ rng\_;}
+\DoxyCodeLine{\};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ INIT\_LATTICE\_HPP\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCodeInclude}
+
+
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ "{}InitLattice.hpp"{}}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ "{}EventsAndActions.hpp"{}}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keyword}{using\ namespace\ }\mbox{\hyperlink{namespaceKMCThinFilm}{KMCThinFilm}};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keywordtype}{void}\ SetEmptyCellWithRandColor::operator()(\textcolor{keyword}{const}\ \mbox{\hyperlink{classKMCThinFilm_1_1CellInds}{CellInds}}\ \&\ ci,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classKMCThinFilm_1_1Lattice}{Lattice}}\ \&\ lattice,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::vector<int>\ \&\ emptyIntVals,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::vector<double>\ \&\ emptyFloatVals)\ \{}
+\DoxyCodeLine{\ \ }
+\DoxyCodeLine{\ \ emptyFloatVals[BDFloatVal::COLOR]\ =\ rng\_-\/>getNumInOpenIntervalFrom0To1();}
+\DoxyCodeLine{\ \ }
+\DoxyCodeLine{\}}
+
+\end{DoxyCodeInclude}
+
+
+Here, even an ``empty'' lattice cell has a color associated with it, which is randomly determined. Note that there is no need to resize the vectors used as output arguments of {\ttfamily Set\+Empty\+Cell\+With\+Rand\+Color\+::operator()}, since the sizes of these vectors have already been set to the number of integer and floating-\/point quantities, respectively, at each lattice cell.
+
+Since multiple lattice planes will be added during the course of the simulation, {\ttfamily lat\+Params.\+num\+Planes\+To\+Reserve} is set to roughly the number of planes that might be added. This reserves space in memory for those planes but does not add them to the lattice outright. Actually adding the planes is done by \doxylink{classKMCThinFilm_1_1Lattice_aa36bda22ed2b0bc8d8737d3d63009765}{KMCThin\+Film\+::\+Lattice\+::add\+Planes()}. {\ttfamily lat\+Params.\+num\+Planes\+To\+Reserve} is {\itshape not} a hard limit on the number of lattice planes that may be added; it merely affects performance.
+
+\begin{DoxyNote}{Note}
+While this example of a means of initializing an empty lattice is contrived, a not-\/so contrived example would be a case where the lattice is distorted and the current coordinates of a particle, which may be near rather than exactly at a lattice site, are stored at a lattice cell. In a new empty cell, it would make sense for these coordinates to be initialized not to zero, but rather to some function of the lattice indices $(i,j,k)$, e.\+g.  $\mathbf{a}_i i + \mathbf{a}_j j + \mathbf{a}_k k +
+\mathbf{b}$, where $\mathbf{a}_i$, $\mathbf{a}_j$, and $\mathbf{a}_k$ are primitive lattice vectors and $\mathbf{b}$ is a basis vector.
+\end{DoxyNote}
+The enumeration associated with the offsets used in the function object classes involved in the color change in a lattice cell is as follows\+:
+
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\mbox{\hyperlink{MakeEnum_8hpp_a18b06446141f866d52168964dbc824c7}{KMC\_MAKE\_OFFSET\_ENUM}}(MIX\_OFFSET,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ NORTH,\ SOUTH,\ WEST,\ EAST\ \textcolor{comment}{/*\ First\ four\ neighbors\ are\ lateral\ */},\ }
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ UP,\ DOWN);}
+
+\end{DoxyCodeInclude}
+
+
+The definition for the function object class defining the propensity for the color change in a lattice cell is
+
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\textcolor{keyword}{class\ }ColorMixPropensity\ \{}
+\DoxyCodeLine{\textcolor{keyword}{public}:}
+\DoxyCodeLine{\ \ ColorMixPropensity(\textcolor{keywordtype}{double}\ mixPropPerNeighbor)}
+\DoxyCodeLine{\ \ \ \ :\ mixPropPerNeighbor\_(mixPropPerNeighbor)}
+\DoxyCodeLine{\ \ \{\}\ }
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{void}\ operator()(\textcolor{keyword}{const}\ KMCThinFilm::CellNeighProbe\ \&\ cnp,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::vector<double>\ \&\ propensityVec)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{\textcolor{keyword}{private}:}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{double}\ mixPropPerNeighbor\_;}
+\DoxyCodeLine{\};}
+
+\end{DoxyCodeInclude}
+
+
+and its implementation is
+
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{void}\ ColorMixPropensity::operator()(\textcolor{keyword}{const}\ \mbox{\hyperlink{classKMCThinFilm_1_1CellNeighProbe}{KMCThinFilm::CellNeighProbe}}\ \&\ cnp,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::vector<double>\ \&\ propensityVec)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{\ \ }
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{if}\ (cnp.\mbox{\hyperlink{classKMCThinFilm_1_1CellNeighProbe_a7be3ba45264054167a243f15a1954b92}{getInt}}(cnp.\mbox{\hyperlink{classKMCThinFilm_1_1CellNeighProbe_a1ba997186f6326b525dd66df4254d198}{getCellToProbe}}(MIX\_OFFSET::SELF),\ BDIntVal::IS\_OCCUPIED))\ \{}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordtype}{int}\ numNeighs\ =\ 0;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Visiting\ four\ lateral\ neighbors}}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ whichOffset\ =\ 1;\ whichOffset\ <=\ 4;\ ++whichOffset)\ \{}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \ \ \textcolor{keywordflow}{if}\ (cnp.\mbox{\hyperlink{classKMCThinFilm_1_1CellNeighProbe_a7be3ba45264054167a243f15a1954b92}{getInt}}(cnp.\mbox{\hyperlink{classKMCThinFilm_1_1CellNeighProbe_a1ba997186f6326b525dd66df4254d198}{getCellToProbe}}(whichOffset),\ BDIntVal::IS\_OCCUPIED))\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ ++numNeighs;}
+\DoxyCodeLine{\ \ \ \ \ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{classKMCThinFilm_1_1CellToProbe}{CellToProbe}}\ downCell\ =\ cnp.\mbox{\hyperlink{classKMCThinFilm_1_1CellNeighProbe_a1ba997186f6326b525dd66df4254d198}{getCellToProbe}}(MIX\_OFFSET::DOWN);}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{if}\ (cnp.\mbox{\hyperlink{classKMCThinFilm_1_1CellNeighProbe_acff2debf7ca2157b8ea1d58475a9f25f}{belowLatticeBottom}}(downCell)\ ||\ cnp.\mbox{\hyperlink{classKMCThinFilm_1_1CellNeighProbe_a7be3ba45264054167a243f15a1954b92}{getInt}}(downCell,\ BDIntVal::IS\_OCCUPIED))\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ ++numNeighs;}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{classKMCThinFilm_1_1CellToProbe}{CellToProbe}}\ upCell\ =\ cnp.\mbox{\hyperlink{classKMCThinFilm_1_1CellNeighProbe_a1ba997186f6326b525dd66df4254d198}{getCellToProbe}}(MIX\_OFFSET::UP);}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{if}\ ((!cnp.\mbox{\hyperlink{classKMCThinFilm_1_1CellNeighProbe_a1c68a11a6d1af530abf21ed070ae452c}{exceedsLatticeHeight}}(upCell))\ \&\&\ cnp.\mbox{\hyperlink{classKMCThinFilm_1_1CellNeighProbe_a7be3ba45264054167a243f15a1954b92}{getInt}}(upCell,\ BDIntVal::IS\_OCCUPIED))\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ ++numNeighs;}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ propensityVec[CellCenteredEvents::COLOR\_MIXING]\ =\ mixPropPerNeighbor\_*numNeighs;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \}}
+\DoxyCodeLine{\}}
+
+\end{DoxyCodeInclude}
+
+
+There are a couple new things to note.
+
+First, the contributions of the lateral nearest neighboring cells are determined by looping over the {\itshape numeric} labels for the offsets, 1 through 4, rather than the symbolic constants {\ttfamily MIX\+\_\+\+OFFSET\+::\+NORTH}, {\ttfamily MIX\+\_\+\+OFFSET\+::\+SOUTH}, {\ttfamily MIX\+\_\+\+OFFSET\+::\+WEST}, and {\ttfamily MIX\+\_\+\+OFFSET\+::\+EAST}. This is perfectly legal; the {\itshape N} enumeration constants listed in the arguments of \doxylink{MakeEnum_8hpp_a18b06446141f866d52168964dbc824c7}{KMC\+\_\+\+MAKE\+\_\+\+OFFSET\+\_\+\+ENUM} will correspond respectively to the numbers 1 through {\itshape N}. (Note that the number zero corresponds to the offset {\ttfamily MIX\+\_\+\+OFFSET\+::\+SELF}.) There is a tradeoff here. Iterating over {\itshape numeric} labels for the offsets may be less self-\/documenting, but using the symbolic enumeration constants may involve more ``cut-\/and-\/paste'' code.
+
+Second, when probing the non-\/lateral neighbors, the member functions \doxylink{classKMCThinFilm_1_1CellNeighProbe_acff2debf7ca2157b8ea1d58475a9f25f}{KMCThin\+Film\+::\+Cell\+Neigh\+Probe\+::below\+Lattice\+Bottom()} and \doxylink{classKMCThinFilm_1_1CellNeighProbe_a1c68a11a6d1af530abf21ed070ae452c}{KMCThin\+Film\+::\+Cell\+Neigh\+Probe\+::exceeds\+Lattice\+Height()} are used to ensure that calls to \doxylink{classKMCThinFilm_1_1CellNeighProbe_a7be3ba45264054167a243f15a1954b92}{KMCThin\+Film\+::\+Cell\+Neigh\+Probe\+::get\+Int()} are only applied to \doxylink{classKMCThinFilm_1_1CellToProbe}{KMCThin\+Film\+::\+Cell\+To\+Probe} objects with valid indices (due to the short-\/circuit evaluation of operators {\ttfamily \texorpdfstring{$\vert$}{|}\texorpdfstring{$\vert$}{|}} and {\ttfamily \&\&}). In two-\/dimensional serial simulations, in-\/plane indices {\itshape i} and {\itshape j} are always valid, because they are wrapped due to periodic boundary conditions, and in two-\/dimensional parallel simulations, in-\/plane indices {\itshape i} and {\itshape j} should always be valid if the size of the ghost regions of the lattice has been properly set. In three-\/dimensional simulations, index {\itshape k} could easily be set to an invalid value, either a negative value---referring to a cell effectively below the computational lattice---or a value that is greater or equal to the number of lattice planes---referring to a cell effectively above the computational lattice. Note that cells below the lattice are treated differently than those above it. Here, if cell indices point to a cell that would be below the computational lattice, {\ttfamily num\+Neighs} is incremented because such a cell is understood as belonging to the substrate onto which a film is being deposited. If cell indices point to a cell that would be above the computational lattice, {\ttfamily num\+Neighs} is not incremented, since such a cell is understood as belonging to the empty space above the film.
+
+The definition for the function object class that would execute color mixing is as follows\+:
+
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\textcolor{keyword}{class\ }ColorMixExecute\ \{}
+\DoxyCodeLine{\textcolor{keyword}{public}:}
+\DoxyCodeLine{\ \ ColorMixExecute(\mbox{\hyperlink{namespaceKMCThinFilm_a7b5f253610505f71091c404d12d05aee}{KMCThinFilm::RandNumGenSharedPtr}}\ rng\_,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ KMCThinFilm::CellNeighOffsets\ *\ mixCNO,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ *\ numMixes);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{void}\ operator()(\textcolor{keyword}{const}\ KMCThinFilm::CellInds\ \&\ ci,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ KMCThinFilm::SimulationState\ \&\ simState,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ KMCThinFilm::Lattice\ \&\ lattice);}
+\DoxyCodeLine{\textcolor{keyword}{private}:}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{namespaceKMCThinFilm_a7b5f253610505f71091c404d12d05aee}{KMCThinFilm::RandNumGenSharedPtr}}\ rng\_;}
+\DoxyCodeLine{\ \ \textcolor{keyword}{const}\ KMCThinFilm::CellNeighOffsets\ *\ mixCNO\_;}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{int}\ *\ numMixes\_;}
+\DoxyCodeLine{\};}
+
+\end{DoxyCodeInclude}
+
+
+Private member {\ttfamily mix\+CNO\+\_\+} is simply a pointer to the same set of offsets used to calculate the propensity for mixing, as seen in the part of the driver code, {\ttfamily test\+Ballistic\+Dep.\+cpp}, where cell-\/centered event types are added to the simulation\+:
+
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{classKMCThinFilm_1_1CellNeighOffsets}{CellNeighOffsets}}\ mixCNO(MIX\_OFFSET::SIZE);}
+\DoxyCodeLine{\ \ mixCNO.addOffset(MIX\_OFFSET::NORTH,\ \mbox{\hyperlink{classKMCThinFilm_1_1CellIndsOffset}{CellIndsOffset}}(+1,\ 0,\ 0));}
+\DoxyCodeLine{\ \ mixCNO.addOffset(MIX\_OFFSET::SOUTH,\ \mbox{\hyperlink{classKMCThinFilm_1_1CellIndsOffset}{CellIndsOffset}}(-\/1,\ 0,\ 0));}
+\DoxyCodeLine{\ \ mixCNO.addOffset(MIX\_OFFSET::WEST,\ \ \mbox{\hyperlink{classKMCThinFilm_1_1CellIndsOffset}{CellIndsOffset}}(\ 0,-\/1,\ 0));}
+\DoxyCodeLine{\ \ mixCNO.addOffset(MIX\_OFFSET::EAST,\ \ \mbox{\hyperlink{classKMCThinFilm_1_1CellIndsOffset}{CellIndsOffset}}(\ 0,+1,\ 0));}
+\DoxyCodeLine{\ \ mixCNO.addOffset(MIX\_OFFSET::UP,\ \ \ \ \mbox{\hyperlink{classKMCThinFilm_1_1CellIndsOffset}{CellIndsOffset}}(\ 0,\ 0,+1));}
+\DoxyCodeLine{\ \ mixCNO.addOffset(MIX\_OFFSET::DOWN,\ \ \mbox{\hyperlink{classKMCThinFilm_1_1CellIndsOffset}{CellIndsOffset}}(\ 0,\ 0,-\/1));}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{int}\ numMixes;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{classKMCThinFilm_1_1EventExecutorGroup}{EventExecutorGroup}}\ mixExec(CellCenteredEvents::SIZE);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ mixExec.addEventExecutor(CellCenteredEvents::COLOR\_MIXING,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ColorMixExecute(rng,\ \&mixCNO,\ \&numMixes));}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ sim.reserveCellCenteredEventGroups(1,\ CellCenteredEvents::SIZE);}
+\DoxyCodeLine{\ \ sim.addCellCenteredEventGroup(1,\ mixCNO,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ColorMixPropensity(10*F),}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ mixExec);}
+
+\end{DoxyCodeInclude}
+
+
+Private member {\ttfamily num\+Mixes\+\_\+} will be used to keep track of how many times a color mixing event is executed. One can see from the above code and from the code of the constructor of {\ttfamily Color\+Mix\+Execute} below,
+
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{ColorMixExecute::ColorMixExecute(\mbox{\hyperlink{namespaceKMCThinFilm_a7b5f253610505f71091c404d12d05aee}{RandNumGenSharedPtr}}\ rng,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classKMCThinFilm_1_1CellNeighOffsets}{CellNeighOffsets}}\ *\ mixCNO,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ *\ numMixes)}
+\DoxyCodeLine{\ \ :\ rng\_(rng),\ }
+\DoxyCodeLine{\ \ \ \ mixCNO\_(mixCNO),}
+\DoxyCodeLine{\ \ \ \ numMixes\_(numMixes)\ \{}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ *numMixes\_\ =\ 0;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\}}
+
+\end{DoxyCodeInclude}
+
+
+that this private member points to the integer variable {\ttfamily num\+Mixes} in the driver code. After the simulation has finished running, the value of {\ttfamily num\+Mixes} will be printed.
+
+The implementation of the operator in the {\ttfamily Color\+Mix\+Execute} class that executes color mixing is shown below\+:
+
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{void}\ ColorMixExecute::operator()(\textcolor{keyword}{const}\ \mbox{\hyperlink{classKMCThinFilm_1_1CellInds}{KMCThinFilm::CellInds}}\ \&\ ci,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classKMCThinFilm_1_1SimulationState}{KMCThinFilm::SimulationState}}\ \&\ simState,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classKMCThinFilm_1_1Lattice}{KMCThinFilm::Lattice}}\ \&\ lattice)\ \{}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{double}\ color\ =\ lattice.\mbox{\hyperlink{classKMCThinFilm_1_1Lattice_a825ef41025b740e190d60d097f9d9ae5}{getFloat}}(ci,\ BDFloatVal::COLOR);}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{int}\ numColors\ =\ 1;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{comment}{//\ Visiting\ four\ lateral\ neighbors}}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ whichOffset\ =\ 1;\ whichOffset\ <=\ 4;\ ++whichOffset)\ \{}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{classKMCThinFilm_1_1CellInds}{CellInds}}\ ciNeigh\ =\ ci\ +\ mixCNO\_-\/>getOffset(whichOffset);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{if}\ (lattice.\mbox{\hyperlink{classKMCThinFilm_1_1Lattice_aff659b471f414c579a51fe280b218ef1}{getInt}}(ciNeigh,\ BDIntVal::IS\_OCCUPIED))\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ color\ +=\ lattice.\mbox{\hyperlink{classKMCThinFilm_1_1Lattice_a825ef41025b740e190d60d097f9d9ae5}{getFloat}}(ciNeigh,\ BDFloatVal::COLOR);}
+\DoxyCodeLine{\ \ \ \ \ \ ++numColors;\ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{classKMCThinFilm_1_1CellInds}{CellInds}}\ ciDown\ =\ ci\ +\ \ mixCNO\_-\/>getOffset(MIX\_OFFSET::DOWN);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{bool}\ belowLatticeBottom\ =\ (ciDown.k\ <\ 0);}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{bool}\ ciDownIsOccupied\ =\ (belowLatticeBottom\ ||\ lattice.\mbox{\hyperlink{classKMCThinFilm_1_1Lattice_aff659b471f414c579a51fe280b218ef1}{getInt}}(ciDown,\ BDIntVal::IS\_OCCUPIED));}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{if}\ (ciDownIsOccupied)\ \{}
+\DoxyCodeLine{\ \ \ \ color\ +=\ (belowLatticeBottom\ ?}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ (rng\_-\/>getNumInOpenIntervalFrom0To1())\ :}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ lattice.\mbox{\hyperlink{classKMCThinFilm_1_1Lattice_a825ef41025b740e190d60d097f9d9ae5}{getFloat}}(ciDown,\ BDFloatVal::COLOR));}
+\DoxyCodeLine{\ \ \ \ ++numColors;}
+\DoxyCodeLine{\ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{classKMCThinFilm_1_1CellInds}{CellInds}}\ ciUp\ =\ ci\ +\ \ mixCNO\_-\/>getOffset(MIX\_OFFSET::UP);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{if}\ ((ciUp.k\ <\ lattice.\mbox{\hyperlink{classKMCThinFilm_1_1Lattice_a79fcfbbdb100a422553f1648019aab1a}{currHeight}}())\ \&\&\ lattice.\mbox{\hyperlink{classKMCThinFilm_1_1Lattice_aff659b471f414c579a51fe280b218ef1}{getInt}}(ciUp,\ BDIntVal::IS\_OCCUPIED))\ \{}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ color\ +=\ lattice.\mbox{\hyperlink{classKMCThinFilm_1_1Lattice_a825ef41025b740e190d60d097f9d9ae5}{getFloat}}(ciUp,\ BDFloatVal::COLOR);}
+\DoxyCodeLine{\ \ \ \ ++numColors;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ lattice.\mbox{\hyperlink{classKMCThinFilm_1_1Lattice_aefe9601bf62fdb46d451d61fa017e691}{setFloat}}(ci,\ BDFloatVal::COLOR,\ color/numColors);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ ++(*numMixes\_);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\}}
+
+\end{DoxyCodeInclude}
+
+
+Whereas in the function object to calculate propensity, there were special member functions to check whether index {\itshape k} of some set of cell indices was less than zero or greater than or equal to the lattice height, here such checks are performed ``manually,'' so to speak. Also, again cells below the computational lattice are here treated differently than those above it. Cells below the lattice are again assumed to belong to the substrate, and for this contrived example, each particle in the substrate is assumed to have a random color. Cells above the computational lattice are again assumed to belong to the empty space above the deposited thin film, and thus do not contribute to the new value of the color of the cell.
+
+The periodic action used to dump the state of the lattice to a file uses a file format called ``\href{http://www.visitusers.org/index.php?title=Reading_point_data}{\texttt{ Point3D}},'', which can viewed with the software Vis\+It \texorpdfstring{$<$}{<}\href{http://visit.llnl.gov}{\texttt{ http\+://visit.\+llnl.\+gov}}\texorpdfstring{$>$}{>}. It is used to display arrangements of particles colored according to some quantity, which in this case is the so-\/callled color of each lattice cell. The last snapshot, when viewed in Vis\+It, should look something like this\+:
+
+ 
+\begin{DoxyImageNoCaption}
+  \mbox{\includegraphics[width=0.8\textwidth]{testBallisticDep1_visit3D.png}}
+\end{DoxyImageNoCaption}
+
+
+A slice of this snapshot in Vis\+It, showing particles with cell index {\itshape j} = 50, should look something like this\+:
+
+ 
+\begin{DoxyImageNoCaption}
+  \mbox{\includegraphics[width=0.8\textwidth]{testBallisticDep1_visit_slice_y50.png}}
+\end{DoxyImageNoCaption}
+\hypertarget{illustrating_use_by_example_example_baldep_impl2}{}\doxysubsection{\texorpdfstring{Second implementation}{Second implementation}}\label{illustrating_use_by_example_example_baldep_impl2}
+One may have noticed a problem with the implementation of ballistic deposition described above. While only the values of the quantity labeled {\ttfamily BDInt\+Val\+::\+ACTIVE\+\_\+\+ZONE\+\_\+\+HEIGHT} in the first lattice plane are used, this quantity is defined for all cells of the lattice, which is somewhat wasteful. In this alternate implementation, then, the values of the auxiliary array $h_a(i,j)$ will be stored not within the first plane of the lattice, but rather in a separate auxiliary array. Also, semi-\/manual tracking will be used for this example. The code for this new implementation is in {\ttfamily doc/example-\/code/test\+Ballistic\+Dep2} of the installation directory of the ARL \doxylink{namespaceKMCThinFilm}{KMCThin\+Film} library.
+
+We begin by defining {\ttfamily Int\+Array2D} in {\ttfamily Events\+And\+Actions.\+hpp}, a type for a two-\/dimensional integer array, using the multi-\/array implementation from Boost \texorpdfstring{$<$}{<}\href{http://www.boost.org}{\texttt{ http\+://www.\+boost.\+org}}\texorpdfstring{$>$}{>}, and a shared pointer for that type, also using a ``smart'' pointer implementation from the Boost library\+:
+
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <boost/multi\_array.hpp>}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <boost/shared\_ptr.hpp>}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keyword}{typedef}\ boost::multi\_array<int,\ 2>\ IntArray2D;}
+\DoxyCodeLine{\textcolor{keyword}{typedef}\ boost::shared\_ptr<IntArray2D>\ IntArray2DSharedPtr;}
+
+\end{DoxyCodeInclude}
+
+
+In the definition of the function object class performing ballistic deposition,
+
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\textcolor{keyword}{class\ }DepositionExecute\ \{}
+\DoxyCodeLine{\textcolor{keyword}{public}:}
+\DoxyCodeLine{\ \ DepositionExecute(\textcolor{keyword}{const}\ KMCThinFilm::LatticePlanarBBox\ \&\ planarBBox);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{void}\ operator()(\textcolor{keyword}{const}\ KMCThinFilm::CellInds\ \&\ ci,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ KMCThinFilm::SimulationState\ \&\ simState,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ KMCThinFilm::Lattice\ \&\ lattice,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::vector<KMCThinFilm::CellsToChange>\ \&\ ctcVec);}
+\DoxyCodeLine{\textcolor{keyword}{private}:}
+\DoxyCodeLine{\ \ IntArray2DSharedPtr\ activeZoneHeights\_;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ std::vector<KMCThinFilm::CellIndsOffset>\ neighOffsets\_;}
+\DoxyCodeLine{\};}
+
+\end{DoxyCodeInclude}
+
+
+we have a shared pointer to an {\ttfamily Int\+Array2D} object, {\ttfamily active\+Zone\+Heights\+\_\+}. The constructor takes a \doxylink{structKMCThinFilm_1_1LatticePlanarBBox}{KMCThin\+Film\+::\+Lattice\+Planar\+BBox} parameter object, which is used to size the array to which {\ttfamily active\+Zone\+Heights\+\_\+} points\+:
+
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{DepositionExecute::DepositionExecute(\textcolor{keyword}{const}\ \mbox{\hyperlink{structKMCThinFilm_1_1LatticePlanarBBox}{LatticePlanarBBox}}\ \&\ planarBBox)}
+\DoxyCodeLine{:\ activeZoneHeights\_(new\ IntArray2D)\ \{}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{comment}{//\ The\ resize()\ member\ function\ will\ initialize\ the\ elements\ of\ this}}
+\DoxyCodeLine{\ \ \textcolor{comment}{//\ array\ to\ zero.}}
+\DoxyCodeLine{\ \ activeZoneHeights\_-\/>resize(boost::extents[planarBBox.\mbox{\hyperlink{structKMCThinFilm_1_1LatticePlanarBBox_a8bc6629f20496b2845d66f924a04f35a}{imaxP1}}\ -\/\ planarBBox.\mbox{\hyperlink{structKMCThinFilm_1_1LatticePlanarBBox_a9de43623938e1ceb68c26feafd4cd009}{imin}}]}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [planarBBox.\mbox{\hyperlink{structKMCThinFilm_1_1LatticePlanarBBox_abedcda2c34e2bdfe0404e22838ed33dd}{jmaxP1}}\ -\/\ planarBBox.\mbox{\hyperlink{structKMCThinFilm_1_1LatticePlanarBBox_aa227140b560487687496bdbaef79d85e}{jmin}}]);}
+\DoxyCodeLine{\ \ }
+\DoxyCodeLine{\ \ neighOffsets\_.reserve(4);}
+\DoxyCodeLine{\ \ neighOffsets\_.push\_back(\mbox{\hyperlink{classKMCThinFilm_1_1CellIndsOffset}{CellIndsOffset}}(\ 0,-\/1));}
+\DoxyCodeLine{\ \ neighOffsets\_.push\_back(\mbox{\hyperlink{classKMCThinFilm_1_1CellIndsOffset}{CellIndsOffset}}(\ 0,+1));}
+\DoxyCodeLine{\ \ neighOffsets\_.push\_back(\mbox{\hyperlink{classKMCThinFilm_1_1CellIndsOffset}{CellIndsOffset}}(-\/1,\ 0));}
+\DoxyCodeLine{\ \ neighOffsets\_.push\_back(\mbox{\hyperlink{classKMCThinFilm_1_1CellIndsOffset}{CellIndsOffset}}(+1,\ 0));}
+\DoxyCodeLine{}
+\DoxyCodeLine{\}}
+
+\end{DoxyCodeInclude}
+
+
+In the driver code {\ttfamily test\+Ballistic\+Dep.\+cpp}, the \doxylink{structKMCThinFilm_1_1LatticePlanarBBox}{KMCThin\+Film\+::\+Lattice\+Planar\+BBox} parameter object passed to this constructor contains the lateral bounds of the global lattice.
+
+Finally, the implementation of ballistic deposition is as follows\+:
+
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{void}\ DepositionExecute::operator()(\textcolor{keyword}{const}\ \mbox{\hyperlink{classKMCThinFilm_1_1CellInds}{KMCThinFilm::CellInds}}\ \&\ ci,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classKMCThinFilm_1_1SimulationState}{KMCThinFilm::SimulationState}}\ \&\ simState,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classKMCThinFilm_1_1Lattice}{KMCThinFilm::Lattice}}\ \&\ lattice,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::vector<KMCThinFilm::CellsToChange>\ \&\ ctcVec)\ \{}
+\DoxyCodeLine{\ \ }
+\DoxyCodeLine{\ \ \textcolor{comment}{/*\ Ballistic\ deposition\ algorithm\ for\ cubic\ lattices\ from\ Meakin\ and}}
+\DoxyCodeLine{\textcolor{comment}{\ \ \ \ \ Krug,\ Physical\ Review\ A,\ vol.\ 46,\ num.\ 6,\ pp.\ 3390-\/3399\ (1992).*/}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{int}\ kDepAtom\ =\ (*activeZoneHeights\_)[ci.i][ci.j];}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{classKMCThinFilm_1_1CellInds}{CellInds}}\ ciTo(ci.i,\ ci.j,\ kDepAtom);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{classKMCThinFilm_1_1CellsToChange}{CellsToChange}}\ \&\ ctc\ =\ ctcVec[0];}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ ctc.\mbox{\hyperlink{classKMCThinFilm_1_1CellsToChange_a8a56c1106701d5bc3409cd30343fee2c}{setCenter}}(ciTo);}
+\DoxyCodeLine{\ \ }
+\DoxyCodeLine{\ \ ctc.\mbox{\hyperlink{classKMCThinFilm_1_1CellsToChange_a6753306ace3d33af03814bfb048498b5}{addLatticePlanes}}(ciTo.k\ -\/\ ci.k);}
+\DoxyCodeLine{\ \ ctc.\mbox{\hyperlink{classKMCThinFilm_1_1CellsToChange_a62079b840cc200e37e2907ba2e394f78}{setInt}}(0,\ BDIntVal::IS\_OCCUPIED,\ 1);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{for}\ (std::vector<CellIndsOffset>::const\_iterator\ offsetItr\ =\ neighOffsets\_.begin(),}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ offsetItrEnd\ =\ neighOffsets\_.end();\ offsetItr\ !=\ offsetItrEnd;\ ++offsetItr)\ \{}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{classKMCThinFilm_1_1CellInds}{CellInds}}\ neigh\ =\ ciTo\ +\ *offsetItr;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordtype}{int}\ i\ =\ lattice.\mbox{\hyperlink{classKMCThinFilm_1_1Lattice_ad86c9013774b072638db5527ced49cf8}{wrapI}}(neigh);}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordtype}{int}\ j\ =\ lattice.\mbox{\hyperlink{classKMCThinFilm_1_1Lattice_a837c173e46cb56875b02dbdb27da71c9}{wrapJ}}(neigh);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{if}\ ((*activeZoneHeights\_)[i][j]\ <\ kDepAtom)\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ (*activeZoneHeights\_)[i][j]\ =\ kDepAtom;}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{\ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ ++((*activeZoneHeights\_)[ci.i][ci.j]);}
+\DoxyCodeLine{\}}
+
+\end{DoxyCodeInclude}
+
+
+Note that since {\ttfamily active\+Zone\+Heights\+\_\+} is an external array, we use \doxylink{classKMCThinFilm_1_1Lattice_ad86c9013774b072638db5527ced49cf8}{KMCThin\+Film\+::\+Lattice\+::wrap\+I()} and \doxylink{classKMCThinFilm_1_1Lattice_a837c173e46cb56875b02dbdb27da71c9}{KMCThin\+Film\+::\+Lattice\+::wrap\+J()} to ensure that the array indices used with {\ttfamily active\+Zone\+Heights\+\_\+} are correctly wrapped to account for periodic boundary conditions. This was not necessary when $h_a(i,j)$ was stored in the first plane of the lattice and \doxylink{classKMCThinFilm_1_1Lattice_aff659b471f414c579a51fe280b218ef1}{KMCThin\+Film\+::\+Lattice\+::get\+Int()} was used to access its contents, since \doxylink{classKMCThinFilm_1_1Lattice_aff659b471f414c579a51fe280b218ef1}{get\+Int()} automatically accounts for any periodic boundary conditions. Also, since semi-\/manual tracking is used, {\ttfamily lattice} is a {\itshape constant} reference, so planes must be added to the lattice via the member function \doxylink{classKMCThinFilm_1_1CellsToChange_a6753306ace3d33af03814bfb048498b5}{KMCThin\+Film\+::\+Cells\+To\+Change\+::add\+Lattice\+Planes()}.
+
+One may ask why {\ttfamily active\+Zone\+Heights\+\_\+} is a pointer to an array instead of just an array. The reason for this is that when the {\ttfamily Deposition\+Execute} object is passed to \doxylink{classKMCThinFilm_1_1Simulation_affa3dff53afd248546457944b98376d9}{KMCThin\+Film\+::\+Simulation\+::add\+Over\+Lattice\+Event()}, it is passed by value. This would mean that there would be two copies of the {\ttfamily active\+Zone\+Heights\+\_\+} array, one created when the {\ttfamily Deposition\+Execute} object is constructed, and another when a copy of this object is made to pass it by value. By using a pointer, only a pointer to the array is copied. A ``smart'' shared pointer is used so that it will automatically be deleted when there are no more references to it.
+
+One downside of this implementation is that it is more difficult to parallelize than the previous one. With {\ttfamily \texorpdfstring{$\ast$}{*}active\+Zone\+Heights\+\_\+} as a separate array, the process of splitting up the array, taking care of updates of ghost entries, etc. has to be handled explicitly. The handling of MPI communication could be done via a periodic action executed at each step, though one would need to refactor the code so that a {\ttfamily Deposition\+Execute} object and the function object performing the periodic action could both access the array containing $h_a(i,j)$.
+
+The resulting simulated thin film produced by this implementation is similar to that produced in the previous simulation but not the same, even if the same seed to the random number generator has been used. This is because the previous implementation contains calls to {\ttfamily lattice.\+set\+Int(..., BDInt\+Val\+::\+ACTIVE\+\_\+\+ZONE\+\_\+\+HEIGHT, ...)} in the function object that executes a deposition event. This triggers the solvers in the simulation to examine the possible events in the neighborhood of where the value of the quantity labeled {\ttfamily BDInt\+Val\+::\+ACTIVE\+\_\+\+ZONE\+\_\+\+HEIGHT} has been changed, which, due to implementation details in the ARL \doxylink{namespaceKMCThinFilm}{KMCThin\+Film} library, ends up changing the order that possible events with the same propensity are stored, which in turn affects which event is randomly chosen at a time step.\hypertarget{illustrating_use_by_example_example_pat_sub}{}\doxysection{\texorpdfstring{Example\+: Implementations of a patterned substrate model}{Example\+: Implementations of a patterned substrate model}}\label{illustrating_use_by_example_example_pat_sub}
+This example is meant to show how the ARL \doxylink{namespaceKMCThinFilm}{KMCThin\+Film} library may be used to implement models that are unusual in the sense that they have features that would almost inevitably require custom code to implement. An example of such a model is that of a patterned substrate \cite{kur99}. Like the fractal model, they use solid-\/on-\/solid modeling of a cubic lattice, which again means that the arrangement of atoms in the actual true lattice can be stored in a two-\/dimensional computational lattice, such that $(i,j,0)$ in the computational lattice stores the height of the column of particles at $(i,j,0)$ in the true lattice. As before, if a diffusing particle in the true lattice moves to a nearest-\/neighboring site that is not just above another particle, then the diffusing particle will fall until it lands on top of another particle. Also, if the site to which a particle attempts to move is occupied, then the particle will climb to the top of the column of particles that contains that occupied site. Falling and climbing are illustrated below, where an empty circle indicates the old position of a particle and a dark filled circle indicates the new position of a particle\+:
+
+ 
+\begin{DoxyImageNoCaption}
+  \mbox{\includegraphics[height=1.5in]{FallingAndClimbingParticles}}
+\end{DoxyImageNoCaption}
+
+
+In one of the models of Kuronen et al., the propensity for the hopping of a particle at a lattice cell is   \[p = k\exp\left(-\frac{E}{k_B T}\right)
+\] where $k_B$ is the Boltzmann constant, {\itshape T} is temperature, $k = kT/h$ with {\itshape h} being Planck\textquotesingle{}s constant, and   \[E = E_s(i,j) + n E_n
+\] Here, {\itshape n} is the number of occupied lateral neighbors of the cell, $E_n$ (= 0.\+18 eV) is a measure of the bond strength between a particle and a lateral nearest neighboring particle, and $E_s$ is a position-\/dependent diffusion barrier dependent on the patterning of the substrate, which varies with {\itshape i} and {\itshape j} as illustrated below, with brighter colors indicating higher values.
+
+ 
+\begin{DoxyImageNoCaption}
+  \mbox{\includegraphics[height=3in]{tiled16x16Domain_annotated}}
+\end{DoxyImageNoCaption}
+
+
+The above pattern consists of a 16 {$\times$} 16 array of square domains, and each domain is an array of 22 {$\times$} 22 elements. This implies that the lattice has lateral dimensions (16{$\cdot$}22) {$\times$} (16{$\cdot$}22). At the edge of a domain, $E_s$ is at its minimum value, 0.\+65 eV, and at the center of a domain, it is at its maximum, 0.\+85 eV. $E_s$ varies linearly between its minimum and maximum values.
+
+The results of this patterned substrate model should be an arrangement of islands centered about the parts of the substrate where $E_s$ is maximum.\hypertarget{illustrating_use_by_example_example_pat_sub_impl1}{}\doxysubsection{\texorpdfstring{First implementation}{First implementation}}\label{illustrating_use_by_example_example_pat_sub_impl1}
+The code for this implementation is in {\ttfamily doc/example-\/code/test\+Patterned\+Surface1} of the installation directory of the ARL \doxylink{namespaceKMCThinFilm}{KMCThin\+Film} library. In it, the value $E_s(i,j)$ is stored at cell $(i,j,0)$ of the computational lattice. This requires using a special method to initialize the lattice. The values of $E_s(i,j)$ are stored in a file (entitled {\ttfamily tiled16x16\+Domain.\+dat}) where the first line contains the lateral dimensions of the lattice and subsequent lines are of the form
+
+\begin{DoxyVerb}i j E_s(i,j)
+\end{DoxyVerb}
+
+
+where the first two numbers in the line are the lateral lattice cell indices and the third number is the value of $E_s$ for those indices.
+
+We begin with the files {\ttfamily Init\+Lattice.\+hpp} and {\ttfamily Init\+Lattice.\+cpp}, which contain the definition and implementation of the function object than initializes the lattice. The contents of the first file are
+
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\textcolor{preprocessor}{\#ifndef\ INIT\_LATTICE\_HPP}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#define\ INIT\_LATTICE\_HPP}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <KMCThinFilm/Lattice.hpp>}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <KMCThinFilm/ErrorHandling.hpp>}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keyword}{class\ }InitLatticeFromFile\ \{}
+\DoxyCodeLine{\textcolor{keyword}{public}:}
+\DoxyCodeLine{\ \ InitLatticeFromFile(\textcolor{keyword}{const}\ std::string\ \&\ inpFName)}
+\DoxyCodeLine{\ \ \ \ :\ inpFName\_(inpFName)}
+\DoxyCodeLine{\ \ \{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{void}\ operator()(KMCThinFilm::Lattice\ \&\ lattice)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{\textcolor{keyword}{private}:}
+\DoxyCodeLine{\ \ std::string\ inpFName\_;}
+\DoxyCodeLine{\};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ INIT\_LATTICE\_HPP\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCodeInclude}
+
+
+The constructor of the {\ttfamily Init\+Lattice\+From\+File} class here takes as an argument the name of the input file containing the values of $E_s$. The contents of {\ttfamily Init\+Lattice.\+cpp} are as follows\+:
+
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ "{}InitLattice.hpp"{}}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ "{}EventsAndActions.hpp"{}}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <fstream>}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <boost/array.hpp>}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <boost/lexical\_cast.hpp>}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keyword}{using\ namespace\ }\mbox{\hyperlink{namespaceKMCThinFilm}{KMCThinFilm}};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keywordtype}{void}\ InitLatticeFromFile::operator()(\mbox{\hyperlink{classKMCThinFilm_1_1Lattice}{Lattice}}\ \&\ lattice)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{\ \ }
+\DoxyCodeLine{\ \ std::ifstream\ inpFile(inpFName\_.c\_str());}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ boost::array<int,2>\ globalPlanarDims;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ inpFile\ >>\ globalPlanarDims[0]\ >>\ globalPlanarDims[1];}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{structKMCThinFilm_1_1LatticePlanarBBox}{LatticePlanarBBox}}\ globalPlanarBBox;}
+\DoxyCodeLine{\ \ lattice.\mbox{\hyperlink{classKMCThinFilm_1_1Lattice_ac160d406b29dc80fb72551ad3d74ac3a}{getGlobalPlanarBBox}}(globalPlanarBBox);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{namespaceKMCThinFilm_acb9484dffdfd1584121f8a7c8bb8d924}{exitOnCondition}}((globalPlanarDims[0]\ !=\ (globalPlanarBBox.\mbox{\hyperlink{structKMCThinFilm_1_1LatticePlanarBBox_a8bc6629f20496b2845d66f924a04f35a}{imaxP1}}\ -\/\ globalPlanarBBox.\mbox{\hyperlink{structKMCThinFilm_1_1LatticePlanarBBox_a9de43623938e1ceb68c26feafd4cd009}{imin}}))\ ||}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (globalPlanarDims[1]\ !=\ (globalPlanarBBox.\mbox{\hyperlink{structKMCThinFilm_1_1LatticePlanarBBox_abedcda2c34e2bdfe0404e22838ed33dd}{jmaxP1}}\ -\/\ globalPlanarBBox.\mbox{\hyperlink{structKMCThinFilm_1_1LatticePlanarBBox_aa227140b560487687496bdbaef79d85e}{jmin}})),}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}Mismatch\ in\ lattice\ dimensions\ and\ dimensions\ of\ strain\ eng.\ den.\ array."{}});}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ lattice.\mbox{\hyperlink{classKMCThinFilm_1_1Lattice_aa36bda22ed2b0bc8d8737d3d63009765}{addPlanes}}(1);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{structKMCThinFilm_1_1LatticePlanarBBox}{LatticePlanarBBox}}\ localPlanarBBox;}
+\DoxyCodeLine{\ \ lattice.\mbox{\hyperlink{classKMCThinFilm_1_1Lattice_a1504ff860e046a8965b37dd437a74c52}{getLocalPlanarBBox}}(\textcolor{keyword}{false},\ localPlanarBBox);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{int}\ maxLineNumP1\ =\ (globalPlanarDims[0])*(globalPlanarDims[1]);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{classKMCThinFilm_1_1CellInds}{CellInds}}\ ci;\ ci.k\ =\ 0;}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ lineNum\ =\ 0;\ lineNum\ <\ maxLineNumP1;\ ++lineNum)\ \{}
+\DoxyCodeLine{\ \ \ \ }
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordtype}{int}\ i,\ j;}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordtype}{double}\ E\_s;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ inpFile\ >>\ i\ >>\ j\ >>\ E\_s;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{if}\ ((i\ >=\ localPlanarBBox.\mbox{\hyperlink{structKMCThinFilm_1_1LatticePlanarBBox_a9de43623938e1ceb68c26feafd4cd009}{imin}})\ \&\&\ (i\ <\ localPlanarBBox.\mbox{\hyperlink{structKMCThinFilm_1_1LatticePlanarBBox_a8bc6629f20496b2845d66f924a04f35a}{imaxP1}})\ \&\&\ }
+\DoxyCodeLine{\ \ \ \ \ \ \ \ (j\ >=\ localPlanarBBox.\mbox{\hyperlink{structKMCThinFilm_1_1LatticePlanarBBox_aa227140b560487687496bdbaef79d85e}{jmin}})\ \&\&\ (j\ <\ localPlanarBBox.\mbox{\hyperlink{structKMCThinFilm_1_1LatticePlanarBBox_abedcda2c34e2bdfe0404e22838ed33dd}{jmaxP1}}))\ \{}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \ \ ci.i\ =\ i;}
+\DoxyCodeLine{\ \ \ \ \ \ ci.j\ =\ j;}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \ \ \ \ lattice.\mbox{\hyperlink{classKMCThinFilm_1_1Lattice_aefe9601bf62fdb46d451d61fa017e691}{setFloat}}(ci,\ PSFloatVal::E\_s,\ E\_s);}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \}}
+\DoxyCodeLine{\ \ \ \ }
+\DoxyCodeLine{\ \ inpFile.close();}
+\DoxyCodeLine{}
+\DoxyCodeLine{\}}
+
+\end{DoxyCodeInclude}
+
+
+This operator reads in the file containing the values of $E_s(i,j)$, line by line, and stores these values in the floating-\/point array element labeled {\ttfamily PSFloat\+Val\+::\+E\+\_\+s} in lattice cell $(i,j,0)$. The (global) lateral bounds of the lattice have already been initialized before this operator has even been invoked, so here there is a check to ensure that the lateral bounds of the lattice indicated in the first line of the file match the actual lateral bounds of the lattice. After this check, the actual initialization begins. First, a lattice plane is added with the \doxylink{classKMCThinFilm_1_1Lattice_aa36bda22ed2b0bc8d8737d3d63009765}{KMCThin\+Film\+::\+Lattice\+::add\+Planes()} member function. Shortly afterward comes the reading in of the rest of the file containing the values of $E_s(i,j)$. There is some allowance for parallel implementation. The local bounds of indices {\itshape i} and {\itshape j} are determined using \doxylink{classKMCThinFilm_1_1Lattice_a1504ff860e046a8965b37dd437a74c52}{KMCThin\+Film\+::\+Lattice\+::get\+Local\+Planar\+BBox}. While each MPI process would still read in the whole file, which is not that efficient, the process would also only store the values of $E_s(i,j)$ for the lattice cell indices {\itshape i} and {\itshape j} whose values are within the previously determined local bounds.
+
+In the driver file {\ttfamily test\+Patterned\+Surface.\+cpp}, the simulation is initialized as follows\+:
+
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{structKMCThinFilm_1_1LatticeParams}{LatticeParams}}\ latParams;}
+\DoxyCodeLine{\ \ latParams.\mbox{\hyperlink{structKMCThinFilm_1_1LatticeParams_a7a9d46d27758a276fd20d9c18156371a}{numIntsPerCell}}\ =\ PSIntVal::SIZE;}
+\DoxyCodeLine{\ \ latParams.\mbox{\hyperlink{structKMCThinFilm_1_1LatticeParams_a55263f7f4ef826b814ffeaae27ddf687}{numFloatsPerCell}}\ =\ PSFloatVal::SIZE;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ std::ifstream\ patternFile(patternFName.c\_str());}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{if}\ (patternFile)\ \{}
+\DoxyCodeLine{\ \ \ \ patternFile\ >>\ latParams.\mbox{\hyperlink{structKMCThinFilm_1_1LatticeParams_a3a3cc62a6fb5fdda00ed2c63e1ff1020}{globalPlanarDims}}[0]\ >>\ latParams.\mbox{\hyperlink{structKMCThinFilm_1_1LatticeParams_a3a3cc62a6fb5fdda00ed2c63e1ff1020}{globalPlanarDims}}[1];}
+\DoxyCodeLine{\ \ \}}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{namespaceKMCThinFilm_a77bd0cec2abe3a269140d80cfea34ed8}{exitWithMsg}}(\textcolor{stringliteral}{"{}Cannot\ access\ "{}}\ +\ patternFName\ +\ }
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}.\ Check\ if\ your\ are\ executing\ this\ program\ from\ the\ correct\ directory."{}});}
+\DoxyCodeLine{\ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ patternFile.close();}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ latParams.\mbox{\hyperlink{structKMCThinFilm_1_1LatticeParams_a3591118c88951f3a6c7de54117979c36}{latInit}}\ =\ InitLatticeFromFile(patternFName);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{classKMCThinFilm_1_1Simulation}{Simulation}}\ sim(latParams);}
+
+\end{DoxyCodeInclude}
+
+
+Here, {\ttfamily pattern\+FName} is the name of the file containing the values of $E_s(i,j)$. The first line of this file is read in to determine the lateral dimensions of the lattice, and then the file is closed. Afterwards, the {\itshape lat\+Init} member of the \doxylink{structKMCThinFilm_1_1LatticeParams}{KMCThin\+Film\+::\+Lattice\+Params} parameter object is set to an instance of the {\ttfamily Init\+Lattice\+From\+File} class, which is of course initialized to read from the file with the name {\ttfamily pattern\+FName}. (This also means that this implementation is a bit inelegant, since part of the file {\ttfamily pattern\+FName} will be read twice.)
+
+This takes care of the initialization of the lattice.
+
+Deposition here is done by the same means as in the example of the fractal solid-\/on-\/solid model using auto-\/tracking, while the execution of a hopping event is done by the same means as in the example of the fractal solid-\/on-\/solid model using semi-\/manual tracking. It is mainly the determination of a hopping event\textquotesingle{}s propensity that is different. The definition of the function object class for determining propensity of hopping is shown below\+:
+
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\textcolor{keyword}{class\ }HoppingPropensity\ \{}
+\DoxyCodeLine{\textcolor{keyword}{public}:}
+\DoxyCodeLine{\ \ HoppingPropensity(\textcolor{keywordtype}{double}\ E\_n,\ \textcolor{keywordtype}{double}\ T)\ }
+\DoxyCodeLine{\ \ \ \ :\ E\_n\_(E\_n),\ kBT\_(PhysConst::kB*T),\ k\_(kBT\_/PhysConst::h)}
+\DoxyCodeLine{\ \ \{\}}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{void}\ operator()(\textcolor{keyword}{const}\ KMCThinFilm::CellNeighProbe\ \&\ cnp,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::vector<double>\ \&\ propensityVec)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{\textcolor{keyword}{private}:}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{double}\ E\_n\_,\ kBT\_,\ k\_;}
+\DoxyCodeLine{\};}
+
+\end{DoxyCodeInclude}
+
+
+The constants {\ttfamily Phys\+Const\+::kB} and {\ttfamily Phys\+Const\+::h} are merely the Boltzmann constant and Planck\textquotesingle{}s constant, and they are defined in the file {\ttfamily Physical\+Constants.\+hpp} of this example code. The private variables {\ttfamily E\+\_\+n\+\_\+}, {\ttfamily k\+BT\+\_\+}, and {\ttfamily k\+\_\+} correspond to the aforementioned expressions $E_n$, $k_B T$, and {\itshape k}. The implementation of the function object class for determining hopping propensity is shown below\+:
+
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{void}\ HoppingPropensity::operator()(\textcolor{keyword}{const}\ \mbox{\hyperlink{classKMCThinFilm_1_1CellNeighProbe}{CellNeighProbe}}\ \&\ cnp,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::vector<double>\ \&\ propensityVec)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{classKMCThinFilm_1_1CellToProbe}{KMCThinFilm::CellToProbe}}\ ctpSelf\ =\ cnp.\mbox{\hyperlink{classKMCThinFilm_1_1CellNeighProbe_a1ba997186f6326b525dd66df4254d198}{getCellToProbe}}(HopOffset::SELF);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{int}\ currHeight\ =\ cnp.\mbox{\hyperlink{classKMCThinFilm_1_1CellNeighProbe_a7be3ba45264054167a243f15a1954b92}{getInt}}(ctpSelf,\ PSIntVal::HEIGHT);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{if}\ (currHeight\ >\ 0)\ \{}
+\DoxyCodeLine{\ \ \ \ }
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordtype}{int}\ n\ =\ 0;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{if}\ (cnp.\mbox{\hyperlink{classKMCThinFilm_1_1CellNeighProbe_a7be3ba45264054167a243f15a1954b92}{getInt}}(cnp.\mbox{\hyperlink{classKMCThinFilm_1_1CellNeighProbe_a1ba997186f6326b525dd66df4254d198}{getCellToProbe}}(HopOffset::UP),\ PSIntVal::HEIGHT)\ >=\ currHeight)\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ ++n;}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{if}\ (cnp.\mbox{\hyperlink{classKMCThinFilm_1_1CellNeighProbe_a7be3ba45264054167a243f15a1954b92}{getInt}}(cnp.\mbox{\hyperlink{classKMCThinFilm_1_1CellNeighProbe_a1ba997186f6326b525dd66df4254d198}{getCellToProbe}}(HopOffset::DOWN),\ PSIntVal::HEIGHT)\ >=\ currHeight)\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ ++n;}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{if}\ (cnp.\mbox{\hyperlink{classKMCThinFilm_1_1CellNeighProbe_a7be3ba45264054167a243f15a1954b92}{getInt}}(cnp.\mbox{\hyperlink{classKMCThinFilm_1_1CellNeighProbe_a1ba997186f6326b525dd66df4254d198}{getCellToProbe}}(HopOffset::LEFT),\ PSIntVal::HEIGHT)\ >=\ currHeight)\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ ++n;}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{if}\ (cnp.\mbox{\hyperlink{classKMCThinFilm_1_1CellNeighProbe_a7be3ba45264054167a243f15a1954b92}{getInt}}(cnp.\mbox{\hyperlink{classKMCThinFilm_1_1CellNeighProbe_a1ba997186f6326b525dd66df4254d198}{getCellToProbe}}(HopOffset::RIGHT),\ PSIntVal::HEIGHT)\ >=\ currHeight)\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ ++n;}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordtype}{double}\ E\ =\ cnp.\mbox{\hyperlink{classKMCThinFilm_1_1CellNeighProbe_a1425c18df394e394b7c50e9f332371fc}{getFloat}}(ctpSelf,\ PSFloatVal::E\_s)\ +\ n*E\_n\_;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordtype}{double}\ p\ =\ k\_*std::exp(-\/E/kBT\_);}
+\DoxyCodeLine{\ \ \ \ }
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ PSCellCenteredEvents::SIZE;\ ++i)\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ propensityVec[i]\ =\ p;}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \}}
+\DoxyCodeLine{\}}
+
+\end{DoxyCodeInclude}
+
+
+Here, {\ttfamily curr\+Height} is the height of the column of particles at $(\mathtt{ci.i}, \mathtt{ci.j}, 0)$ in the true lattice. Let $(i_{\mathrm{off}}, j_{\mathrm{off}})$ be an offset of cell indices, which for {\ttfamily Hop\+Offset\+::\+UP} is $(0,+1)$, for {\ttfamily Hop\+Offset\+::\+DOWN} is $(0,-1)$, for {\ttfamily Hop\+Offset\+::\+LEFT} is $(-1,0)$, and for {\ttfamily Hop\+Offset\+::\+RIGHT} is $(+1,0)$. If a column of particles at  $(\mathtt{ci.i} + i_{\mathrm{off}}, \mathtt{ci.j} +
+j_{\mathrm{off}}, 0)$ is greater than or equal to {\ttfamily curr\+Height}, that means that the site $(\mathtt{ci.i}, \mathtt{ci.j}, \mathtt{currHeight} - 1)$ in the true lattice has an occupied nearest neighbor at  $(\mathtt{ci.i} + i_{\mathrm{off}}, \mathtt{ci.j} +
+j_{\mathrm{off}}, \mathtt{currHeight} - 1)$, and the variable {\ttfamily n} is incremented accordingly. The calculation of the propensity, then, follows straightforwardly from the aforementioned formulas for the patterned substrate \cite{kur99}.
+
+An overhead view of the surface of the islands on the patterned substrate at various simulation times {\itshape t}, from 2.\+27 units to its maximum value of 50.\+0 units, is shown below.
+
+ 
+\begin{DoxyImageNoCaption}
+  \mbox{\includegraphics[width=5in]{testPatSubSnapshots}}
+\end{DoxyImageNoCaption}
+\hypertarget{illustrating_use_by_example_example_pat_sub_impl2}{}\doxysubsection{\texorpdfstring{Second implementation}{Second implementation}}\label{illustrating_use_by_example_example_pat_sub_impl2}
+The previous implementation of the patterned substrate model \cite{kur99} does not take advantage of the periodicity of $E_s$. This new implementation will. Instead of storing values of $E_s(i,j)$ in the computational lattice itself, they will be stored in a small array used by the function object used to calculate propensities. This means that no special means to initialize the lattice is required. The code for this implementation is in {\ttfamily doc/example-\/code/test\+Patterned\+Surface2} of the installation directory of the ARL \doxylink{namespaceKMCThinFilm}{KMCThin\+Film} library.
+
+The file containing the values of $E_s(i,j)$, {\ttfamily single\+Domain.\+dat} only contains the values of $E_s$ within a single domain of (22 {$\times$} 22 array) elements. The first line of this file contains the dimensions of this domain, and the rest of the lines in this file have the following format,
+
+\begin{DoxyVerb}i j E_s(i,j)
+\end{DoxyVerb}
+
+
+where the first two numbers in the line are the indices of the domain array and the third number is the value of $E_s$ for those indices. In the driver code {\ttfamily test\+Patterned\+Surface.\+cpp}, this file is read into an array as follows,
+
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\ \ DblArray2D\ E\_s;}
+\DoxyCodeLine{\ \ }
+\DoxyCodeLine{\ \ std::ifstream\ patternFile(\textcolor{stringliteral}{"{}../singleDomain.dat"{}});}
+\DoxyCodeLine{\ \ boost::array<int,2>\ E\_s\_extents;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ patternFile\ >>\ E\_s\_extents[0]\ >>\ E\_s\_extents[1];}
+\DoxyCodeLine{\ \ E\_s.resize(E\_s\_extents);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{int}\ E\_s\_i,\ E\_s\_j;}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{double}\ E\_s\_val;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{while}\ (patternFile\ >>\ E\_s\_i\ >>\ E\_s\_j\ >>\ E\_s\_val)\ \{}
+\DoxyCodeLine{\ \ \ \ E\_s[E\_s\_i][E\_s\_j]\ =\ E\_s\_val;}
+\DoxyCodeLine{\ \ \}}
+
+\end{DoxyCodeInclude}
+
+
+where {\ttfamily Dbl\+Array2D} is defined in {\ttfamily Events\+And\+Actions.\+hpp} as
+
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <boost/multi\_array.hpp>}}
+\DoxyCodeLine{\textcolor{keyword}{typedef}\ boost::multi\_array<double,2>\ DblArray2D;}
+
+\end{DoxyCodeInclude}
+
+
+Again, we use the multi-\/array implementation from Boost \texorpdfstring{$<$}{<}\href{http://www.boost.org}{\texttt{ http\+://www.\+boost.\+org}}\texorpdfstring{$>$}{>}. The function object for determining hopping propensity is defined as follows\+:
+
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\textcolor{keyword}{class\ }HoppingPropensity\ \{}
+\DoxyCodeLine{\textcolor{keyword}{public}:}
+\DoxyCodeLine{\ \ HoppingPropensity(\textcolor{keyword}{const}\ DblArray2D\ *\ E\_s,\ \textcolor{keywordtype}{double}\ E\_n,\ \textcolor{keywordtype}{double}\ T)\ }
+\DoxyCodeLine{\ \ \ \ :\ E\_s\_(E\_s),\ E\_n\_(E\_n),\ kBT\_(PhysConst::kB*T),\ k\_(kBT\_/PhysConst::h)}
+\DoxyCodeLine{\ \ \{\}}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{void}\ operator()(\textcolor{keyword}{const}\ KMCThinFilm::CellNeighProbe\ \&\ cnp,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::vector<double>\ \&\ propensityVec)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{\textcolor{keyword}{private}:}
+\DoxyCodeLine{\ \ \textcolor{keyword}{const}\ DblArray2D\ *\ E\_s\_;}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{double}\ E\_n\_,\ kBT\_,\ k\_;}
+\DoxyCodeLine{\};}
+
+\end{DoxyCodeInclude}
+
+
+This function object is similar to the corresponding one in the previous implementation, except that now there is a new private variable, {\ttfamily E\+\_\+s\+\_\+}, which points to an array containing the values of $E_s(i,j)$ in a domain (and, of course, a constructor with an argument used to set the value of this private variable). The reason for {\ttfamily E\+\_\+s\+\_\+} being a pointer is similar to the one for having {\ttfamily active\+Zone\+Heights\+\_\+} be a pointer in the second implementation of the ballistic deposition model. When an instance of the {\ttfamily Hopping\+Propensity} object is passed to \doxylink{classKMCThinFilm_1_1Simulation_ada268bce065b942617fd1331b083626d}{KMCThin\+Film\+::\+Simulation\+::add\+Cell\+Centered\+Event\+Group()}, it is passed by value, and having {\ttfamily E\+\_\+s\+\_\+} be a pointer to an array rather than the array itself means that only a pointer to the array is copied rather than the whole array.
+
+The function object for determining hopping propensity is implemented as follows\+:
+
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{void}\ HoppingPropensity::operator()(\textcolor{keyword}{const}\ \mbox{\hyperlink{classKMCThinFilm_1_1CellNeighProbe}{CellNeighProbe}}\ \&\ cnp,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::vector<double>\ \&\ propensityVec)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{classKMCThinFilm_1_1CellToProbe}{KMCThinFilm::CellToProbe}}\ ctpSelf\ =\ cnp.\mbox{\hyperlink{classKMCThinFilm_1_1CellNeighProbe_a1ba997186f6326b525dd66df4254d198}{getCellToProbe}}(HopOffset::SELF);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{int}\ currHeight\ =\ cnp.\mbox{\hyperlink{classKMCThinFilm_1_1CellNeighProbe_a7be3ba45264054167a243f15a1954b92}{getInt}}(ctpSelf,\ PSIntVal::HEIGHT);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{if}\ (currHeight\ >\ 0)\ \{}
+\DoxyCodeLine{\ \ \ \ }
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordtype}{int}\ n\ =\ 0;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{if}\ (cnp.\mbox{\hyperlink{classKMCThinFilm_1_1CellNeighProbe_a7be3ba45264054167a243f15a1954b92}{getInt}}(cnp.\mbox{\hyperlink{classKMCThinFilm_1_1CellNeighProbe_a1ba997186f6326b525dd66df4254d198}{getCellToProbe}}(HopOffset::UP),\ PSIntVal::HEIGHT)\ >=\ currHeight)\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ ++n;}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{if}\ (cnp.\mbox{\hyperlink{classKMCThinFilm_1_1CellNeighProbe_a7be3ba45264054167a243f15a1954b92}{getInt}}(cnp.\mbox{\hyperlink{classKMCThinFilm_1_1CellNeighProbe_a1ba997186f6326b525dd66df4254d198}{getCellToProbe}}(HopOffset::DOWN),\ PSIntVal::HEIGHT)\ >=\ currHeight)\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ ++n;}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{if}\ (cnp.\mbox{\hyperlink{classKMCThinFilm_1_1CellNeighProbe_a7be3ba45264054167a243f15a1954b92}{getInt}}(cnp.\mbox{\hyperlink{classKMCThinFilm_1_1CellNeighProbe_a1ba997186f6326b525dd66df4254d198}{getCellToProbe}}(HopOffset::LEFT),\ PSIntVal::HEIGHT)\ >=\ currHeight)\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ ++n;}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{if}\ (cnp.\mbox{\hyperlink{classKMCThinFilm_1_1CellNeighProbe_a7be3ba45264054167a243f15a1954b92}{getInt}}(cnp.\mbox{\hyperlink{classKMCThinFilm_1_1CellNeighProbe_a1ba997186f6326b525dd66df4254d198}{getCellToProbe}}(HopOffset::RIGHT),\ PSIntVal::HEIGHT)\ >=\ currHeight)\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ ++n;}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classKMCThinFilm_1_1CellInds}{CellInds}}\ \&\ ciSelf\ =\ ctpSelf.\mbox{\hyperlink{classKMCThinFilm_1_1CellToProbe_a9b2f2133ce27c287b7ece18d8df929ac}{inds}}();}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordtype}{int}\ coord\_i\_in\_domain\ =\ ciSelf.i\ \%\ (E\_s\_-\/>shape()[0]);}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordtype}{int}\ coord\_j\_in\_domain\ =\ ciSelf.j\ \%\ (E\_s\_-\/>shape()[1]);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordtype}{double}\ E\ =\ (*E\_s\_)[coord\_i\_in\_domain][coord\_j\_in\_domain]\ +\ n*E\_n\_;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordtype}{double}\ p\ =\ k\_*std::exp(-\/E/kBT\_);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ PSCellCenteredEvents::SIZE;\ ++i)\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ propensityVec[i]\ =\ p;}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \}}
+\DoxyCodeLine{\}}
+
+\end{DoxyCodeInclude}
+
+
+This function object is also similar to the corresponding one in the previous implementation, except that
+
+
+\begin{DoxyEnumerate}
+\item it actually accesses lattice cell indices, via the member function \doxylink{classKMCThinFilm_1_1CellToProbe_a9b2f2133ce27c287b7ece18d8df929ac}{KMCThin\+Film\+::\+Cell\+To\+Probe\+::inds()}, and
+\item it converts the in-\/plane cell indices, {\ttfamily ci\+Self.\+i} and {\ttfamily ci\+Self.\+j}, into indices {\ttfamily coord\+\_\+i\+\_\+in\+\_\+domain} and {\ttfamily coord\+\_\+j\+\_\+in\+\_\+domain} of the array to which {\ttfamily E\+\_\+s\+\_\+} points.
+\end{DoxyEnumerate}
+
+The latter is more a matter for the particular kinetic Monte Carlo model being implemented, but the former is more generally useful functionality.
+
+The rest of this implementation is the same as the previous one. Provided that the same parameters, lattice dimensions, domain dimensions, and seeding for the random number generator are used in both this implementation and the previous one, the two implementations should yield exactly the same results. 

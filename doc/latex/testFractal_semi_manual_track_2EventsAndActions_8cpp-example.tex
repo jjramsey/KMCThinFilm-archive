@@ -1,0 +1,106 @@
+\doxysection{test\+Fractal\+\_\+semi\+\_\+manual\+\_\+track/\+Events\+And\+Actions.\+cpp}
+\hypertarget{testFractal_semi_manual_track_2EventsAndActions_8cpp-example}{}\label{testFractal_semi_manual_track_2EventsAndActions_8cpp-example}Implementation file for the example implementation of a ``fractal'' solid-\/on-\/solid model, using semi-\/manual tracking
+
+This example is discussed in detail in the section ``\doxysectlink{illustrating_use_by_example_ex_fractal_sman_tracking}{Using semi-\/manual tracking}{2}.''
+
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\textcolor{comment}{/*\ }}
+\DoxyCodeLine{\textcolor{comment}{\ \ \ Comments\ in\ this\ code\ of\ the\ form\ "{}//!\ [...]"{}\ are\ used\ to\ assist}}
+\DoxyCodeLine{\textcolor{comment}{\ \ \ Doxygen\ in\ documenting\ this\ file.}}
+\DoxyCodeLine{\textcolor{comment}{*/}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ "{}EventsAndActions.hpp"{}}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <fstream>}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <boost/lexical\_cast.hpp>}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <KMCThinFilm/ErrorHandling.hpp>}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keyword}{using\ namespace\ }\mbox{\hyperlink{namespaceKMCThinFilm}{KMCThinFilm}};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keywordtype}{void}\ DepositionExecute(\textcolor{keyword}{const}\ \mbox{\hyperlink{classKMCThinFilm_1_1CellInds}{CellInds}}\ \&\ ci,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classKMCThinFilm_1_1SimulationState}{SimulationState}}\ \&\ simState,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classKMCThinFilm_1_1Lattice}{KMCThinFilm::Lattice}}\ \&\ lattice,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::vector<KMCThinFilm::CellsToChange>\ \&\ ctcVec)\ \{}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{classKMCThinFilm_1_1CellsToChange}{CellsToChange}}\ \&\ ctc\ =\ ctcVec[0];}
+\DoxyCodeLine{\ \ ctc.\mbox{\hyperlink{classKMCThinFilm_1_1CellsToChange_a8a56c1106701d5bc3409cd30343fee2c}{setCenter}}(ci);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{int}\ currVal\ =\ lattice.\mbox{\hyperlink{classKMCThinFilm_1_1Lattice_aff659b471f414c579a51fe280b218ef1}{getInt}}(ci,\ FIntVal::HEIGHT);}
+\DoxyCodeLine{\ \ ctc.\mbox{\hyperlink{classKMCThinFilm_1_1CellsToChange_a62079b840cc200e37e2907ba2e394f78}{setInt}}(0,\ FIntVal::HEIGHT,\ currVal\ +\ 1);}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keywordtype}{void}\ HoppingPropensity::operator()(\textcolor{keyword}{const}\ \mbox{\hyperlink{classKMCThinFilm_1_1CellNeighProbe}{CellNeighProbe}}\ \&\ cnp,\ }
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::vector<double>\ \&\ propensityVec)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{int}\ currHeight\ =\ cnp.\mbox{\hyperlink{classKMCThinFilm_1_1CellNeighProbe_a7be3ba45264054167a243f15a1954b92}{getInt}}(cnp.\mbox{\hyperlink{classKMCThinFilm_1_1CellNeighProbe_a1ba997186f6326b525dd66df4254d198}{getCellToProbe}}(HopOffset::SELF),\ FIntVal::HEIGHT);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{if}\ (currHeight\ >\ 0)\ \{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{if}\ ((currHeight\ >\ cnp.\mbox{\hyperlink{classKMCThinFilm_1_1CellNeighProbe_a7be3ba45264054167a243f15a1954b92}{getInt}}(cnp.\mbox{\hyperlink{classKMCThinFilm_1_1CellNeighProbe_a1ba997186f6326b525dd66df4254d198}{getCellToProbe}}(HopOffset::UP),\ FIntVal::HEIGHT))}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \&\&\ (currHeight\ >\ cnp.\mbox{\hyperlink{classKMCThinFilm_1_1CellNeighProbe_a7be3ba45264054167a243f15a1954b92}{getInt}}(cnp.\mbox{\hyperlink{classKMCThinFilm_1_1CellNeighProbe_a1ba997186f6326b525dd66df4254d198}{getCellToProbe}}(HopOffset::DOWN),\ FIntVal::HEIGHT))}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \&\&\ (currHeight\ >\ cnp.\mbox{\hyperlink{classKMCThinFilm_1_1CellNeighProbe_a7be3ba45264054167a243f15a1954b92}{getInt}}(cnp.\mbox{\hyperlink{classKMCThinFilm_1_1CellNeighProbe_a1ba997186f6326b525dd66df4254d198}{getCellToProbe}}(HopOffset::LEFT),\ FIntVal::HEIGHT))}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \&\&\ (currHeight\ >\ cnp.\mbox{\hyperlink{classKMCThinFilm_1_1CellNeighProbe_a7be3ba45264054167a243f15a1954b92}{getInt}}(cnp.\mbox{\hyperlink{classKMCThinFilm_1_1CellNeighProbe_a1ba997186f6326b525dd66df4254d198}{getCellToProbe}}(HopOffset::RIGHT),\ FIntVal::HEIGHT))}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \&\&\ (currHeight\ >\ cnp.\mbox{\hyperlink{classKMCThinFilm_1_1CellNeighProbe_a7be3ba45264054167a243f15a1954b92}{getInt}}(cnp.\mbox{\hyperlink{classKMCThinFilm_1_1CellNeighProbe_a1ba997186f6326b525dd66df4254d198}{getCellToProbe}}(HopOffset::RIGHT\_UP),\ FIntVal::HEIGHT))}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \&\&\ (currHeight\ >\ cnp.\mbox{\hyperlink{classKMCThinFilm_1_1CellNeighProbe_a7be3ba45264054167a243f15a1954b92}{getInt}}(cnp.\mbox{\hyperlink{classKMCThinFilm_1_1CellNeighProbe_a1ba997186f6326b525dd66df4254d198}{getCellToProbe}}(HopOffset::RIGHT\_DOWN),\ FIntVal::HEIGHT))}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \&\&\ (currHeight\ >\ cnp.\mbox{\hyperlink{classKMCThinFilm_1_1CellNeighProbe_a7be3ba45264054167a243f15a1954b92}{getInt}}(cnp.\mbox{\hyperlink{classKMCThinFilm_1_1CellNeighProbe_a1ba997186f6326b525dd66df4254d198}{getCellToProbe}}(HopOffset::LEFT\_UP),\ FIntVal::HEIGHT))}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \&\&\ (currHeight\ >\ cnp.\mbox{\hyperlink{classKMCThinFilm_1_1CellNeighProbe_a7be3ba45264054167a243f15a1954b92}{getInt}}(cnp.\mbox{\hyperlink{classKMCThinFilm_1_1CellNeighProbe_a1ba997186f6326b525dd66df4254d198}{getCellToProbe}}(HopOffset::LEFT\_DOWN),\ FIntVal::HEIGHT)))\ \{}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \ \ propensityVec[FCellCenteredEvents::HOP\_LEFT]\ =\ }
+\DoxyCodeLine{\ \ \ \ \ \ \ \ propensityVec[FCellCenteredEvents::HOP\_RIGHT]\ =\ }
+\DoxyCodeLine{\ \ \ \ \ \ \ \ propensityVec[FCellCenteredEvents::HOP\_UP]\ =\ }
+\DoxyCodeLine{\ \ \ \ \ \ \ \ propensityVec[FCellCenteredEvents::HOP\_DOWN]\ =\ D\_;}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{\ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keywordtype}{void}\ HoppingExecute::operator()(\textcolor{keyword}{const}\ \mbox{\hyperlink{classKMCThinFilm_1_1CellInds}{CellInds}}\ \&\ ci,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classKMCThinFilm_1_1SimulationState}{SimulationState}}\ \&\ simState,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classKMCThinFilm_1_1Lattice}{KMCThinFilm::Lattice}}\ \&\ lattice,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::vector<KMCThinFilm::CellsToChange>\ \&\ ctcVec)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{classKMCThinFilm_1_1CellsToChange}{CellsToChange}}\ \&\ ctc\ =\ ctcVec[0];}
+\DoxyCodeLine{\ \ ctc.\mbox{\hyperlink{classKMCThinFilm_1_1CellsToChange_a8a56c1106701d5bc3409cd30343fee2c}{setCenter}}(ci);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{int}\ currFrom\ =\ lattice.\mbox{\hyperlink{classKMCThinFilm_1_1Lattice_aff659b471f414c579a51fe280b218ef1}{getInt}}(ci,\ FIntVal::HEIGHT);}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{int}\ currTo\ =\ ctc.\mbox{\hyperlink{classKMCThinFilm_1_1CellsToChange_ae559a33ad8206a5e1c8cfd8803ccc765}{getInt}}(1,\ FIntVal::HEIGHT);}
+\DoxyCodeLine{\ \ }
+\DoxyCodeLine{\ \ ctc.\mbox{\hyperlink{classKMCThinFilm_1_1CellsToChange_a62079b840cc200e37e2907ba2e394f78}{setInt}}(0,\ FIntVal::HEIGHT,\ currFrom\ -\/\ 1);}
+\DoxyCodeLine{\ \ ctc.\mbox{\hyperlink{classKMCThinFilm_1_1CellsToChange_a62079b840cc200e37e2907ba2e394f78}{setInt}}(1,\ FIntVal::HEIGHT,\ currTo\ +\ 1);}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keywordtype}{void}\ PrintASCII::operator()(\textcolor{keyword}{const}\ \mbox{\hyperlink{classKMCThinFilm_1_1SimulationState}{SimulationState}}\ \&\ simState,\ \mbox{\hyperlink{classKMCThinFilm_1_1Lattice}{Lattice}}\ \&\ lattice)\ \{}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ ++snapShotCntr\_;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ std::string\ fName\ =\ fNameRoot\_\ +\ boost::lexical\_cast<std::string>(snapShotCntr\_)\ +\ \textcolor{stringliteral}{"{}.dat"{}};}
+\DoxyCodeLine{\ \ \ \ }
+\DoxyCodeLine{\ \ std::ofstream\ outFile(fName.c\_str());}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{structKMCThinFilm_1_1LatticePlanarBBox}{LatticePlanarBBox}}\ localPlanarBBox;}
+\DoxyCodeLine{\ \ lattice.\mbox{\hyperlink{classKMCThinFilm_1_1Lattice_a1504ff860e046a8965b37dd437a74c52}{getLocalPlanarBBox}}(\textcolor{keyword}{false},\ localPlanarBBox);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{int}\ iminGlobal\ =\ localPlanarBBox.\mbox{\hyperlink{structKMCThinFilm_1_1LatticePlanarBBox_a9de43623938e1ceb68c26feafd4cd009}{imin}};}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{int}\ jminGlobal\ =\ localPlanarBBox.\mbox{\hyperlink{structKMCThinFilm_1_1LatticePlanarBBox_aa227140b560487687496bdbaef79d85e}{jmin}};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{comment}{//\ "{}P1"{}\ here\ is\ short\ for\ "{}Plus\ 1"{}.}}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{int}\ imaxP1Global\ =\ localPlanarBBox.\mbox{\hyperlink{structKMCThinFilm_1_1LatticePlanarBBox_a8bc6629f20496b2845d66f924a04f35a}{imaxP1}};}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{int}\ jmaxP1Global\ =\ localPlanarBBox.\mbox{\hyperlink{structKMCThinFilm_1_1LatticePlanarBBox_abedcda2c34e2bdfe0404e22838ed33dd}{jmaxP1}};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ outFile\ <<\ \textcolor{stringliteral}{"{}\#\ "{}}\ <<\ iminGlobal\ <<\ \textcolor{stringliteral}{"{}\ "{}}\ <<\ imaxP1Global\ <<\ \textcolor{stringliteral}{"{}\ "{}}\ <<\ jminGlobal\ <<\ \textcolor{stringliteral}{"{}\ "{}}\ <<\ jmaxP1Global}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ <<\ \textcolor{stringliteral}{"{}\ time:"{}}\ <<\ simState.\mbox{\hyperlink{classKMCThinFilm_1_1SimulationState_a01882b6444dedf12543e0a9e7f763f02}{elapsedTime}}()\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{classKMCThinFilm_1_1CellInds}{CellInds}}\ ci;\ ci.k\ =\ 0;}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{for}\ (ci.i\ =\ localPlanarBBox.\mbox{\hyperlink{structKMCThinFilm_1_1LatticePlanarBBox_a9de43623938e1ceb68c26feafd4cd009}{imin}};\ ci.i\ <\ localPlanarBBox.\mbox{\hyperlink{structKMCThinFilm_1_1LatticePlanarBBox_a8bc6629f20496b2845d66f924a04f35a}{imaxP1}};\ ++(ci.i))\ \{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{for}\ (ci.j\ =\ localPlanarBBox.\mbox{\hyperlink{structKMCThinFilm_1_1LatticePlanarBBox_aa227140b560487687496bdbaef79d85e}{jmin}};\ ci.j\ <\ localPlanarBBox.\mbox{\hyperlink{structKMCThinFilm_1_1LatticePlanarBBox_abedcda2c34e2bdfe0404e22838ed33dd}{jmaxP1}};\ ++(ci.j))\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ outFile\ <<\ ci.i\ <<\ \textcolor{stringliteral}{"{}\ "{}}\ <<\ ci.j\ <<\ \textcolor{stringliteral}{"{}\ "{}}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ lattice.\mbox{\hyperlink{classKMCThinFilm_1_1Lattice_aff659b471f414c579a51fe280b218ef1}{getInt}}(ci,\ FIntVal::HEIGHT)\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}};}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{\ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ outFile.close();}
+\DoxyCodeLine{\}}
+
+\end{DoxyCodeInclude}
+ 

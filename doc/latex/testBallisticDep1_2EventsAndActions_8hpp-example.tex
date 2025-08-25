@@ -1,0 +1,93 @@
+\doxysection{test\+Ballistic\+Dep1/\+Events\+And\+Actions.\+hpp}
+\hypertarget{testBallisticDep1_2EventsAndActions_8hpp-example}{}\label{testBallisticDep1_2EventsAndActions_8hpp-example}Header file for an example implementation of a ballistic deposition model
+
+This example is discussed in detail in the section ``\doxysectlink{illustrating_use_by_example_example_baldep}{Example\+: Implementations of a ballistic deposition model}{1},'' subsection ``\doxysectlink{illustrating_use_by_example_example_baldep_impl1}{First implementation}{2}.''
+
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\textcolor{preprocessor}{\#ifndef\ EVENTS\_AND\_ACTIONS\_HPP}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#define\ EVENTS\_AND\_ACTIONS\_HPP}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <KMCThinFilm/CellNeighOffsets.hpp>}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <KMCThinFilm/CellCenteredGroupPropensities.hpp>}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <KMCThinFilm/EventExecutor.hpp>}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <KMCThinFilm/MakeEnum.hpp>}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <KMCThinFilm/RandNumGen.hpp>}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\mbox{\hyperlink{MakeEnum_8hpp_a21a6e7611184f517474f1a4628e0e0cb}{KMC\_MAKE\_ID\_ENUM}}(OverLatticeEvents,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DEPOSITION);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\mbox{\hyperlink{MakeEnum_8hpp_a21a6e7611184f517474f1a4628e0e0cb}{KMC\_MAKE\_ID\_ENUM}}(CellCenteredEvents,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ COLOR\_MIXING);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\mbox{\hyperlink{MakeEnum_8hpp_a21a6e7611184f517474f1a4628e0e0cb}{KMC\_MAKE\_ID\_ENUM}}(PAction,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ PRINT);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\mbox{\hyperlink{MakeEnum_8hpp_ab74f47ea48cae4ae81e76e45c4fd67c4}{KMC\_MAKE\_LATTICE\_INTVAL\_ENUM}}(BD,\ IS\_OCCUPIED,\ ACTIVE\_ZONE\_HEIGHT);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\mbox{\hyperlink{MakeEnum_8hpp_aa5359f8f13cbe2c11d54214f49fcf8e8}{KMC\_MAKE\_LATTICE\_FLOATVAL\_ENUM}}(BD,\ COLOR);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\mbox{\hyperlink{MakeEnum_8hpp_a18b06446141f866d52168964dbc824c7}{KMC\_MAKE\_OFFSET\_ENUM}}(MIX\_OFFSET,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ NORTH,\ SOUTH,\ WEST,\ EAST\ \textcolor{comment}{/*\ First\ four\ neighbors\ are\ lateral\ */},\ }
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ UP,\ DOWN);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keyword}{class\ }DepositionExecute\ \{}
+\DoxyCodeLine{\textcolor{keyword}{public}:}
+\DoxyCodeLine{\ \ DepositionExecute();}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{void}\ operator()(\textcolor{keyword}{const}\ KMCThinFilm::CellInds\ \&\ ci,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ KMCThinFilm::SimulationState\ \&\ simState,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ KMCThinFilm::Lattice\ \&\ lattice);}
+\DoxyCodeLine{\textcolor{keyword}{private}:}
+\DoxyCodeLine{\ \ std::vector<KMCThinFilm::CellIndsOffset>\ neighOffsets\_;}
+\DoxyCodeLine{\};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keyword}{class\ }ColorMixPropensity\ \{}
+\DoxyCodeLine{\textcolor{keyword}{public}:}
+\DoxyCodeLine{\ \ ColorMixPropensity(\textcolor{keywordtype}{double}\ mixPropPerNeighbor)}
+\DoxyCodeLine{\ \ \ \ :\ mixPropPerNeighbor\_(mixPropPerNeighbor)}
+\DoxyCodeLine{\ \ \{\}\ }
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{void}\ operator()(\textcolor{keyword}{const}\ KMCThinFilm::CellNeighProbe\ \&\ cnp,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::vector<double>\ \&\ propensityVec)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{\textcolor{keyword}{private}:}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{double}\ mixPropPerNeighbor\_;}
+\DoxyCodeLine{\};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keyword}{class\ }ColorMixExecute\ \{}
+\DoxyCodeLine{\textcolor{keyword}{public}:}
+\DoxyCodeLine{\ \ ColorMixExecute(\mbox{\hyperlink{namespaceKMCThinFilm_a7b5f253610505f71091c404d12d05aee}{KMCThinFilm::RandNumGenSharedPtr}}\ rng\_,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ KMCThinFilm::CellNeighOffsets\ *\ mixCNO,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ *\ numMixes);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{void}\ operator()(\textcolor{keyword}{const}\ KMCThinFilm::CellInds\ \&\ ci,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ KMCThinFilm::SimulationState\ \&\ simState,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ KMCThinFilm::Lattice\ \&\ lattice);}
+\DoxyCodeLine{\textcolor{keyword}{private}:}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{namespaceKMCThinFilm_a7b5f253610505f71091c404d12d05aee}{KMCThinFilm::RandNumGenSharedPtr}}\ rng\_;}
+\DoxyCodeLine{\ \ \textcolor{keyword}{const}\ KMCThinFilm::CellNeighOffsets\ *\ mixCNO\_;}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{int}\ *\ numMixes\_;}
+\DoxyCodeLine{\};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keyword}{class\ }PrintPoint3D\ \{}
+\DoxyCodeLine{\textcolor{keyword}{public}:}
+\DoxyCodeLine{\ \ PrintPoint3D(\textcolor{keyword}{const}\ std::string\ \&\ fNameRoot)}
+\DoxyCodeLine{\ \ \ \ :\ fNameRoot\_(fNameRoot),}
+\DoxyCodeLine{\ \ \ \ \ \ snapShotCntr\_(0)}
+\DoxyCodeLine{\ \ \{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{void}\ operator()(\textcolor{keyword}{const}\ KMCThinFilm::SimulationState\ \&\ simState,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ KMCThinFilm::Lattice\ \&\ lattice);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keyword}{private}:}
+\DoxyCodeLine{\ \ std::string\ fNameRoot\_;}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{int}\ snapShotCntr\_;}
+\DoxyCodeLine{\};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ EVENTS\_AND\_ACTIONS\_HPP\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCodeInclude}
+ 

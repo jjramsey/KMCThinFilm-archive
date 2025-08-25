@@ -1,0 +1,200 @@
+\documentclass[letterpaper,twoside]{book}
+\usepackage{ifthen}
+\usepackage[margin=1in]{geometry}
+\usepackage{parskip}
+\usepackage{makeidx}
+\usepackage{graphicx}
+\usepackage{multicol}
+\usepackage{multirow}
+\usepackage{fixltx2e}
+\usepackage{float}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{textcomp}
+\usepackage{alltt}
+\usepackage[T1]{fontenc}
+\usepackage{mathptmx}
+\usepackage{ifpdf}
+\usepackage{fancyhdr}
+\usepackage{framed}
+%\usepackage{tocloft}
+\ifpdf
+\usepackage[pdftex,
+            pagebackref=true,
+            colorlinks=true,
+            linkcolor=blue,
+            unicode
+           ]{hyperref}
+\else
+\usepackage[ps2pdf,
+            pagebackref=true,
+            colorlinks=true,
+            linkcolor=blue,
+            unicode
+           ]{hyperref}
+\usepackage{pspicture}
+\fi
+\usepackage[utf8]{inputenc}
+\usepackage{doxygen}
+\lstset{language=C++,inputencoding=utf8,basicstyle=\footnotesize,breaklines=true,breakatwhitespace=true,tabsize=8,numbers=left }
+\makeindex
+% Fixing TOC spacing (requires tocloft package)
+% \addtolength{\cftsubsecnumwidth}{1ex}
+% \addtolength{\cftsubsubsecindent}{1ex}
+% \addtolength{\cftsubsubsecnumwidth}{0.5ex}
+% Re-setup fancy headings
+\pagestyle{fancyplain}
+\renewcommand{\chaptermark}[1]{%
+  \markright{\thechapter\ #1}%
+}
+\lhead[]{}
+\rhead[]{}
+\rfoot[]{}
+\lfoot[]{}
+\cfoot{\fancyplain{}{\bfseries\thepage}}
+%\newcommand{\+}{\discretionary{\mbox{\scriptsize$\hookleftarrow$}}{}{}}
+% This roundabout way of defining \+ is to keep the lines in the files
+% created by makeindex from getting too long.
+\newcommand{\hY}{\discretionary{\mbox{\scriptsize$\hookleftarrow$}}{}{}}
+\newcommand{\+}{\protect\hY{}}
+% Custom commands
+\newcommand{\clearemptydoublepage}{%
+  \newpage{\pagestyle{empty}\cleardoublepage}%
+}
+\renewenvironment{DoxyImageNoCaption}{%
+  \begin{center}%
+}{%
+  \end{center}%
+}
+\renewenvironment{DoxyNote}[1]{%
+  \begin{leftbar}%
+  \begin{DoxyDesc}{\protect\textbf{#1}}%
+}{%
+  \end{DoxyDesc}%
+  \end{leftbar}%
+}
+\setcounter{tocdepth}{3}
+\renewcommand{\footrulewidth}{0.4pt}
+\begin{document}
+\hypersetup{pageanchor=false}
+\begin{titlepage}
+\vspace*{7cm}
+\begin{center}
+{\Large ARL KMCThin\+Film Manual}\\
+\vspace*{1cm}
+{\large Version 0.\+2.\+7}
+\end{center}
+\end{titlepage}
+\pagenumbering{roman}
+\tableofcontents
+\clearpage
+\pagenumbering{arabic}
+\hypersetup{pageanchor=true}
+\input{index}
+\input{compilation}
+\input{concepts_and_algorithms}
+\input{illustrating_use_by_example}
+\chapter{Namespace Documentation}
+\input{namespaceKMCThinFilm}
+\input{namespaceKMCThinFilm_1_1SolverId}
+\input{namespaceKMCThinFilm_1_1TimeIncr}
+\input{namespaceKMCThinFilm_1_1TimeIncr_1_1SchemeName}
+\input{namespaceKMCThinFilm_1_1TimeIncr_1_1SchemeParam}
+\chapter{Class Documentation}
+\input{classKMCThinFilm_1_1AddEmptyPlanes}
+\input{classKMCThinFilm_1_1CellInds}
+\input{classKMCThinFilm_1_1CellIndsOffset}
+\input{classKMCThinFilm_1_1CellNeighOffsets}
+\input{classKMCThinFilm_1_1CellNeighProbe}
+\input{classKMCThinFilm_1_1CellsToChange}
+\input{classKMCThinFilm_1_1CellToProbe}
+\input{classKMCThinFilm_1_1EventExecutorGroup}
+\input{classKMCThinFilm_1_1Lattice}
+\input{structKMCThinFilm_1_1LatticeParams}
+\input{structKMCThinFilm_1_1LatticePlanarBBox}
+\input{classKMCThinFilm_1_1RandNumGen}
+\input{classKMCThinFilm_1_1RandNumGenDCMT}
+\input{classKMCThinFilm_1_1RandNumGenMT19937}
+\input{classKMCThinFilm_1_1RandNumGenRngStreams}
+\input{classKMCThinFilm_1_1TimeIncr_1_1SchemeVars}
+\input{classKMCThinFilm_1_1Simulation}
+\input{classKMCThinFilm_1_1SimulationState}
+\chapter{File Documentation}
+\input{CellCenteredGroupPropensities_8hpp}
+\input{CellCenteredGroupPropensities_8hpp_source}
+\input{CellInds_8hpp}
+\input{CellInds_8hpp_source}
+\input{CellNeighOffsets_8hpp}
+\input{CellNeighOffsets_8hpp_source}
+\input{CellNeighProbe_8hpp}
+\input{CellNeighProbe_8hpp_source}
+\input{CellsToChange_8hpp_source}
+\input{ErrorHandling_8hpp}
+\input{ErrorHandling_8hpp_source}
+\input{EventExecutor_8hpp}
+\input{EventExecutor_8hpp_source}
+\input{EventExecutorGroup_8hpp}
+\input{EventExecutorGroup_8hpp_source}
+\input{IdsOfSolvers_8hpp}
+\input{IdsOfSolvers_8hpp_source}
+\input{Lattice_8hpp}
+\input{Lattice_8hpp_source}
+\input{MakeEnum_8hpp}
+\input{MakeEnum_8hpp_source}
+\input{PeriodicAction_8hpp}
+\input{PeriodicAction_8hpp_source}
+\input{RandNumGen_8hpp}
+\input{RandNumGen_8hpp_source}
+\input{RandNumGenDCMT_8hpp}
+\input{RandNumGenDCMT_8hpp_source}
+\input{RandNumGenMT19937_8hpp}
+\input{RandNumGenMT19937_8hpp_source}
+\input{RandNumGenRngStreams_8hpp}
+\input{RandNumGenRngStreams_8hpp_source}
+\input{Simulation_8hpp}
+\input{Simulation_8hpp_source}
+\input{SimulationState_8hpp}
+\input{SimulationState_8hpp_source}
+\input{TimeIncrSchemeVars_8hpp}
+\input{TimeIncrSchemeVars_8hpp_source}
+\chapter{Examples}
+\input{testFractal_2testFractal_8cpp-example}
+\input{testFractal_2EventsAndActions_8hpp-example}
+\input{testFractal_2EventsAndActions_8cpp-example}
+\input{testFractal_semi_manual_track_2testFractal_8cpp-example}
+\input{testFractal_semi_manual_track_2EventsAndActions_8hpp-example}
+\input{testFractal_semi_manual_track_2EventsAndActions_8cpp-example}
+\input{testFractal_parallel_2testFractal_8cpp-example}
+\input{testBallisticDep1_2testBallisticDep_8cpp-example}
+\input{testBallisticDep1_2EventsAndActions_8hpp-example}
+\input{testBallisticDep1_2EventsAndActions_8cpp-example}
+\input{testBallisticDep1_2InitLattice_8hpp-example}
+\input{testBallisticDep1_2InitLattice_8cpp-example}
+\input{testBallisticDep2_2testBallisticDep_8cpp-example}
+\input{testBallisticDep2_2EventsAndActions_8hpp-example}
+\input{testBallisticDep2_2EventsAndActions_8cpp-example}
+\input{testPatternedSurface1_2testPatternedSurface_8cpp-example}
+\input{testPatternedSurface1_2EventsAndActions_8hpp-example}
+\input{testPatternedSurface1_2EventsAndActions_8cpp-example}
+\input{testPatternedSurface1_2InitLattice_8hpp-example}
+\input{testPatternedSurface1_2InitLattice_8cpp-example}
+\input{testPatternedSurface1_2PhysicalConstants_8hpp-example}
+\input{testPatternedSurface2_2testPatternedSurface_8cpp-example}
+\input{testPatternedSurface2_2EventsAndActions_8hpp-example}
+\input{testPatternedSurface2_2EventsAndActions_8cpp-example}
+%--- End generated contents ---
+  % Bibliography
+  \newpage
+  \phantomsection
+  \bibliographystyle{plain}
+  \bibliography{bibTmpFile_1}
+    \addcontentsline{toc}{chapter}{Bibliography}
+% Index
+  \backmatter
+  \newpage
+  \phantomsection
+  \clearemptydoublepage
+  \addcontentsline{toc}{chapter}{\indexname}
+  \printindex
+% Required for some languages (in combination with latexdocumentpre from the header)
+\end{document}

@@ -1,0 +1,100 @@
+\documentclass[letterpaper,twoside]{book}
+\usepackage{ifthen}
+\usepackage[margin=1in]{geometry}
+\usepackage{parskip}
+\usepackage{makeidx}
+\usepackage{graphicx}
+\usepackage{multicol}
+\usepackage{multirow}
+\usepackage{fixltx2e}
+\usepackage{float}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{textcomp}
+\usepackage{alltt}
+\usepackage[T1]{fontenc}
+\usepackage{mathptmx}
+\usepackage{ifpdf}
+\usepackage{fancyhdr}
+\usepackage{framed}
+%\usepackage{tocloft}
+\ifpdf
+\usepackage[pdftex,
+            pagebackref=true,
+            colorlinks=true,
+            linkcolor=blue,
+            unicode
+           ]{hyperref}
+\else
+\usepackage[ps2pdf,
+            pagebackref=true,
+            colorlinks=true,
+            linkcolor=blue,
+            unicode
+           ]{hyperref}
+\usepackage{pspicture}
+\fi
+\usepackage[utf8]{inputenc}
+\usepackage{doxygen}
+\lstset{language=C++,inputencoding=utf8,basicstyle=\footnotesize,breaklines=true,breakatwhitespace=true,tabsize=8,numbers=left }
+\makeindex
+
+% Fixing TOC spacing (requires tocloft package)
+% \addtolength{\cftsubsecnumwidth}{1ex}
+% \addtolength{\cftsubsubsecindent}{1ex}
+% \addtolength{\cftsubsubsecnumwidth}{0.5ex}
+
+% Re-setup fancy headings
+\pagestyle{fancyplain}
+\renewcommand{\chaptermark}[1]{%
+  \markright{\thechapter\ #1}%
+}
+\lhead[]{}
+\rhead[]{}
+\rfoot[]{}
+\lfoot[]{}
+\cfoot{\fancyplain{}{\bfseries\thepage}}
+
+%\newcommand{\+}{\discretionary{\mbox{\scriptsize$\hookleftarrow$}}{}{}}
+
+% This roundabout way of defining \+ is to keep the lines in the files
+% created by makeindex from getting too long.
+\newcommand{\hY}{\discretionary{\mbox{\scriptsize$\hookleftarrow$}}{}{}}
+\newcommand{\+}{\protect\hY{}}
+
+% Custom commands
+\newcommand{\clearemptydoublepage}{%
+  \newpage{\pagestyle{empty}\cleardoublepage}%
+}
+
+\renewenvironment{DoxyImageNoCaption}{%
+  \begin{center}%
+}{%
+  \end{center}%
+}
+
+\renewenvironment{DoxyNote}[1]{%
+  \begin{leftbar}%
+  \begin{DoxyDesc}{\protect\textbf{#1}}%
+}{%
+  \end{DoxyDesc}%
+  \end{leftbar}%
+}
+
+\setcounter{tocdepth}{3}
+\renewcommand{\footrulewidth}{0.4pt}
+\begin{document}
+\hypersetup{pageanchor=false}
+\begin{titlepage}
+\vspace*{7cm}
+\begin{center}
+{\Large $projectname Manual}\\
+\vspace*{1cm}
+{\large Version $projectnumber}
+\end{center}
+\end{titlepage}
+\pagenumbering{roman}
+\tableofcontents
+\clearpage
+\pagenumbering{arabic}
+\hypersetup{pageanchor=true}

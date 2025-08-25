@@ -1,0 +1,105 @@
+\doxysection{KMCThin\+Film\+::Event\+Executor\+Group Class Reference}
+\hypertarget{classKMCThinFilm_1_1EventExecutorGroup}{}\label{classKMCThinFilm_1_1EventExecutorGroup}\index{KMCThinFilm::EventExecutorGroup@{KMCThinFilm::EventExecutorGroup}}
+
+
+{\ttfamily \#include $<$Event\+Executor\+Group.\+hpp$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classKMCThinFilm_1_1EventExecutorGroup_a27c93530b79798193039b622693cfedd}{Event\+Executor\+Group}} (int num\+Events\+In\+Group)
+\item 
+void \mbox{\hyperlink{classKMCThinFilm_1_1EventExecutorGroup_a109dab6bc920f3fd6cf7df5d8076a61f}{add\+Event\+Executor}} (int which\+Event, \mbox{\hyperlink{namespaceKMCThinFilm_a601f0f23e6b591202d40f27df34db951}{Event\+Executor\+Auto\+Track}} ev\+Exec)
+\item 
+void \mbox{\hyperlink{classKMCThinFilm_1_1EventExecutorGroup_a8138cfc7b591bd3136fcb8f4195815ec}{add\+Event\+Executor}} (int which\+Event, \mbox{\hyperlink{namespaceKMCThinFilm_a92a9e6c3ced8703f95265e85d80f1797}{Event\+Executor\+Semi\+Manual\+Track}} ev\+Exec, const std\+::vector$<$ \mbox{\hyperlink{classKMCThinFilm_1_1CellNeighOffsets}{Cell\+Neigh\+Offsets}} $>$ \&cno\+Vec)
+\item 
+void \mbox{\hyperlink{classKMCThinFilm_1_1EventExecutorGroup_a34b3e0438f79b33e34c9a65ada1aee85}{clear\+Group}} ()
+\item 
+int \mbox{\hyperlink{classKMCThinFilm_1_1EventExecutorGroup_a361ed7cd4b5c2b1507049cf054551bc9}{num\+Event\+Executors}} () const
+\item 
+void \mbox{\hyperlink{classKMCThinFilm_1_1EventExecutorGroup_a58845befe777f2a52a814c460b477a14}{reset\+Group}} (int num\+Events\+In\+Group)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classKMCThinFilm_1_1EventExecutorGroup_aeb51e0a4c44d4192cfbdb79598859172}\label{classKMCThinFilm_1_1EventExecutorGroup_aeb51e0a4c44d4192cfbdb79598859172} 
+class {\bfseries Simulation}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Collection of function objects satisfying the \doxylink{namespaceKMCThinFilm_a601f0f23e6b591202d40f27df34db951}{Event\+Executor\+Auto\+Track} and \doxylink{namespaceKMCThinFilm_a92a9e6c3ced8703f95265e85d80f1797}{Event\+Executor\+Semi\+Manual\+Track} signatures, used to specify a group of possible cell-\/centered events. \begin{Desc}
+\item[Examples]\par
+\mbox{\hyperlink{testBallisticDep1_2testBallisticDep_8cpp-example}{test\+Ballistic\+Dep1/test\+Ballistic\+Dep.\+cpp}}, \mbox{\hyperlink{testBallisticDep2_2testBallisticDep_8cpp-example}{test\+Ballistic\+Dep2/test\+Ballistic\+Dep.\+cpp}}, \mbox{\hyperlink{testFractal_2testFractal_8cpp-example}{test\+Fractal/test\+Fractal.\+cpp}}, \mbox{\hyperlink{testFractal_parallel_2testFractal_8cpp-example}{test\+Fractal\+\_\+parallel/test\+Fractal.\+cpp}}, \mbox{\hyperlink{testFractal_semi_manual_track_2testFractal_8cpp-example}{test\+Fractal\+\_\+semi\+\_\+manual\+\_\+track/test\+Fractal.\+cpp}}, \mbox{\hyperlink{testPatternedSurface1_2testPatternedSurface_8cpp-example}{test\+Patterned\+Surface1/test\+Patterned\+Surface.\+cpp}}, and \mbox{\hyperlink{testPatternedSurface2_2testPatternedSurface_8cpp-example}{test\+Patterned\+Surface2/test\+Patterned\+Surface.\+cpp}}.\end{Desc}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classKMCThinFilm_1_1EventExecutorGroup_a27c93530b79798193039b622693cfedd}\index{KMCThinFilm::EventExecutorGroup@{KMCThinFilm::EventExecutorGroup}!EventExecutorGroup@{EventExecutorGroup}}
+\index{EventExecutorGroup@{EventExecutorGroup}!KMCThinFilm::EventExecutorGroup@{KMCThinFilm::EventExecutorGroup}}
+\doxysubsubsection{\texorpdfstring{EventExecutorGroup()}{EventExecutorGroup()}}
+{\footnotesize\ttfamily \label{classKMCThinFilm_1_1EventExecutorGroup_a27c93530b79798193039b622693cfedd} 
+KMCThin\+Film\+::\+Event\+Executor\+Group\+::\+Event\+Executor\+Group (\begin{DoxyParamCaption}\item[{int}]{num\+Events\+In\+Group}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+Constructs an \doxylink{classKMCThinFilm_1_1EventExecutorGroup}{Event\+Executor\+Group} object. 
+\begin{DoxyParams}{Parameters}
+{\em num\+Events\+In\+Group} & Number of function objects in group that execute events \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classKMCThinFilm_1_1EventExecutorGroup_a109dab6bc920f3fd6cf7df5d8076a61f}\index{KMCThinFilm::EventExecutorGroup@{KMCThinFilm::EventExecutorGroup}!addEventExecutor@{addEventExecutor}}
+\index{addEventExecutor@{addEventExecutor}!KMCThinFilm::EventExecutorGroup@{KMCThinFilm::EventExecutorGroup}}
+\doxysubsubsection{\texorpdfstring{addEventExecutor()}{addEventExecutor()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{classKMCThinFilm_1_1EventExecutorGroup_a109dab6bc920f3fd6cf7df5d8076a61f} 
+void KMCThin\+Film\+::\+Event\+Executor\+Group\+::add\+Event\+Executor (\begin{DoxyParamCaption}\item[{int}]{which\+Event}{, }\item[{\mbox{\hyperlink{namespaceKMCThinFilm_a601f0f23e6b591202d40f27df34db951}{Event\+Executor\+Auto\+Track}}}]{ev\+Exec}{}\end{DoxyParamCaption})}
+
+Adds an \doxylink{namespaceKMCThinFilm_a601f0f23e6b591202d40f27df34db951}{Event\+Executor\+Auto\+Track} object to the group 
+\begin{DoxyParams}{Parameters}
+{\em which\+Event} & Integer ID of event in group. Must be \texorpdfstring{$>$}{>}= 0 and less than \doxylink{classKMCThinFilm_1_1EventExecutorGroup_a361ed7cd4b5c2b1507049cf054551bc9}{num\+Event\+Executors()}  \\
+\hline
+{\em ev\+Exec} & Function object to execute the event \\
+\hline
+\end{DoxyParams}
+\begin{Desc}
+\item[Examples]\par
+\mbox{\hyperlink{testBallisticDep1_2testBallisticDep_8cpp-example}{test\+Ballistic\+Dep1/test\+Ballistic\+Dep.\+cpp}}, \mbox{\hyperlink{testBallisticDep2_2testBallisticDep_8cpp-example}{test\+Ballistic\+Dep2/test\+Ballistic\+Dep.\+cpp}}, \mbox{\hyperlink{testFractal_2testFractal_8cpp-example}{test\+Fractal/test\+Fractal.\+cpp}}, \mbox{\hyperlink{testFractal_parallel_2testFractal_8cpp-example}{test\+Fractal\+\_\+parallel/test\+Fractal.\+cpp}}, \mbox{\hyperlink{testFractal_semi_manual_track_2testFractal_8cpp-example}{test\+Fractal\+\_\+semi\+\_\+manual\+\_\+track/test\+Fractal.\+cpp}}, \mbox{\hyperlink{testPatternedSurface1_2testPatternedSurface_8cpp-example}{test\+Patterned\+Surface1/test\+Patterned\+Surface.\+cpp}}, and \mbox{\hyperlink{testPatternedSurface2_2testPatternedSurface_8cpp-example}{test\+Patterned\+Surface2/test\+Patterned\+Surface.\+cpp}}.\end{Desc}
+\Hypertarget{classKMCThinFilm_1_1EventExecutorGroup_a8138cfc7b591bd3136fcb8f4195815ec}\index{KMCThinFilm::EventExecutorGroup@{KMCThinFilm::EventExecutorGroup}!addEventExecutor@{addEventExecutor}}
+\index{addEventExecutor@{addEventExecutor}!KMCThinFilm::EventExecutorGroup@{KMCThinFilm::EventExecutorGroup}}
+\doxysubsubsection{\texorpdfstring{addEventExecutor()}{addEventExecutor()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{classKMCThinFilm_1_1EventExecutorGroup_a8138cfc7b591bd3136fcb8f4195815ec} 
+void KMCThin\+Film\+::\+Event\+Executor\+Group\+::add\+Event\+Executor (\begin{DoxyParamCaption}\item[{int}]{which\+Event}{, }\item[{\mbox{\hyperlink{namespaceKMCThinFilm_a92a9e6c3ced8703f95265e85d80f1797}{Event\+Executor\+Semi\+Manual\+Track}}}]{ev\+Exec}{, }\item[{const std\+::vector$<$ \mbox{\hyperlink{classKMCThinFilm_1_1CellNeighOffsets}{Cell\+Neigh\+Offsets}} $>$ \&}]{cno\+Vec}{}\end{DoxyParamCaption})}
+
+Adds an \doxylink{namespaceKMCThinFilm_a92a9e6c3ced8703f95265e85d80f1797}{Event\+Executor\+Semi\+Manual\+Track} object and its associated offsets to the group.
+
+The argument {\itshape cno\+Vec} indicates the relative positions of cells that would be directly changed by executing {\itshape ev\+Exec}. If, for example, the event changed cells $(i_1, j_1, k_1)$ and $(i_1 + a, j_1 + b, k_1 + c)$, and also $(i_2, j_2, k_2)$,  $(i_2 + d_1, j_2 + e_1, k_2
++ f_1)$, and $(i_2 + d_2, j_2 + e_2, k_2 + f_2)$, where the relative positions of $(i_1, j_1, k_1)$ and  $(i_2,
+j_2, k_2)$ may vary with respect to each other, then the first entry of {\itshape cno\+Vec} would be the offsets associated with $(i_1, j_1, k_1)$, that is, $(0,0,0)$ and $(a,b,c)$, and the second entry of {\itshape cno\+Vec} would be the offsets associated with $(i_2, j_2, k_2)$, that is, $(0,0,0)$, $(d_1, e_1, f_1)$ and  $(d_2,
+e_2, f_2)$. 
+\begin{DoxyParams}{Parameters}
+{\em which\+Event} & Integer ID of event in group. Must be \texorpdfstring{$>$}{>}= 0 and less than \doxylink{classKMCThinFilm_1_1EventExecutorGroup_a361ed7cd4b5c2b1507049cf054551bc9}{num\+Event\+Executors()}  \\
+\hline
+{\em ev\+Exec} & Function object to execute the event  \\
+\hline
+{\em cno\+Vec} & Relative positions of cells directly changed by event. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classKMCThinFilm_1_1EventExecutorGroup_a34b3e0438f79b33e34c9a65ada1aee85}\index{KMCThinFilm::EventExecutorGroup@{KMCThinFilm::EventExecutorGroup}!clearGroup@{clearGroup}}
+\index{clearGroup@{clearGroup}!KMCThinFilm::EventExecutorGroup@{KMCThinFilm::EventExecutorGroup}}
+\doxysubsubsection{\texorpdfstring{clearGroup()}{clearGroup()}}
+{\footnotesize\ttfamily \label{classKMCThinFilm_1_1EventExecutorGroup_a34b3e0438f79b33e34c9a65ada1aee85} 
+void KMCThin\+Film\+::\+Event\+Executor\+Group\+::clear\+Group (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+Removes all previous function objects from the group. \Hypertarget{classKMCThinFilm_1_1EventExecutorGroup_a361ed7cd4b5c2b1507049cf054551bc9}\index{KMCThinFilm::EventExecutorGroup@{KMCThinFilm::EventExecutorGroup}!numEventExecutors@{numEventExecutors}}
+\index{numEventExecutors@{numEventExecutors}!KMCThinFilm::EventExecutorGroup@{KMCThinFilm::EventExecutorGroup}}
+\doxysubsubsection{\texorpdfstring{numEventExecutors()}{numEventExecutors()}}
+{\footnotesize\ttfamily \label{classKMCThinFilm_1_1EventExecutorGroup_a361ed7cd4b5c2b1507049cf054551bc9} 
+int KMCThin\+Film\+::\+Event\+Executor\+Group\+::num\+Event\+Executors (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+Returns the number of function objects stored in the group. \Hypertarget{classKMCThinFilm_1_1EventExecutorGroup_a58845befe777f2a52a814c460b477a14}\index{KMCThinFilm::EventExecutorGroup@{KMCThinFilm::EventExecutorGroup}!resetGroup@{resetGroup}}
+\index{resetGroup@{resetGroup}!KMCThinFilm::EventExecutorGroup@{KMCThinFilm::EventExecutorGroup}}
+\doxysubsubsection{\texorpdfstring{resetGroup()}{resetGroup()}}
+{\footnotesize\ttfamily \label{classKMCThinFilm_1_1EventExecutorGroup_a58845befe777f2a52a814c460b477a14} 
+void KMCThin\+Film\+::\+Event\+Executor\+Group\+::reset\+Group (\begin{DoxyParamCaption}\item[{int}]{num\+Events\+In\+Group}{}\end{DoxyParamCaption})}
+
+Removes all previous function objects from the group and allocates memory for {\itshape num\+Events\+In\+Group} function objects. 

@@ -1,0 +1,57 @@
+\doxysection{Cells\+To\+Change.\+hpp}
+\hypertarget{CellsToChange_8hpp_source}{}\label{CellsToChange_8hpp_source}\index{CellsToChange.hpp@{CellsToChange.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ CELLS\_TO\_CHANGE\_HPP}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ CELLS\_TO\_CHANGE\_HPP}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <boost/scoped\_ptr.hpp>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespaceKMCThinFilm}{KMCThinFilm}}\ \{}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{classKMCThinFilm_1_1Lattice}{Lattice}};}
+\DoxyCodeLine{00010\ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{classKMCThinFilm_1_1CellInds}{CellInds}};}
+\DoxyCodeLine{00011\ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{classKMCThinFilm_1_1CellIndsOffset}{CellIndsOffset}};}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00048\ \ \ \textcolor{keyword}{class\ }CellsToChange\ \{}
+\DoxyCodeLine{00049\ \ \ \ \ \textcolor{keyword}{friend}\ \textcolor{keyword}{class\ }Simulation;}
+\DoxyCodeLine{00050\ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00055\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classKMCThinFilm_1_1CellsToChange_a8a56c1106701d5bc3409cd30343fee2c}{setCenter}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classKMCThinFilm_1_1CellInds}{CellInds}}\ \&\ ci);}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00064\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classKMCThinFilm_1_1CellInds}{CellInds}}\ \&\ \mbox{\hyperlink{classKMCThinFilm_1_1CellsToChange_ae76e3b5b096b7aa6988f059a7c2c78a4}{getCellInds}}(\textcolor{keywordtype}{int}\ whichOffset)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00081\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classKMCThinFilm_1_1CellsToChange_ae559a33ad8206a5e1c8cfd8803ccc765}{getInt}}(\textcolor{keywordtype}{int}\ whichOffset,\ \textcolor{keywordtype}{int}\ whichInt)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00098\ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{classKMCThinFilm_1_1CellsToChange_a072e22624e2eafdb9dc8fd0067f763b5}{getFloat}}(\textcolor{keywordtype}{int}\ whichOffset,\ \textcolor{keywordtype}{int}\ whichFloat)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00099\ }
+\DoxyCodeLine{00109\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classKMCThinFilm_1_1CellsToChange_a62079b840cc200e37e2907ba2e394f78}{setInt}}(\textcolor{keywordtype}{int}\ whichOffset,\ \textcolor{keywordtype}{int}\ whichInt,\ \textcolor{keywordtype}{int}\ val);}
+\DoxyCodeLine{00110\ }
+\DoxyCodeLine{00120\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classKMCThinFilm_1_1CellsToChange_a0e89c1262df5b89f00329e685a9871fa}{setFloat}}(\textcolor{keywordtype}{int}\ whichOffset,\ \textcolor{keywordtype}{int}\ whichFloat,\ \textcolor{keywordtype}{double}\ val);}
+\DoxyCodeLine{00121\ }
+\DoxyCodeLine{00130\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classKMCThinFilm_1_1CellsToChange_a6753306ace3d33af03814bfb048498b5}{addLatticePlanes}}(\textcolor{keywordtype}{int}\ numPlanesToAdd);}
+\DoxyCodeLine{00131\ }
+\DoxyCodeLine{00133\ \ \ \ \ CellsToChange(\textcolor{keyword}{const}\ CellsToChange\ \&\ ctc);}
+\DoxyCodeLine{00134\ \ \ \ \ CellsToChange\ \&\ operator=(\textcolor{keyword}{const}\ CellsToChange\ \&\ rhs);}
+\DoxyCodeLine{00135\ \ \ \ \ \string~CellsToChange();}
+\DoxyCodeLine{00137\ }
+\DoxyCodeLine{00138\ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00139\ \ \ \ \ }
+\DoxyCodeLine{00140\ \ \ \ \ \textcolor{comment}{//\ For\ use\ by\ Simulation\ class}}
+\DoxyCodeLine{00141\ \ \ \ \ \textcolor{keyword}{explicit}\ CellsToChange(\mbox{\hyperlink{classKMCThinFilm_1_1Lattice}{Lattice}}\ *\ lattice,\ \textcolor{keywordtype}{int}\ numOffsets);}
+\DoxyCodeLine{00142\ \ \ \ \ \textcolor{keywordtype}{void}\ addOffset(\textcolor{keyword}{const}\ \mbox{\hyperlink{classKMCThinFilm_1_1CellIndsOffset}{CellIndsOffset}}\ \&\ offset);}
+\DoxyCodeLine{00143\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classKMCThinFilm_1_1CellInds}{CellInds}}\ \&\ getCenter()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00144\ \ \ \ \ \textcolor{keyword}{const}\ std::vector<CellIndsOffset>\ \&\ getCellIndsOffsetVec()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00145\ \ \ \ \ \textcolor{keyword}{const}\ std::vector<CellInds>\ \&\ getCellIndsVec()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00146\ \ \ \ \ \textcolor{keywordtype}{void}\ clear();}
+\DoxyCodeLine{00147\ }
+\DoxyCodeLine{00148\ \ \ \ \ \textcolor{keyword}{class\ }Impl\_;}
+\DoxyCodeLine{00149\ \ \ \ \ boost::scoped\_ptr<Impl\_>\ pImpl\_;}
+\DoxyCodeLine{00150\ \ \ \};}
+\DoxyCodeLine{00151\ }
+\DoxyCodeLine{00152\ \}}
+\DoxyCodeLine{00153\ }
+\DoxyCodeLine{00154\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ CELLS\_TO\_CHANGE\_HPP\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

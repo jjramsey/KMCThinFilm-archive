@@ -1,0 +1,30 @@
+\doxysection{test\+Patterned\+Surface1/\+Init\+Lattice.\+hpp}
+\hypertarget{testPatternedSurface1_2InitLattice_8hpp-example}{}\label{testPatternedSurface1_2InitLattice_8hpp-example}Header file for an example implementation of a model with a patterned substrate surface that defines a custom method for initializing a lattice.
+
+This example is discussed in detail in the section ``\doxysectlink{illustrating_use_by_example_example_pat_sub}{Example\+: Implementations of a patterned substrate model}{1},'' subsection ``\doxysectlink{illustrating_use_by_example_example_pat_sub_impl1}{First implementation}{2}.''
+
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\textcolor{preprocessor}{\#ifndef\ INIT\_LATTICE\_HPP}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#define\ INIT\_LATTICE\_HPP}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <KMCThinFilm/Lattice.hpp>}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <KMCThinFilm/ErrorHandling.hpp>}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keyword}{class\ }InitLatticeFromFile\ \{}
+\DoxyCodeLine{\textcolor{keyword}{public}:}
+\DoxyCodeLine{\ \ InitLatticeFromFile(\textcolor{keyword}{const}\ std::string\ \&\ inpFName)}
+\DoxyCodeLine{\ \ \ \ :\ inpFName\_(inpFName)}
+\DoxyCodeLine{\ \ \{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{void}\ operator()(KMCThinFilm::Lattice\ \&\ lattice)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{\textcolor{keyword}{private}:}
+\DoxyCodeLine{\ \ std::string\ inpFName\_;}
+\DoxyCodeLine{\};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ INIT\_LATTICE\_HPP\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCodeInclude}
+ 

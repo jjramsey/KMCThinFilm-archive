@@ -1,0 +1,71 @@
+\doxysection{Cell\+Neigh\+Probe.\+hpp}
+\hypertarget{CellNeighProbe_8hpp_source}{}\label{CellNeighProbe_8hpp_source}\index{CellNeighProbe.hpp@{CellNeighProbe.hpp}}
+\mbox{\hyperlink{CellNeighProbe_8hpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ CELL\_NEIGH\_PROBE\_HPP}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ CELL\_NEIGH\_PROBE\_HPP}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <boost/scoped\_ptr.hpp>}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{CellInds_8hpp}{CellInds.hpp}}"{}}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespaceKMCThinFilm}{KMCThinFilm}}\ \{}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{classKMCThinFilm_1_1Lattice}{Lattice}};}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00020\ \ \ \textcolor{keyword}{class\ }CellToProbe\ \{}
+\DoxyCodeLine{00021\ \ \ \ \ \textcolor{keyword}{friend}\ \textcolor{keyword}{class\ }CellNeighProbe;}
+\DoxyCodeLine{00022\ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00025\ \ \ \ \ CellToProbe()}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ :\ ci\_((\mbox{\hyperlink{classKMCThinFilm_1_1CellInds}{CellInds}}()))\ \textcolor{comment}{/*\ Extra\ parens\ are\ to\ avoid\ C++'s\ "{}most}}
+\DoxyCodeLine{00027\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ vexing\ parse"{},\ but\ I'm\ not\ sure\ if}}
+\DoxyCodeLine{00028\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ they're\ needed.\ */}}
+\DoxyCodeLine{00029\ \ \ \ \ \{\}}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classKMCThinFilm_1_1CellInds}{CellInds}}\ \&\ \mbox{\hyperlink{classKMCThinFilm_1_1CellToProbe_a9b2f2133ce27c287b7ece18d8df929ac}{inds}}()\ \{\textcolor{keywordflow}{return}\ ci\_;\}}
+\DoxyCodeLine{00035\ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{classKMCThinFilm_1_1CellToProbe}{CellToProbe}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classKMCThinFilm_1_1CellInds}{CellInds}}\ \&\ ci)}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ :\ ci\_(ci)}
+\DoxyCodeLine{00038\ \ \ \ \ \{\}}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \ \ \ \ CellInds\ ci\_;}
+\DoxyCodeLine{00041\ \ \ \};}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00053\ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{classKMCThinFilm_1_1CellNeighProbe_a4388328e433e84f9407d0ca7e85b4db2}{CellNeighProbe}}\ \{}
+\DoxyCodeLine{00054\ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00059\ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{classKMCThinFilm_1_1CellNeighProbe_a4388328e433e84f9407d0ca7e85b4db2}{CellNeighProbe}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classKMCThinFilm_1_1Lattice}{Lattice}}\ *\ lattice\ =\ NULL);}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00062\ \ \ \ \ \mbox{\hyperlink{classKMCThinFilm_1_1CellNeighProbe_a4388328e433e84f9407d0ca7e85b4db2}{CellNeighProbe}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classKMCThinFilm_1_1CellNeighProbe_a4388328e433e84f9407d0ca7e85b4db2}{CellNeighProbe}}\ \&\ ctp);}
+\DoxyCodeLine{00063\ \ \ \ \ \mbox{\hyperlink{classKMCThinFilm_1_1CellNeighProbe_a4388328e433e84f9407d0ca7e85b4db2}{CellNeighProbe}}\ \&\ operator=(\textcolor{keyword}{const}\ \mbox{\hyperlink{classKMCThinFilm_1_1CellNeighProbe_a4388328e433e84f9407d0ca7e85b4db2}{CellNeighProbe}}\ \&\ rhs);}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00069\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classKMCThinFilm_1_1CellNeighProbe_ace997a38840ebc55993f6a98645b7808}{attachLattice}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classKMCThinFilm_1_1Lattice}{Lattice}}\ *\ lattice);\ \ \ \ }
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00074\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classKMCThinFilm_1_1CellNeighProbe_a02d5bd2dd43aa7b17a6fcc7efe345443}{attachCellInds}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classKMCThinFilm_1_1CellInds}{CellInds}}\ *\ ci\ ,\ }
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::vector<CellIndsOffset>\ *\ cioVecPtr\ );}
+\DoxyCodeLine{00100\ }
+\DoxyCodeLine{00102\ \ \ \ \ \mbox{\hyperlink{classKMCThinFilm_1_1CellToProbe}{CellToProbe}}\ \mbox{\hyperlink{classKMCThinFilm_1_1CellNeighProbe_a1ba997186f6326b525dd66df4254d198}{getCellToProbe}}(\textcolor{keywordtype}{int}\ probedCellInd\ )\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00107\ }
+\DoxyCodeLine{00112\ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{classKMCThinFilm_1_1CellNeighProbe_a1425c18df394e394b7c50e9f332371fc}{getFloat}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classKMCThinFilm_1_1CellToProbe}{CellToProbe}}\ \&\ ctp,\ \textcolor{keywordtype}{int}\ whichFloat)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00113\ }
+\DoxyCodeLine{00118\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classKMCThinFilm_1_1CellNeighProbe_a7be3ba45264054167a243f15a1954b92}{getInt}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classKMCThinFilm_1_1CellToProbe}{CellToProbe}}\ \&\ ctp,\ \textcolor{keywordtype}{int}\ whichInt)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00119\ }
+\DoxyCodeLine{00125\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classKMCThinFilm_1_1CellNeighProbe_a1c68a11a6d1af530abf21ed070ae452c}{exceedsLatticeHeight}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classKMCThinFilm_1_1CellToProbe}{CellToProbe}}\ \&\ ctp)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00126\ }
+\DoxyCodeLine{00131\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classKMCThinFilm_1_1CellNeighProbe_acff2debf7ca2157b8ea1d58475a9f25f}{belowLatticeBottom}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classKMCThinFilm_1_1CellToProbe}{CellToProbe}}\ \&\ ctp)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00132\ \ \ \ \ }
+\DoxyCodeLine{00134\ \ \ \ \ \mbox{\hyperlink{classKMCThinFilm_1_1CellNeighProbe_a4388328e433e84f9407d0ca7e85b4db2}{\string~CellNeighProbe}}();}
+\DoxyCodeLine{00136\ }
+\DoxyCodeLine{00137\ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00138\ \ \ \ \ \textcolor{keyword}{class\ }Impl\_;}
+\DoxyCodeLine{00139\ \ \ \ \ boost::scoped\_ptr<Impl\_>\ pImpl\_;}
+\DoxyCodeLine{00140\ \ \ \};}
+\DoxyCodeLine{00141\ \ \ }
+\DoxyCodeLine{00142\ \}}
+\DoxyCodeLine{00143\ }
+\DoxyCodeLine{00144\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ CELL\_NEIGH\_PROBE\_HPP\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

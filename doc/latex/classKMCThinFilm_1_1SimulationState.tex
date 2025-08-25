@@ -1,0 +1,79 @@
+\doxysection{KMCThin\+Film\+::Simulation\+State Class Reference}
+\hypertarget{classKMCThinFilm_1_1SimulationState}{}\label{classKMCThinFilm_1_1SimulationState}\index{KMCThinFilm::SimulationState@{KMCThinFilm::SimulationState}}
+
+
+{\ttfamily \#include $<$Simulation\+State.\+hpp$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+double \mbox{\hyperlink{classKMCThinFilm_1_1SimulationState_a01882b6444dedf12543e0a9e7f763f02}{elapsed\+Time}} () const
+\item 
+double \mbox{\hyperlink{classKMCThinFilm_1_1SimulationState_a58682bae932ee82f328f1315de40fd88}{global\+Time\+Increment}} () const
+\item 
+double \mbox{\hyperlink{classKMCThinFilm_1_1SimulationState_a14d7d48b97201644407d5e6d6322db18}{max\+Time}} () const
+\item 
+unsigned long long \mbox{\hyperlink{classKMCThinFilm_1_1SimulationState_ad5f8eb846523ab0fa5d9885e9be5c01c}{num\+Global\+Steps}} () const
+\item 
+unsigned long long \mbox{\hyperlink{classKMCThinFilm_1_1SimulationState_a7b059ae6d15ec65426e171df9f17141d}{num\+Local\+Events}} () const
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classKMCThinFilm_1_1SimulationState_aeb51e0a4c44d4192cfbdb79598859172}\label{classKMCThinFilm_1_1SimulationState_aeb51e0a4c44d4192cfbdb79598859172} 
+class {\bfseries Simulation}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Data structure holding the current state of the simulation.
+
+This data structure provides an interface to function objects with the KMCThin\+Film\+::\+Event\+Executor and \doxylink{namespaceKMCThinFilm_ab48bbcbabdf454a07e2f0edb47404abe}{KMCThin\+Film\+::\+Periodic\+Action} signatures for accessing such things as the current elapsed time of the simulation, the number of local events that have occurred, and so on.
+
+\begin{DoxySeeAlso}{See also}
+Event\+Executor \doxylink{namespaceKMCThinFilm_ab48bbcbabdf454a07e2f0edb47404abe}{Periodic\+Action} 
+\end{DoxySeeAlso}
+\begin{Desc}
+\item[Examples]\par
+\mbox{\hyperlink{testBallisticDep1_2EventsAndActions_8cpp-example}{test\+Ballistic\+Dep1/\+Events\+And\+Actions.\+cpp}}, \mbox{\hyperlink{testBallisticDep1_2EventsAndActions_8hpp-example}{test\+Ballistic\+Dep1/\+Events\+And\+Actions.\+hpp}}, \mbox{\hyperlink{testBallisticDep2_2EventsAndActions_8cpp-example}{test\+Ballistic\+Dep2/\+Events\+And\+Actions.\+cpp}}, \mbox{\hyperlink{testBallisticDep2_2EventsAndActions_8hpp-example}{test\+Ballistic\+Dep2/\+Events\+And\+Actions.\+hpp}}, \mbox{\hyperlink{testFractal_2EventsAndActions_8cpp-example}{test\+Fractal/\+Events\+And\+Actions.\+cpp}}, \mbox{\hyperlink{testFractal_2EventsAndActions_8hpp-example}{test\+Fractal/\+Events\+And\+Actions.\+hpp}}, \mbox{\hyperlink{testFractal_semi_manual_track_2EventsAndActions_8cpp-example}{test\+Fractal\+\_\+semi\+\_\+manual\+\_\+track/\+Events\+And\+Actions.\+cpp}}, \mbox{\hyperlink{testFractal_semi_manual_track_2EventsAndActions_8hpp-example}{test\+Fractal\+\_\+semi\+\_\+manual\+\_\+track/\+Events\+And\+Actions.\+hpp}}, \mbox{\hyperlink{testPatternedSurface1_2EventsAndActions_8cpp-example}{test\+Patterned\+Surface1/\+Events\+And\+Actions.\+cpp}}, \mbox{\hyperlink{testPatternedSurface1_2EventsAndActions_8hpp-example}{test\+Patterned\+Surface1/\+Events\+And\+Actions.\+hpp}}, \mbox{\hyperlink{testPatternedSurface2_2EventsAndActions_8cpp-example}{test\+Patterned\+Surface2/\+Events\+And\+Actions.\+cpp}}, and \mbox{\hyperlink{testPatternedSurface2_2EventsAndActions_8hpp-example}{test\+Patterned\+Surface2/\+Events\+And\+Actions.\+hpp}}.\end{Desc}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classKMCThinFilm_1_1SimulationState_a01882b6444dedf12543e0a9e7f763f02}\index{KMCThinFilm::SimulationState@{KMCThinFilm::SimulationState}!elapsedTime@{elapsedTime}}
+\index{elapsedTime@{elapsedTime}!KMCThinFilm::SimulationState@{KMCThinFilm::SimulationState}}
+\doxysubsubsection{\texorpdfstring{elapsedTime()}{elapsedTime()}}
+{\footnotesize\ttfamily \label{classKMCThinFilm_1_1SimulationState_a01882b6444dedf12543e0a9e7f763f02} 
+double KMCThin\+Film\+::\+Simulation\+State\+::elapsed\+Time (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+The amount of {\itshape simulated} time (not the actual wall clock time) that has passed since the beginning of the first simulation run. \begin{Desc}
+\item[Examples]\par
+\mbox{\hyperlink{testFractal_2EventsAndActions_8cpp-example}{test\+Fractal/\+Events\+And\+Actions.\+cpp}}, \mbox{\hyperlink{testFractal_semi_manual_track_2EventsAndActions_8cpp-example}{test\+Fractal\+\_\+semi\+\_\+manual\+\_\+track/\+Events\+And\+Actions.\+cpp}}, \mbox{\hyperlink{testPatternedSurface1_2EventsAndActions_8cpp-example}{test\+Patterned\+Surface1/\+Events\+And\+Actions.\+cpp}}, and \mbox{\hyperlink{testPatternedSurface2_2EventsAndActions_8cpp-example}{test\+Patterned\+Surface2/\+Events\+And\+Actions.\+cpp}}.\end{Desc}
+\Hypertarget{classKMCThinFilm_1_1SimulationState_a58682bae932ee82f328f1315de40fd88}\index{KMCThinFilm::SimulationState@{KMCThinFilm::SimulationState}!globalTimeIncrement@{globalTimeIncrement}}
+\index{globalTimeIncrement@{globalTimeIncrement}!KMCThinFilm::SimulationState@{KMCThinFilm::SimulationState}}
+\doxysubsubsection{\texorpdfstring{globalTimeIncrement()}{globalTimeIncrement()}}
+{\footnotesize\ttfamily \label{classKMCThinFilm_1_1SimulationState_a58682bae932ee82f328f1315de40fd88} 
+double KMCThin\+Film\+::\+Simulation\+State\+::global\+Time\+Increment (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+The current value by which the global elasped time is incremented in a parallel simulation.
+
+This returns zero in a serial simulation. \Hypertarget{classKMCThinFilm_1_1SimulationState_a14d7d48b97201644407d5e6d6322db18}\index{KMCThinFilm::SimulationState@{KMCThinFilm::SimulationState}!maxTime@{maxTime}}
+\index{maxTime@{maxTime}!KMCThinFilm::SimulationState@{KMCThinFilm::SimulationState}}
+\doxysubsubsection{\texorpdfstring{maxTime()}{maxTime()}}
+{\footnotesize\ttfamily \label{classKMCThinFilm_1_1SimulationState_a14d7d48b97201644407d5e6d6322db18} 
+double KMCThin\+Film\+::\+Simulation\+State\+::max\+Time (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+The maximum amount of simulation time ({\itshape not} wall-\/clock time) alloted for all the simulation runs. \Hypertarget{classKMCThinFilm_1_1SimulationState_ad5f8eb846523ab0fa5d9885e9be5c01c}\index{KMCThinFilm::SimulationState@{KMCThinFilm::SimulationState}!numGlobalSteps@{numGlobalSteps}}
+\index{numGlobalSteps@{numGlobalSteps}!KMCThinFilm::SimulationState@{KMCThinFilm::SimulationState}}
+\doxysubsubsection{\texorpdfstring{numGlobalSteps()}{numGlobalSteps()}}
+{\footnotesize\ttfamily \label{classKMCThinFilm_1_1SimulationState_ad5f8eb846523ab0fa5d9885e9be5c01c} 
+unsigned long long KMCThin\+Film\+::\+Simulation\+State\+::num\+Global\+Steps (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+Number of times the global clock has been incremented.
+
+In a serial simulation, this returns the same value as \doxylink{classKMCThinFilm_1_1SimulationState_a7b059ae6d15ec65426e171df9f17141d}{num\+Local\+Events()}. \Hypertarget{classKMCThinFilm_1_1SimulationState_a7b059ae6d15ec65426e171df9f17141d}\index{KMCThinFilm::SimulationState@{KMCThinFilm::SimulationState}!numLocalEvents@{numLocalEvents}}
+\index{numLocalEvents@{numLocalEvents}!KMCThinFilm::SimulationState@{KMCThinFilm::SimulationState}}
+\doxysubsubsection{\texorpdfstring{numLocalEvents()}{numLocalEvents()}}
+{\footnotesize\ttfamily \label{classKMCThinFilm_1_1SimulationState_a7b059ae6d15ec65426e171df9f17141d} 
+unsigned long long KMCThin\+Film\+::\+Simulation\+State\+::num\+Local\+Events (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+Number of events that have occurred on a particular processor. 

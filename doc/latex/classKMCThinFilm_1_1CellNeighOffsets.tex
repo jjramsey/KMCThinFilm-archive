@@ -1,0 +1,99 @@
+\doxysection{KMCThin\+Film\+::Cell\+Neigh\+Offsets Class Reference}
+\hypertarget{classKMCThinFilm_1_1CellNeighOffsets}{}\label{classKMCThinFilm_1_1CellNeighOffsets}\index{KMCThinFilm::CellNeighOffsets@{KMCThinFilm::CellNeighOffsets}}
+
+
+{\ttfamily \#include $<$Cell\+Neigh\+Offsets.\+hpp$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classKMCThinFilm_1_1CellNeighOffsets_ae4b22e89dd2736a2d6e69c5efa88ad1e}{Cell\+Neigh\+Offsets}} (int number\+Of\+Offsets)
+\item 
+void \mbox{\hyperlink{classKMCThinFilm_1_1CellNeighOffsets_a7b983204101cef4973f685d3c68a0106}{add\+Offset}} (int which\+Offset, const \mbox{\hyperlink{classKMCThinFilm_1_1CellIndsOffset}{Cell\+Inds\+Offset}} \&offset)
+\item 
+void \mbox{\hyperlink{classKMCThinFilm_1_1CellNeighOffsets_aded2dfb4016a51aac9f7fe1b114fc261}{clear\+Offsets}} ()
+\item 
+const \mbox{\hyperlink{classKMCThinFilm_1_1CellIndsOffset}{Cell\+Inds\+Offset}} \& \mbox{\hyperlink{classKMCThinFilm_1_1CellNeighOffsets_acf082422c1ab26aa5144d98426f34ab2}{get\+Offset}} (int which\+Offset) const
+\item 
+int \mbox{\hyperlink{classKMCThinFilm_1_1CellNeighOffsets_a946a91c1759eb1dec7509984f4cdab03}{num\+Offsets}} () const
+\item 
+void \mbox{\hyperlink{classKMCThinFilm_1_1CellNeighOffsets_ac0ff865663588ae531dd6b4251eca368}{reset\+Offsets}} (int number\+Of\+New\+Offsets)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Collection of \doxylink{classKMCThinFilm_1_1CellIndsOffset}{Cell\+Inds\+Offset} objects that are used to determine an event\textquotesingle{}s propensity.
+
+Each offset in the collection is associated with an integer ID. No matter what, this collection always contains a \doxylink{classKMCThinFilm_1_1CellIndsOffset}{Cell\+Inds\+Offset} object with the indices (0,0,0), and this offset has the integer ID of zero. \begin{Desc}
+\item[Examples]\par
+\mbox{\hyperlink{testBallisticDep1_2EventsAndActions_8cpp-example}{test\+Ballistic\+Dep1/\+Events\+And\+Actions.\+cpp}}, \mbox{\hyperlink{testBallisticDep1_2testBallisticDep_8cpp-example}{test\+Ballistic\+Dep1/test\+Ballistic\+Dep.\+cpp}}, \mbox{\hyperlink{testBallisticDep2_2EventsAndActions_8cpp-example}{test\+Ballistic\+Dep2/\+Events\+And\+Actions.\+cpp}}, \mbox{\hyperlink{testBallisticDep2_2testBallisticDep_8cpp-example}{test\+Ballistic\+Dep2/test\+Ballistic\+Dep.\+cpp}}, \mbox{\hyperlink{testFractal_2testFractal_8cpp-example}{test\+Fractal/test\+Fractal.\+cpp}}, \mbox{\hyperlink{testFractal_parallel_2testFractal_8cpp-example}{test\+Fractal\+\_\+parallel/test\+Fractal.\+cpp}}, \mbox{\hyperlink{testFractal_semi_manual_track_2testFractal_8cpp-example}{test\+Fractal\+\_\+semi\+\_\+manual\+\_\+track/test\+Fractal.\+cpp}}, \mbox{\hyperlink{testPatternedSurface1_2testPatternedSurface_8cpp-example}{test\+Patterned\+Surface1/test\+Patterned\+Surface.\+cpp}}, and \mbox{\hyperlink{testPatternedSurface2_2testPatternedSurface_8cpp-example}{test\+Patterned\+Surface2/test\+Patterned\+Surface.\+cpp}}.\end{Desc}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classKMCThinFilm_1_1CellNeighOffsets_ae4b22e89dd2736a2d6e69c5efa88ad1e}\index{KMCThinFilm::CellNeighOffsets@{KMCThinFilm::CellNeighOffsets}!CellNeighOffsets@{CellNeighOffsets}}
+\index{CellNeighOffsets@{CellNeighOffsets}!KMCThinFilm::CellNeighOffsets@{KMCThinFilm::CellNeighOffsets}}
+\doxysubsubsection{\texorpdfstring{CellNeighOffsets()}{CellNeighOffsets()}}
+{\footnotesize\ttfamily \label{classKMCThinFilm_1_1CellNeighOffsets_ae4b22e89dd2736a2d6e69c5efa88ad1e} 
+KMCThin\+Film\+::\+Cell\+Neigh\+Offsets\+::\+Cell\+Neigh\+Offsets (\begin{DoxyParamCaption}\item[{int}]{number\+Of\+Offsets}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+Constructs a \doxylink{classKMCThinFilm_1_1CellNeighOffsets}{Cell\+Neigh\+Offsets} object. 
+\begin{DoxyParams}{Parameters}
+{\em number\+Of\+Offsets} & Number of offsets to be added. \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classKMCThinFilm_1_1CellNeighOffsets_a7b983204101cef4973f685d3c68a0106}\index{KMCThinFilm::CellNeighOffsets@{KMCThinFilm::CellNeighOffsets}!addOffset@{addOffset}}
+\index{addOffset@{addOffset}!KMCThinFilm::CellNeighOffsets@{KMCThinFilm::CellNeighOffsets}}
+\doxysubsubsection{\texorpdfstring{addOffset()}{addOffset()}}
+{\footnotesize\ttfamily \label{classKMCThinFilm_1_1CellNeighOffsets_a7b983204101cef4973f685d3c68a0106} 
+void KMCThin\+Film\+::\+Cell\+Neigh\+Offsets\+::add\+Offset (\begin{DoxyParamCaption}\item[{int}]{which\+Offset}{, }\item[{const \mbox{\hyperlink{classKMCThinFilm_1_1CellIndsOffset}{Cell\+Inds\+Offset}} \&}]{offset}{}\end{DoxyParamCaption})}
+
+Adds an additional offset.
+
+The argument {\itshape which\+Offset} is not allowed to be zero, since that integer ID is already associated with the offset (0,0,0). 
+\begin{DoxyParams}{Parameters}
+{\em which\+Offset} & Integer ID of offset. Must be \texorpdfstring{$>$}{>}= 1 and less than \doxylink{classKMCThinFilm_1_1CellNeighOffsets_a946a91c1759eb1dec7509984f4cdab03}{num\+Offsets()}  \\
+\hline
+{\em offset} & The offset to be added. \\
+\hline
+\end{DoxyParams}
+\begin{Desc}
+\item[Examples]\par
+\mbox{\hyperlink{testBallisticDep1_2testBallisticDep_8cpp-example}{test\+Ballistic\+Dep1/test\+Ballistic\+Dep.\+cpp}}, \mbox{\hyperlink{testBallisticDep2_2testBallisticDep_8cpp-example}{test\+Ballistic\+Dep2/test\+Ballistic\+Dep.\+cpp}}, \mbox{\hyperlink{testFractal_2testFractal_8cpp-example}{test\+Fractal/test\+Fractal.\+cpp}}, \mbox{\hyperlink{testFractal_parallel_2testFractal_8cpp-example}{test\+Fractal\+\_\+parallel/test\+Fractal.\+cpp}}, \mbox{\hyperlink{testFractal_semi_manual_track_2testFractal_8cpp-example}{test\+Fractal\+\_\+semi\+\_\+manual\+\_\+track/test\+Fractal.\+cpp}}, \mbox{\hyperlink{testPatternedSurface1_2testPatternedSurface_8cpp-example}{test\+Patterned\+Surface1/test\+Patterned\+Surface.\+cpp}}, and \mbox{\hyperlink{testPatternedSurface2_2testPatternedSurface_8cpp-example}{test\+Patterned\+Surface2/test\+Patterned\+Surface.\+cpp}}.\end{Desc}
+\Hypertarget{classKMCThinFilm_1_1CellNeighOffsets_aded2dfb4016a51aac9f7fe1b114fc261}\index{KMCThinFilm::CellNeighOffsets@{KMCThinFilm::CellNeighOffsets}!clearOffsets@{clearOffsets}}
+\index{clearOffsets@{clearOffsets}!KMCThinFilm::CellNeighOffsets@{KMCThinFilm::CellNeighOffsets}}
+\doxysubsubsection{\texorpdfstring{clearOffsets()}{clearOffsets()}}
+{\footnotesize\ttfamily \label{classKMCThinFilm_1_1CellNeighOffsets_aded2dfb4016a51aac9f7fe1b114fc261} 
+void KMCThin\+Film\+::\+Cell\+Neigh\+Offsets\+::clear\+Offsets (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+Removes all previously added offsets.
+
+Note that no new offsets may be added until \doxylink{classKMCThinFilm_1_1CellNeighOffsets_ac0ff865663588ae531dd6b4251eca368}{reset\+Offsets()} is called. \Hypertarget{classKMCThinFilm_1_1CellNeighOffsets_acf082422c1ab26aa5144d98426f34ab2}\index{KMCThinFilm::CellNeighOffsets@{KMCThinFilm::CellNeighOffsets}!getOffset@{getOffset}}
+\index{getOffset@{getOffset}!KMCThinFilm::CellNeighOffsets@{KMCThinFilm::CellNeighOffsets}}
+\doxysubsubsection{\texorpdfstring{getOffset()}{getOffset()}}
+{\footnotesize\ttfamily \label{classKMCThinFilm_1_1CellNeighOffsets_acf082422c1ab26aa5144d98426f34ab2} 
+const \mbox{\hyperlink{classKMCThinFilm_1_1CellIndsOffset}{Cell\+Inds\+Offset}} \& KMCThin\+Film\+::\+Cell\+Neigh\+Offsets\+::get\+Offset (\begin{DoxyParamCaption}\item[{int}]{which\+Offset}{}\end{DoxyParamCaption}) const}
+
+Returns the offset with the integer ID {\itshape which\+Offset}. Note that, here, {\itshape which\+Offset} {\itshape is} allowed to be zero. 
+\begin{DoxyParams}{Parameters}
+{\em which\+Offset} & Integer ID of offset. \\
+\hline
+\end{DoxyParams}
+\begin{Desc}
+\item[Examples]\par
+\mbox{\hyperlink{testFractal_parallel_2testFractal_8cpp-example}{test\+Fractal\+\_\+parallel/test\+Fractal.\+cpp}}, \mbox{\hyperlink{testFractal_semi_manual_track_2testFractal_8cpp-example}{test\+Fractal\+\_\+semi\+\_\+manual\+\_\+track/test\+Fractal.\+cpp}}, \mbox{\hyperlink{testPatternedSurface1_2testPatternedSurface_8cpp-example}{test\+Patterned\+Surface1/test\+Patterned\+Surface.\+cpp}}, and \mbox{\hyperlink{testPatternedSurface2_2testPatternedSurface_8cpp-example}{test\+Patterned\+Surface2/test\+Patterned\+Surface.\+cpp}}.\end{Desc}
+\Hypertarget{classKMCThinFilm_1_1CellNeighOffsets_a946a91c1759eb1dec7509984f4cdab03}\index{KMCThinFilm::CellNeighOffsets@{KMCThinFilm::CellNeighOffsets}!numOffsets@{numOffsets}}
+\index{numOffsets@{numOffsets}!KMCThinFilm::CellNeighOffsets@{KMCThinFilm::CellNeighOffsets}}
+\doxysubsubsection{\texorpdfstring{numOffsets()}{numOffsets()}}
+{\footnotesize\ttfamily \label{classKMCThinFilm_1_1CellNeighOffsets_a946a91c1759eb1dec7509984f4cdab03} 
+int KMCThin\+Film\+::\+Cell\+Neigh\+Offsets\+::num\+Offsets (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+Number of offsets stored. \Hypertarget{classKMCThinFilm_1_1CellNeighOffsets_ac0ff865663588ae531dd6b4251eca368}\index{KMCThinFilm::CellNeighOffsets@{KMCThinFilm::CellNeighOffsets}!resetOffsets@{resetOffsets}}
+\index{resetOffsets@{resetOffsets}!KMCThinFilm::CellNeighOffsets@{KMCThinFilm::CellNeighOffsets}}
+\doxysubsubsection{\texorpdfstring{resetOffsets()}{resetOffsets()}}
+{\footnotesize\ttfamily \label{classKMCThinFilm_1_1CellNeighOffsets_ac0ff865663588ae531dd6b4251eca368} 
+void KMCThin\+Film\+::\+Cell\+Neigh\+Offsets\+::reset\+Offsets (\begin{DoxyParamCaption}\item[{int}]{number\+Of\+New\+Offsets}{}\end{DoxyParamCaption})}
+
+Removes all previous offsets and allocates memory for {\itshape number\+Of\+New\+Offsets} \doxylink{classKMCThinFilm_1_1CellIndsOffset}{Cell\+Inds\+Offset} objects. 

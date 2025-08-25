@@ -1,0 +1,39 @@
+\doxysection{Rand\+Num\+Gen\+Rng\+Streams.\+hpp}
+\hypertarget{RandNumGenRngStreams_8hpp_source}{}\label{RandNumGenRngStreams_8hpp_source}\index{RandNumGenRngStreams.hpp@{RandNumGenRngStreams.hpp}}
+\mbox{\hyperlink{RandNumGenRngStreams_8hpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ RAND\_NUM\_GEN\_RNG\_STREAMS\_HPP}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ RAND\_NUM\_GEN\_RNG\_STREAMS\_HPP}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{keyword}{extern}\ \textcolor{stringliteral}{"{}C"{}}\ \{}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <RngStream.h>}}
+\DoxyCodeLine{00009\ \}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{RandNumGen_8hpp}{RandNumGen.hpp}}"{}}}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespaceKMCThinFilm}{KMCThinFilm}}\ \{}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00026\ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{classKMCThinFilm_1_1RandNumGenRngStreams_abeb90e642db294c0a846009fdc099913}{RandNumGenRngStreams}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classKMCThinFilm_1_1RandNumGen}{RandNumGen}}\ \{}
+\DoxyCodeLine{00027\ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00042\ \ \ \ \ \mbox{\hyperlink{classKMCThinFilm_1_1RandNumGenRngStreams_abeb90e642db294c0a846009fdc099913}{RandNumGenRngStreams}}(std::vector<unsigned\ long>\ \&\ seed,}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ rank,}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{long}\ advExp\ =\ 127,}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{long}\ advConst\ =\ 0);}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00048\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{classKMCThinFilm_1_1RandNumGenRngStreams_ab90d8fff5e0a69f029dc9b6b38bfc64d}{getNumInOpenIntervalFrom0To1}}();}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{classKMCThinFilm_1_1RandNumGenRngStreams_abeb90e642db294c0a846009fdc099913}{\string~RandNumGenRngStreams}}();}
+\DoxyCodeLine{00051\ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00052\ \ \ \ \ RngStream\ rng\_;}
+\DoxyCodeLine{00053\ \ \ \};}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \}}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ RAND\_NUM\_GEN\_RNG\_STREAMS\_HPP\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

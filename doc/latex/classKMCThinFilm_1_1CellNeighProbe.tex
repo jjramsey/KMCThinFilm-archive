@@ -1,0 +1,114 @@
+\doxysection{KMCThin\+Film\+::Cell\+Neigh\+Probe Class Reference}
+\hypertarget{classKMCThinFilm_1_1CellNeighProbe}{}\label{classKMCThinFilm_1_1CellNeighProbe}\index{KMCThinFilm::CellNeighProbe@{KMCThinFilm::CellNeighProbe}}
+
+
+{\ttfamily \#include $<$Cell\+Neigh\+Probe.\+hpp$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classKMCThinFilm_1_1CellNeighProbe_a4388328e433e84f9407d0ca7e85b4db2}{Cell\+Neigh\+Probe}} (const \mbox{\hyperlink{classKMCThinFilm_1_1Lattice}{Lattice}} \texorpdfstring{$\ast$}{*}lattice=NULL)
+\item 
+void \mbox{\hyperlink{classKMCThinFilm_1_1CellNeighProbe_a02d5bd2dd43aa7b17a6fcc7efe345443}{attach\+Cell\+Inds}} (const \mbox{\hyperlink{classKMCThinFilm_1_1CellInds}{Cell\+Inds}} \texorpdfstring{$\ast$}{*}ci, const std\+::vector$<$ \mbox{\hyperlink{classKMCThinFilm_1_1CellIndsOffset}{Cell\+Inds\+Offset}} $>$ \texorpdfstring{$\ast$}{*}cio\+Vec\+Ptr)
+\item 
+void \mbox{\hyperlink{classKMCThinFilm_1_1CellNeighProbe_ace997a38840ebc55993f6a98645b7808}{attach\+Lattice}} (const \mbox{\hyperlink{classKMCThinFilm_1_1Lattice}{Lattice}} \texorpdfstring{$\ast$}{*}lattice)
+\item 
+bool \mbox{\hyperlink{classKMCThinFilm_1_1CellNeighProbe_acff2debf7ca2157b8ea1d58475a9f25f}{below\+Lattice\+Bottom}} (const \mbox{\hyperlink{classKMCThinFilm_1_1CellToProbe}{Cell\+To\+Probe}} \&ctp) const
+\item 
+bool \mbox{\hyperlink{classKMCThinFilm_1_1CellNeighProbe_a1c68a11a6d1af530abf21ed070ae452c}{exceeds\+Lattice\+Height}} (const \mbox{\hyperlink{classKMCThinFilm_1_1CellToProbe}{Cell\+To\+Probe}} \&ctp) const
+\item 
+\mbox{\hyperlink{classKMCThinFilm_1_1CellToProbe}{Cell\+To\+Probe}} \mbox{\hyperlink{classKMCThinFilm_1_1CellNeighProbe_a1ba997186f6326b525dd66df4254d198}{get\+Cell\+To\+Probe}} (int probed\+Cell\+Ind) const
+\item 
+double \mbox{\hyperlink{classKMCThinFilm_1_1CellNeighProbe_a1425c18df394e394b7c50e9f332371fc}{get\+Float}} (const \mbox{\hyperlink{classKMCThinFilm_1_1CellToProbe}{Cell\+To\+Probe}} \&ctp, int which\+Float) const
+\item 
+int \mbox{\hyperlink{classKMCThinFilm_1_1CellNeighProbe_a7be3ba45264054167a243f15a1954b92}{get\+Int}} (const \mbox{\hyperlink{classKMCThinFilm_1_1CellToProbe}{Cell\+To\+Probe}} \&ctp, int which\+Int) const
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+A class used by a Cell\+Centered\+Propensity function object to probe the states of neighboring lattice cells in order to determine a cell-\/centered event\textquotesingle{}s propensity.
+
+Each neighboring lattice cell is identified by one of the integer IDs used to label the offsets inside a \doxylink{classKMCThinFilm_1_1CellNeighOffsets}{Cell\+Neigh\+Offsets} object, and the indices of this neighboring lattice cell are that of the current cell (about which an event is centered) plus the offset corresponding to its integer ID. \begin{Desc}
+\item[Examples]\par
+\mbox{\hyperlink{testBallisticDep1_2EventsAndActions_8cpp-example}{test\+Ballistic\+Dep1/\+Events\+And\+Actions.\+cpp}}, \mbox{\hyperlink{testBallisticDep2_2EventsAndActions_8cpp-example}{test\+Ballistic\+Dep2/\+Events\+And\+Actions.\+cpp}}, \mbox{\hyperlink{testFractal_2EventsAndActions_8cpp-example}{test\+Fractal/\+Events\+And\+Actions.\+cpp}}, \mbox{\hyperlink{testFractal_2EventsAndActions_8hpp-example}{test\+Fractal/\+Events\+And\+Actions.\+hpp}}, \mbox{\hyperlink{testFractal_semi_manual_track_2EventsAndActions_8cpp-example}{test\+Fractal\+\_\+semi\+\_\+manual\+\_\+track/\+Events\+And\+Actions.\+cpp}}, \mbox{\hyperlink{testFractal_semi_manual_track_2EventsAndActions_8hpp-example}{test\+Fractal\+\_\+semi\+\_\+manual\+\_\+track/\+Events\+And\+Actions.\+hpp}}, \mbox{\hyperlink{testPatternedSurface1_2EventsAndActions_8cpp-example}{test\+Patterned\+Surface1/\+Events\+And\+Actions.\+cpp}}, \mbox{\hyperlink{testPatternedSurface1_2EventsAndActions_8hpp-example}{test\+Patterned\+Surface1/\+Events\+And\+Actions.\+hpp}}, \mbox{\hyperlink{testPatternedSurface2_2EventsAndActions_8cpp-example}{test\+Patterned\+Surface2/\+Events\+And\+Actions.\+cpp}}, and \mbox{\hyperlink{testPatternedSurface2_2EventsAndActions_8hpp-example}{test\+Patterned\+Surface2/\+Events\+And\+Actions.\+hpp}}.\end{Desc}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classKMCThinFilm_1_1CellNeighProbe_a4388328e433e84f9407d0ca7e85b4db2}\index{KMCThinFilm::CellNeighProbe@{KMCThinFilm::CellNeighProbe}!CellNeighProbe@{CellNeighProbe}}
+\index{CellNeighProbe@{CellNeighProbe}!KMCThinFilm::CellNeighProbe@{KMCThinFilm::CellNeighProbe}}
+\doxysubsubsection{\texorpdfstring{CellNeighProbe()}{CellNeighProbe()}}
+{\footnotesize\ttfamily \label{classKMCThinFilm_1_1CellNeighProbe_a4388328e433e84f9407d0ca7e85b4db2} 
+KMCThin\+Film\+::\+Cell\+Neigh\+Probe\+::\+Cell\+Neigh\+Probe (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classKMCThinFilm_1_1Lattice}{Lattice}} \texorpdfstring{$\ast$}{*}}]{lattice}{ = {\ttfamily NULL}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+\mbox{[}{\bfseries{ADVANCED}}\mbox{]} Constructs a \doxylink{classKMCThinFilm_1_1CellNeighProbe}{Cell\+Neigh\+Probe} and attaches it to a \doxylink{classKMCThinFilm_1_1Lattice}{Lattice} object. Mainly for use in testing and debugging. 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classKMCThinFilm_1_1CellNeighProbe_a02d5bd2dd43aa7b17a6fcc7efe345443}\index{KMCThinFilm::CellNeighProbe@{KMCThinFilm::CellNeighProbe}!attachCellInds@{attachCellInds}}
+\index{attachCellInds@{attachCellInds}!KMCThinFilm::CellNeighProbe@{KMCThinFilm::CellNeighProbe}}
+\doxysubsubsection{\texorpdfstring{attachCellInds()}{attachCellInds()}}
+{\footnotesize\ttfamily \label{classKMCThinFilm_1_1CellNeighProbe_a02d5bd2dd43aa7b17a6fcc7efe345443} 
+void KMCThin\+Film\+::\+Cell\+Neigh\+Probe\+::attach\+Cell\+Inds (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classKMCThinFilm_1_1CellInds}{Cell\+Inds}} \texorpdfstring{$\ast$}{*}}]{ci}{, }\item[{const std\+::vector$<$ \mbox{\hyperlink{classKMCThinFilm_1_1CellIndsOffset}{Cell\+Inds\+Offset}} $>$ \texorpdfstring{$\ast$}{*}}]{cio\+Vec\+Ptr}{}\end{DoxyParamCaption})}
+
+\mbox{[}{\bfseries{ADVANCED}}\mbox{]} Attaches a vector of \doxylink{classKMCThinFilm_1_1CellIndsOffset}{Cell\+Inds\+Offset} objects (generated from a \doxylink{classKMCThinFilm_1_1CellNeighOffsets}{Cell\+Neigh\+Offsets} instance). Mainly for use in testing and debugging. 
+\begin{DoxyParams}{Parameters}
+{\em ci} & Pointer to the indices of the cell about which an event is centered.  \\
+\hline
+{\em cio\+Vec\+Ptr} & Pointer to the vector of \doxylink{classKMCThinFilm_1_1CellIndsOffset}{Cell\+Inds\+Offset} objects that define the neighboring lattice cells used to calculate the propensity of the event. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classKMCThinFilm_1_1CellNeighProbe_ace997a38840ebc55993f6a98645b7808}\index{KMCThinFilm::CellNeighProbe@{KMCThinFilm::CellNeighProbe}!attachLattice@{attachLattice}}
+\index{attachLattice@{attachLattice}!KMCThinFilm::CellNeighProbe@{KMCThinFilm::CellNeighProbe}}
+\doxysubsubsection{\texorpdfstring{attachLattice()}{attachLattice()}}
+{\footnotesize\ttfamily \label{classKMCThinFilm_1_1CellNeighProbe_ace997a38840ebc55993f6a98645b7808} 
+void KMCThin\+Film\+::\+Cell\+Neigh\+Probe\+::attach\+Lattice (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classKMCThinFilm_1_1Lattice}{Lattice}} \texorpdfstring{$\ast$}{*}}]{lattice}{}\end{DoxyParamCaption})}
+
+\mbox{[}{\bfseries{ADVANCED}}\mbox{]} Attaches a \doxylink{classKMCThinFilm_1_1Lattice}{Lattice} object, replacing whatever lattice object that was attached before. Mainly for use in testing and debugging. \Hypertarget{classKMCThinFilm_1_1CellNeighProbe_acff2debf7ca2157b8ea1d58475a9f25f}\index{KMCThinFilm::CellNeighProbe@{KMCThinFilm::CellNeighProbe}!belowLatticeBottom@{belowLatticeBottom}}
+\index{belowLatticeBottom@{belowLatticeBottom}!KMCThinFilm::CellNeighProbe@{KMCThinFilm::CellNeighProbe}}
+\doxysubsubsection{\texorpdfstring{belowLatticeBottom()}{belowLatticeBottom()}}
+{\footnotesize\ttfamily \label{classKMCThinFilm_1_1CellNeighProbe_acff2debf7ca2157b8ea1d58475a9f25f} 
+bool KMCThin\+Film\+::\+Cell\+Neigh\+Probe\+::below\+Lattice\+Bottom (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classKMCThinFilm_1_1CellToProbe}{Cell\+To\+Probe}} \&}]{ctp}{}\end{DoxyParamCaption}) const}
+
+Indicates whether the height coordinate of the (possibly non-\/existent) lattice cell pointed to by {\itshape ctp} is less than zero. If true, it implies that this lattice cell does not and will not actually exist in the simulation. \begin{Desc}
+\item[Examples]\par
+\mbox{\hyperlink{testBallisticDep1_2EventsAndActions_8cpp-example}{test\+Ballistic\+Dep1/\+Events\+And\+Actions.\+cpp}}, and \mbox{\hyperlink{testBallisticDep2_2EventsAndActions_8cpp-example}{test\+Ballistic\+Dep2/\+Events\+And\+Actions.\+cpp}}.\end{Desc}
+\Hypertarget{classKMCThinFilm_1_1CellNeighProbe_a1c68a11a6d1af530abf21ed070ae452c}\index{KMCThinFilm::CellNeighProbe@{KMCThinFilm::CellNeighProbe}!exceedsLatticeHeight@{exceedsLatticeHeight}}
+\index{exceedsLatticeHeight@{exceedsLatticeHeight}!KMCThinFilm::CellNeighProbe@{KMCThinFilm::CellNeighProbe}}
+\doxysubsubsection{\texorpdfstring{exceedsLatticeHeight()}{exceedsLatticeHeight()}}
+{\footnotesize\ttfamily \label{classKMCThinFilm_1_1CellNeighProbe_a1c68a11a6d1af530abf21ed070ae452c} 
+bool KMCThin\+Film\+::\+Cell\+Neigh\+Probe\+::exceeds\+Lattice\+Height (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classKMCThinFilm_1_1CellToProbe}{Cell\+To\+Probe}} \&}]{ctp}{}\end{DoxyParamCaption}) const}
+
+Indicates whether the height coordinate of the (possibly non-\/existent) lattice cell pointed to by {\itshape ctp} exceeds the current height of the lattice. If true, it implies that this lattice cell does not actually exist yet in the simulation. \begin{Desc}
+\item[Examples]\par
+\mbox{\hyperlink{testBallisticDep1_2EventsAndActions_8cpp-example}{test\+Ballistic\+Dep1/\+Events\+And\+Actions.\+cpp}}, and \mbox{\hyperlink{testBallisticDep2_2EventsAndActions_8cpp-example}{test\+Ballistic\+Dep2/\+Events\+And\+Actions.\+cpp}}.\end{Desc}
+\Hypertarget{classKMCThinFilm_1_1CellNeighProbe_a1ba997186f6326b525dd66df4254d198}\index{KMCThinFilm::CellNeighProbe@{KMCThinFilm::CellNeighProbe}!getCellToProbe@{getCellToProbe}}
+\index{getCellToProbe@{getCellToProbe}!KMCThinFilm::CellNeighProbe@{KMCThinFilm::CellNeighProbe}}
+\doxysubsubsection{\texorpdfstring{getCellToProbe()}{getCellToProbe()}}
+{\footnotesize\ttfamily \label{classKMCThinFilm_1_1CellNeighProbe_a1ba997186f6326b525dd66df4254d198} 
+\mbox{\hyperlink{classKMCThinFilm_1_1CellToProbe}{Cell\+To\+Probe}} KMCThin\+Film\+::\+Cell\+Neigh\+Probe\+::get\+Cell\+To\+Probe (\begin{DoxyParamCaption}\item[{int}]{probed\+Cell\+Ind}{}\end{DoxyParamCaption}) const}
+
+Retrieves the lattice cell to be probed from its integer ID. 
+\begin{DoxyParams}{Parameters}
+{\em probed\+Cell\+Ind} & Integer ID of the lattice cell (and its corresponding offset). \\
+\hline
+\end{DoxyParams}
+\begin{Desc}
+\item[Examples]\par
+\mbox{\hyperlink{testBallisticDep1_2EventsAndActions_8cpp-example}{test\+Ballistic\+Dep1/\+Events\+And\+Actions.\+cpp}}, \mbox{\hyperlink{testBallisticDep2_2EventsAndActions_8cpp-example}{test\+Ballistic\+Dep2/\+Events\+And\+Actions.\+cpp}}, \mbox{\hyperlink{testFractal_2EventsAndActions_8cpp-example}{test\+Fractal/\+Events\+And\+Actions.\+cpp}}, \mbox{\hyperlink{testFractal_semi_manual_track_2EventsAndActions_8cpp-example}{test\+Fractal\+\_\+semi\+\_\+manual\+\_\+track/\+Events\+And\+Actions.\+cpp}}, \mbox{\hyperlink{testPatternedSurface1_2EventsAndActions_8cpp-example}{test\+Patterned\+Surface1/\+Events\+And\+Actions.\+cpp}}, and \mbox{\hyperlink{testPatternedSurface2_2EventsAndActions_8cpp-example}{test\+Patterned\+Surface2/\+Events\+And\+Actions.\+cpp}}.\end{Desc}
+\Hypertarget{classKMCThinFilm_1_1CellNeighProbe_a1425c18df394e394b7c50e9f332371fc}\index{KMCThinFilm::CellNeighProbe@{KMCThinFilm::CellNeighProbe}!getFloat@{getFloat}}
+\index{getFloat@{getFloat}!KMCThinFilm::CellNeighProbe@{KMCThinFilm::CellNeighProbe}}
+\doxysubsubsection{\texorpdfstring{getFloat()}{getFloat()}}
+{\footnotesize\ttfamily \label{classKMCThinFilm_1_1CellNeighProbe_a1425c18df394e394b7c50e9f332371fc} 
+double KMCThin\+Film\+::\+Cell\+Neigh\+Probe\+::get\+Float (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classKMCThinFilm_1_1CellToProbe}{Cell\+To\+Probe}} \&}]{ctp}{, }\item[{int}]{which\+Float}{}\end{DoxyParamCaption}) const}
+
+Retrieves one of the floating-\/point values (if present) from the lattice cell pointed to by {\itshape ctp}. The parameter {\itshape which\+Float} indicates which of the floating-\/point values to return. \begin{Desc}
+\item[Examples]\par
+\mbox{\hyperlink{testPatternedSurface1_2EventsAndActions_8cpp-example}{test\+Patterned\+Surface1/\+Events\+And\+Actions.\+cpp}}.\end{Desc}
+\Hypertarget{classKMCThinFilm_1_1CellNeighProbe_a7be3ba45264054167a243f15a1954b92}\index{KMCThinFilm::CellNeighProbe@{KMCThinFilm::CellNeighProbe}!getInt@{getInt}}
+\index{getInt@{getInt}!KMCThinFilm::CellNeighProbe@{KMCThinFilm::CellNeighProbe}}
+\doxysubsubsection{\texorpdfstring{getInt()}{getInt()}}
+{\footnotesize\ttfamily \label{classKMCThinFilm_1_1CellNeighProbe_a7be3ba45264054167a243f15a1954b92} 
+int KMCThin\+Film\+::\+Cell\+Neigh\+Probe\+::get\+Int (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classKMCThinFilm_1_1CellToProbe}{Cell\+To\+Probe}} \&}]{ctp}{, }\item[{int}]{which\+Int}{}\end{DoxyParamCaption}) const}
+
+Retrieves one of the integer values (if present) from the lattice cell pointed to by {\itshape ctp}. The parameter {\itshape which\+Int} indicates which of the integer values to return. \begin{Desc}
+\item[Examples]\par
+\mbox{\hyperlink{testBallisticDep1_2EventsAndActions_8cpp-example}{test\+Ballistic\+Dep1/\+Events\+And\+Actions.\+cpp}}, \mbox{\hyperlink{testBallisticDep2_2EventsAndActions_8cpp-example}{test\+Ballistic\+Dep2/\+Events\+And\+Actions.\+cpp}}, \mbox{\hyperlink{testFractal_2EventsAndActions_8cpp-example}{test\+Fractal/\+Events\+And\+Actions.\+cpp}}, \mbox{\hyperlink{testFractal_semi_manual_track_2EventsAndActions_8cpp-example}{test\+Fractal\+\_\+semi\+\_\+manual\+\_\+track/\+Events\+And\+Actions.\+cpp}}, \mbox{\hyperlink{testPatternedSurface1_2EventsAndActions_8cpp-example}{test\+Patterned\+Surface1/\+Events\+And\+Actions.\+cpp}}, and \mbox{\hyperlink{testPatternedSurface2_2EventsAndActions_8cpp-example}{test\+Patterned\+Surface2/\+Events\+And\+Actions.\+cpp}}.\end{Desc}

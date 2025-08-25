@@ -1,0 +1,157 @@
+\doxysection{Make\+Enum.\+hpp File Reference}
+\hypertarget{MakeEnum_8hpp}{}\label{MakeEnum_8hpp}\index{MakeEnum.hpp@{MakeEnum.hpp}}
+
+
+Defines convenience macros to set up enumeration constants for a KMC simulation.  
+
+
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{MakeEnum_8hpp_a21a6e7611184f517474f1a4628e0e0cb}{KMC\+\_\+\+MAKE\+\_\+\+ID\+\_\+\+ENUM}}(Enum\+Name, ...)
+\item 
+\#define \mbox{\hyperlink{MakeEnum_8hpp_aa5359f8f13cbe2c11d54214f49fcf8e8}{KMC\+\_\+\+MAKE\+\_\+\+LATTICE\+\_\+\+FLOATVAL\+\_\+\+ENUM}}(Enum\+Name, ...)
+\item 
+\#define \mbox{\hyperlink{MakeEnum_8hpp_ab74f47ea48cae4ae81e76e45c4fd67c4}{KMC\+\_\+\+MAKE\+\_\+\+LATTICE\+\_\+\+INTVAL\+\_\+\+ENUM}}(Enum\+Name, ...)
+\item 
+\#define \mbox{\hyperlink{MakeEnum_8hpp_a18b06446141f866d52168964dbc824c7}{KMC\+\_\+\+MAKE\+\_\+\+OFFSET\+\_\+\+ENUM}}(Enum\+Name, ...)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Defines convenience macros to set up enumeration constants for a KMC simulation. 
+
+
+
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{MakeEnum_8hpp_a21a6e7611184f517474f1a4628e0e0cb}\index{MakeEnum.hpp@{MakeEnum.hpp}!KMC\_MAKE\_ID\_ENUM@{KMC\_MAKE\_ID\_ENUM}}
+\index{KMC\_MAKE\_ID\_ENUM@{KMC\_MAKE\_ID\_ENUM}!MakeEnum.hpp@{MakeEnum.hpp}}
+\doxysubsubsection{\texorpdfstring{KMC\_MAKE\_ID\_ENUM}{KMC\_MAKE\_ID\_ENUM}}
+{\footnotesize\ttfamily \label{MakeEnum_8hpp_a21a6e7611184f517474f1a4628e0e0cb} 
+\#define KMC\+\_\+\+MAKE\+\_\+\+ID\+\_\+\+ENUM(\begin{DoxyParamCaption}\item[{}]{Enum\+Name}{, }\item[{}]{}...{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \textcolor{keyword}{struct\ }EnumName\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{enum}\ Type\ \{\_\_VA\_ARGS\_\_,\ SIZE\};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \}}
+
+\end{DoxyCode}
+Convenience macro for defining enumeration constants that identify possible events.
+
+For example, the following
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\mbox{\hyperlink{MakeEnum_8hpp_a21a6e7611184f517474f1a4628e0e0cb}{KMC\_MAKE\_ID\_ENUM}}(MyCellCenteredEvents,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ HOP\_UP,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ HOP\_DOWN,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ HOP\_LEFT,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ HOP\_RIGHT);}
+
+\end{DoxyCode}
+
+
+creates an enumeration with values My\+Cell\+Centered\+Events\+::\+HOP\+\_\+\+UP, My\+Cell\+Centered\+Events\+::\+HOP\+\_\+\+DOWN, My\+Cell\+Centered\+Events\+::\+HOP\+\_\+\+LEFT, and My\+Cell\+Centered\+Events\+::\+HOP\+\_\+\+RIGHT and also defines My\+Cell\+Centered\+Events\+::\+SIZE, which indicates the number of enumeration constants defined.
+
+Note that this macro only works with preprocessors that do C99-\/style variadic macros.
+
+\begin{DoxySeeAlso}{See also}
+Simulation\+::add\+Cell\+Centered\+Event() 
+\end{DoxySeeAlso}
+\begin{Desc}
+\item[Examples]\par
+\mbox{\hyperlink{testBallisticDep1_2EventsAndActions_8hpp-example}{test\+Ballistic\+Dep1/\+Events\+And\+Actions.\+hpp}}, \mbox{\hyperlink{testBallisticDep2_2EventsAndActions_8hpp-example}{test\+Ballistic\+Dep2/\+Events\+And\+Actions.\+hpp}}, \mbox{\hyperlink{testFractal_2EventsAndActions_8hpp-example}{test\+Fractal/\+Events\+And\+Actions.\+hpp}}, \mbox{\hyperlink{testFractal_semi_manual_track_2EventsAndActions_8hpp-example}{test\+Fractal\+\_\+semi\+\_\+manual\+\_\+track/\+Events\+And\+Actions.\+hpp}}, \mbox{\hyperlink{testPatternedSurface1_2EventsAndActions_8hpp-example}{test\+Patterned\+Surface1/\+Events\+And\+Actions.\+hpp}}, and \mbox{\hyperlink{testPatternedSurface2_2EventsAndActions_8hpp-example}{test\+Patterned\+Surface2/\+Events\+And\+Actions.\+hpp}}.\end{Desc}
+\Hypertarget{MakeEnum_8hpp_aa5359f8f13cbe2c11d54214f49fcf8e8}\index{MakeEnum.hpp@{MakeEnum.hpp}!KMC\_MAKE\_LATTICE\_FLOATVAL\_ENUM@{KMC\_MAKE\_LATTICE\_FLOATVAL\_ENUM}}
+\index{KMC\_MAKE\_LATTICE\_FLOATVAL\_ENUM@{KMC\_MAKE\_LATTICE\_FLOATVAL\_ENUM}!MakeEnum.hpp@{MakeEnum.hpp}}
+\doxysubsubsection{\texorpdfstring{KMC\_MAKE\_LATTICE\_FLOATVAL\_ENUM}{KMC\_MAKE\_LATTICE\_FLOATVAL\_ENUM}}
+{\footnotesize\ttfamily \label{MakeEnum_8hpp_aa5359f8f13cbe2c11d54214f49fcf8e8} 
+\#define KMC\+\_\+\+MAKE\+\_\+\+LATTICE\+\_\+\+FLOATVAL\+\_\+\+ENUM(\begin{DoxyParamCaption}\item[{}]{Enum\+Name}{, }\item[{}]{}...{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \textcolor{keyword}{struct\ }EnumName\#\#FloatVal\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{enum}\ Type\ \{\_\_VA\_ARGS\_\_,\ SIZE\};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \}}
+
+\end{DoxyCode}
+Convenience macro for defining enumeration constants for the floating-\/point parameters defined in each lattice cell.
+
+For example, the following
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\mbox{\hyperlink{MakeEnum_8hpp_aa5359f8f13cbe2c11d54214f49fcf8e8}{KMC\_MAKE\_LATTICE\_FLOATVAL\_ENUM}}(SiCoords,\ SiX,\ SiY,\ SiZ);}
+
+\end{DoxyCode}
+
+
+creates an enumeration with values Si\+Coords\+Float\+Val\+::\+SiX, Si\+Coords\+Float\+Val\+::\+SiY, and Si\+Coords\+Float\+Val\+::\+SiZ and also defines Si\+Coords\+Float\+Val\+::\+SIZE, which indicates the number of enumeration constants defined.
+
+Note that this macro only works with preprocessors that do C99-\/style variadic macros. \begin{Desc}
+\item[Examples]\par
+\mbox{\hyperlink{testBallisticDep1_2EventsAndActions_8hpp-example}{test\+Ballistic\+Dep1/\+Events\+And\+Actions.\+hpp}}, \mbox{\hyperlink{testBallisticDep2_2EventsAndActions_8hpp-example}{test\+Ballistic\+Dep2/\+Events\+And\+Actions.\+hpp}}, \mbox{\hyperlink{testPatternedSurface1_2EventsAndActions_8hpp-example}{test\+Patterned\+Surface1/\+Events\+And\+Actions.\+hpp}}, and \mbox{\hyperlink{testPatternedSurface2_2EventsAndActions_8hpp-example}{test\+Patterned\+Surface2/\+Events\+And\+Actions.\+hpp}}.\end{Desc}
+\Hypertarget{MakeEnum_8hpp_ab74f47ea48cae4ae81e76e45c4fd67c4}\index{MakeEnum.hpp@{MakeEnum.hpp}!KMC\_MAKE\_LATTICE\_INTVAL\_ENUM@{KMC\_MAKE\_LATTICE\_INTVAL\_ENUM}}
+\index{KMC\_MAKE\_LATTICE\_INTVAL\_ENUM@{KMC\_MAKE\_LATTICE\_INTVAL\_ENUM}!MakeEnum.hpp@{MakeEnum.hpp}}
+\doxysubsubsection{\texorpdfstring{KMC\_MAKE\_LATTICE\_INTVAL\_ENUM}{KMC\_MAKE\_LATTICE\_INTVAL\_ENUM}}
+{\footnotesize\ttfamily \label{MakeEnum_8hpp_ab74f47ea48cae4ae81e76e45c4fd67c4} 
+\#define KMC\+\_\+\+MAKE\+\_\+\+LATTICE\+\_\+\+INTVAL\+\_\+\+ENUM(\begin{DoxyParamCaption}\item[{}]{Enum\+Name}{, }\item[{}]{}...{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \textcolor{keyword}{struct\ }EnumName\#\#IntVal\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{enum}\ Type\ \{\_\_VA\_ARGS\_\_,\ SIZE\};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \}}
+
+\end{DoxyCode}
+Convenience macro for defining enumeration constants for the integers defined in each lattice cell.
+
+For example, the following
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\mbox{\hyperlink{MakeEnum_8hpp_ab74f47ea48cae4ae81e76e45c4fd67c4}{KMC\_MAKE\_LATTICE\_INTVAL\_ENUM}}(GaInN\_,\ Ga,\ In,\ N);}
+
+\end{DoxyCode}
+
+
+creates an enumeration with values Ga\+In\+N\+\_\+\+Int\+Val\+::\+Ga, Ga\+In\+N\+\_\+\+Int\+Val\+::\+In, and Ga\+In\+N\+\_\+\+Int\+Val\+::N, and also defines Ga\+In\+N\+\_\+\+Int\+Val\+::\+SIZE, which indicates the number of enumeration constants defined.
+
+Note that this macro only works with preprocessors that do C99-\/style variadic macros. \begin{Desc}
+\item[Examples]\par
+\mbox{\hyperlink{testBallisticDep1_2EventsAndActions_8hpp-example}{test\+Ballistic\+Dep1/\+Events\+And\+Actions.\+hpp}}, \mbox{\hyperlink{testBallisticDep2_2EventsAndActions_8hpp-example}{test\+Ballistic\+Dep2/\+Events\+And\+Actions.\+hpp}}, \mbox{\hyperlink{testFractal_2EventsAndActions_8hpp-example}{test\+Fractal/\+Events\+And\+Actions.\+hpp}}, \mbox{\hyperlink{testFractal_semi_manual_track_2EventsAndActions_8hpp-example}{test\+Fractal\+\_\+semi\+\_\+manual\+\_\+track/\+Events\+And\+Actions.\+hpp}}, \mbox{\hyperlink{testPatternedSurface1_2EventsAndActions_8hpp-example}{test\+Patterned\+Surface1/\+Events\+And\+Actions.\+hpp}}, and \mbox{\hyperlink{testPatternedSurface2_2EventsAndActions_8hpp-example}{test\+Patterned\+Surface2/\+Events\+And\+Actions.\+hpp}}.\end{Desc}
+\Hypertarget{MakeEnum_8hpp_a18b06446141f866d52168964dbc824c7}\index{MakeEnum.hpp@{MakeEnum.hpp}!KMC\_MAKE\_OFFSET\_ENUM@{KMC\_MAKE\_OFFSET\_ENUM}}
+\index{KMC\_MAKE\_OFFSET\_ENUM@{KMC\_MAKE\_OFFSET\_ENUM}!MakeEnum.hpp@{MakeEnum.hpp}}
+\doxysubsubsection{\texorpdfstring{KMC\_MAKE\_OFFSET\_ENUM}{KMC\_MAKE\_OFFSET\_ENUM}}
+{\footnotesize\ttfamily \label{MakeEnum_8hpp_a18b06446141f866d52168964dbc824c7} 
+\#define KMC\+\_\+\+MAKE\+\_\+\+OFFSET\+\_\+\+ENUM(\begin{DoxyParamCaption}\item[{}]{Enum\+Name}{, }\item[{}]{}...{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \textcolor{keyword}{struct\ }EnumName\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{enum}\ Type\ \{SELF,\ \_\_VA\_ARGS\_\_,\ SIZE\};\ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \}}
+
+\end{DoxyCode}
+Convenience macro for defining enumeration constants for the offsets used in a cell propensity calculation.
+
+For example, the following
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\mbox{\hyperlink{MakeEnum_8hpp_a18b06446141f866d52168964dbc824c7}{KMC\_MAKE\_OFFSET\_ENUM}}(HopOffset,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ UP,\ DOWN,\ LEFT,\ RIGHT);}
+
+\end{DoxyCode}
+
+
+creates an enumeration that not only contains the values Hop\+Offset\+::\+UP, Hop\+Offset\+::\+DOWN, Hop\+Offset\+::\+LEFT, and Hop\+Offset\+::\+RIGHT, but also the values Hop\+Offset\+::\+SELF -- {\itshape which always has an integer value of zero} -- and Hop\+Offset\+::\+SIZE, which indicates the number of enumeration constants defined.
+
+Note that this macro only works with preprocessors that do C99-\/style variadic macros.
+
+\begin{DoxySeeAlso}{See also}
+Cell\+Neigh\+Offsets Cell\+Neigh\+Probe 
+\end{DoxySeeAlso}
+\begin{Desc}
+\item[Examples]\par
+\mbox{\hyperlink{testBallisticDep1_2EventsAndActions_8hpp-example}{test\+Ballistic\+Dep1/\+Events\+And\+Actions.\+hpp}}, \mbox{\hyperlink{testBallisticDep2_2EventsAndActions_8hpp-example}{test\+Ballistic\+Dep2/\+Events\+And\+Actions.\+hpp}}, \mbox{\hyperlink{testFractal_2EventsAndActions_8hpp-example}{test\+Fractal/\+Events\+And\+Actions.\+hpp}}, \mbox{\hyperlink{testFractal_semi_manual_track_2EventsAndActions_8hpp-example}{test\+Fractal\+\_\+semi\+\_\+manual\+\_\+track/\+Events\+And\+Actions.\+hpp}}, \mbox{\hyperlink{testPatternedSurface1_2EventsAndActions_8hpp-example}{test\+Patterned\+Surface1/\+Events\+And\+Actions.\+hpp}}, and \mbox{\hyperlink{testPatternedSurface2_2EventsAndActions_8hpp-example}{test\+Patterned\+Surface2/\+Events\+And\+Actions.\+hpp}}.\end{Desc}

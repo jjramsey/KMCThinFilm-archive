@@ -1,0 +1,51 @@
+\doxysection{KMCThin\+Film\+::Rand\+Num\+Gen\+Rng\+Streams Class Reference}
+\hypertarget{classKMCThinFilm_1_1RandNumGenRngStreams}{}\label{classKMCThinFilm_1_1RandNumGenRngStreams}\index{KMCThinFilm::RandNumGenRngStreams@{KMCThinFilm::RandNumGenRngStreams}}
+
+
+{\ttfamily \#include $<$Rand\+Num\+Gen\+Rng\+Streams.\+hpp$>$}
+
+Inheritance diagram for KMCThin\+Film\+::Rand\+Num\+Gen\+Rng\+Streams\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classKMCThinFilm_1_1RandNumGenRngStreams}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classKMCThinFilm_1_1RandNumGenRngStreams_abeb90e642db294c0a846009fdc099913}{Rand\+Num\+Gen\+Rng\+Streams}} (std\+::vector$<$ unsigned long $>$ \&seed, int rank, long adv\+Exp=127, long adv\+Const=0)
+\item 
+virtual double \mbox{\hyperlink{classKMCThinFilm_1_1RandNumGenRngStreams_ab90d8fff5e0a69f029dc9b6b38bfc64d}{get\+Num\+In\+Open\+Interval\+From0\+To1}} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Wrapper class for the parallel pseudorandom number generator library Rng\+Streams.
+
+Rng\+Streams is a parallel pseudorandom number generator by Pierre L\textquotesingle{}Ecuyer and Richard Simard. It may be obtained from this web page\+: \href{http://statmath.wu.ac.at/software/RngStreams/}{\texttt{ http\+://statmath.\+wu.\+ac.\+at/software/\+Rng\+Streams/}} 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classKMCThinFilm_1_1RandNumGenRngStreams_abeb90e642db294c0a846009fdc099913}\index{KMCThinFilm::RandNumGenRngStreams@{KMCThinFilm::RandNumGenRngStreams}!RandNumGenRngStreams@{RandNumGenRngStreams}}
+\index{RandNumGenRngStreams@{RandNumGenRngStreams}!KMCThinFilm::RandNumGenRngStreams@{KMCThinFilm::RandNumGenRngStreams}}
+\doxysubsubsection{\texorpdfstring{RandNumGenRngStreams()}{RandNumGenRngStreams()}}
+{\footnotesize\ttfamily \label{classKMCThinFilm_1_1RandNumGenRngStreams_abeb90e642db294c0a846009fdc099913} 
+KMCThin\+Film\+::\+Rand\+Num\+Gen\+Rng\+Streams\+::\+Rand\+Num\+Gen\+Rng\+Streams (\begin{DoxyParamCaption}\item[{std\+::vector$<$ unsigned long $>$ \&}]{seed}{, }\item[{int}]{rank}{, }\item[{long}]{adv\+Exp}{ = {\ttfamily 127}, }\item[{long}]{adv\+Const}{ = {\ttfamily 0}}\end{DoxyParamCaption})}
+
+Constructor, sets the initial state for each of the parallel streams of the pseudorandom number generator.
+
+The vector {\itshape seed} that seeds the pseudorandom number generator must have a length of 6, and it should be the same for every process.
+
+Each parallel pseudorandom number stream is offset by  $rank
+\times (2^{advExp} + advConst)$, if {\itshape adv\+Exp} is nonnegative, or $rank \times (-2^{-advExp} + advConst)$, otherwise. The argument {\itshape rank} should be the MPI rank of the processor. 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classKMCThinFilm_1_1RandNumGenRngStreams_ab90d8fff5e0a69f029dc9b6b38bfc64d}\index{KMCThinFilm::RandNumGenRngStreams@{KMCThinFilm::RandNumGenRngStreams}!getNumInOpenIntervalFrom0To1@{getNumInOpenIntervalFrom0To1}}
+\index{getNumInOpenIntervalFrom0To1@{getNumInOpenIntervalFrom0To1}!KMCThinFilm::RandNumGenRngStreams@{KMCThinFilm::RandNumGenRngStreams}}
+\doxysubsubsection{\texorpdfstring{getNumInOpenIntervalFrom0To1()}{getNumInOpenIntervalFrom0To1()}}
+{\footnotesize\ttfamily \label{classKMCThinFilm_1_1RandNumGenRngStreams_ab90d8fff5e0a69f029dc9b6b38bfc64d} 
+virtual double KMCThin\+Film\+::\+Rand\+Num\+Gen\+Rng\+Streams\+::get\+Num\+In\+Open\+Interval\+From0\+To1 (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+Returns a (pseudo)random number between 0 and 1, not including either 0 or 1. 
+
+Implements \mbox{\hyperlink{classKMCThinFilm_1_1RandNumGen_a3669cf4b6fa2b6acc928bb9ddf24a30a}{KMCThin\+Film\+::\+Rand\+Num\+Gen}}.
+

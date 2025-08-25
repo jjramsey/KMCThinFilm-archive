@@ -1,0 +1,37 @@
+\doxysection{KMCThin\+Film\+::Rand\+Num\+Gen Class Reference}
+\hypertarget{classKMCThinFilm_1_1RandNumGen}{}\label{classKMCThinFilm_1_1RandNumGen}\index{KMCThinFilm::RandNumGen@{KMCThinFilm::RandNumGen}}
+
+
+{\ttfamily \#include $<$Rand\+Num\+Gen.\+hpp$>$}
+
+Inheritance diagram for KMCThin\+Film\+::Rand\+Num\+Gen\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=1.523810cm]{classKMCThinFilm_1_1RandNumGen}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual double \mbox{\hyperlink{classKMCThinFilm_1_1RandNumGen_a3669cf4b6fa2b6acc928bb9ddf24a30a}{get\+Num\+In\+Open\+Interval\+From0\+To1}} ()=0
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Abstract class to implement wrapper classes for random number generators 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classKMCThinFilm_1_1RandNumGen_a3669cf4b6fa2b6acc928bb9ddf24a30a}\index{KMCThinFilm::RandNumGen@{KMCThinFilm::RandNumGen}!getNumInOpenIntervalFrom0To1@{getNumInOpenIntervalFrom0To1}}
+\index{getNumInOpenIntervalFrom0To1@{getNumInOpenIntervalFrom0To1}!KMCThinFilm::RandNumGen@{KMCThinFilm::RandNumGen}}
+\doxysubsubsection{\texorpdfstring{getNumInOpenIntervalFrom0To1()}{getNumInOpenIntervalFrom0To1()}}
+{\footnotesize\ttfamily \label{classKMCThinFilm_1_1RandNumGen_a3669cf4b6fa2b6acc928bb9ddf24a30a} 
+virtual double KMCThin\+Film\+::\+Rand\+Num\+Gen\+::get\+Num\+In\+Open\+Interval\+From0\+To1 (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+Returns a (pseudo)random number between 0 and 1, {\bfseries{NOT}} including either 0 or 1.
+
+It is especially important for implementations of this class to exclude 0 from this function\textquotesingle{}s return value. The amount of time by which a sector\textquotesingle{}s clock is incremented is proportional to log(r), where r is the return value of the function, and of course, log(0) is undefined.
+
+It is also ill-\/adviced to allow 1 to be a return value of this function, either, since log(1) = 0, which would imply that an event in a KMC simulation took no time at all. 
+
+Implemented in \mbox{\hyperlink{classKMCThinFilm_1_1RandNumGenDCMT_a372003214275ad9889895ff3fabab8d3}{KMCThin\+Film\+::\+Rand\+Num\+Gen\+DCMT}}, \mbox{\hyperlink{classKMCThinFilm_1_1RandNumGenMT19937_abff0a620f02f3e42519697f10f0fedfa}{KMCThin\+Film\+::\+Rand\+Num\+Gen\+MT19937}}, and \mbox{\hyperlink{classKMCThinFilm_1_1RandNumGenRngStreams_ab90d8fff5e0a69f029dc9b6b38bfc64d}{KMCThin\+Film\+::\+Rand\+Num\+Gen\+Rng\+Streams}}.
+

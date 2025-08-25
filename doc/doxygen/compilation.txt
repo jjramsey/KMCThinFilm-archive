@@ -1,0 +1,96 @@
+/*! \page compilation Compilation and installation
+
+    \section compilation_of_self Compiling and installing the library itself
+
+    Compilation of the ARL KMCThinFilm library requires CMake
+    &lt;http://www.cmake.org> and Boost &lt;http://www.boost.org>. Optional
+    dependencies are the random number generators DCMT, at least
+    version 0.6.2 (for KMCThinFilm::RandNumGenDCMT), and RngStreams,
+    at least version 1.0.1 (for KMCThinFilm::RandNumGenRngStreams).
+
+    On a Unix-like system, one may write a shell script such as the
+    following in order to run the command-line version of CMake:
+    \code
+    #!/bin/sh
+
+    EXTRA_ARGS=$@
+
+    KMC_HOME="/path/to/KMCThinFilm/source-and-docs"
+
+    #CMAKE_BUILD_TYPE=DEBUG
+    CMAKE_BUILD_TYPE=RELEASE
+
+    cmake \
+          -D CMAKE_BUILD_TYPE:STRING=$CMAKE_BUILD_TYPE \
+          -D CMAKE_INSTALL_PREFIX:PATH="/path/to/desired/KMCThinFilm/install/location" \
+          -D BOOST_ROOT:PATH="/path/to/Boost" \
+          -D KMC_USE_DCMT:BOOL=TRUE \
+          -D DCMT_ROOT:PATH="/path/to/dcmt0.6.2" \
+          -D KMC_USE_RNGSTREAMS:BOOL=TRUE \
+          -D RNGSTREAMS_ROOT:PATH="/path/to/RngStreams" \
+          -D CMAKE_CXX_FLAGS:STRING="-DMPICH_IGNORE_CXX_SEEK" \
+          -D CMAKE_CXX_STANDARD=11 \
+          $EXTRA_ARGS \
+          ${KMC_HOME}
+    \endcode
+
+    Although the ARL KMCThinFilm code does not use C++11, recent enough
+    versions of Boost <EM>may</EM>, so &ldquo;<TT>-D
+    CMAKE_CXX_STANDARD=11</TT>&rdquo; is added to the above example
+    script.
+
+    If either <TT>KMC_USE_DCMT</TT> or <TT>KMC_USE_RNGSTREAMS</TT> is
+    set to <TT>FALSE</TT>, the corresponding path,
+    i.e. <TT>DCMT_ROOT</TT> or <TT>RNGSTREAMS_ROOT</TT> does not need
+    to be specified. The extra compilation flag
+    <TT>-DMPICH_IGNORE_CXX_SEEK</TT> is only needed when compiling
+    against certain MPI implementations, such as MPICH or IntelMPI. By
+    default, an attempt will be made to compile both the serial and
+    parallel versions of the library. If an MPI installation is not
+    found, only the serial version will be built. To avoid attempting
+    to compile the serial version, set the CMake variable
+    <TT>KMC_BUILD_SERIAL</TT> to <TT>FALSE</TT>, and to avoid
+    attempting to compile the parallel version, set the CMake variable
+    <TT>KMC_BUILD_PARALLEL</TT> to <TT>FALSE</TT>. (One may set these
+    variables false by adding <TT>-D KMC_BUILD_SERIAL:BOOL=FALSE</TT>
+    or <TT>-D KMC_BUILD_PARALLEL:BOOL=FALSE</TT>, accordingly, to the
+    command line executing CMake.) To avoid installing documentation,
+    set the CMake variable <TT>KMC_INSTALL_DOCS</TT> to
+    <TT>FALSE</TT>.
+
+    The above shell script should be run from a directory
+    <STRONG>different</STRONG> from the directory containing the
+    source and documentation of the ARL KMCThinFilm library. After the
+    script is run, one may then type &ldquo;make&rdquo; and then
+    &ldquo;make install&rdquo;.
+
+    \section compilation_against Compiling against the library
+
+    There are a couple things to note when compiling against the
+    ARL KMCThinFilm library. First, there are two versions of the library,
+    named &ldquo;KMCThinFilmSerial&rdquo; and
+    &ldquo;KMCThinFilmParallel.&rdquo; One must compile a given binary
+    against exactly one of these. Second, <EM>two</EM> paths to
+    ARL KMCThinFilm header files must be specified. If the root directory
+    of the ARL KMCThinFilm installation is <TT>$KMC_INST</TT>, then one of
+    the paths is simply <TT>$KMC_INST/include</TT>. The other path
+    depends upon whether one is compiling against the serial or
+    parallel version of the library. For the serial case, the other
+    path is <TT>$KMC_INST/include/KMCThinFilm/serial</TT>. For the
+    parallel case, the other path is
+    <TT>$KMC_INST/include/KMCThinFilm/parallel</TT>. To repeat in
+    brief,
+
+    - To compile a serial application, compile against the
+      KMCThinFilmSerial library binary and include
+      <TT>$KMC_INST/include</TT> and
+      <TT>$KMC_INST/include/KMCThinFilm/serial</TT> in header search
+      paths.
+
+    - To compile a parallel application, compile against the
+      KMCThinFilmParallel library binary and include
+      <TT>$KMC_INST/include</TT> and
+      <TT>$KMC_INST/include/KMCThinFilm/parallel</TT> in header search
+      paths.
+
+*/

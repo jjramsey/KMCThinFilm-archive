@@ -1,0 +1,34 @@
+This is a simple example of a simulation with ballistic
+deposition.
+
+Instructions for running the example:
+
+- The Makefile requires a working "make.inc" file. To generate this
+  file, run the script "mkMakeInc.sh", which will prompt for the
+  directories where the KMCThinFilm library and Boost are installed,
+  as well as some other things. (Alternatively, run "mkMakeInc.sh"
+  with the "--batch" option, which will generate a skeleton "make.inc"
+  with dummy values that one then edit manually.)
+
+  After this is done, just type "make".
+
+- Change to the "testdir" directory, which should be empty. Run the
+  command "../testBallisticDep" to perform the simulation. The
+  directory should now be full of files named "snapshot1.3D",
+  "snapshot2.3D", etc.
+
+- One can compare the files newly created in "testdir" to the ones in
+  "testdir_ref". They should be the same.
+
+  These files (both the ones in "testdir" and "testdir_ref") can also
+  be visualized with the aid of VisIt <http://visit.llnl.gov>. In
+  VisIt, open up the snapshot*.3D files as a "database".  In the area
+  of the VisIt main window entitled "Plots", click on the "Add" button
+  and choose Pseudocolor -> value from the drop-down menu. Then click
+  the "Draw" button. One can then rotate the plot of atoms in viewing
+  window. In the area of the VisIt main window entitled "Time", one
+  can choose which snapshot to view by using the slider.
+
+- To clean up after running the test simulation, type "make
+  cleanall". This will remove the testBallisticDep binary, the output
+  files from the simulation runs, and miscellaneous object files.

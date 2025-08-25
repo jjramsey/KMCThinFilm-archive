@@ -1,0 +1,61 @@
+\begin{thebibliography}{10}
+
+\bibitem{blu95}
+James~L. Blue, Isabel Beichl, and Francis Sullivan.
+\newblock Faster {M}onte {C}arlo simulations.
+\newblock {\em Physical Review E}, 51:R867--R868, February 1995.
+
+\bibitem{bor75}
+A.~B. Bortz, M.~H. Kalos, and J.~L. Lebowitz.
+\newblock A new algorithm for {M}onte {C}arlo simulation of {I}sing spin
+  systems.
+\newblock {\em Journal of Computational Physics}, 17(1):10--18, 1975.
+
+\bibitem{cho05}
+J.~Cho, S.~G. Terry, R.~LeSar, and C.~G. Levi.
+\newblock A kinetic {M}onte {C}arlo simulation of film growth by physical vapor
+  deposition on rotating substrates.
+\newblock {\em Materials Science and Engineering: {A}}, 391(1):390--401, 2005.
+
+\bibitem{fic91}
+Kristen~A. Fichthorn and W.~H. Weinberg.
+\newblock Theoretical foundations of dynamical {M}onte {C}arlo simulations.
+\newblock {\em The Journal of Chemical Physics}, 95(2):1090--1096, July 1991.
+
+\bibitem{kur99}
+A.~Kuronen, L.~Nurminen, and K.~Kaski.
+\newblock Computer simulation of nucleation on patterned surfaces.
+\newblock {\em MRS Online Proceedings Library}, 584(1):239--244, December 1999.
+
+\bibitem{meakin92}
+Paul Meakin and Joachim Krug.
+\newblock Three-dimensional ballistic deposition at oblique incidence.
+\newblock {\em Physical Review A}, 46:3390--3399, September 1992.
+
+\bibitem{plim23}
+John~A. Mitchell, Fadi Abdeljawad, Corbett Battaile, Cristina Garcia-Cardona,
+  Elizabeth~A. Holm, Eric~R. Homer, Jon Madison, Theron~M. Rodgers, Aidan~P.
+  Thompson, Veena Tikare, Ed~Webb, and Steven~J. Plimpton.
+\newblock Parallel simulation via {SPPARKS} of on-lattice kinetic and
+  {M}etropolis {M}onte {C}arlo models for materials processing.
+\newblock {\em Modelling and Simulation in Materials Science and Engineering},
+  31(5):055001, May 2023.
+
+\bibitem{sch02}
+T.~P. Schulze.
+\newblock Kinetic {M}onte {C}arlo simulations with minimal searching.
+\newblock {\em Physical Review E}, 65:036704, February 2002.
+
+\bibitem{shi07}
+Feng Shi, Yunsic Shim, and Jacques~G. Amar.
+\newblock Parallel kinetic {M}onte {C}arlo simulations of two-dimensional
+  island coarsening.
+\newblock {\em Physical Review E}, 76:031607, September 2007.
+
+\bibitem{shim05}
+Yunsic Shim and Jacques~G. Amar.
+\newblock Semirigorous synchronous sublattice algorithm for parallel kinetic
+  {M}onte {C}arlo simulations of thin film growth.
+\newblock {\em Physical Review B}, 71:125432, March 2005.
+
+\end{thebibliography}

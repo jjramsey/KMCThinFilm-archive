@@ -1,0 +1,80 @@
+\doxysection{KMCThin\+Film\+::Cell\+Inds\+Offset Class Reference}
+\hypertarget{classKMCThinFilm_1_1CellIndsOffset}{}\label{classKMCThinFilm_1_1CellIndsOffset}\index{KMCThinFilm::CellIndsOffset@{KMCThinFilm::CellIndsOffset}}
+
+
+{\ttfamily \#include $<$Cell\+Inds.\+hpp$>$}
+
+Inheritance diagram for KMCThin\+Film\+::Cell\+Inds\+Offset\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classKMCThinFilm_1_1CellIndsOffset}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classKMCThinFilm_1_1CellIndsOffset_af5409be7541eeb5c98f9ed771210b3cf}{Cell\+Inds\+Offset}} ()
+\item 
+\mbox{\hyperlink{classKMCThinFilm_1_1CellIndsOffset_a6d09182cb8481daba9d13a6815149258}{Cell\+Inds\+Offset}} (int ii, int jj, int kk=0)
+\item 
+\mbox{\hyperlink{classKMCThinFilm_1_1CellIndsOffset}{Cell\+Inds\+Offset}} \mbox{\hyperlink{classKMCThinFilm_1_1CellIndsOffset_abea5561250cff2e69fd7fbcd908b1f5c}{operator-\/}} () const
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+An offset to indices of some lattice cell.
+
+Like the \doxylink{classKMCThinFilm_1_1CellInds}{Cell\+Inds} class, it has three {\itshape public} data members, i, j, and k, which represent the offsets to be added to a given set of lattice cell indices. For example, one may write
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{CellInds\ ci(1,2,3);}
+\DoxyCodeLine{CellInds\ offset(1,1,-\/1);}
+\DoxyCodeLine{}
+\DoxyCodeLine{CellInds\ ci\_w\_offset\ =\ ci\ +\ offset;}
+
+\end{DoxyCode}
+
+
+where the indices of ci\+\_\+w\+\_\+offset now equal 2, 3, and 2.
+
+\begin{DoxySeeAlso}{See also}
+\doxylink{classKMCThinFilm_1_1CellInds}{Cell\+Inds} \doxylink{namespaceKMCThinFilm_a57489af951d041dc66872aea47fa3da2}{KMCThin\+Film\+::operator+()} 
+\end{DoxySeeAlso}
+\begin{Desc}
+\item[Examples]\par
+\mbox{\hyperlink{testBallisticDep1_2EventsAndActions_8cpp-example}{test\+Ballistic\+Dep1/\+Events\+And\+Actions.\+cpp}}, \mbox{\hyperlink{testBallisticDep1_2testBallisticDep_8cpp-example}{test\+Ballistic\+Dep1/test\+Ballistic\+Dep.\+cpp}}, \mbox{\hyperlink{testBallisticDep2_2EventsAndActions_8cpp-example}{test\+Ballistic\+Dep2/\+Events\+And\+Actions.\+cpp}}, \mbox{\hyperlink{testBallisticDep2_2testBallisticDep_8cpp-example}{test\+Ballistic\+Dep2/test\+Ballistic\+Dep.\+cpp}}, \mbox{\hyperlink{testFractal_2testFractal_8cpp-example}{test\+Fractal/test\+Fractal.\+cpp}}, \mbox{\hyperlink{testFractal_parallel_2testFractal_8cpp-example}{test\+Fractal\+\_\+parallel/test\+Fractal.\+cpp}}, \mbox{\hyperlink{testFractal_semi_manual_track_2testFractal_8cpp-example}{test\+Fractal\+\_\+semi\+\_\+manual\+\_\+track/test\+Fractal.\+cpp}}, \mbox{\hyperlink{testPatternedSurface1_2testPatternedSurface_8cpp-example}{test\+Patterned\+Surface1/test\+Patterned\+Surface.\+cpp}}, and \mbox{\hyperlink{testPatternedSurface2_2testPatternedSurface_8cpp-example}{test\+Patterned\+Surface2/test\+Patterned\+Surface.\+cpp}}.\end{Desc}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classKMCThinFilm_1_1CellIndsOffset_af5409be7541eeb5c98f9ed771210b3cf}\index{KMCThinFilm::CellIndsOffset@{KMCThinFilm::CellIndsOffset}!CellIndsOffset@{CellIndsOffset}}
+\index{CellIndsOffset@{CellIndsOffset}!KMCThinFilm::CellIndsOffset@{KMCThinFilm::CellIndsOffset}}
+\doxysubsubsection{\texorpdfstring{CellIndsOffset()}{CellIndsOffset()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{classKMCThinFilm_1_1CellIndsOffset_af5409be7541eeb5c98f9ed771210b3cf} 
+KMCThin\+Film\+::\+Cell\+Inds\+Offset\+::\+Cell\+Inds\+Offset (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Constructs an empty \doxylink{classKMCThinFilm_1_1CellIndsOffset}{Cell\+Inds\+Offset}. \Hypertarget{classKMCThinFilm_1_1CellIndsOffset_a6d09182cb8481daba9d13a6815149258}\index{KMCThinFilm::CellIndsOffset@{KMCThinFilm::CellIndsOffset}!CellIndsOffset@{CellIndsOffset}}
+\index{CellIndsOffset@{CellIndsOffset}!KMCThinFilm::CellIndsOffset@{KMCThinFilm::CellIndsOffset}}
+\doxysubsubsection{\texorpdfstring{CellIndsOffset()}{CellIndsOffset()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{classKMCThinFilm_1_1CellIndsOffset_a6d09182cb8481daba9d13a6815149258} 
+KMCThin\+Film\+::\+Cell\+Inds\+Offset\+::\+Cell\+Inds\+Offset (\begin{DoxyParamCaption}\item[{int}]{ii}{, }\item[{int}]{jj}{, }\item[{int}]{kk}{ = {\ttfamily 0}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Constructs a \doxylink{classKMCThinFilm_1_1CellIndsOffset}{Cell\+Inds\+Offset} instance from a doublet or triplet of integers. 
+\begin{DoxyParams}{Parameters}
+{\em ii} & Offset to the first index of a lattice cell  \\
+\hline
+{\em jj} & Offset to the second index of lattice cell  \\
+\hline
+{\em kk} & Offset to the third index of lattice cell \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classKMCThinFilm_1_1CellIndsOffset_abea5561250cff2e69fd7fbcd908b1f5c}\index{KMCThinFilm::CellIndsOffset@{KMCThinFilm::CellIndsOffset}!operator-\/@{operator-\/}}
+\index{operator-\/@{operator-\/}!KMCThinFilm::CellIndsOffset@{KMCThinFilm::CellIndsOffset}}
+\doxysubsubsection{\texorpdfstring{operator-\/()}{operator-()}}
+{\footnotesize\ttfamily \label{classKMCThinFilm_1_1CellIndsOffset_abea5561250cff2e69fd7fbcd908b1f5c} 
+\mbox{\hyperlink{classKMCThinFilm_1_1CellIndsOffset}{Cell\+Inds\+Offset}} KMCThin\+Film\+::\+Cell\+Inds\+Offset\+::operator-\/ (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+Unary minus operator. Returns a sign-\/reversed copy of the offset. 

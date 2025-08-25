@@ -1,0 +1,2808 @@
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/MacPorts 2023.66589_2) (preloaded format=pdflatex 2023.11.7)  13 MAR 2025 09:17
+entering extended mode
+ restricted \write18 enabled.
+ %&-line parsing enabled.
+**refman
+(./refman.tex
+LaTeX2e <2022-11-01> patch level 1
+L3 programming layer <2023-02-22>
+(/opt/local/share/texmf-texlive/tex/latex/base/book.cls
+Document Class: book 2022/07/02 v1.4n Standard LaTeX document class
+(/opt/local/share/texmf-texlive/tex/latex/base/bk10.clo
+File: bk10.clo 2022/07/02 v1.4n Standard LaTeX file (size option)
+)
+\c@part=\count185
+\c@chapter=\count186
+\c@section=\count187
+\c@subsection=\count188
+\c@subsubsection=\count189
+\c@paragraph=\count190
+\c@subparagraph=\count191
+\c@figure=\count192
+\c@table=\count193
+\abovecaptionskip=\skip48
+\belowcaptionskip=\skip49
+\bibindent=\dimen140
+)
+(/opt/local/share/texmf-texlive/tex/latex/base/ifthen.sty
+Package: ifthen 2022/04/13 v1.1d Standard LaTeX ifthen package (DPC)
+)
+(/opt/local/share/texmf-texlive/tex/latex/geometry/geometry.sty
+Package: geometry 2020/01/02 v5.9 Page Geometry
+
+(/opt/local/share/texmf-texlive/tex/latex/graphics/keyval.sty
+Package: keyval 2022/05/29 v1.15 key=value parser (DPC)
+\KV@toks@=\toks16
+)
+(/opt/local/share/texmf-texlive/tex/generic/iftex/ifvtex.sty
+Package: ifvtex 2019/10/25 v1.7 ifvtex legacy package. Use iftex instead.
+
+(/opt/local/share/texmf-texlive/tex/generic/iftex/iftex.sty
+Package: iftex 2022/02/03 v1.0f TeX engine tests
+))
+\Gm@cnth=\count194
+\Gm@cntv=\count195
+\c@Gm@tempcnt=\count196
+\Gm@bindingoffset=\dimen141
+\Gm@wd@mp=\dimen142
+\Gm@odd@mp=\dimen143
+\Gm@even@mp=\dimen144
+\Gm@layoutwidth=\dimen145
+\Gm@layoutheight=\dimen146
+\Gm@layouthoffset=\dimen147
+\Gm@layoutvoffset=\dimen148
+\Gm@dimlist=\toks17
+)
+(/opt/local/share/texmf-texlive/tex/latex/parskip/parskip.sty
+Package: parskip 2021-03-14 v2.0h non-zero parskip adjustments
+
+(/opt/local/share/texmf-texlive/tex/latex/kvoptions/kvoptions.sty
+Package: kvoptions 2022-06-15 v3.15 Key value format for package options (HO)
+
+(/opt/local/share/texmf-texlive/tex/generic/ltxcmds/ltxcmds.sty
+Package: ltxcmds 2020-05-10 v1.25 LaTeX kernel commands for general use (HO)
+)
+(/opt/local/share/texmf-texlive/tex/latex/kvsetkeys/kvsetkeys.sty
+Package: kvsetkeys 2022-10-05 v1.19 Key value parser (HO)
+))
+(/opt/local/share/texmf-texlive/tex/latex/etoolbox/etoolbox.sty
+Package: etoolbox 2020/10/05 v2.5k e-TeX tools for LaTeX (JAW)
+\etb@tempcnta=\count197
+))
+(/opt/local/share/texmf-texlive/tex/latex/base/makeidx.sty
+Package: makeidx 2021/10/04 v1.0m Standard LaTeX package
+)
+(/opt/local/share/texmf-texlive/tex/latex/graphics/graphicx.sty
+Package: graphicx 2021/09/16 v1.2d Enhanced LaTeX Graphics (DPC,SPQR)
+
+(/opt/local/share/texmf-texlive/tex/latex/graphics/graphics.sty
+Package: graphics 2022/03/10 v1.4e Standard LaTeX Graphics (DPC,SPQR)
+
+(/opt/local/share/texmf-texlive/tex/latex/graphics/trig.sty
+Package: trig 2021/08/11 v1.11 sin cos tan (DPC)
+)
+(/opt/local/share/texmf-texlive/tex/latex/graphics-cfg/graphics.cfg
+File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
+)
+Package graphics Info: Driver file: pdftex.def on input line 107.
+
+(/opt/local/share/texmf-texlive/tex/latex/graphics-def/pdftex.def
+File: pdftex.def 2022/09/22 v1.2b Graphics/color driver for pdftex
+))
+\Gin@req@height=\dimen149
+\Gin@req@width=\dimen150
+)
+(/opt/local/share/texmf-texlive/tex/latex/tools/multicol.sty
+Package: multicol 2021/11/30 v1.9d multicolumn formatting (FMi)
+\c@tracingmulticols=\count198
+\mult@box=\box51
+\multicol@leftmargin=\dimen151
+\c@unbalance=\count199
+\c@collectmore=\count266
+\doublecol@number=\count267
+\multicoltolerance=\count268
+\multicolpretolerance=\count269
+\full@width=\dimen152
+\page@free=\dimen153
+\premulticols=\dimen154
+\postmulticols=\dimen155
+\multicolsep=\skip50
+\multicolbaselineskip=\skip51
+\partial@page=\box52
+\last@line=\box53
+\maxbalancingoverflow=\dimen156
+\mult@rightbox=\box54
+\mult@grightbox=\box55
+\mult@firstbox=\box56
+\mult@gfirstbox=\box57
+\@tempa=\box58
+\@tempa=\box59
+\@tempa=\box60
+\@tempa=\box61
+\@tempa=\box62
+\@tempa=\box63
+\@tempa=\box64
+\@tempa=\box65
+\@tempa=\box66
+\@tempa=\box67
+\@tempa=\box68
+\@tempa=\box69
+\@tempa=\box70
+\@tempa=\box71
+\@tempa=\box72
+\@tempa=\box73
+\@tempa=\box74
+\@tempa=\box75
+\@tempa=\box76
+\@tempa=\box77
+\@tempa=\box78
+\@tempa=\box79
+\@tempa=\box80
+\@tempa=\box81
+\@tempa=\box82
+\@tempa=\box83
+\@tempa=\box84
+\@tempa=\box85
+\@tempa=\box86
+\@tempa=\box87
+\@tempa=\box88
+\@tempa=\box89
+\@tempa=\box90
+\@tempa=\box91
+\@tempa=\box92
+\@tempa=\box93
+\c@minrows=\count270
+\c@columnbadness=\count271
+\c@finalcolumnbadness=\count272
+\last@try=\dimen157
+\multicolovershoot=\dimen158
+\multicolundershoot=\dimen159
+\mult@nat@firstbox=\box94
+\colbreak@box=\box95
+\mc@col@check@num=\count273
+)
+(/opt/local/share/texmf-texlive/tex/latex/multirow/multirow.sty
+Package: multirow 2021/03/15 v2.8 Span multiple rows of a table
+\multirow@colwidth=\skip52
+\multirow@cntb=\count274
+\multirow@dima=\skip53
+\bigstrutjot=\dimen160
+)
+(/opt/local/share/texmf-texlive/tex/latex/base/fixltx2e.sty
+Package: fixltx2e 2016/12/29 v2.1a fixes to LaTeX (obsolete)
+Applying: [2015/01/01] Old fixltx2e package on input line 46.
+
+
+Package fixltx2e Warning: fixltx2e is not required with releases after 2015
+(fixltx2e)                All fixes are now in the LaTeX kernel.
+(fixltx2e)                See the latexrelease package for details.
+
+Already applied: [0000/00/00] Old fixltx2e package on input line 53.
+) (/opt/local/share/texmf-texlive/tex/latex/float/float.sty
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count275
+\float@exts=\toks18
+\float@box=\box96
+\@float@everytoks=\toks19
+\@floatcapt=\box97
+)
+(/opt/local/share/texmf-texlive/tex/latex/listings/listings.sty
+\lst@mode=\count276
+\lst@gtempboxa=\box98
+\lst@token=\toks20
+\lst@length=\count277
+\lst@currlwidth=\dimen161
+\lst@column=\count278
+\lst@pos=\count279
+\lst@lostspace=\dimen162
+\lst@width=\dimen163
+\lst@newlines=\count280
+\lst@lineno=\count281
+\lst@maxwidth=\dimen164
+
+(/opt/local/share/texmf-texlive/tex/latex/listings/lstmisc.sty
+File: lstmisc.sty 2023/02/27 1.9 (Carsten Heinz)
+\c@lstnumber=\count282
+\lst@skipnumbers=\count283
+\lst@framebox=\box99
+)
+(/opt/local/share/texmf-texlive/tex/latex/listings/listings.cfg
+File: listings.cfg 2023/02/27 1.9 listings configuration
+))
+Package: listings 2023/02/27 1.9 (Carsten Heinz)
+
+(/opt/local/share/texmf-texlive/tex/latex/graphics/color.sty
+Package: color 2022/01/06 v1.3d Standard LaTeX Color (DPC)
+
+(/opt/local/share/texmf-texlive/tex/latex/graphics-cfg/color.cfg
+File: color.cfg 2016/01/02 v1.6 sample color configuration
+)
+Package color Info: Driver file: pdftex.def on input line 149.
+
+(/opt/local/share/texmf-texlive/tex/latex/graphics/mathcolor.ltx))
+(/opt/local/share/texmf-texlive/tex/latex/base/textcomp.sty
+Package: textcomp 2020/02/02 v2.0n Standard LaTeX package
+)
+(/opt/local/share/texmf-texlive/tex/latex/base/alltt.sty
+Package: alltt 2021/01/29 v2.0g defines alltt environment
+)
+(/opt/local/share/texmf-texlive/tex/latex/base/fontenc.sty
+Package: fontenc 2021/04/29 v2.0v Standard LaTeX package
+)
+(/opt/local/share/texmf-texlive/tex/latex/psnfss/mathptmx.sty
+Package: mathptmx 2020/03/25 PSNFSS-v9.3 Times w/ Math, improved (SPQR, WaS) 
+LaTeX Font Info:    Redeclaring symbol font `operators' on input line 28.
+LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
+(Font)                  OT1/cmr/m/n --> OT1/ztmcm/m/n on input line 28.
+LaTeX Font Info:    Overwriting symbol font `operators' in version `bold'
+(Font)                  OT1/cmr/bx/n --> OT1/ztmcm/m/n on input line 28.
+LaTeX Font Info:    Redeclaring symbol font `letters' on input line 29.
+LaTeX Font Info:    Overwriting symbol font `letters' in version `normal'
+(Font)                  OML/cmm/m/it --> OML/ztmcm/m/it on input line 29.
+LaTeX Font Info:    Overwriting symbol font `letters' in version `bold'
+(Font)                  OML/cmm/b/it --> OML/ztmcm/m/it on input line 29.
+LaTeX Font Info:    Redeclaring symbol font `symbols' on input line 30.
+LaTeX Font Info:    Overwriting symbol font `symbols' in version `normal'
+(Font)                  OMS/cmsy/m/n --> OMS/ztmcm/m/n on input line 30.
+LaTeX Font Info:    Overwriting symbol font `symbols' in version `bold'
+(Font)                  OMS/cmsy/b/n --> OMS/ztmcm/m/n on input line 30.
+LaTeX Font Info:    Redeclaring symbol font `largesymbols' on input line 31.
+LaTeX Font Info:    Overwriting symbol font `largesymbols' in version `normal'
+(Font)                  OMX/cmex/m/n --> OMX/ztmcm/m/n on input line 31.
+LaTeX Font Info:    Overwriting symbol font `largesymbols' in version `bold'
+(Font)                  OMX/cmex/m/n --> OMX/ztmcm/m/n on input line 31.
+\symbold=\mathgroup4
+\symitalic=\mathgroup5
+LaTeX Font Info:    Redeclaring math alphabet \mathbf on input line 34.
+LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `normal'
+(Font)                  OT1/cmr/bx/n --> OT1/ptm/bx/n on input line 34.
+LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `bold'
+(Font)                  OT1/cmr/bx/n --> OT1/ptm/bx/n on input line 34.
+LaTeX Font Info:    Redeclaring math alphabet \mathit on input line 35.
+LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `normal'
+(Font)                  OT1/cmr/m/it --> OT1/ptm/m/it on input line 35.
+LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
+(Font)                  OT1/cmr/bx/it --> OT1/ptm/m/it on input line 35.
+LaTeX Info: Redefining \hbar on input line 50.
+)
+(/opt/local/share/texmf-texlive/tex/generic/iftex/ifpdf.sty
+Package: ifpdf 2019/10/25 v3.4 ifpdf legacy package. Use iftex instead.
+)
+(/opt/local/share/texmf-texlive/tex/latex/fancyhdr/fancyhdr.sty
+Package: fancyhdr 2022/11/09 v4.1 Extensive control of page headers and footers
+
+\f@nch@headwidth=\skip54
+\f@nch@O@elh=\skip55
+\f@nch@O@erh=\skip56
+\f@nch@O@olh=\skip57
+\f@nch@O@orh=\skip58
+\f@nch@O@elf=\skip59
+\f@nch@O@erf=\skip60
+\f@nch@O@olf=\skip61
+\f@nch@O@orf=\skip62
+)
+(/opt/local/share/texmf-texlive/tex/latex/framed/framed.sty
+Package: framed 2011/10/22 v 0.96: framed or shaded text with page breaks
+\OuterFrameSep=\skip63
+\fb@frw=\dimen165
+\fb@frh=\dimen166
+\FrameRule=\dimen167
+\FrameSep=\dimen168
+)
+(/opt/local/share/texmf-texlive/tex/latex/hyperref/hyperref.sty
+Package: hyperref 2023-02-07 v7.00v Hypertext links for LaTeX
+
+(/opt/local/share/texmf-texlive/tex/generic/pdftexcmds/pdftexcmds.sty
+Package: pdftexcmds 2020-06-27 v0.33 Utility functions of pdfTeX for LuaTeX (HO
+)
+
+(/opt/local/share/texmf-texlive/tex/generic/infwarerr/infwarerr.sty
+Package: infwarerr 2019/12/03 v1.5 Providing info/warning/error messages (HO)
+)
+Package pdftexcmds Info: \pdf@primitive is available.
+Package pdftexcmds Info: \pdf@ifprimitive is available.
+Package pdftexcmds Info: \pdfdraftmode found.
+)
+(/opt/local/share/texmf-texlive/tex/generic/kvdefinekeys/kvdefinekeys.sty
+Package: kvdefinekeys 2019-12-19 v1.6 Define keys (HO)
+)
+(/opt/local/share/texmf-texlive/tex/generic/pdfescape/pdfescape.sty
+Package: pdfescape 2019/12/09 v1.15 Implements pdfTeX's escape features (HO)
+)
+(/opt/local/share/texmf-texlive/tex/latex/hycolor/hycolor.sty
+Package: hycolor 2020-01-27 v1.10 Color options for hyperref/bookmark (HO)
+)
+(/opt/local/share/texmf-texlive/tex/latex/letltxmacro/letltxmacro.sty
+Package: letltxmacro 2019/12/03 v1.6 Let assignment for LaTeX macros (HO)
+)
+(/opt/local/share/texmf-texlive/tex/latex/auxhook/auxhook.sty
+Package: auxhook 2019-12-17 v1.6 Hooks for auxiliary files (HO)
+)
+(/opt/local/share/texmf-texlive/tex/latex/hyperref/nameref.sty
+Package: nameref 2022-05-17 v2.50 Cross-referencing by name of section
+
+(/opt/local/share/texmf-texlive/tex/latex/refcount/refcount.sty
+Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
+)
+(/opt/local/share/texmf-texlive/tex/generic/gettitlestring/gettitlestring.sty
+Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
+)
+\c@section@level=\count284
+)
+\@linkdim=\dimen169
+\Hy@linkcounter=\count285
+\Hy@pagecounter=\count286
+(/opt/local/share/texmf-texlive/tex/latex/hyperref/pd1enc.def
+File: pd1enc.def 2023-02-07 v7.00v Hyperref: PDFDocEncoding definition (HO)
+Now handling font encoding PD1 ...
+... no UTF-8 mapping file for font encoding PD1
+)
+(/opt/local/share/texmf-texlive/tex/generic/intcalc/intcalc.sty
+Package: intcalc 2019/12/15 v1.3 Expandable calculations with integers (HO)
+)
+(/opt/local/share/texmf-texlive/tex/generic/etexcmds/etexcmds.sty
+Package: etexcmds 2019/12/15 v1.7 Avoid name clashes with e-TeX commands (HO)
+)
+\Hy@SavedSpaceFactor=\count287
+
+(/opt/local/share/texmf-texlive/tex/latex/hyperref/puenc.def
+File: puenc.def 2023-02-07 v7.00v Hyperref: PDF Unicode definition (HO)
+Now handling font encoding PU ...
+... no UTF-8 mapping file for font encoding PU
+)
+Package hyperref Info: Option `colorlinks' set `true' on input line 4060.
+Package hyperref Info: Option `unicode' set `true' on input line 4060.
+Package hyperref Info: Hyper figures OFF on input line 4177.
+Package hyperref Info: Link nesting OFF on input line 4182.
+Package hyperref Info: Hyper index ON on input line 4185.
+Package hyperref Info: Plain pages OFF on input line 4192.
+Package hyperref Info: Backreferencing ON on input line 4195.
+Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
+Package hyperref Info: Bookmarks ON on input line 4425.
+
+(/opt/local/share/texmf-texlive/tex/latex/hyperref/backref.sty
+Package: backref 2021/02/04 v1.41 Bibliographical back referencing
+
+(/opt/local/share/texmf-texlive/tex/latex/rerunfilecheck/rerunfilecheck.sty
+Package: rerunfilecheck 2022-07-10 v1.10 Rerun checks for auxiliary files (HO)
+
+(/opt/local/share/texmf-texlive/tex/latex/base/atveryend-ltx.sty
+Package: atveryend-ltx 2020/08/19 v1.0a Emulation of the original atveryend pac
+kage
+with kernel methods
+)
+(/opt/local/share/texmf-texlive/tex/generic/uniquecounter/uniquecounter.sty
+Package: uniquecounter 2019/12/15 v1.4 Provide unlimited unique counter (HO)
+
+(/opt/local/share/texmf-texlive/tex/generic/bigintcalc/bigintcalc.sty
+Package: bigintcalc 2019/12/15 v1.5 Expandable calculations on big integers (HO
+)
+))
+Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
+85.
+))
+\c@Hy@tempcnt=\count288
+
+(/opt/local/share/texmf-texlive/tex/latex/url/url.sty
+\Urlmuskip=\muskip16
+Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
+)
+LaTeX Info: Redefining \url on input line 4763.
+\XeTeXLinkMargin=\dimen170
+
+(/opt/local/share/texmf-texlive/tex/generic/bitset/bitset.sty
+Package: bitset 2019/12/09 v1.3 Handle bit-vector datatype (HO)
+)
+\Fld@menulength=\count289
+\Field@Width=\dimen171
+\Fld@charsize=\dimen172
+Package hyperref Info: Hyper figures OFF on input line 6042.
+Package hyperref Info: Link nesting OFF on input line 6047.
+Package hyperref Info: Hyper index ON on input line 6050.
+Package hyperref Info: backreferencing ON on input line 6055.
+Package hyperref Info: Link coloring ON on input line 6060.
+Package hyperref Info: Link coloring with OCG OFF on input line 6067.
+Package hyperref Info: PDF/A mode OFF on input line 6072.
+
+(/opt/local/share/texmf-texlive/tex/latex/base/atbegshi-ltx.sty
+Package: atbegshi-ltx 2021/01/10 v1.0c Emulation of the original atbegshi
+package with kernel methods
+)
+\Hy@abspage=\count290
+\c@Item=\count291
+\c@Hfootnote=\count292
+)
+Package hyperref Info: Driver: hpdftex.
+
+(/opt/local/share/texmf-texlive/tex/latex/hyperref/hpdftex.def
+File: hpdftex.def 2023-02-07 v7.00v Hyperref driver for pdfTeX
+\Fld@listcount=\count293
+\c@bookmark@seq@number=\count294
+\Hy@SectionHShift=\skip64
+)
+(/opt/local/share/texmf-texlive/tex/latex/base/inputenc.sty
+Package: inputenc 2021/02/14 v1.3d Input encoding file
+\inpenc@prehook=\toks21
+\inpenc@posthook=\toks22
+) (./doxygen.sty
+Package: doxygen 
+
+(/opt/local/share/texmf-texlive/tex/latex/tools/calc.sty
+Package: calc 2017/05/25 v4.3 Infix arithmetic (KKT,FJ)
+\calc@Acount=\count295
+\calc@Bcount=\count296
+\calc@Adimen=\dimen173
+\calc@Bdimen=\dimen174
+\calc@Askip=\skip65
+\calc@Bskip=\skip66
+LaTeX Info: Redefining \setlength on input line 80.
+LaTeX Info: Redefining \addtolength on input line 81.
+\calc@Ccount=\count297
+\calc@Cskip=\skip67
+)
+(/opt/local/share/texmf-texlive/tex/latex/tools/verbatim.sty
+Package: verbatim 2022-07-02 v1.5u LaTeX2e package for verbatim enhancements
+\every@verbatim=\toks23
+\verbatim@line=\toks24
+\verbatim@in@stream=\read2
+)
+(/opt/local/share/texmf-texlive/tex/latex/xcolor/xcolor.sty
+Package: xcolor 2022/06/12 v2.14 LaTeX color extensions (UK)
+
+(/opt/local/share/texmf-texlive/tex/latex/graphics-cfg/color.cfg
+File: color.cfg 2016/01/02 v1.6 sample color configuration
+)
+Package xcolor Info: Driver file: pdftex.def on input line 227.
+
+(/opt/local/share/texmf-texlive/tex/latex/colortbl/colortbl.sty
+Package: colortbl 2022/06/20 v1.0f Color table columns (DPC)
+
+(/opt/local/share/texmf-texlive/tex/latex/tools/array.sty
+Package: array 2022/09/04 v2.5g Tabular extension package (FMi)
+\col@sep=\dimen175
+\ar@mcellbox=\box100
+\extrarowheight=\dimen176
+\NC@list=\toks25
+\extratabsurround=\skip68
+\backup@length=\skip69
+\ar@cellbox=\box101
+)
+\everycr=\toks26
+\minrowclearance=\skip70
+\rownum=\count298
+)
+LaTeX Info: Redefining \color on input line 711.
+
+(/opt/local/share/texmf-texlive/tex/latex/graphics/mathcolor.ltx)
+Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1353.
+Package xcolor Info: Model `hsb' substituted by `rgb' on input line 1357.
+Package xcolor Info: Model `RGB' extended on input line 1369.
+Package xcolor Info: Model `HTML' substituted by `rgb' on input line 1371.
+Package xcolor Info: Model `Hsb' substituted by `hsb' on input line 1372.
+Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1373.
+Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1374.
+Package xcolor Info: Model `Gray' substituted by `gray' on input line 1375.
+Package xcolor Info: Model `wave' substituted by `hsb' on input line 1376.
+)
+(./longtable_doxygen.sty
+Package: longtable_doxygen 2014/10/28 v4.11 Multi-page Table package (DPC) - fr
+ozen version for doxygen
+\LTleft=\skip71
+\LTright=\skip72
+\LTpre=\skip73
+\LTpost=\skip74
+\LTchunksize=\count299
+\LTcapwidth=\dimen177
+\LT@head=\box102
+\LT@firsthead=\box103
+\LT@foot=\box104
+\LT@lastfoot=\box105
+\LT@cols=\count300
+\LT@rows=\count301
+\c@LT@tables=\count302
+\c@LT@chunks=\count303
+\LT@p@ftn=\toks27
+) (./tabu_doxygen.sty
+Package: tabu_doxygen 2011/02/26 v2.8 - flexible LaTeX tabulars (FC), frozen ve
+rsion for doxygen
+
+(/opt/local/share/texmf-texlive/tex/latex/varwidth/varwidth.sty
+Package: varwidth 2009/03/30 ver 0.92;  Variable-width minipages
+\@vwid@box=\box106
+\sift@deathcycles=\count304
+\@vwid@loff=\dimen178
+\@vwid@roff=\dimen179
+)
+\c@taburow=\count305
+\tabu@nbcols=\count306
+\tabu@cnt=\count307
+\tabu@Xcol=\count308
+\tabu@alloc=\count309
+\tabu@nested=\count310
+\tabu@target=\dimen180
+\tabu@spreadtarget=\dimen181
+\tabu@naturalX=\dimen182
+\tabucolX=\dimen183
+\tabu@Xsum=\dimen184
+\extrarowdepth=\dimen185
+\abovetabulinesep=\dimen186
+\belowtabulinesep=\dimen187
+\tabustrutrule=\dimen188
+\tabu@thebody=\toks28
+\tabu@footnotes=\toks29
+\tabu@box=\box107
+\tabu@arstrutbox=\box108
+\tabu@hleads=\box109
+\tabu@vleads=\box110
+\tabu@cellskip=\skip75
+)
+(/opt/local/share/texmf-texlive/tex/latex/fancyvrb/fancyvrb.sty
+Package: fancyvrb 2023/01/19 4.5a verbatim text (tvz,hv)
+\FV@CodeLineNo=\count311
+\FV@InFile=\read3
+\FV@TabBox=\box111
+\c@FancyVerbLine=\count312
+\FV@StepNumber=\count313
+\FV@OutFile=\write3
+)
+(/opt/local/share/texmf-texlive/tex/latex/tools/tabularx.sty
+Package: tabularx 2020/01/15 v2.11c `tabularx' package (DPC)
+\TX@col@width=\dimen189
+\TX@old@table=\dimen190
+\TX@old@col=\dimen191
+\TX@target=\dimen192
+\TX@delta=\dimen193
+\TX@cols=\count314
+\TX@ftn=\toks30
+)
+(/opt/local/share/texmf-texlive/tex/latex/hanging/hanging.sty
+Package: hanging 2009/09/02 v1.2b hanging paragraphs and punctuation
+\h@ngcommawd=\skip76
+\h@ngfstopwd=\skip77
+\h@ngquotewd=\skip78
+\h@ngdquotewd=\skip79
+\h@ngquerywd=\skip80
+\h@ngexclwd=\skip81
+\h@ngcolonwd=\skip82
+\h@ngscolonwd=\skip83
+)
+(/opt/local/share/texmf-texlive/tex/latex/adjustbox/adjustbox.sty
+Package: adjustbox 2022/10/17 v1.3a Adjusting TeX boxes (trim, clip, ...)
+
+(/opt/local/share/texmf-texlive/tex/latex/xkeyval/xkeyval.sty
+Package: xkeyval 2022/06/16 v2.9 package option processing (HA)
+
+(/opt/local/share/texmf-texlive/tex/generic/xkeyval/xkeyval.tex
+(/opt/local/share/texmf-texlive/tex/generic/xkeyval/xkvutils.tex
+\XKV@toks=\toks31
+\XKV@tempa@toks=\toks32
+)
+\XKV@depth=\count315
+File: xkeyval.tex 2014/12/03 v2.7a key=value parser (HA)
+))
+(/opt/local/share/texmf-texlive/tex/latex/adjustbox/adjcalc.sty
+Package: adjcalc 2012/05/16 v1.1 Provides advanced setlength with multiple back
+-ends (calc, etex, pgfmath)
+)
+(/opt/local/share/texmf-texlive/tex/latex/adjustbox/trimclip.sty
+Package: trimclip 2020/08/19 v1.2 Trim and clip general TeX material
+
+(/opt/local/share/texmf-texlive/tex/latex/collectbox/collectbox.sty
+Package: collectbox 2022/10/17 v0.4c Collect macro arguments as boxes
+\collectedbox=\box112
+)
+\tc@llx=\dimen194
+\tc@lly=\dimen195
+\tc@urx=\dimen196
+\tc@ury=\dimen197
+Package trimclip Info: Using driver 'tc-pdftex.def'.
+
+(/opt/local/share/texmf-texlive/tex/latex/adjustbox/tc-pdftex.def
+File: tc-pdftex.def 2019/01/04 v2.2 Clipping driver for pdftex
+))
+\adjbox@Width=\dimen198
+\adjbox@Height=\dimen199
+\adjbox@Depth=\dimen256
+\adjbox@Totalheight=\dimen257
+\adjbox@pwidth=\dimen258
+\adjbox@pheight=\dimen259
+\adjbox@pdepth=\dimen260
+\adjbox@ptotalheight=\dimen261
+
+(/opt/local/share/texmf-texlive/tex/latex/ifoddpage/ifoddpage.sty
+Package: ifoddpage 2022/10/18 v1.2 Conditionals for odd/even page detection
+\c@checkoddpage=\count316
+))
+(/opt/local/share/texmf-texlive/tex/latex/amsfonts/amssymb.sty
+Package: amssymb 2013/01/14 v3.01 AMS font symbols
+
+(/opt/local/share/texmf-texlive/tex/latex/amsfonts/amsfonts.sty
+Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
+\@emptytoks=\toks33
+\symAMSa=\mathgroup6
+\symAMSb=\mathgroup7
+LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
+(Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
+))
+(/Users/jjramsey/Library/texmf/tex/latex/stackengine/stackengine.sty
+Package: stackengine 2021/07/22 v4.11\ Stacking text and objects in convenient 
+ways
+
+(/opt/local/share/texmf-local/tex/latex/UtilityPackages/listofitems/listofitems
+.sty
+(/opt/local/share/texmf-local/tex/latex/UtilityPackages/listofitems/listofitems
+.tex
+\loi_cnt_foreach_nest=\count317
+\loi_nestcnt=\count318
+)
+Package: listofitems 2019/08/21 v1.63 Grab items in lists using user-specified 
+sep char (CT)
+)
+\c@@stackindex=\count319
+\@boxshift=\skip84
+\stack@tmplength=\skip85
+\temp@stkl=\skip86
+\@stackedboxwidth=\skip87
+\@addedbox=\box113
+\@anchorbox=\box114
+\@insetbox=\box115
+\se@backgroundbox=\box116
+\stackedbox=\box117
+\@centerbox=\box118
+\c@ROWcellindex@=\count320
+) (/opt/local/share/texmf-texlive/tex/latex/enumitem/enumitem.sty
+Package: enumitem 2019/06/20 v3.9 Customized lists
+\labelindent=\skip88
+\enit@outerparindent=\dimen262
+\enit@toks=\toks34
+\enit@inbox=\box119
+\enit@count@id=\count321
+\enitdp@description=\count322
+)
+(/opt/local/share/texmf-texlive/tex/generic/alphalph/alphalph.sty
+Package: alphalph 2019/12/09 v2.6 Convert numbers to letters (HO)
+)
+(/opt/local/share/texmf-texlive/tex/generic/ulem/ulem.sty
+\UL@box=\box120
+\UL@hyphenbox=\box121
+\UL@skip=\skip89
+\UL@hook=\toks35
+\UL@height=\dimen263
+\UL@pe=\count323
+\UL@pixel=\dimen264
+\ULC@box=\box122
+Package: ulem 2019/11/18
+\ULdepth=\dimen265
+)
+\xrefbox=\box123
+\xreflength=\skip90
+\CodeWidthChar=\skip91
+\CodeHeightChar=\skip92
+\DoxyCodeWidth=\skip93
+\c@DoxyEnumeratei=\count324
+\c@DoxyEnumerateii=\count325
+\c@DoxyEnumerateiii=\count326
+\c@DoxyEnumerateiv=\count327
+\c@DoxyEnumeratev=\count328
+\c@DoxyEnumeratevi=\count329
+\c@DoxyEnumeratevii=\count330
+\c@DoxyEnumerateviii=\count331
+\c@DoxyEnumerateix=\count332
+\c@DoxyEnumeratex=\count333
+\c@DoxyEnumeratexi=\count334
+\c@DoxyEnumeratexii=\count335
+\enitdp@DoxyEnumerate=\count336
+\enitdp@DoxyItemize=\count337
+\c@subsubsubsection=\count338
+\c@subsubsubsubsection=\count339
+\c@subsubsubsubsubsection=\count340
+\c@subsubsubsubsubsubsection=\count341
+)
+(/opt/local/share/texmf-texlive/tex/latex/listings/lstlang1.sty
+File: lstlang1.sty 2023/02/27 1.9 listings language file
+)
+(/opt/local/share/texmf-texlive/tex/latex/listings/lstlang1.sty
+File: lstlang1.sty 2023/02/27 1.9 listings language file
+)
+(/opt/local/share/texmf-texlive/tex/latex/listings/lstmisc.sty
+File: lstmisc.sty 2023/02/27 1.9 (Carsten Heinz)
+)
+\@indexfile=\write4
+\openout4 = `refman.idx'.
+
+
+Writing index file refman.idx
+LaTeX Font Info:    Trying to load font information for T1+ptm on input line 78
+.
+(/opt/local/share/texmf-texlive/tex/latex/psnfss/t1ptm.fd
+File: t1ptm.fd 2001/06/04 font definitions for T1/ptm.
+)
+(/opt/local/share/texmf-texlive/tex/latex/l3backend/l3backend-pdftex.def
+File: l3backend-pdftex.def 2023-01-16 L3 backend support: PDF output (pdfTeX)
+\l__color_backend_stack_int=\count342
+\l__pdf_internal_box=\box124
+)
+(./refman.aux)
+\openout1 = `refman.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 78.
+LaTeX Font Info:    ... okay on input line 78.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 78.
+LaTeX Font Info:    ... okay on input line 78.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 78.
+LaTeX Font Info:    ... okay on input line 78.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 78.
+LaTeX Font Info:    ... okay on input line 78.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 78.
+LaTeX Font Info:    ... okay on input line 78.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 78.
+LaTeX Font Info:    ... okay on input line 78.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 78.
+LaTeX Font Info:    ... okay on input line 78.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 78.
+LaTeX Font Info:    ... okay on input line 78.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 78.
+LaTeX Font Info:    ... okay on input line 78.
+
+*geometry* driver: auto-detecting
+*geometry* detected driver: pdftex
+*geometry* verbose mode - [ preamble ] result:
+* driver: pdftex
+* paper: letterpaper
+* layout: <same size as paper>
+* layoutoffset:(h,v)=(0.0pt,0.0pt)
+* modes: twoside 
+* h-part:(L,W,R)=(72.26999pt, 469.75502pt, 72.26999pt)
+* v-part:(T,H,B)=(72.26999pt, 650.43001pt, 72.26999pt)
+* \paperwidth=614.295pt
+* \paperheight=794.96999pt
+* \textwidth=469.75502pt
+* \textheight=650.43001pt
+* \oddsidemargin=0.0pt
+* \evensidemargin=0.0pt
+* \topmargin=-30.06749pt
+* \headheight=12.0pt
+* \headsep=18.06749pt
+* \topskip=10.0pt
+* \footskip=25.29494pt
+* \marginparwidth=125.0pt
+* \marginparsep=7.0pt
+* \columnsep=10.0pt
+* \skip\footins=9.0pt plus 4.0pt minus 2.0pt
+* \hoffset=0.0pt
+* \voffset=0.0pt
+* \mag=1000
+* \@twocolumnfalse
+* \@twosidetrue
+* \@mparswitchtrue
+* \@reversemarginfalse
+* (1in=72.27pt=25.4mm, 1cm=28.453pt)
+
+(/opt/local/share/texmf-texlive/tex/context/base/mkii/supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+\scratchcounter=\count343
+\scratchdimen=\dimen266
+\scratchbox=\box125
+\nofMPsegments=\count344
+\nofMParguments=\count345
+\everyMPshowfont=\toks36
+\MPscratchCnt=\count346
+\MPscratchDim=\dimen267
+\MPnumerator=\count347
+\makeMPintoPDFobject=\count348
+\everyMPtoPDFconversion=\toks37
+) (/opt/local/share/texmf-texlive/tex/latex/epstopdf-pkg/epstopdf-base.sty
+Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
+Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
+85.
+
+(/opt/local/share/texmf-texlive/tex/latex/latexconfig/epstopdf-sys.cfg
+File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
+e
+))
+\c@lstlisting=\count349
+\big@size=\dimen268
+Package hyperref Info: Link coloring ON on input line 78.
+
+(./refman.out) (./refman.out)
+\@outlinefile=\write5
+\openout5 = `refman.out'.
+
+Package hyperref Info: Option `pageanchor' set `false' on input line 79.
+LaTeX Font Info:    Trying to load font information for OT1+ztmcm on input line
+ 83.
+
+(/opt/local/share/texmf-texlive/tex/latex/psnfss/ot1ztmcm.fd
+File: ot1ztmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OT1/ztmcm.
+)
+LaTeX Font Info:    Trying to load font information for OML+ztmcm on input line
+ 83.
+
+(/opt/local/share/texmf-texlive/tex/latex/psnfss/omlztmcm.fd
+File: omlztmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OML/ztmcm.
+)
+LaTeX Font Info:    Trying to load font information for OMS+ztmcm on input line
+ 83.
+
+(/opt/local/share/texmf-texlive/tex/latex/psnfss/omsztmcm.fd
+File: omsztmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OMS/ztmcm.
+)
+LaTeX Font Info:    Trying to load font information for OMX+ztmcm on input line
+ 83.
+
+(/opt/local/share/texmf-texlive/tex/latex/psnfss/omxztmcm.fd
+File: omxztmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OMX/ztmcm.
+)
+LaTeX Font Info:    Trying to load font information for OT1+ptm on input line 8
+3.
+
+(/opt/local/share/texmf-texlive/tex/latex/psnfss/ot1ptm.fd
+File: ot1ptm.fd 2001/06/04 font definitions for OT1/ptm.
+)
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <7> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 83.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <5> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 83.
+ [1
+
+
+{/opt/local/var/db/texmf/fonts/map/pdftex/updmap/pdftex.map}{/opt/local/share/t
+exmf-texlive/fonts/enc/dvips/base/8r.enc}] (./refman.toc
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 3.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <7.4> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 3.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <6> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 3.
+LaTeX Font Info:    Trying to load font information for T1+cmtt on input line 3
+9.
+
+(/opt/local/share/texmf-texlive/tex/latex/base/t1cmtt.fd
+File: t1cmtt.fd 2022/07/10 v2.5l Standard LaTeX font definitions
+) [1
+
+] [2{/opt/local/share/texmf-texlive/fonts/enc/dvips/cm-super/cm-super-t1.enc}] 
+[3] [4] [5]
+[6])
+\tf@toc=\write6
+\openout6 = `refman.toc'.
+
+ [7]
+Package hyperref Info: Option `pageanchor' set `true' on input line 92.
+ (./index.tex
+Chapter 1.
+LaTeX Font Info:    Trying to load font information for TS1+ptm on input line 7
+.
+(/opt/local/share/texmf-texlive/tex/latex/psnfss/ts1ptm.fd
+File: ts1ptm.fd 2001/06/04 font definitions for TS1/ptm.
+)
+Overfull \hbox (23.10905pt too wide) in paragraph at lines 11--12
+[]\T1/ptm/m/n/10 A [], to al-low gen-er-a-tors not in-cluded with the ARL []
+ []
+
+) (./compilation.tex [1
+
+
+] [2
+
+]
+Chapter 2.
+
+Overfull \hbox (38.57997pt too wide) in paragraph at lines 4--5
+[]\T1/ptm/m/n/10 ), and Rng[]Streams, at least ver-sion 1.[]0.[]1 (for []). 
+ []
+
+[3]) (./concepts_and_algorithms.tex [4]
+Chapter 3.
+[5
+
+] [6]
+<LatticeModel.pdf, id=1856, 325.215pt x 144.54pt>
+File: LatticeModel.pdf Graphic file (type pdf)
+<use LatticeModel.pdf>
+Package pdftex.def Info: LatticeModel.pdf  used on input line 38.
+(pdftex.def)             Requested size: 375.80544pt x 167.03792pt.
+<PartitionedLatticeRow.pdf, id=1859, 433.62pt x 252.945pt>
+File: PartitionedLatticeRow.pdf Graphic file (type pdf)
+<use PartitionedLatticeRow.pdf>
+Package pdftex.def Info: PartitionedLatticeRow.pdf  used on input line 48.
+(pdftex.def)             Requested size: 328.82707pt x 191.82335pt.
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [7 <./LatticeModel.pdf>]
+<PartitionedLatticeCompact.pdf, id=1866, 433.62pt x 252.945pt>
+File: PartitionedLatticeCompact.pdf Graphic file (type pdf)
+<use PartitionedLatticeCompact.pdf>
+Package pdftex.def Info: PartitionedLatticeCompact.pdf  used on input line 56.
+(pdftex.def)             Requested size: 375.80544pt x 219.23055pt.
+<ActiveSectorsCompact.pdf, id=1868, 289.08pt x 252.945pt>
+File: ActiveSectorsCompact.pdf Graphic file (type pdf)
+<use ActiveSectorsCompact.pdf>
+Package pdftex.def Info: ActiveSectorsCompact.pdf  used on input line 66.
+(pdftex.def)             Requested size: 234.8775pt x 205.5173pt.
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [8 <./PartitionedLatticeRow.pdf> <./PartitionedLatticeCompact.pdf>] [9 <./Acti
+veSectorsCompact.pdf>]
+Overfull \hbox (42.11548pt too wide) in paragraph at lines 104--106
+[]\T1/ptm/m/n/10 The max-i-mum of the av-er-age propen-si-ties per pos-si-ble c
+ell-centered event from each sec-tor. $\OML/ztmcm/m/it/10 F[] \OT1/ztmcm/m/n/10
+ = [](\OML/ztmcm/m/it/10 p[]; p[]; [] ; p[]\OT1/ztmcm/m/n/10 )$\T1/ptm/m/n/10 ,
+
+ []
+
+
+Overfull \hbox (28.17741pt too wide) in paragraph at lines 104--106
+\T1/ptm/m/n/10 where $\OML/ztmcm/m/it/10 N[]$ \T1/ptm/m/n/10 is the num-ber of 
+pro-ces-sors and for the case of com-pact de-com-po-si-tion, $\OML/ztmcm/m/it/1
+0 p[] \OT1/ztmcm/m/n/10 = [](\OML/ztmcm/m/it/10 p[]; p[]; p[]; p[]\OT1/ztmcm/m/
+n/10 )$\T1/ptm/m/n/10 ,
+ []
+
+) (./illustrating_use_by_example.tex [10]
+Chapter 4.
+[11
+
+]
+Overfull \hbox (37.12018pt too wide) in paragraph at lines 22--23
+\T1/ptm/m/n/10 Mersenne Twister ran-dom num-ber gen-er-a-tor. Here, any avail-a
+ble con-crete im-ple-men-ta-tion of the []
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 47
+[][][]
+ []
+
+
+Overfull \hbox (118.49736pt too wide) in paragraph at lines 87--88
+[]\T1/ptm/m/n/10 The or-der of the above state-ments mat-ters, since [] must be
+ called \T1/ptm/m/it/10 af-ter []\T1/ptm/m/n/10 .
+ []
+
+
+Overfull \hbox (15.22942pt too wide) in paragraph at lines 87--88
+\T1/ptm/m/n/10 Here, a ``smart'' pointer to an in-stance of a [] class is passe
+d to our []
+ []
+
+[12]
+Overfull \hbox (154.32697pt too wide) in paragraph at lines 100--101
+\T1/ptm/m/n/10 site at the top of the lat-tice, as dis-cussed in the sec-tion e
+n-ti-tled ``[].''
+ []
+
+
+Overfull \hbox (312.26616pt too wide) in paragraph at lines 104--105
+[]\T1/ptm/m/n/10 We now be-gin to add \T1/ptm/m/it/10 cell-centered \T1/ptm/m/n
+/10 events to the sim-u-la-tion. Again, as dis-cussed in the sec-tion en-ti-tle
+d ``[],''
+ []
+
+
+Overfull \hbox (12.83008pt too wide) in paragraph at lines 104--105
+\T1/ptm/m/n/10 these events are called such be-cause such events orig-i-nate in
+ the neigh-bor-hood of some lat-tice cell, and their propensities---
+ []
+
+<OffsetsFractalSim.pdf, id=1971, 162.6075pt x 180.675pt>
+File: OffsetsFractalSim.pdf Graphic file (type pdf)
+<use OffsetsFractalSim.pdf>
+Package pdftex.def Info: OffsetsFractalSim.pdf  used on input line 127.
+(pdftex.def)             Requested size: 292.72305pt x 325.2478pt.
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [13]
+Overfull \hbox (6.35982pt too wide) in paragraph at lines 156--157
+\T1/ptm/m/n/10 mem-ber func-tion [] men-tioned be-fore. Un-like over-lattice ev
+ents,
+ []
+
+[14 <./OffsetsFractalSim.pdf>]
+Overfull \hbox (10.76964pt too wide) in paragraph at lines 160--161
+[]\T1/ptm/m/n/10 A group of cell-centered event types is added by means of the 
+[]
+ []
+
+[15]
+Overfull \hbox (7.08537pt too wide) in paragraph at lines 235--236
+[] \T1/ptm/m/n/10 ob-ject. The other is \T1/cmtt/m/n/10 Hop[]Offset[]::[]SELF\T
+1/ptm/m/n/10 , which iden-ti-fies [],
+ []
+
+
+Overfull \hbox (60.72803pt too wide) in paragraph at lines 250--251
+\T1/ptm/m/n/10 ments that are ref-er-ences to a [] ob-ject, a [] ob-ject, and a
+ []
+ []
+
+
+Overfull \hbox (12.40912pt too wide) in paragraph at lines 250--251
+\T1/ptm/m/n/10 ob-ject, in that or-der. Fur-ther-more, since this func-tion is 
+used to al-ter the lat-tice, the ref-er-ence to the []
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 270
+[][][]
+ []
+
+[16]
+Overfull \hbox (121.5953pt too wide) in paragraph at lines 290--291
+[]\T1/ptm/m/n/10 In this class, the pri-vate data mem-ber \T1/cmtt/m/n/10 D[]_[
+] \T1/ptm/m/n/10 stores the hop-ping propen-sity \T1/ptm/m/it/10 D\T1/ptm/m/n/1
+0 . Also, this class sat-is-fies the []
+ []
+
+
+Overfull \hbox (69.217pt too wide) in paragraph at lines 290--291
+\T1/ptm/m/n/10 sig-na-ture, since it con-tains an over-load of \T1/cmtt/m/n/10 
+operator() \T1/ptm/m/n/10 that takes as ar-gu-ments a con-stant ref-er-ence to 
+a []
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 325
+[][][]
+ []
+
+
+Underfull \hbox (badness 1946) in paragraph at lines 326--327
+[]\T1/ptm/m/n/10 The as-so-ci-a-tion of off-sets with a [] ob-ject is done in
+ []
+
+[17]
+Underfull \hbox (badness 10000) detected at line 342
+[][][]
+ []
+
+
+Overfull \hbox (6.04773pt too wide) in paragraph at lines 365--366
+[]\T1/ptm/m/n/10 This class sat-is-fies the [] sig-na-ture, since it con-tains 
+an over-load of \T1/cmtt/m/n/10 operator()
+ []
+
+[18]
+Overfull \hbox (110.06728pt too wide) in paragraph at lines 486--486
+[]\T1/ptm/m/n/10 Also, this code is writ-ten to in such a way as to fa-cil-i-ta
+te par-al-leliza-tion. Since this is a se-rial code, []
+ []
+
+
+Overfull \hbox (34.35962pt too wide) in paragraph at lines 486--486
+\T1/ptm/m/n/10 of the part of the lat-tice that a given pro-ces-sor owns, which
+ would \T1/ptm/m/it/10 not \T1/ptm/m/n/10 be true if []
+ []
+
+
+Underfull \vbox (badness 5667) has occurred while \output is active []
+
+ [19]
+<testFractalSnapshots.pdf, id=2140, 361.35pt x 361.35pt>
+File: testFractalSnapshots.pdf Graphic file (type pdf)
+<use testFractalSnapshots.pdf>
+Package pdftex.def Info: testFractalSnapshots.pdf  used on input line 491.
+(pdftex.def)             Requested size: 361.34999pt x 361.35463pt.
+
+Overfull \hbox (10.85027pt too wide) in paragraph at lines 513--514
+\T1/ptm/m/n/10 the [] sig-na-ture rather than the []
+ []
+
+[20 <./testFractalSnapshots.pdf>]
+Overfull \hbox (154.88782pt too wide) in paragraph at lines 549--550
+[]\T1/ptm/m/n/10 Here, the mem-ber func-tions [] and []
+ []
+
+
+Overfull \hbox (49.2013pt too wide) in paragraph at lines 549--550
+\T1/ptm/m/n/10 hops, which de-pends on the hop-ping di-rec-tion. The sec-ond ar
+-gu-ment to []
+ []
+
+
+Overfull \hbox (139.60818pt too wide) in paragraph at lines 549--550
+\T1/ptm/m/n/10 is also dif-fer-ent, since it sat-is-fies the [] sig-na-ture rat
+her than the []
+ []
+
+
+Overfull \hbox (61.97803pt too wide) in paragraph at lines 563--564
+\T1/ptm/m/n/10 ar-gu-ments that are ref-er-ences to a [] ob-ject, a [] ob-ject,
+ a []
+ []
+
+
+Overfull \hbox (22.50902pt too wide) in paragraph at lines 563--564
+[] \T1/ptm/m/n/10 ob-ject \T1/ptm/m/it/10 is \T1/ptm/m/n/10 con-stant, since ch
+anges to the lat-tice are forced to oc-cur via []
+ []
+
+[21]
+Overfull \hbox (69.85854pt too wide) in paragraph at lines 641--641
+[]\T1/ptm/m/n/10 The rest of the code of this im-ple-men-ta-tion of a frac-tal 
+solid-on-solid model is the same as it is in [].[] 
+ []
+
+
+Overfull \hbox (7.30441pt too wide) in paragraph at lines 642--643
+\T1/ptm/m/n/10 The code for this ex-am-ple is in the di-rec-tory \T1/cmtt/m/n/1
+0 doc/example-code/test[]Fractal[]_[]parallel \T1/ptm/m/n/10 of the ARL []
+ []
+
+[22]
+Overfull \hbox (36.539pt too wide) in paragraph at lines 689--690
+\T1/ptm/m/n/10 num-ber gen-er-a-tor is ini-tial-ized in par-al-lel. The ad-di-t
+ion is the pres-ence of an in-stance of [],
+ []
+
+[23]
+Overfull \hbox (112.92937pt too wide) in paragraph at lines 731--732
+[]\T1/ptm/m/n/10 Here, in the se-rial ver-sion of the code, the [] is used, whi
+le in par-al-lel, []
+ []
+
+<testParBadSnapshots.pdf, id=2276, 361.35pt x 361.35pt>
+File: testParBadSnapshots.pdf Graphic file (type pdf)
+<use testParBadSnapshots.pdf>
+Package pdftex.def Info: testParBadSnapshots.pdf  used on input line 766.
+(pdftex.def)             Requested size: 361.34999pt x 361.35463pt.
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [24]
+Overfull \hbox (10.11974pt too wide) in paragraph at lines 771--772
+\T1/ptm/m/n/10 While the ex-am-ples above show-cased sev-eral fea-tures of the 
+ARL [] li-brary, they were still two-dimensional.
+ []
+
+[25 <./testParBadSnapshots.pdf>] [26]
+Overfull \hbox (1.91394pt too wide) in paragraph at lines 889--890
+\T1/ptm/m/n/10 ated with them (e.[]g. those la-beled as \T1/cmtt/m/n/10 BDInt[]
+Val[]::[]IS[]_[][]OCCUPIED\T1/ptm/m/n/10 , \T1/cmtt/m/n/10 BDInt[]Val[]::[]ACTI
+VE[]_[][]ZONE[]_[][]HEIGHT\T1/ptm/m/n/10 , and \T1/cmtt/m/n/10 BDFloat[]
+ []
+
+[27]
+Underfull \hbox (badness 10000) detected at line 959
+[][][]
+ []
+
+[28]
+Overfull \hbox (36.73965pt too wide) in paragraph at lines 1035--1036
+[]\T1/ptm/m/n/10 Second, when prob-ing the non-lateral neigh-bors, the mem-ber 
+func-tions []
+ []
+
+
+Overfull \hbox (62.70831pt too wide) in paragraph at lines 1035--1036
+\T1/ptm/m/n/10 and [] are used to en-sure that calls to []
+ []
+
+[29] [30]
+<testBallisticDep1_visit3D.png, id=2422, 1027.84pt x 432.61626pt>
+File: testBallisticDep1_visit3D.png Graphic file (type png)
+<use testBallisticDep1_visit3D.png>
+Package pdftex.def Info: testBallisticDep1_visit3D.png  used on input line 1165
+.
+(pdftex.def)             Requested size: 375.80544pt x 158.17757pt.
+<testBallisticDep1_visit_slice_y50.png, id=2423, 1027.84pt x 522.95375pt>
+File: testBallisticDep1_visit_slice_y50.png Graphic file (type png)
+<use testBallisticDep1_visit_slice_y50.png>
+Package pdftex.def Info: testBallisticDep1_visit_slice_y50.png  used on input l
+ine 1173.
+(pdftex.def)             Requested size: 375.80544pt x 191.20769pt.
+ [31 <./testBallisticDep1_visit3D.png (PNG copy)> <./testBallisticDep1_visit_sl
+ice_y50.png (PNG copy)>]
+Overfull \hbox (68.86467pt too wide) in paragraph at lines 1212--1213
+[]\T1/ptm/m/n/10 we have a shared pointer to an \T1/cmtt/m/n/10 Int[]Array2D \T
+1/ptm/m/n/10 ob-ject, \T1/cmtt/m/n/10 active[]Zone[]Heights[]_[]\T1/ptm/m/n/10 
+. The con-struc-tor takes a []
+ []
+
+
+Overfull \hbox (72.05643pt too wide) in paragraph at lines 1279--1280
+[]\T1/ptm/m/n/10 Note that since \T1/cmtt/m/n/10 active[]Zone[]Heights[]_[] \T1
+/ptm/m/n/10 is an ex-ter-nal ar-ray, we use [] and []
+ []
+
+
+Overfull \hbox (43.05989pt too wide) in paragraph at lines 1279--1280
+\T1/ptm/m/n/10 ary con-di-tions. This was not nec-es-sary when $\OML/ztmcm/m/it
+/10 h[]\OT1/ztmcm/m/n/10 (\OML/ztmcm/m/it/10 i; j\OT1/ztmcm/m/n/10 )$ \T1/ptm/m
+/n/10 was stored in the first plane of the lat-tice and []
+ []
+
+[32]
+<FallingAndClimbingParticles.pdf, id=2470, 289.08pt x 126.4725pt>
+File: FallingAndClimbingParticles.pdf Graphic file (type pdf)
+<use FallingAndClimbingParticles.pdf>
+Package pdftex.def Info: FallingAndClimbingParticles.pdf  used on input line 12
+90.
+(pdftex.def)             Requested size: 247.7879pt x 108.405pt.
+<tiled16x16Domain_annotated.pdf, id=2471, 252.945pt x 252.945pt>
+File: tiled16x16Domain_annotated.pdf Graphic file (type pdf)
+<use tiled16x16Domain_annotated.pdf>
+Package pdftex.def Info: tiled16x16Domain_annotated.pdf  used on input line 130
+0.
+(pdftex.def)             Requested size: 216.81442pt x 216.81pt.
+ [33 <./FallingAndClimbingParticles.pdf>] [34 <./tiled16x16Domain_annotated.pdf
+>] [35] [36]
+<testPatSubSnapshots.pdf, id=2545, 361.35pt x 361.35pt>
+File: testPatSubSnapshots.pdf Graphic file (type pdf)
+<use testPatSubSnapshots.pdf>
+Package pdftex.def Info: testPatSubSnapshots.pdf  used on input line 1509.
+(pdftex.def)             Requested size: 361.34999pt x 361.35463pt.
+ [37 <./testPatSubSnapshots.pdf>]
+Overfull \hbox (31.34868pt too wide) in paragraph at lines 1571--1572
+\T1/ptm/m/n/10 When an in-stance of the \T1/cmtt/m/n/10 Hopping[]Propensity \T1
+/ptm/m/n/10 ob-ject is passed to [],
+ []
+
+[38]) [39] [40
+
+]
+Chapter 5.
+(./namespaceKMCThinFilm.tex
+Overfull \hbox (18.44008pt too wide) in paragraph at lines 50--52
+[]\T1/ptm/m/n/10 typedef boost[]::function$\OML/ztmcm/m/it/10 <$ \T1/ptm/m/n/10
+ void(const [] &, std[]::vector$\OML/ztmcm/m/it/10 <$ \T1/ptm/m/n/10 dou-ble $\
+OML/ztmcm/m/it/10 >$ \T1/ptm/m/n/10 &)$\OML/ztmcm/m/it/10 >$ [] 
+ []
+
+
+Overfull \hbox (3.03035pt too wide) in paragraph at lines 52--54
+[]\T1/ptm/m/n/10 typedef boost[]::function$\OML/ztmcm/m/it/10 <$ \T1/ptm/m/n/10
+ void(const [] &, const [] &, [] &)$\OML/ztmcm/m/it/10 >$ [] 
+ []
+
+
+Overfull \hbox (28.61952pt too wide) in paragraph at lines 54--56
+[]\T1/ptm/m/n/10 typedef boost[]::function$\OML/ztmcm/m/it/10 <$ \T1/ptm/m/n/10
+ void(const [] &, const [] &, const [] &, std[]::vector$\OML/ztmcm/m/it/10 <$ [
+]
+ []
+
+[41]
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <8> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 89.
+
+Overfull \hbox (47.98827pt too wide) in paragraph at lines 89--90
+\T1/cmtt/m/n/8 typedef boost[]::function$\OML/ztmcm/m/it/8 <$\T1/cmtt/m/n/8 voi
+d (const [] &, std[]::vector$\OML/ztmcm/m/it/8 <$\T1/cmtt/m/n/8 double$\OML/ztm
+cm/m/it/8 >$ \T1/cmtt/m/n/8 &)$\OML/ztmcm/m/it/8 >$ [] 
+ []
+
+
+Overfull \hbox (44.05437pt too wide) in paragraph at lines 95--96
+\T1/cmtt/m/n/8 typedef boost[]::function$\OML/ztmcm/m/it/8 <$\T1/cmtt/m/n/8 voi
+d (const [] &, const [] &, [] &)$\OML/ztmcm/m/it/8 >$ [] 
+ []
+
+
+Overfull \hbox (29.02547pt too wide) in paragraph at lines 103--104
+\T1/cmtt/m/n/8 typedef boost[]::function$\OML/ztmcm/m/it/8 <$\T1/cmtt/m/n/8 voi
+d (const [] &, const [] &, const [] &, std[]::vector$\OML/ztmcm/m/it/8 <$[]$>$
+ []
+
+[42]
+Underfull \hbox (badness 10000) detected at line 126
+[][][]
+ []
+
+
+Overfull \hbox (40.86858pt too wide) in paragraph at lines 127--127
+[][]\T1/ptm/m/n/10 , [], and []. 
+ []
+
+
+Overfull \hbox (37.20833pt too wide) in paragraph at lines 132--133
+\T1/cmtt/m/n/8 typedef boost[]::function$\OML/ztmcm/m/it/8 <$\T1/cmtt/m/n/8 voi
+d (const [] &, const [] &, std[]::vector$\OML/ztmcm/m/it/8 <$\T1/cmtt/m/n/8 int
+$\OML/ztmcm/m/it/8 >$ \T1/cmtt/m/n/8 & empty[]Int[]Vals, std[]::vector$\OML/ztm
+cm/m/it/8 <$\T1/cmtt/m/n/8 double$\OML/ztmcm/m/it/8 >$
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 149
+[][][]
+ []
+
+[43]
+Underfull \hbox (badness 10000) detected at line 168
+[][][]
+ []
+
+LaTeX Font Info:    Font shape `T1/cmtt/bx/n' in size <8> not available
+(Font)              Font shape `T1/cmtt/m/n' tried instead on input line 179.
+) (./namespaceKMCThinFilm_1_1SolverId.tex)
+(./namespaceKMCThinFilm_1_1TimeIncr.tex [44])
+(./namespaceKMCThinFilm_1_1TimeIncr_1_1SchemeName.tex
+Overfull \hbox (20.22295pt too wide) in paragraph at lines 6--10
+[]\T1/ptm/bc/n/10 enum [] { [] , [] , []
+ []
+
+) (./namespaceKMCThinFilm_1_1TimeIncr_1_1SchemeParam.tex [45]) [46]
+Chapter 6.
+(./classKMCThinFilm_1_1AddEmptyPlanes.tex) (./classKMCThinFilm_1_1CellInds.tex
+<classKMCThinFilm_1_1CellInds.pdf, id=2773, 501.875pt x 274.99739pt>
+File: classKMCThinFilm_1_1CellInds.pdf Graphic file (type pdf)
+<use classKMCThinFilm_1_1CellInds.pdf>
+Package pdftex.def Info: classKMCThinFilm_1_1CellInds.pdf  used on input line 1
+0.
+(pdftex.def)             Requested size: 103.84995pt x 56.9055pt.
+
+[47
+
+]
+Underfull \hbox (badness 10000) detected at line 27
+[][][]
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 31
+[][][]
+ []
+
+
+Overfull \hbox (23.4085pt too wide) in paragraph at lines 32--32
+[][]\T1/ptm/bc/n/10 , [], [],
+ []
+
+
+Overfull \hbox (23.96855pt too wide) in paragraph at lines 32--32
+[]\T1/ptm/bc/n/10 , [], [],
+ []
+
+
+Overfull \hbox (58.77895pt too wide) in paragraph at lines 32--32
+[]\T1/ptm/bc/n/10 , [], [],
+ []
+
+
+Overfull \hbox (149.91856pt too wide) in paragraph at lines 32--32
+[]\T1/ptm/bc/n/10 , [], [],
+ []
+
+
+Overfull \hbox (93.9291pt too wide) in paragraph at lines 32--32
+[]\T1/ptm/bc/n/10 , [], and []. 
+ []
+
+) (./classKMCThinFilm_1_1CellIndsOffset.tex
+<classKMCThinFilm_1_1CellIndsOffset.pdf, id=2803, 501.875pt x 223.05333pt>
+File: classKMCThinFilm_1_1CellIndsOffset.pdf Graphic file (type pdf)
+<use classKMCThinFilm_1_1CellIndsOffset.pdf>
+Package pdftex.def Info: classKMCThinFilm_1_1CellIndsOffset.pdf  used on input 
+line 10.
+(pdftex.def)             Requested size: 128.03386pt x 56.9055pt.
+ [48 <./classKMCThinFilm_1_1CellInds.pdf>]
+Underfull \hbox (badness 10000) detected at line 41
+[][][]
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 45
+[][][]
+ []
+
+
+Overfull \hbox (45.0779pt too wide) in paragraph at lines 46--46
+[][]\T1/ptm/bc/n/10 , [], [],
+ []
+
+
+Overfull \hbox (149.00482pt too wide) in paragraph at lines 46--46
+[]\T1/ptm/bc/n/10 , [], [], [],
+ []
+
+[49 <./classKMCThinFilm_1_1CellIndsOffset.pdf>])
+(./classKMCThinFilm_1_1CellNeighOffsets.tex
+Underfull \hbox (badness 10000) detected at line 28
+[][][]
+ []
+
+
+Overfull \hbox (45.0779pt too wide) in paragraph at lines 29--29
+[][]\T1/ptm/bc/n/10 , [], [],
+ []
+
+
+Overfull \hbox (149.00482pt too wide) in paragraph at lines 29--29
+[]\T1/ptm/bc/n/10 , [], [], [],
+ []
+
+[50]
+Underfull \hbox (badness 10000) detected at line 63
+[][][]
+ []
+
+
+Overfull \hbox (115.14494pt too wide) in paragraph at lines 64--64
+[][]\T1/ptm/bc/n/10 , [], [], [],
+ []
+
+
+Overfull \hbox (144.49722pt too wide) in paragraph at lines 64--64
+[]\T1/ptm/bc/n/10 , [], and []. 
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 85
+[][][]
+ []
+
+
+Overfull \hbox (77.56715pt too wide) in paragraph at lines 86--86
+[][]\T1/ptm/bc/n/10 , [], [],
+ []
+
+) (./classKMCThinFilm_1_1CellNeighProbe.tex [51]
+Underfull \hbox (badness 10000) detected at line 32
+[][][]
+ []
+
+
+Overfull \hbox (29.35901pt too wide) in paragraph at lines 33--33
+[][]\T1/ptm/bc/n/10 , [], [],
+ []
+
+
+Overfull \hbox (142.65802pt too wide) in paragraph at lines 33--33
+[]\T1/ptm/bc/n/10 , [], [],
+ []
+
+
+Overfull \hbox (111.32927pt too wide) in paragraph at lines 33--33
+[]\T1/ptm/bc/n/10 , [], [],
+ []
+
+[52]
+Underfull \hbox (badness 10000) detected at line 72
+[][][]
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 81
+[][][]
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 95
+[][][]
+ []
+
+
+Overfull \hbox (29.35901pt too wide) in paragraph at lines 96--96
+[][]\T1/ptm/bc/n/10 , [], [],
+ []
+
+
+Overfull \hbox (165.13841pt too wide) in paragraph at lines 96--96
+[]\T1/ptm/bc/n/10 , [], and []. 
+ []
+
+[53]
+Underfull \hbox (badness 10000) detected at line 104
+[][][]
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 113
+[][][]
+ []
+
+
+Overfull \hbox (29.35901pt too wide) in paragraph at lines 114--114
+[][]\T1/ptm/bc/n/10 , [], [],
+ []
+
+
+Overfull \hbox (165.13841pt too wide) in paragraph at lines 114--114
+[]\T1/ptm/bc/n/10 , [], and []. 
+ []
+
+) (./classKMCThinFilm_1_1CellsToChange.tex
+Overfull \hbox (154.2999pt too wide) in paragraph at lines 41--42
+[][] 
+ []
+
+
+Overfull \hbox (107.27933pt too wide) in paragraph at lines 42--43
+[][] 
+ []
+
+[54]
+Underfull \hbox (badness 10000) detected at line 46
+[][][]
+ []
+
+
+Overfull \hbox (130.73824pt too wide) in paragraph at lines 47--47
+[][]\T1/ptm/bc/n/10 , [], [],
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 61
+[][][]
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 65
+[][][]
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 87
+[][][]
+ []
+
+[55]
+Underfull \hbox (badness 10000) detected at line 102
+[][][]
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 106
+[][][]
+ []
+
+
+Overfull \hbox (165.13841pt too wide) in paragraph at lines 107--107
+[][]\T1/ptm/bc/n/10 , [], and []. 
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 115
+[][][]
+ []
+
+
+Overfull \hbox (130.73824pt too wide) in paragraph at lines 116--116
+[][]\T1/ptm/bc/n/10 , [], [],
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 127
+[][][]
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 131
+[][][]
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 143
+[][][]
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 147
+[][][]
+ []
+
+
+Overfull \hbox (130.73824pt too wide) in paragraph at lines 148--148
+[][]\T1/ptm/bc/n/10 , [], [],
+ []
+
+) (./classKMCThinFilm_1_1CellToProbe.tex [56]
+Underfull \hbox (badness 10000) detected at line 22
+[][][]
+ []
+
+
+Overfull \hbox (74.64879pt too wide) in paragraph at lines 23--23
+[][]\T1/ptm/bc/n/10 , [], [],
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 34
+[][][]
+ []
+
+) (./classKMCThinFilm_1_1EventExecutorGroup.tex
+Overfull \hbox (31.27104pt too wide) in paragraph at lines 14--16
+[]\T1/ptm/bc/n/10 void [] (int which[]Event, [] ev[]Exec, const std[]::vector$\
+OML/ztmcm/m/it/10 <$ []
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 32
+[][][]
+ []
+
+
+Overfull \hbox (115.14494pt too wide) in paragraph at lines 33--33
+[][]\T1/ptm/bc/n/10 , [], [], [],
+ []
+
+
+Overfull \hbox (144.49722pt too wide) in paragraph at lines 33--33
+[]\T1/ptm/bc/n/10 , [], and []. 
+ []
+
+[57]
+Underfull \hbox (badness 10000) detected at line 65
+[][][]
+ []
+
+
+Overfull \hbox (115.14494pt too wide) in paragraph at lines 66--66
+[][]\T1/ptm/bc/n/10 , [], [], [],
+ []
+
+
+Overfull \hbox (144.49722pt too wide) in paragraph at lines 66--66
+[]\T1/ptm/bc/n/10 , [], and []. 
+ []
+
+[58]) (./classKMCThinFilm_1_1Lattice.tex
+<classKMCThinFilm_1_1Lattice.pdf, id=3142, 501.875pt x 290.94696pt>
+File: classKMCThinFilm_1_1Lattice.pdf Graphic file (type pdf)
+<use classKMCThinFilm_1_1Lattice.pdf>
+Package pdftex.def Info: classKMCThinFilm_1_1Lattice.pdf  used on input line 10
+.
+(pdftex.def)             Requested size: 98.16005pt x 56.9055pt.
+ [59 <./classKMCThinFilm_1_1Lattice.pdf>]
+Underfull \hbox (badness 10000) detected at line 104
+[][][]
+ []
+
+
+Overfull \hbox (23.4085pt too wide) in paragraph at lines 105--105
+[][]\T1/ptm/bc/n/10 , [], [],
+ []
+
+
+Overfull \hbox (23.96855pt too wide) in paragraph at lines 105--105
+[]\T1/ptm/bc/n/10 , [], [],
+ []
+
+
+Overfull \hbox (58.77895pt too wide) in paragraph at lines 105--105
+[]\T1/ptm/bc/n/10 , [], [],
+ []
+
+
+Overfull \hbox (149.91856pt too wide) in paragraph at lines 105--105
+[]\T1/ptm/bc/n/10 , [], [],
+ []
+
+
+Overfull \hbox (43.84898pt too wide) in paragraph at lines 105--105
+[]\T1/ptm/bc/n/10 , [], [],
+ []
+
+[60]
+Underfull \hbox (badness 10000) detected at line 147
+[][][]
+ []
+
+[61]
+Underfull \hbox (badness 10000) detected at line 223
+[][][]
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 236
+[][][]
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 240
+[][][]
+ []
+
+[62]
+Underfull \hbox (badness 10000) detected at line 252
+[][][]
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 256
+[][][]
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 270
+[][][]
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 279
+[][][]
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 291
+[][][]
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 295
+[][][]
+ []
+
+
+Overfull \hbox (29.35901pt too wide) in paragraph at lines 296--296
+[][]\T1/ptm/bc/n/10 , [], [],
+ []
+
+
+Overfull \hbox (165.13841pt too wide) in paragraph at lines 296--296
+[]\T1/ptm/bc/n/10 , [], and []. 
+ []
+
+[63]
+Underfull \hbox (badness 10000) detected at line 337
+[][][]
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 348
+[][][]
+ []
+
+
+Overfull \hbox (29.35901pt too wide) in paragraph at lines 349--349
+[][]\T1/ptm/bc/n/10 , [], [],
+ []
+
+
+Overfull \hbox (115.0583pt too wide) in paragraph at lines 349--349
+[]\T1/ptm/bc/n/10 , [], [],
+ []
+
+[64]
+Underfull \hbox (badness 10000) detected at line 408
+[][][]
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 428
+[][][]
+ []
+
+[65]
+Underfull \hbox (badness 10000) detected at line 491
+[][][]
+ []
+
+[66]
+LaTeX Font Info:    Calculating math sizes for size <7.4> on input line 524.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <5.47603> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 524.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <4.44003> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 524.
+
+
+LaTeX Font Warning: Font shape `OT1/cmtt/m/n' in size <5.47603> not available
+(Font)              size <5> substituted on input line 524.
+
+
+LaTeX Font Warning: Font shape `OT1/cmtt/m/n' in size <4.44003> not available
+(Font)              size <5> substituted on input line 524.
+
+
+Underfull \hbox (badness 10000) detected at line 530
+[][][]
+ []
+
+[67]
+Overfull \hbox (21.48094pt too wide) in paragraph at lines 562--563
+\T1/ptm/bc/n/10 re-spond, but only up-dates the cells that are sup-posed to hav
+e ac-tu-ally changed. Pro-ces-sors use []
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 577
+[][][]
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 581
+[][][]
+ []
+
+[68]
+Underfull \hbox (badness 10000) detected at line 593
+[][][]
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 597
+[][][]
+ []
+
+
+Overfull \hbox (47.41922pt too wide) in paragraph at lines 598--598
+[][]\T1/ptm/bc/n/10 , [], [],
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 610
+[][][]
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 623
+[][][]
+ []
+
+) (./structKMCThinFilm_1_1LatticeParams.tex [69]
+Underfull \hbox (badness 10000) detected at line 41
+[][][]
+ []
+
+
+Overfull \hbox (115.14494pt too wide) in paragraph at lines 42--42
+[][]\T1/ptm/bc/n/10 , [], [], [],
+ []
+
+
+Overfull \hbox (144.49722pt too wide) in paragraph at lines 42--42
+[]\T1/ptm/bc/n/10 , [], and []. 
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 72
+[][][]
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 81
+[][][]
+ []
+
+
+Overfull \hbox (115.14494pt too wide) in paragraph at lines 82--82
+[][]\T1/ptm/bc/n/10 , [], [], [],
+ []
+
+
+Overfull \hbox (144.49722pt too wide) in paragraph at lines 82--82
+[]\T1/ptm/bc/n/10 , [], and []. 
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 90
+[][][]
+ []
+
+[70]
+Underfull \hbox (badness 10000) detected at line 111
+[][][]
+ []
+
+
+Overfull \hbox (58.17696pt too wide) in paragraph at lines 112--112
+[][]\T1/ptm/bc/n/10 , [], [],
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 120
+[][][]
+ []
+
+
+Overfull \hbox (115.14494pt too wide) in paragraph at lines 121--121
+[][]\T1/ptm/bc/n/10 , [], [], [],
+ []
+
+
+Overfull \hbox (144.49722pt too wide) in paragraph at lines 121--121
+[]\T1/ptm/bc/n/10 , [], and []. 
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 129
+[][][]
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 138
+[][][]
+ []
+
+[71]
+Underfull \hbox (badness 10000) detected at line 147
+[][][]
+ []
+
+) (./structKMCThinFilm_1_1LatticePlanarBBox.tex
+Underfull \hbox (badness 10000) detected at line 22
+[][][]
+ []
+
+
+Overfull \hbox (57.14864pt too wide) in paragraph at lines 23--23
+[][]\T1/ptm/bc/n/10 , [], [],
+ []
+
+
+Overfull \hbox (73.93777pt too wide) in paragraph at lines 23--23
+[]\T1/ptm/bc/n/10 , [], [],
+ []
+
+
+Overfull \hbox (93.36903pt too wide) in paragraph at lines 23--23
+[]\T1/ptm/bc/n/10 , [], and []. 
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 34
+[][][]
+ []
+
+
+Overfull \hbox (29.35901pt too wide) in paragraph at lines 35--35
+[][]\T1/ptm/bc/n/10 , [], [],
+ []
+
+
+Overfull \hbox (115.0583pt too wide) in paragraph at lines 35--35
+[]\T1/ptm/bc/n/10 , [], [],
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 43
+[][][]
+ []
+
+
+Overfull \hbox (29.35901pt too wide) in paragraph at lines 44--44
+[][]\T1/ptm/bc/n/10 , [], [],
+ []
+
+
+Overfull \hbox (115.0583pt too wide) in paragraph at lines 44--44
+[]\T1/ptm/bc/n/10 , [], [],
+ []
+
+[72]
+Underfull \hbox (badness 10000) detected at line 52
+[][][]
+ []
+
+
+Overfull \hbox (29.35901pt too wide) in paragraph at lines 53--53
+[][]\T1/ptm/bc/n/10 , [], [],
+ []
+
+
+Overfull \hbox (115.0583pt too wide) in paragraph at lines 53--53
+[]\T1/ptm/bc/n/10 , [], [],
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 61
+[][][]
+ []
+
+
+Overfull \hbox (29.35901pt too wide) in paragraph at lines 62--62
+[][]\T1/ptm/bc/n/10 , [], [],
+ []
+
+
+Overfull \hbox (115.0583pt too wide) in paragraph at lines 62--62
+[]\T1/ptm/bc/n/10 , [], [],
+ []
+
+) (./classKMCThinFilm_1_1RandNumGen.tex
+<classKMCThinFilm_1_1RandNumGen.pdf, id=3534, 501.875pt x 54.62407pt>
+File: classKMCThinFilm_1_1RandNumGen.pdf Graphic file (type pdf)
+<use classKMCThinFilm_1_1RandNumGen.pdf>
+Package pdftex.def Info: classKMCThinFilm_1_1RandNumGen.pdf  used on input line
+ 10.
+(pdftex.def)             Requested size: 398.36842pt x 43.35641pt.
+ [73 <./classKMCThinFilm_1_1RandNumGen.pdf>]
+Overfull \hbox (111.94939pt too wide) in paragraph at lines 36--37
+[]\T1/ptm/bc/n/10 Implemented in [], [], and []. 
+ []
+
+) (./classKMCThinFilm_1_1RandNumGenDCMT.tex
+<classKMCThinFilm_1_1RandNumGenDCMT.pdf, id=3550, 501.875pt x 187.62094pt>
+File: classKMCThinFilm_1_1RandNumGenDCMT.pdf Graphic file (type pdf)
+<use classKMCThinFilm_1_1RandNumGenDCMT.pdf>
+Package pdftex.def Info: classKMCThinFilm_1_1RandNumGenDCMT.pdf  used on input 
+line 10.
+(pdftex.def)             Requested size: 152.21777pt x 56.9055pt.
+
+Overfull \hbox (9.36032pt too wide) in paragraph at lines 47--48
+\T1/ptm/bc/n/10 Wrapper class for the par-al-lel pseu-do-ran-dom num-ber gen-er
+-a-tor li-brary DCMT[]: "[]Dynamic Cre-ator of Mersenne Twisters." 
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 50
+[][][]
+ []
+
+[74 <./classKMCThinFilm_1_1RandNumGenDCMT.pdf>])
+(./classKMCThinFilm_1_1RandNumGenMT19937.tex
+<classKMCThinFilm_1_1RandNumGenMT19937.pdf, id=3579, 501.875pt x 173.80936pt>
+File: classKMCThinFilm_1_1RandNumGenMT19937.pdf Graphic file (type pdf)
+<use classKMCThinFilm_1_1RandNumGenMT19937.pdf>
+Package pdftex.def Info: classKMCThinFilm_1_1RandNumGenMT19937.pdf  used on inp
+ut line 10.
+(pdftex.def)             Requested size: 164.30974pt x 56.9055pt.
+
+Underfull \hbox (badness 10000) detected at line 26
+[][][]
+ []
+
+
+Overfull \hbox (115.14494pt too wide) in paragraph at lines 27--27
+[][]\T1/ptm/bc/n/10 , [], [], [],
+ []
+
+
+Overfull \hbox (144.49722pt too wide) in paragraph at lines 27--27
+[]\T1/ptm/bc/n/10 , [], and []. 
+ []
+
+[75 <./classKMCThinFilm_1_1RandNumGenMT19937.pdf>])
+(./classKMCThinFilm_1_1RandNumGenRngStreams.tex
+<classKMCThinFilm_1_1RandNumGenRngStreams.pdf, id=3602, 501.875pt x 163.88226pt
+>
+File: classKMCThinFilm_1_1RandNumGenRngStreams.pdf Graphic file (type pdf)
+<use classKMCThinFilm_1_1RandNumGenRngStreams.pdf>
+Package pdftex.def Info: classKMCThinFilm_1_1RandNumGenRngStreams.pdf  used on 
+input line 10.
+(pdftex.def)             Requested size: 174.26512pt x 56.9055pt.
+ [76 <./classKMCThinFilm_1_1RandNumGenRngStreams.pdf>]) (./classKMCThinFilm_1_1
+TimeIncr_1_1SchemeVars.tex
+Underfull \hbox (badness 10000) detected at line 28
+[][][]
+ []
+
+[77]
+Underfull \hbox (badness 10000) detected at line 87
+[][][]
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 103
+[][][]
+ []
+
+[78]) (./classKMCThinFilm_1_1Simulation.tex
+<classKMCThinFilm_1_1Simulation.pdf, id=3659, 501.875pt x 254.10936pt>
+File: classKMCThinFilm_1_1Simulation.pdf Graphic file (type pdf)
+<use classKMCThinFilm_1_1Simulation.pdf>
+Package pdftex.def Info: classKMCThinFilm_1_1Simulation.pdf  used on input line
+ 10.
+(pdftex.def)             Requested size: 112.3886pt x 56.9055pt.
+
+Overfull \hbox (16.61055pt too wide) in paragraph at lines 18--20
+[]\T1/ptm/bc/n/10 void [] (int event[]Group[]Id, const [] &cno, []
+ []
+
+
+Overfull \hbox (2.69186pt too wide) in paragraph at lines 20--22
+[]\T1/ptm/bc/n/10 void [] (int event[]Id, dou-ble propensity[]Per[]Unit[]Area, 
+[] event[]Executor) 
+ []
+
+
+Overfull \hbox (2.29382pt too wide) in paragraph at lines 22--24
+[]\T1/ptm/bc/n/10 void [] (int event[]Id, dou-ble propensity[]Per[]Unit[]Area, 
+[] event[]
+ []
+
+
+Overfull \hbox (30.49043pt too wide) in paragraph at lines 28--30
+[]\T1/ptm/bc/n/10 void [] (int event[]Group[]Id, const [] &cno, []
+ []
+
+[79 <./classKMCThinFilm_1_1Simulation.pdf>] [80]
+Underfull \hbox (badness 10000) detected at line 149
+[][][]
+ []
+
+
+Overfull \hbox (115.14494pt too wide) in paragraph at lines 150--150
+[][]\T1/ptm/bc/n/10 , [], [], [],
+ []
+
+
+Overfull \hbox (144.49722pt too wide) in paragraph at lines 150--150
+[]\T1/ptm/bc/n/10 , [], and []. 
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 186
+[][][]
+ []
+
+
+Overfull \hbox (115.14494pt too wide) in paragraph at lines 187--187
+[][]\T1/ptm/bc/n/10 , [], [], [],
+ []
+
+
+Overfull \hbox (144.49722pt too wide) in paragraph at lines 187--187
+[]\T1/ptm/bc/n/10 , [], and []. 
+ []
+
+[81]
+Underfull \hbox (badness 10000) detected at line 198
+[][][]
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 211
+[][][]
+ []
+
+
+Overfull \hbox (115.14494pt too wide) in paragraph at lines 212--212
+[][]\T1/ptm/bc/n/10 , [], [], [],
+ []
+
+
+Overfull \hbox (144.49722pt too wide) in paragraph at lines 212--212
+[]\T1/ptm/bc/n/10 , [], and []. 
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 223
+[][][]
+ []
+
+[82]
+Underfull \hbox (badness 10000) detected at line 276
+[][][]
+ []
+
+
+Overfull \hbox (115.14494pt too wide) in paragraph at lines 277--277
+[][]\T1/ptm/bc/n/10 , [], [], [],
+ []
+
+
+Overfull \hbox (144.49722pt too wide) in paragraph at lines 277--277
+[]\T1/ptm/bc/n/10 , [], and []. 
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 286
+[][][]
+ []
+
+[83]
+Underfull \hbox (badness 10000) detected at line 308
+[][][]
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 328
+[][][]
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 350
+[][][]
+ []
+
+[84]
+Underfull \hbox (badness 10000) detected at line 372
+[][][]
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 396
+[][][]
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 407
+[][][]
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 411
+[][][]
+ []
+
+[85]
+Underfull \hbox (badness 10000) detected at line 421
+[][][]
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 432
+[][][]
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 441
+[][][]
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 451
+[][][]
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 469
+[][][]
+ []
+
+[86]
+Underfull \hbox (badness 10000) detected at line 487
+[][][]
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 498
+[][][]
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 509
+[][][]
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 520
+[][][]
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 524
+[][][]
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 534
+[][][]
+ []
+
+[87]
+Underfull \hbox (badness 10000) detected at line 545
+[][][]
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 561
+[][][]
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 570
+[][][]
+ []
+
+
+Overfull \hbox (185.12524pt too wide) in paragraph at lines 571--571
+[][]\T1/ptm/bc/n/10 , [], [], [],
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 580
+[][][]
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 591
+[][][]
+ []
+
+[88]
+Overfull \hbox (10.17084pt too wide) in paragraph at lines 607--607
+[]\T1/ptm/bc/n/10 Should be called be-fore a call to [], and the num-ber of cal
+ls to []
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 608
+[][][]
+ []
+
+
+Overfull \hbox (115.14494pt too wide) in paragraph at lines 609--609
+[][]\T1/ptm/bc/n/10 , [], [], [],
+ []
+
+
+Overfull \hbox (144.49722pt too wide) in paragraph at lines 609--609
+[]\T1/ptm/bc/n/10 , [], and []. 
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 619
+[][][]
+ []
+
+
+Overfull \hbox (115.14494pt too wide) in paragraph at lines 620--620
+[][]\T1/ptm/bc/n/10 , [], [], [],
+ []
+
+
+Overfull \hbox (144.49722pt too wide) in paragraph at lines 620--620
+[]\T1/ptm/bc/n/10 , [], and []. 
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 638
+[][][]
+ []
+
+
+Overfull \hbox (115.14494pt too wide) in paragraph at lines 639--639
+[][]\T1/ptm/bc/n/10 , [], [], [],
+ []
+
+
+Overfull \hbox (144.49722pt too wide) in paragraph at lines 639--639
+[]\T1/ptm/bc/n/10 , [], and []. 
+ []
+
+[89]
+Underfull \hbox (badness 10000) detected at line 652
+[][][]
+ []
+
+
+Overfull \hbox (115.14494pt too wide) in paragraph at lines 653--653
+[][]\T1/ptm/bc/n/10 , [], [], [],
+ []
+
+
+Overfull \hbox (144.49722pt too wide) in paragraph at lines 653--653
+[]\T1/ptm/bc/n/10 , [], and []. 
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 663
+[][][]
+ []
+
+
+Overfull \hbox (115.14494pt too wide) in paragraph at lines 664--664
+[][]\T1/ptm/bc/n/10 , [], [], [],
+ []
+
+
+Overfull \hbox (144.49722pt too wide) in paragraph at lines 664--664
+[]\T1/ptm/bc/n/10 , [], and []. 
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 672
+[][][]
+ []
+
+
+Overfull \hbox (115.14494pt too wide) in paragraph at lines 673--673
+[][]\T1/ptm/bc/n/10 , [], [], [],
+ []
+
+
+Overfull \hbox (144.49722pt too wide) in paragraph at lines 673--673
+[]\T1/ptm/bc/n/10 , [], and []. 
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 683
+[][][]
+ []
+
+) (./classKMCThinFilm_1_1SimulationState.tex [90]
+Overfull \hbox (68.79927pt too wide) in paragraph at lines 31--32
+[]\T1/ptm/bc/n/10 This data struc-ture pro-vides an in-ter-face to func-tion ob
+-jects with the KMCThin[]Film[]::[]Event[]Executor and []
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 33
+[][][]
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 37
+[][][]
+ []
+
+
+Overfull \hbox (57.14864pt too wide) in paragraph at lines 38--38
+[][]\T1/ptm/bc/n/10 , [], [],
+ []
+
+
+Overfull \hbox (3.24956pt too wide) in paragraph at lines 38--38
+[]\T1/ptm/bc/n/10 , [], [],
+ []
+
+
+Overfull \hbox (0.79962pt too wide) in paragraph at lines 38--38
+[]\T1/ptm/bc/n/10 , [],
+ []
+
+
+Overfull \hbox (111.32927pt too wide) in paragraph at lines 38--38
+[]\T1/ptm/bc/n/10 , [], [],
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 49
+[][][]
+ []
+
+
+Overfull \hbox (103.50867pt too wide) in paragraph at lines 50--50
+[][]\T1/ptm/bc/n/10 , [], [],
+ []
+
+[91]) [92]
+Chapter 7.
+(./CellCenteredGroupPropensities_8hpp.tex
+Underfull \hbox (badness 10000) in paragraph at lines 8--11
+
+ []
+
+
+Overfull \hbox (84.56914pt too wide) in paragraph at lines 19--20
+[]\T1/ptm/bc/n/10 typedef boost[]::function$\OML/ztmcm/m/it/10 <$ \T1/ptm/bc/n/
+10 void(const [] &, std[]::vector$\OML/ztmcm/m/it/10 <$ \T1/ptm/bc/n/10 dou-ble
+ $\OML/ztmcm/m/it/10 >$ \T1/ptm/bc/n/10 &)$\OML/ztmcm/m/it/10 >$ [] 
+ []
+
+) (./CellCenteredGroupPropensities_8hpp_source.tex) (./CellInds_8hpp.tex
+Underfull \hbox (badness 10000) in paragraph at lines 8--9
+
+ []
+
+[93
+
+]) (./CellInds_8hpp_source.tex [94]) (./CellNeighOffsets_8hpp.tex
+Underfull \hbox (badness 10000) in paragraph at lines 8--10
+
+ []
+
+) (./CellNeighOffsets_8hpp_source.tex) (./CellNeighProbe_8hpp.tex [95]
+Underfull \hbox (badness 10000) in paragraph at lines 8--11
+
+ []
+
+) (./CellNeighProbe_8hpp_source.tex [96]) (./CellsToChange_8hpp_source.tex)
+(./ErrorHandling_8hpp.tex
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [97]
+Underfull \hbox (badness 10000) in paragraph at lines 8--9
+
+ []
+
+) (./ErrorHandling_8hpp_source.tex) (./EventExecutor_8hpp.tex
+Underfull \hbox (badness 10000) in paragraph at lines 8--14
+
+ []
+
+[98]
+Overfull \hbox (69.15941pt too wide) in paragraph at lines 22--24
+[]\T1/ptm/bc/n/10 typedef boost[]::function$\OML/ztmcm/m/it/10 <$ \T1/ptm/bc/n/
+10 void(const [] &, const [] &, [] &)$\OML/ztmcm/m/it/10 >$ [] 
+ []
+
+
+Overfull \hbox (28.61952pt too wide) in paragraph at lines 24--25
+[]\T1/ptm/bc/n/10 typedef boost[]::function$\OML/ztmcm/m/it/10 <$ \T1/ptm/bc/n/
+10 void(const [] &, const [] &, const [] &, std[]::vector$\OML/ztmcm/m/it/10 <$
+ []
+ []
+
+) (./EventExecutor_8hpp_source.tex) (./EventExecutorGroup_8hpp.tex
+Underfull \hbox (badness 10000) in paragraph at lines 8--13
+
+ []
+
+[99]) (./EventExecutorGroup_8hpp_source.tex) (./IdsOfSolvers_8hpp.tex
+Underfull \vbox (badness 7888) has occurred while \output is active []
+
+ [100]
+Overfull \hbox (96.26993pt too wide) in paragraph at lines 18--21
+[]\T1/ptm/bc/n/10 enum [] { [] , []
+ []
+
+) (./IdsOfSolvers_8hpp_source.tex) (./Lattice_8hpp.tex
+Underfull \hbox (badness 10000) in paragraph at lines 8--18
+
+ []
+
+[101]) (./Lattice_8hpp_source.tex [102]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [103]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [104])
+(./MakeEnum_8hpp.tex
+Overfull \hbox (7.35207pt too wide) in paragraph at lines 55--56
+\T1/ptm/bc/n/10 Cell[]Centered[]Events[]::[]HOP[]_[][]LEFT, and My[]Cell[]Cente
+red[]Events[]::[]HOP[]_[][]RIGHT and also de-fines My[]Cell[]Centered[]Events[]
+
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 59
+[][][]
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 63
+[][][]
+ []
+
+
+Overfull \hbox (31.03918pt too wide) in paragraph at lines 64--64
+[][]\T1/ptm/bc/n/10 , [], [],
+ []
+
+
+Overfull \hbox (166.81859pt too wide) in paragraph at lines 64--64
+[]\T1/ptm/bc/n/10 , [], and []. 
+ []
+
+[105]
+Underfull \hbox (badness 10000) detected at line 92
+[][][]
+ []
+
+
+Overfull \hbox (76.32896pt too wide) in paragraph at lines 93--93
+[][]\T1/ptm/bc/n/10 , [], [],
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 121
+[][][]
+ []
+
+
+Overfull \hbox (31.03918pt too wide) in paragraph at lines 122--122
+[][]\T1/ptm/bc/n/10 , [], [],
+ []
+
+
+Overfull \hbox (166.81859pt too wide) in paragraph at lines 122--122
+[]\T1/ptm/bc/n/10 , [], and []. 
+ []
+
+[106]
+Underfull \hbox (badness 10000) detected at line 152
+[][][]
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 156
+[][][]
+ []
+
+
+Overfull \hbox (31.03918pt too wide) in paragraph at lines 157--157
+[][]\T1/ptm/bc/n/10 , [], [],
+ []
+
+
+Overfull \hbox (166.81859pt too wide) in paragraph at lines 157--157
+[]\T1/ptm/bc/n/10 , [], and []. 
+ []
+
+) (./MakeEnum_8hpp_source.tex) (./PeriodicAction_8hpp.tex
+Underfull \hbox (badness 10000) in paragraph at lines 8--11
+
+ []
+
+) (./PeriodicAction_8hpp_source.tex [107]) (./RandNumGen_8hpp.tex
+Underfull \hbox (badness 10000) in paragraph at lines 8--9
+
+ []
+
+) (./RandNumGen_8hpp_source.tex [108]) (./RandNumGenDCMT_8hpp.tex
+Underfull \hbox (badness 10000) in paragraph at lines 8--10
+
+ []
+
+) (./RandNumGenDCMT_8hpp_source.tex [109]) (./RandNumGenMT19937_8hpp.tex
+Underfull \hbox (badness 10000) in paragraph at lines 8--11
+
+ []
+
+) (./RandNumGenMT19937_8hpp_source.tex) (./RandNumGenRngStreams_8hpp.tex
+[110]
+Underfull \hbox (badness 10000) in paragraph at lines 8--12
+
+ []
+
+) (./RandNumGenRngStreams_8hpp_source.tex) (./Simulation_8hpp.tex [111]
+Underfull \hbox (badness 10000) in paragraph at lines 8--19
+
+ []
+
+) (./Simulation_8hpp_source.tex [112]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [113])
+(./SimulationState_8hpp.tex
+Underfull \hbox (badness 10000) in paragraph at lines 8--9
+
+ []
+
+) (./SimulationState_8hpp_source.tex [114]) (./TimeIncrSchemeVars_8hpp.tex
+Underfull \hbox (badness 10000) in paragraph at lines 8--10
+
+ []
+
+
+Overfull \hbox (150.66905pt too wide) in paragraph at lines 29--34
+[]\T1/ptm/bc/n/10 enum [] { []
+ []
+
+
+Overfull \hbox (101.48927pt too wide) in paragraph at lines 29--34
+\T1/ptm/bc/n/10 , [] , []
+ []
+
+
+Overfull \hbox (217.83731pt too wide) in paragraph at lines 34--38
+[]\T1/ptm/bc/n/10 enum [] { [] , []
+ []
+
+) (./TimeIncrSchemeVars_8hpp_source.tex [115]) [116]
+Chapter 8.
+(./testFractal_2testFractal_8cpp-example.tex
+Underfull \vbox (badness 2809) has occurred while \output is active []
+
+ [117
+
+])
+(./testFractal_2EventsAndActions_8hpp-example.tex [118])
+(./testFractal_2EventsAndActions_8cpp-example.tex [119])
+(./testFractal_semi_manual_track_2testFractal_8cpp-example.tex
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [120]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [121])
+(./testFractal_semi_manual_track_2EventsAndActions_8hpp-example.tex [122])
+(./testFractal_semi_manual_track_2EventsAndActions_8cpp-example.tex [123])
+(./testFractal_parallel_2testFractal_8cpp-example.tex
+Overfull \hbox (42.15862pt too wide) in paragraph at lines 4--5
+[]\T1/ptm/bc/n/10 This ex-am-ple is dis-cussed in de-tail in the sec-tion ``[].
+'' 
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [124]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [125])
+(./testBallisticDep1_2testBallisticDep_8cpp-example.tex
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [126])
+(./testBallisticDep1_2EventsAndActions_8hpp-example.tex
+Underfull \vbox (badness 2744) has occurred while \output is active []
+
+ [127])
+(./testBallisticDep1_2EventsAndActions_8cpp-example.tex [128]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [129]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [130])
+(./testBallisticDep1_2InitLattice_8hpp-example.tex)
+(./testBallisticDep1_2InitLattice_8cpp-example.tex)
+(./testBallisticDep2_2testBallisticDep_8cpp-example.tex [131])
+(./testBallisticDep2_2EventsAndActions_8hpp-example.tex
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [132]
+[133]) (./testBallisticDep2_2EventsAndActions_8cpp-example.tex [134]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [135])
+(./testPatternedSurface1_2testPatternedSurface_8cpp-example.tex
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [136]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [137])
+(./testPatternedSurface1_2EventsAndActions_8hpp-example.tex [138])
+(./testPatternedSurface1_2EventsAndActions_8cpp-example.tex
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [139])
+(./testPatternedSurface1_2InitLattice_8hpp-example.tex [140])
+(./testPatternedSurface1_2InitLattice_8cpp-example.tex)
+(./testPatternedSurface1_2PhysicalConstants_8hpp-example.tex
+Underfull \vbox (badness 4492) has occurred while \output is active []
+
+ [141])
+(./testPatternedSurface2_2testPatternedSurface_8cpp-example.tex [142])
+(./testPatternedSurface2_2EventsAndActions_8hpp-example.tex
+Underfull \vbox (badness 6876) has occurred while \output is active []
+
+ [143])
+(./testPatternedSurface2_2EventsAndActions_8cpp-example.tex
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [144]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [145])
+[146] (./refman.bbl (./refman.brf)
+\tf@brf=\write7
+\openout7 = `refman.brf'.
+
+) [147
+
+] [148
+
+] (./refman.ind [149
+
+
+] [150]
+[151]
+Overfull \hbox (8.18155pt too wide) in paragraph at lines 361--362
+[]| \T1/ptm/bc/n/10 MAX_AVG_PROPENSITY_PER_POSS_EVENT, [][]45[][] 
+ []
+
+
+Overfull \hbox (1.69153pt too wide) in paragraph at lines 393--394
+[]| \T1/ptm/bc/n/10 KMC_MAKE_LATTICE_FLOATVAL_ENUM, [][]105[][] 
+ []
+
+[152] [153]) (./refman.aux)
+
+LaTeX Font Warning: Size substitutions with differences
+(Font)              up to 0.55997pt have occurred.
+
+
+LaTeX Font Warning: Some font shapes were not available, defaults substituted.
+
+Package rerunfilecheck Info: File `refman.out' has not changed.
+(rerunfilecheck)             Checksum: 4E34B0E6865A5DB6A4727E8C0D19B619;64864.
+Package rerunfilecheck Info: File `refman.brf' has not changed.
+(rerunfilecheck)             Checksum: 646657182EFB879D64AFBA390DA72D2D;674.
+ ) 
+Here is how much of TeX's memory you used:
+ 18921 strings out of 476025
+ 331629 string characters out of 5791997
+ 1878388 words of memory out of 5000000
+ 37890 multiletter control sequences out of 15000+600000
+ 593840 words of font info for 165 fonts, out of 8000000 for 9000
+ 1141 hyphenation exceptions out of 8191
+ 90i,17n,97p,2071b,726s stack positions out of 10000i,1000n,20000p,200000b,200000s
+</opt/local/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmex10.pfb></o
+pt/local/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmmi10.pfb></opt/lo
+cal/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr10.pfb></opt/local/sh
+are/texmf-texlive/fonts/type1/public/amsfonts/cm/cmsy10.pfb></opt/local/share/t
+exmf-texlive/fonts/type1/public/amsfonts/cm/cmtt10.pfb></opt/local/share/texmf-
+texlive/fonts/type1/public/cm-super/sfit0800.pfb></opt/local/share/texmf-texliv
+e/fonts/type1/public/cm-super/sftt0800.pfb></opt/local/share/texmf-texlive/font
+s/type1/public/cm-super/sftt1000.pfb></opt/local/share/texmf-texlive/fonts/type
+1/urw/symbol/usyr.pfb></opt/local/share/texmf-texlive/fonts/type1/urw/times/utm
+b8a.pfb></opt/local/share/texmf-texlive/fonts/type1/urw/times/utmr8a.pfb></opt/
+local/share/texmf-texlive/fonts/type1/urw/times/utmri8a.pfb>
+Output written on refman.pdf (161 pages, 1245239 bytes).
+PDF statistics:
+ 6239 PDF objects out of 7423 (max. 8388607)
+ 5929 compressed objects within 60 object streams
+ 918 named destinations out of 1000 (max. 500000)
+ 2861 words of extra memory for PDF output out of 10000 (max. 10000000)
+

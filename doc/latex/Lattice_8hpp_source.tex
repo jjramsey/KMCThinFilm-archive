@@ -1,0 +1,222 @@
+\doxysection{Lattice.\+hpp}
+\hypertarget{Lattice_8hpp_source}{}\label{Lattice_8hpp_source}\index{Lattice.hpp@{Lattice.hpp}}
+\mbox{\hyperlink{Lattice_8hpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ LATTICE\_HPP}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ LATTICE\_HPP}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}KMC\_Config.hpp"{}}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <deque>}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <set>}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#if\ KMC\_PARALLEL}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <mpi.h>}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <boost/array.hpp>}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ <boost/function.hpp>}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ <boost/noncopyable.hpp>}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ <boost/scoped\_ptr.hpp>}}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{CellInds_8hpp}{CellInds.hpp}}"{}}}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ \textcolor{comment}{//\ Note:\ This\ header\ file\ is\ documented\ via\ Doxygen}}
+\DoxyCodeLine{00022\ \textcolor{comment}{//\ <http://www.doxygen.org>.\ Comments\ for\ Doxygen\ begin\ with\ '/*!'\ or}}
+\DoxyCodeLine{00023\ \textcolor{comment}{//\ '//!',\ and\ descriptions\ of\ functions,\ class\ and\ member\ functions}}
+\DoxyCodeLine{00024\ \textcolor{comment}{//\ occur\ *before*\ their\ corresponding\ class\ declarations\ and\ function}}
+\DoxyCodeLine{00025\ \textcolor{comment}{//\ prototypes.}}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespaceKMCThinFilm}{KMCThinFilm}}\ \{}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{classKMCThinFilm_1_1Lattice}{Lattice}};\ \textcolor{comment}{//\ Need\ to\ forward\ declare\ this\ for\ the\ sake\ of\ the}}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ following\ typedefs.}}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00045\ \ \ \textcolor{keyword}{typedef}\ boost::function<void\ (\textcolor{keyword}{const}\ \mbox{\hyperlink{classKMCThinFilm_1_1CellInds}{CellInds}}\ \&,}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classKMCThinFilm_1_1Lattice}{Lattice}}\ \&,}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::vector<int>\ \&\ emptyIntVals,}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::vector<double>\ \&\ emptyFloatVals)>\ \mbox{\hyperlink{namespaceKMCThinFilm_a92970705c2d791c5497beb06d88c8fa3}{SetEmptyCellVals}};}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00051\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structKMCThinFilm_1_1LatticePlanarBBox}{LatticePlanarBBox}}\ \{}
+\DoxyCodeLine{00052\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structKMCThinFilm_1_1LatticePlanarBBox_a9de43623938e1ceb68c26feafd4cd009}{imin}}\ ,}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \mbox{\hyperlink{structKMCThinFilm_1_1LatticePlanarBBox_a8bc6629f20496b2845d66f924a04f35a}{imaxP1}}\ ,}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \mbox{\hyperlink{structKMCThinFilm_1_1LatticePlanarBBox_aa227140b560487687496bdbaef79d85e}{jmin}}\ ,}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \mbox{\hyperlink{structKMCThinFilm_1_1LatticePlanarBBox_abedcda2c34e2bdfe0404e22838ed33dd}{jmaxP1}}\ ;}
+\DoxyCodeLine{00056\ \ \ \};}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00060\ \ \ \textcolor{keyword}{typedef}\ boost::function<void\ (\mbox{\hyperlink{classKMCThinFilm_1_1Lattice}{Lattice}}\ \&\ lattice)>\ \mbox{\hyperlink{namespaceKMCThinFilm_a716044de50c29c8bb9118f8dbeb3d4bf}{LatticeInitializer}};}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00064\ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{classKMCThinFilm_1_1AddEmptyPlanes_a5293f24696be7f5709ba893f1a50d023}{AddEmptyPlanes}}\ \{}
+\DoxyCodeLine{00065\ \ \ \textcolor{keyword}{public}:\ \ \ \ }
+\DoxyCodeLine{00067\ \ \ \ \ \mbox{\hyperlink{classKMCThinFilm_1_1AddEmptyPlanes_a5293f24696be7f5709ba893f1a50d023}{AddEmptyPlanes}}(\textcolor{keywordtype}{int}\ numPlanesToAdd);}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00070\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classKMCThinFilm_1_1AddEmptyPlanes_a452a8637e1c9480c26cda51093d251e5}{operator()}}(\mbox{\hyperlink{classKMCThinFilm_1_1Lattice}{Lattice}}\ \&\ lattice)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00071\ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00072\ \ \ \ \ \textcolor{keywordtype}{int}\ numPlanesToAdd\_;}
+\DoxyCodeLine{00073\ \ \ \};}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00076\ \ \ \textcolor{keyword}{struct\ }LatticeParams\ \{}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00079\ \ \ \ \ \textcolor{keyword}{enum}\ \mbox{\hyperlink{structKMCThinFilm_1_1LatticeParams_ad3f37769b5b30a8f3e941743271def8a}{ParallelDecomp}}\ \{}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \mbox{\hyperlink{structKMCThinFilm_1_1LatticeParams_ad3f37769b5b30a8f3e941743271def8aa8fc91ae7961264b3e4b8a0706bc01968}{COMPACT}}\ ,}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \mbox{\hyperlink{structKMCThinFilm_1_1LatticeParams_ad3f37769b5b30a8f3e941743271def8aab4e4643da3a5463b83a72e7b9d89f5a1}{ROW}}\ }
+\DoxyCodeLine{00087\ \ \ \ \ \};}
+\DoxyCodeLine{00088\ }
+\DoxyCodeLine{00089\ \ \ \ \ \mbox{\hyperlink{structKMCThinFilm_1_1LatticeParams}{LatticeParams}}()}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ :\ \mbox{\hyperlink{structKMCThinFilm_1_1LatticeParams_a7a9d46d27758a276fd20d9c18156371a}{numIntsPerCell}}(0),\ }
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structKMCThinFilm_1_1LatticeParams_a55263f7f4ef826b814ffeaae27ddf687}{numFloatsPerCell}}(0),}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structKMCThinFilm_1_1LatticeParams_a1b5bd22cee6f39342f07f59fb31866c9}{numPlanesToReserve}}(1),}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structKMCThinFilm_1_1LatticeParams_a02f5a1a7568e0d94d0127260b4e9dd05}{parallelDecomp}}(\mbox{\hyperlink{structKMCThinFilm_1_1LatticeParams_ad3f37769b5b30a8f3e941743271def8aab4e4643da3a5463b83a72e7b9d89f5a1}{ROW}}),\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structKMCThinFilm_1_1LatticeParams_a4aa377013681330e14aae60bf51e0b33}{noAddingPlanesDuringSimulation}}(false)}
+\DoxyCodeLine{00095\ \#if\ KMC\_PARALLEL}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ ,\ \mbox{\hyperlink{structKMCThinFilm_1_1LatticeParams_aedfa8e1396eb7bc532ce63565a0f6986}{latticeCommInitial}}(MPI\_COMM\_WORLD)}
+\DoxyCodeLine{00097\ \#endif}
+\DoxyCodeLine{00098\ \ \ \ \ \{\ \ \ \ \ \ }
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \mbox{\hyperlink{structKMCThinFilm_1_1LatticeParams_a3a3cc62a6fb5fdda00ed2c63e1ff1020}{globalPlanarDims}}[0]\ =\ \mbox{\hyperlink{structKMCThinFilm_1_1LatticeParams_a3a3cc62a6fb5fdda00ed2c63e1ff1020}{globalPlanarDims}}[1]\ =\ \mbox{\hyperlink{structKMCThinFilm_1_1LatticeParams_addb121738727b46ba00c2c71996f4272}{ghostExtent}}[0]\ =\ \mbox{\hyperlink{structKMCThinFilm_1_1LatticeParams_addb121738727b46ba00c2c71996f4272}{ghostExtent}}[1]\ =\ 0;}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \mbox{\hyperlink{structKMCThinFilm_1_1LatticeParams_a3591118c88951f3a6c7de54117979c36}{latInit}}\ =\ \mbox{\hyperlink{classKMCThinFilm_1_1AddEmptyPlanes}{AddEmptyPlanes}}(1);}
+\DoxyCodeLine{00101\ \ \ \ \ \}}
+\DoxyCodeLine{00102\ }
+\DoxyCodeLine{00103\ \ \ \ \ boost::array<int,2>\ \mbox{\hyperlink{structKMCThinFilm_1_1LatticeParams_a3a3cc62a6fb5fdda00ed2c63e1ff1020}{globalPlanarDims}}\ ,}
+\DoxyCodeLine{00108\ }
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \mbox{\hyperlink{structKMCThinFilm_1_1LatticeParams_addb121738727b46ba00c2c71996f4272}{ghostExtent}}\ ;}
+\DoxyCodeLine{00114\ }
+\DoxyCodeLine{00115\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structKMCThinFilm_1_1LatticeParams_a7a9d46d27758a276fd20d9c18156371a}{numIntsPerCell}}\ ,}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \mbox{\hyperlink{structKMCThinFilm_1_1LatticeParams_a55263f7f4ef826b814ffeaae27ddf687}{numFloatsPerCell}}\ ;}
+\DoxyCodeLine{00119\ }
+\DoxyCodeLine{00120\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structKMCThinFilm_1_1LatticeParams_a1b5bd22cee6f39342f07f59fb31866c9}{numPlanesToReserve}}\ ;}
+\DoxyCodeLine{00133\ }
+\DoxyCodeLine{00134\ \ \ \ \ \mbox{\hyperlink{structKMCThinFilm_1_1LatticeParams_ad3f37769b5b30a8f3e941743271def8a}{ParallelDecomp}}\ \mbox{\hyperlink{structKMCThinFilm_1_1LatticeParams_a02f5a1a7568e0d94d0127260b4e9dd05}{parallelDecomp}}\ ;}
+\DoxyCodeLine{00139\ }
+\DoxyCodeLine{00140\ \ \ \ \ \mbox{\hyperlink{namespaceKMCThinFilm_a716044de50c29c8bb9118f8dbeb3d4bf}{LatticeInitializer}}\ \mbox{\hyperlink{structKMCThinFilm_1_1LatticeParams_a3591118c88951f3a6c7de54117979c36}{latInit}}\ ;}
+\DoxyCodeLine{00144\ }
+\DoxyCodeLine{00145\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structKMCThinFilm_1_1LatticeParams_a4aa377013681330e14aae60bf51e0b33}{noAddingPlanesDuringSimulation}}\ ;}
+\DoxyCodeLine{00159\ }
+\DoxyCodeLine{00160\ \textcolor{preprocessor}{\#if\ KMC\_PARALLEL}}
+\DoxyCodeLine{00161\ \ \ \ \ MPI\_Comm\ \mbox{\hyperlink{structKMCThinFilm_1_1LatticeParams_aedfa8e1396eb7bc532ce63565a0f6986}{latticeCommInitial}}\ ;}
+\DoxyCodeLine{00169\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00170\ }
+\DoxyCodeLine{00171\ \ \ \ \ \mbox{\hyperlink{namespaceKMCThinFilm_a92970705c2d791c5497beb06d88c8fa3}{SetEmptyCellVals}}\ \mbox{\hyperlink{structKMCThinFilm_1_1LatticeParams_afc58fe3eed9df51a18d9a3fe2ed3b8d1}{setEmptyCellVals}}\ ;}
+\DoxyCodeLine{00191\ \ \ \};}
+\DoxyCodeLine{00192\ }
+\DoxyCodeLine{00217\ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{classKMCThinFilm_1_1Lattice_ae8e2c418fc3fd1bcd0ca61c3647d6462}{Lattice}}\ :\ \textcolor{keyword}{private}\ boost::noncopyable\ \{}
+\DoxyCodeLine{00218\ \ \ \ \ \textcolor{keyword}{friend}\ \textcolor{keyword}{class\ }Simulation;}
+\DoxyCodeLine{00219\ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00220\ }
+\DoxyCodeLine{00228\ \ \ \ \ \mbox{\hyperlink{classKMCThinFilm_1_1Lattice_ae8e2c418fc3fd1bcd0ca61c3647d6462}{Lattice}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{structKMCThinFilm_1_1LatticeParams}{LatticeParams}}\ \&\ paramsForLattice);}
+\DoxyCodeLine{00229\ \ \ \ \ }
+\DoxyCodeLine{00231\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classKMCThinFilm_1_1Lattice_ad48a237aac1ffb943bf8b49de148da89}{nProcs}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00232\ }
+\DoxyCodeLine{00237\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classKMCThinFilm_1_1Lattice_aec4668447dc65f0a0be67b53519db0d5}{procID}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00238\ }
+\DoxyCodeLine{00266\ }
+\DoxyCodeLine{00267\ \textcolor{preprocessor}{\#if\ KMC\_PARALLEL}}
+\DoxyCodeLine{00268\ \ \ \ \ \textcolor{keyword}{const}\ MPI\_Comm\ \&\ \mbox{\hyperlink{classKMCThinFilm_1_1Lattice_aef0511e825e463bc1f91df0720513c86}{comm}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00269\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00270\ }
+\DoxyCodeLine{00285\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classKMCThinFilm_1_1Lattice_a3bf12bd319b270be69241404305470ca}{numSectors}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00286\ }
+\DoxyCodeLine{00304\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classKMCThinFilm_1_1Lattice_ab21e3aa48b60071c245ac1d3e4c8b6d9}{procPerDim}}(\textcolor{keywordtype}{int}\ dim)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00305\ }
+\DoxyCodeLine{00338\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classKMCThinFilm_1_1Lattice_a0236ed2c0c17d92a5ab01f61519f8983}{commCoord}}(\textcolor{keywordtype}{int}\ dim)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00339\ }
+\DoxyCodeLine{00348\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classKMCThinFilm_1_1Lattice_ab88c96bfe79958ad29842a6ce72c77a8}{ghostExtent}}(\textcolor{keywordtype}{int}\ dim)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00349\ }
+\DoxyCodeLine{00373\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classKMCThinFilm_1_1Lattice_aa36bda22ed2b0bc8d8737d3d63009765}{addPlanes}}(\textcolor{keywordtype}{int}\ numPlanesToAdd);}
+\DoxyCodeLine{00374\ }
+\DoxyCodeLine{00393\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classKMCThinFilm_1_1Lattice_ae7545e7f3d017242dd25d7ee7dd71458}{reservePlanes}}(\textcolor{keywordtype}{int}\ numTotalPlanesToReserve);}
+\DoxyCodeLine{00394\ }
+\DoxyCodeLine{00401\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classKMCThinFilm_1_1Lattice_ab3e6a5e45049adf3e15a9716eae02de1}{planesReserved}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00402\ }
+\DoxyCodeLine{00410\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classKMCThinFilm_1_1Lattice_ae6ed07b1fe933e225797e516d3a4f776}{recvGhosts}}(\textcolor{keywordtype}{int}\ sectNum\ );}
+\DoxyCodeLine{00411\ }
+\DoxyCodeLine{00420\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classKMCThinFilm_1_1Lattice_ac4c58a1cfa17486667fe07f2cfa167cb}{sendGhosts}}(\textcolor{keywordtype}{int}\ sectNum\ );}
+\DoxyCodeLine{00421\ }
+\DoxyCodeLine{00455\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classKMCThinFilm_1_1Lattice_a1504ff860e046a8965b37dd437a74c52}{getLocalPlanarBBox}}(\textcolor{keywordtype}{bool}\ wGhost\ ,}
+\DoxyCodeLine{00460\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structKMCThinFilm_1_1LatticePlanarBBox}{LatticePlanarBBox}}\ \&\ bbox\ )\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00464\ }
+\DoxyCodeLine{00507\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classKMCThinFilm_1_1Lattice_ae6d9adbfdcd256875c8b9b6b281c648c}{getSectorPlanarBBox}}(\textcolor{keywordtype}{int}\ sectNum\ ,}
+\DoxyCodeLine{00508\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structKMCThinFilm_1_1LatticePlanarBBox}{LatticePlanarBBox}}\ \&\ bbox\ )\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00514\ \ \ \ \ }
+\DoxyCodeLine{00528\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classKMCThinFilm_1_1Lattice_ac160d406b29dc80fb72551ad3d74ac3a}{getGlobalPlanarBBox}}(\mbox{\hyperlink{structKMCThinFilm_1_1LatticePlanarBBox}{LatticePlanarBBox}}\ \&\ bbox\ )\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00532\ }
+\DoxyCodeLine{00539\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classKMCThinFilm_1_1Lattice_a79fcfbbdb100a422553f1648019aab1a}{currHeight}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00540\ }
+\DoxyCodeLine{00542\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classKMCThinFilm_1_1Lattice_ae141f7cd71bbbdf12dffe12e0dc0f115}{nIntsPerCell}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00543\ }
+\DoxyCodeLine{00545\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classKMCThinFilm_1_1Lattice_af88c2bfaa3f80c7efc19402c0d24a50b}{nFloatsPerCell}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00546\ }
+\DoxyCodeLine{00553\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classKMCThinFilm_1_1Lattice_aff659b471f414c579a51fe280b218ef1}{getInt}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classKMCThinFilm_1_1CellInds}{CellInds}}\ \&\ ci,\ \textcolor{keywordtype}{int}\ whichInt)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00554\ }
+\DoxyCodeLine{00561\ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{classKMCThinFilm_1_1Lattice_a825ef41025b740e190d60d097f9d9ae5}{getFloat}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classKMCThinFilm_1_1CellInds}{CellInds}}\ \&\ ci,\ \textcolor{keywordtype}{int}\ whichFloat)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00562\ }
+\DoxyCodeLine{00569\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classKMCThinFilm_1_1Lattice_a81beda29c4c8722cb047f7f2ce0a09ce}{setInt}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classKMCThinFilm_1_1CellInds}{CellInds}}\ \&\ ci,\ \textcolor{keywordtype}{int}\ whichInt,\ \textcolor{keywordtype}{int}\ val);}
+\DoxyCodeLine{00570\ }
+\DoxyCodeLine{00577\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classKMCThinFilm_1_1Lattice_aefe9601bf62fdb46d451d61fa017e691}{setFloat}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classKMCThinFilm_1_1CellInds}{CellInds}}\ \&\ ci,\ \textcolor{keywordtype}{int}\ whichInt,\ \textcolor{keywordtype}{double}\ val);}
+\DoxyCodeLine{00578\ }
+\DoxyCodeLine{00590\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classKMCThinFilm_1_1Lattice_ad86c9013774b072638db5527ced49cf8}{wrapI}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classKMCThinFilm_1_1CellInds}{CellInds}}\ \&\ ci)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00591\ }
+\DoxyCodeLine{00605\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classKMCThinFilm_1_1Lattice_a837c173e46cb56875b02dbdb27da71c9}{wrapJ}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classKMCThinFilm_1_1CellInds}{CellInds}}\ \&\ ci)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00606\ }
+\DoxyCodeLine{00614\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classKMCThinFilm_1_1Lattice_a51bd26f57ef3eb7ba005eb2a4570478e}{sectorOfIndices}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classKMCThinFilm_1_1CellInds}{CellInds}}\ \&\ ci)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00615\ }
+\DoxyCodeLine{00621\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classKMCThinFilm_1_1Lattice_a453210b26b7b82606bb10c3f1029cdad}{recvGhostsUpdate}}(\textcolor{keywordtype}{int}\ sectNum\ );}
+\DoxyCodeLine{00622\ }
+\DoxyCodeLine{00629\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classKMCThinFilm_1_1Lattice_a11f64bd02c9f4d55da74388d69d3d0bb}{sendGhostsUpdate}}(\textcolor{keywordtype}{int}\ sectNum\ );}
+\DoxyCodeLine{00630\ }
+\DoxyCodeLine{00634\ \ \ \ \ \textcolor{keyword}{const}\ std::vector<std::vector<IJK>\ >\ \&\ \mbox{\hyperlink{classKMCThinFilm_1_1Lattice_afc38b275efbadecc0800d5b77ad8841d}{getReceivedGhostInds}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00635\ }
+\DoxyCodeLine{00639\ \ \ \ \ \textcolor{keyword}{const}\ std::vector<std::vector<IJK>\ >\ \&\ \mbox{\hyperlink{classKMCThinFilm_1_1Lattice_a7b1f19702b428a80fe886a5d24ae4f05}{getReceivedLocalInds}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00640\ }
+\DoxyCodeLine{00643\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classKMCThinFilm_1_1Lattice_a5cb4134926e0f9d17dc4ee0a9606d98a}{clearGhostsToSend}}();}
+\DoxyCodeLine{00644\ }
+\DoxyCodeLine{00661\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classKMCThinFilm_1_1Lattice_a22bdff6d2d8478783350f84ccd73ba70}{addToExportBufferIfNeeded}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classKMCThinFilm_1_1CellInds}{CellInds}}\ \&\ ci);}
+\DoxyCodeLine{00662\ }
+\DoxyCodeLine{00664\ \ \ \ \ \mbox{\hyperlink{classKMCThinFilm_1_1Lattice_ae8e2c418fc3fd1bcd0ca61c3647d6462}{\string~Lattice}}();\ \textcolor{comment}{//\ Destructor\ should\ be\ public\ so\ that\ "{}smart"{}}}
+\DoxyCodeLine{00665\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ pointers\ to\ the\ Lattice\ class\ can\ delete\ it.}}
+\DoxyCodeLine{00666\ }
+\DoxyCodeLine{00667\ \textcolor{preprocessor}{\#if\ KMC\_PARALLEL}}
+\DoxyCodeLine{00668\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classKMCThinFilm_1_1Lattice_a22bdff6d2d8478783350f84ccd73ba70}{addToExportBufferIfNeeded}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classKMCThinFilm_1_1CellInds}{CellInds}}\ \&\ ci,\ \textcolor{keywordtype}{int}\ \&\ sectNum);}
+\DoxyCodeLine{00669\ }
+\DoxyCodeLine{00670\ \ \ \ \ \textcolor{comment}{//\ This\ is\ only\ needed\ for\ debugging.}}
+\DoxyCodeLine{00671\ \ \ \ \ \textcolor{keywordtype}{int}\ exportVal(\textcolor{keyword}{const}\ \mbox{\hyperlink{classKMCThinFilm_1_1CellInds}{CellInds}}\ \&\ ci)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00672\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00674\ }
+\DoxyCodeLine{00675\ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00676\ }
+\DoxyCodeLine{00677\ \ \ \ \ \textcolor{comment}{//\ Used\ in\ Simulation\ class}}
+\DoxyCodeLine{00678\ }
+\DoxyCodeLine{00680\ \ \ \ \ \textcolor{keyword}{struct\ }TrackType\ \{}
+\DoxyCodeLine{00681\ \ \ \ \ \ \ \textcolor{keyword}{enum}\ Type\ \{}
+\DoxyCodeLine{00682\ \ \ \ \ \ \ \ \ NONE,}
+\DoxyCodeLine{00683\ \ \ \ \ \ \ \ \ CHECK\_ONLY\_IF\_CHANGE\_OCCURS,}
+\DoxyCodeLine{00684\ \ \ \ \ \ \ \ \ RECORD\_CHANGED\_CELL\_INDS,}
+\DoxyCodeLine{00685\ \ \ \ \ \ \ \ \ RECORD\_ONLY\_OTHER\_CHANGED\_CELL\_INDS,}
+\DoxyCodeLine{00686\ \ \ \ \ \ \ \};}
+\DoxyCodeLine{00687\ \ \ \ \ \};}
+\DoxyCodeLine{00689\ }
+\DoxyCodeLine{00690\ \ \ \ \ \textcolor{comment}{//\ Using\ a\ std::set\ turns\ out\ to\ be\ faster\ than\ a}}
+\DoxyCodeLine{00691\ \ \ \ \ \textcolor{comment}{//\ boost::unordered\_set\ for\ the\ purposes\ of\ this\ library\ (probably}}
+\DoxyCodeLine{00692\ \ \ \ \ \textcolor{comment}{//\ because\ there\ are\ usually\ so\ few\ elements\ in\ ChangedCellInds).}}
+\DoxyCodeLine{00693\ \ \ \ \ \textcolor{keyword}{typedef}\ std::set<CellInds>\ ChangedCellInds;}
+\DoxyCodeLine{00694\ }
+\DoxyCodeLine{00695\ \ \ \ \ \textcolor{keyword}{typedef}\ std::deque<CellInds>\ OtherCheckedCellInds;}
+\DoxyCodeLine{00696\ }
+\DoxyCodeLine{00697\ \ \ \ \ \textcolor{keywordtype}{void}\ trackChanges(TrackType::Type\ trackType);}
+\DoxyCodeLine{00698\ \ \ \ \ \textcolor{keywordtype}{bool}\ hasChanged()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00699\ }
+\DoxyCodeLine{00700\ \ \ \ \ \textcolor{keyword}{const}\ ChangedCellInds\ \&\ getChangedCellInds()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00701\ \ \ \ \ \textcolor{keyword}{const}\ OtherCheckedCellInds\ \&\ getOtherCheckedCellInds()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00702\ }
+\DoxyCodeLine{00703\ \ \ \ \ \textcolor{keywordtype}{void}\ wrapIndsIfNeeded(CellInds\ \&\ ci)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00704\ }
+\DoxyCodeLine{00705\ \ \ \ \ \textcolor{keyword}{class\ }Impl\_;}
+\DoxyCodeLine{00706\ \ \ \ \ boost::scoped\_ptr<Impl\_>\ pImpl\_;}
+\DoxyCodeLine{00707\ \ \ \};}
+\DoxyCodeLine{00708\ }
+\DoxyCodeLine{00709\ \}}
+\DoxyCodeLine{00710\ }
+\DoxyCodeLine{00711\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ LATTICE\_HPP\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

@@ -1,0 +1,345 @@
+\contentsline {chapter}{\numberline {1}Introduction to the ARL KMCThin\hY {}Film library}{1}{chapter.1}%
+\contentsline {chapter}{\numberline {2}Compilation and installation}{3}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Compiling and installing the library itself}{3}{section.2.1}%
+\contentsline {section}{\numberline {2.2}Compiling against the library}{4}{section.2.2}%
+\contentsline {chapter}{\numberline {3}Concepts and algorithms}{5}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Basics of kinetic Monte Carlo simulation as implemented in the ARL KMCThin\hY {}Film library}{5}{section.3.1}%
+\contentsline {section}{\numberline {3.2}Lattices in the ARL KMCThin\hY {}Film library}{7}{section.3.2}%
+\contentsline {section}{\numberline {3.3}Parallel approximate Kinetic Monte Carlo algorithm}{7}{section.3.3}%
+\contentsline {chapter}{\numberline {4}Illustrating the usage of the ARL KMCThin\hY {}Film library by example}{11}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Example\hY {}: Implementation of a ``fractal'' solid-\/on-\/solid model}{11}{section.4.1}%
+\contentsline {subsection}{\numberline {4.1.1}Using auto-\/tracking}{11}{subsection.4.1.1}%
+\contentsline {subsubsection}{Examining the driver code}{12}{section*.2}%
+\contentsline {subsubsection}{Examining the implementation code}{15}{section*.3}%
+\contentsline {subsubsection}{Results}{20}{section*.4}%
+\contentsline {subsection}{\numberline {4.1.2}Using semi-\/manual tracking}{20}{subsection.4.1.2}%
+\contentsline {section}{\numberline {4.2}Example\hY {}: Parallelizing an implementation of a ``fractal'' solid-\/on-\/solid model}{22}{section.4.2}%
+\contentsline {section}{\numberline {4.3}Example\hY {}: Implementations of a ballistic deposition model}{25}{section.4.3}%
+\contentsline {subsection}{\numberline {4.3.1}First implementation}{26}{subsection.4.3.1}%
+\contentsline {subsection}{\numberline {4.3.2}Second implementation}{31}{subsection.4.3.2}%
+\contentsline {section}{\numberline {4.4}Example\hY {}: Implementations of a patterned substrate model}{33}{section.4.4}%
+\contentsline {subsection}{\numberline {4.4.1}First implementation}{34}{subsection.4.4.1}%
+\contentsline {subsection}{\numberline {4.4.2}Second implementation}{37}{subsection.4.4.2}%
+\contentsline {chapter}{\numberline {5}Namespace Documentation}{41}{chapter.5}%
+\contentsline {section}{\numberline {5.1}KMCThin\hY {}Film Namespace Reference}{41}{section.5.1}%
+\contentsline {subsection}{\numberline {5.1.1}Detailed Description}{42}{subsection.5.1.1}%
+\contentsline {subsection}{\numberline {5.1.2}Typedef Documentation}{42}{subsection.5.1.2}%
+\contentsline {subsubsection}{CellCenteredGroupPropensities}{42}{section*.9}%
+\contentsline {subsubsection}{EventExecutorAutoTrack}{42}{section*.10}%
+\contentsline {subsubsection}{EventExecutorSemiManualTrack}{42}{section*.11}%
+\contentsline {subsubsection}{LatticeInitializer}{42}{section*.12}%
+\contentsline {subsubsection}{PeriodicAction}{43}{section*.13}%
+\contentsline {subsubsection}{RandNumGenSharedPtr}{43}{section*.14}%
+\contentsline {subsubsection}{SetEmptyCellVals}{43}{section*.15}%
+\contentsline {subsection}{\numberline {5.1.3}Function Documentation}{43}{subsection.5.1.3}%
+\contentsline {subsubsection}{abortOnCondition()}{43}{section*.16}%
+\contentsline {subsubsection}{abortWithMsg()}{43}{section*.17}%
+\contentsline {subsubsection}{exitOnCondition()}{43}{section*.18}%
+\contentsline {subsubsection}{exitWithMsg()}{44}{section*.19}%
+\contentsline {subsubsection}{operator+()\hspace {0.1cm}{\footnotesize \ttfamily [1/2]}}{44}{section*.20}%
+\contentsline {subsubsection}{operator+()\hspace {0.1cm}{\footnotesize \ttfamily [2/2]}}{44}{section*.21}%
+\contentsline {section}{\numberline {5.2}KMCThin\hY {}Film\hY {}::Solver\hY {}Id Namespace Reference}{44}{section.5.2}%
+\contentsline {subsection}{\numberline {5.2.1}Detailed Description}{44}{subsection.5.2.1}%
+\contentsline {subsection}{\numberline {5.2.2}Enumeration Type Documentation}{44}{subsection.5.2.2}%
+\contentsline {subsubsection}{Type}{44}{section*.23}%
+\contentsline {section}{\numberline {5.3}KMCThin\hY {}Film\hY {}::Time\hY {}Incr Namespace Reference}{45}{section.5.3}%
+\contentsline {subsection}{\numberline {5.3.1}Detailed Description}{45}{subsection.5.3.1}%
+\contentsline {section}{\numberline {5.4}KMCThin\hY {}Film\hY {}::Time\hY {}Incr\hY {}::Scheme\hY {}Name Namespace Reference}{45}{section.5.4}%
+\contentsline {subsection}{\numberline {5.4.1}Detailed Description}{45}{subsection.5.4.1}%
+\contentsline {subsection}{\numberline {5.4.2}Enumeration Type Documentation}{45}{subsection.5.4.2}%
+\contentsline {subsubsection}{Type}{45}{section*.27}%
+\contentsline {section}{\numberline {5.5}KMCThin\hY {}Film\hY {}::Time\hY {}Incr\hY {}::Scheme\hY {}Param Namespace Reference}{45}{section.5.5}%
+\contentsline {subsection}{\numberline {5.5.1}Detailed Description}{46}{subsection.5.5.1}%
+\contentsline {subsection}{\numberline {5.5.2}Enumeration Type Documentation}{46}{subsection.5.5.2}%
+\contentsline {subsubsection}{Type}{46}{section*.29}%
+\contentsline {chapter}{\numberline {6}Class Documentation}{47}{chapter.6}%
+\contentsline {section}{\numberline {6.1}KMCThin\hY {}Film\hY {}::Add\hY {}Empty\hY {}Planes Class Reference}{47}{section.6.1}%
+\contentsline {subsection}{\numberline {6.1.1}Detailed Description}{47}{subsection.6.1.1}%
+\contentsline {subsection}{\numberline {6.1.2}Constructor \& Destructor Documentation}{47}{subsection.6.1.2}%
+\contentsline {subsubsection}{AddEmptyPlanes()}{47}{section*.31}%
+\contentsline {subsection}{\numberline {6.1.3}Member Function Documentation}{47}{subsection.6.1.3}%
+\contentsline {subsubsection}{operator()()}{47}{section*.32}%
+\contentsline {section}{\numberline {6.2}KMCThin\hY {}Film\hY {}::Cell\hY {}Inds Class Reference}{47}{section.6.2}%
+\contentsline {subsection}{\numberline {6.2.1}Detailed Description}{48}{subsection.6.2.1}%
+\contentsline {subsection}{\numberline {6.2.2}Constructor \& Destructor Documentation}{48}{subsection.6.2.2}%
+\contentsline {subsubsection}{CellInds()\hspace {0.1cm}{\footnotesize \ttfamily [1/2]}}{48}{section*.34}%
+\contentsline {subsubsection}{CellInds()\hspace {0.1cm}{\footnotesize \ttfamily [2/2]}}{48}{section*.35}%
+\contentsline {section}{\numberline {6.3}KMCThin\hY {}Film\hY {}::Cell\hY {}Inds\hY {}Offset Class Reference}{49}{section.6.3}%
+\contentsline {subsection}{\numberline {6.3.1}Detailed Description}{49}{subsection.6.3.1}%
+\contentsline {subsection}{\numberline {6.3.2}Constructor \& Destructor Documentation}{49}{subsection.6.3.2}%
+\contentsline {subsubsection}{CellIndsOffset()\hspace {0.1cm}{\footnotesize \ttfamily [1/2]}}{49}{section*.37}%
+\contentsline {subsubsection}{CellIndsOffset()\hspace {0.1cm}{\footnotesize \ttfamily [2/2]}}{49}{section*.38}%
+\contentsline {subsection}{\numberline {6.3.3}Member Function Documentation}{50}{subsection.6.3.3}%
+\contentsline {subsubsection}{operator-\/()}{50}{section*.39}%
+\contentsline {section}{\numberline {6.4}KMCThin\hY {}Film\hY {}::Cell\hY {}Neigh\hY {}Offsets Class Reference}{50}{section.6.4}%
+\contentsline {subsection}{\numberline {6.4.1}Detailed Description}{50}{subsection.6.4.1}%
+\contentsline {subsection}{\numberline {6.4.2}Constructor \& Destructor Documentation}{50}{subsection.6.4.2}%
+\contentsline {subsubsection}{CellNeighOffsets()}{50}{section*.41}%
+\contentsline {subsection}{\numberline {6.4.3}Member Function Documentation}{51}{subsection.6.4.3}%
+\contentsline {subsubsection}{addOffset()}{51}{section*.42}%
+\contentsline {subsubsection}{clearOffsets()}{51}{section*.43}%
+\contentsline {subsubsection}{getOffset()}{51}{section*.44}%
+\contentsline {subsubsection}{numOffsets()}{51}{section*.45}%
+\contentsline {subsubsection}{resetOffsets()}{51}{section*.46}%
+\contentsline {section}{\numberline {6.5}KMCThin\hY {}Film\hY {}::Cell\hY {}Neigh\hY {}Probe Class Reference}{52}{section.6.5}%
+\contentsline {subsection}{\numberline {6.5.1}Detailed Description}{52}{subsection.6.5.1}%
+\contentsline {subsection}{\numberline {6.5.2}Constructor \& Destructor Documentation}{52}{subsection.6.5.2}%
+\contentsline {subsubsection}{CellNeighProbe()}{52}{section*.48}%
+\contentsline {subsection}{\numberline {6.5.3}Member Function Documentation}{52}{subsection.6.5.3}%
+\contentsline {subsubsection}{attachCellInds()}{52}{section*.49}%
+\contentsline {subsubsection}{attachLattice()}{53}{section*.50}%
+\contentsline {subsubsection}{belowLatticeBottom()}{53}{section*.51}%
+\contentsline {subsubsection}{exceedsLatticeHeight()}{53}{section*.52}%
+\contentsline {subsubsection}{getCellToProbe()}{53}{section*.53}%
+\contentsline {subsubsection}{getFloat()}{53}{section*.54}%
+\contentsline {subsubsection}{getInt()}{54}{section*.55}%
+\contentsline {section}{\numberline {6.6}KMCThin\hY {}Film\hY {}::Cells\hY {}To\hY {}Change Class Reference}{54}{section.6.6}%
+\contentsline {subsection}{\numberline {6.6.1}Detailed Description}{54}{subsection.6.6.1}%
+\contentsline {subsection}{\numberline {6.6.2}Member Function Documentation}{55}{subsection.6.6.2}%
+\contentsline {subsubsection}{addLatticePlanes()}{55}{section*.58}%
+\contentsline {subsubsection}{getCellInds()}{55}{section*.59}%
+\contentsline {subsubsection}{getFloat()}{55}{section*.60}%
+\contentsline {subsubsection}{getInt()}{55}{section*.61}%
+\contentsline {subsubsection}{setCenter()}{56}{section*.62}%
+\contentsline {subsubsection}{setFloat()}{56}{section*.63}%
+\contentsline {subsubsection}{setInt()}{56}{section*.64}%
+\contentsline {section}{\numberline {6.7}KMCThin\hY {}Film\hY {}::Cell\hY {}To\hY {}Probe Class Reference}{57}{section.6.7}%
+\contentsline {subsection}{\numberline {6.7.1}Detailed Description}{57}{subsection.6.7.1}%
+\contentsline {subsection}{\numberline {6.7.2}Member Function Documentation}{57}{subsection.6.7.2}%
+\contentsline {subsubsection}{inds()}{57}{section*.67}%
+\contentsline {section}{\numberline {6.8}KMCThin\hY {}Film\hY {}::Event\hY {}Executor\hY {}Group Class Reference}{57}{section.6.8}%
+\contentsline {subsection}{\numberline {6.8.1}Detailed Description}{57}{subsection.6.8.1}%
+\contentsline {subsection}{\numberline {6.8.2}Constructor \& Destructor Documentation}{58}{subsection.6.8.2}%
+\contentsline {subsubsection}{EventExecutorGroup()}{58}{section*.70}%
+\contentsline {subsection}{\numberline {6.8.3}Member Function Documentation}{58}{subsection.6.8.3}%
+\contentsline {subsubsection}{addEventExecutor()\hspace {0.1cm}{\footnotesize \ttfamily [1/2]}}{58}{section*.71}%
+\contentsline {subsubsection}{addEventExecutor()\hspace {0.1cm}{\footnotesize \ttfamily [2/2]}}{58}{section*.72}%
+\contentsline {subsubsection}{clearGroup()}{59}{section*.73}%
+\contentsline {subsubsection}{numEventExecutors()}{59}{section*.74}%
+\contentsline {subsubsection}{resetGroup()}{59}{section*.75}%
+\contentsline {section}{\numberline {6.9}KMCThin\hY {}Film\hY {}::Lattice Class Reference}{59}{section.6.9}%
+\contentsline {subsection}{\numberline {6.9.1}Detailed Description}{60}{subsection.6.9.1}%
+\contentsline {subsection}{\numberline {6.9.2}Constructor \& Destructor Documentation}{61}{subsection.6.9.2}%
+\contentsline {subsubsection}{Lattice()}{61}{section*.78}%
+\contentsline {subsection}{\numberline {6.9.3}Member Function Documentation}{61}{subsection.6.9.3}%
+\contentsline {subsubsection}{addPlanes()}{61}{section*.79}%
+\contentsline {subsubsection}{addToExportBufferIfNeeded()}{61}{section*.80}%
+\contentsline {subsubsection}{clearGhostsToSend()}{61}{section*.81}%
+\contentsline {subsubsection}{comm()}{61}{section*.82}%
+\contentsline {subsubsection}{commCoord()}{62}{section*.83}%
+\contentsline {subsubsection}{currHeight()}{62}{section*.84}%
+\contentsline {subsubsection}{getFloat()}{63}{section*.85}%
+\contentsline {subsubsection}{getGlobalPlanarBBox()}{63}{section*.86}%
+\contentsline {subsubsection}{getInt()}{63}{section*.87}%
+\contentsline {subsubsection}{getLocalPlanarBBox()}{64}{section*.88}%
+\contentsline {subsubsection}{getReceivedGhostInds()}{64}{section*.89}%
+\contentsline {subsubsection}{getReceivedLocalInds()}{64}{section*.90}%
+\contentsline {subsubsection}{getSectorPlanarBBox()}{65}{section*.91}%
+\contentsline {subsubsection}{ghostExtent()}{65}{section*.92}%
+\contentsline {subsubsection}{nFloatsPerCell()}{65}{section*.93}%
+\contentsline {subsubsection}{nIntsPerCell()}{66}{section*.94}%
+\contentsline {subsubsection}{nProcs()}{66}{section*.95}%
+\contentsline {subsubsection}{numSectors()}{66}{section*.96}%
+\contentsline {subsubsection}{planesReserved()}{66}{section*.97}%
+\contentsline {subsubsection}{procID()}{66}{section*.98}%
+\contentsline {subsubsection}{procPerDim()}{66}{section*.99}%
+\contentsline {subsubsection}{recvGhosts()}{67}{section*.100}%
+\contentsline {subsubsection}{recvGhostsUpdate()}{67}{section*.101}%
+\contentsline {subsubsection}{reservePlanes()}{67}{section*.102}%
+\contentsline {subsubsection}{sectorOfIndices()}{67}{section*.103}%
+\contentsline {subsubsection}{sendGhosts()}{68}{section*.104}%
+\contentsline {subsubsection}{sendGhostsUpdate()}{68}{section*.105}%
+\contentsline {subsubsection}{setFloat()}{68}{section*.106}%
+\contentsline {subsubsection}{setInt()}{68}{section*.107}%
+\contentsline {subsubsection}{wrapI()}{69}{section*.108}%
+\contentsline {subsubsection}{wrapJ()}{69}{section*.109}%
+\contentsline {section}{\numberline {6.10}KMCThin\hY {}Film\hY {}::Lattice\hY {}Params Struct Reference}{69}{section.6.10}%
+\contentsline {subsection}{\numberline {6.10.1}Detailed Description}{70}{subsection.6.10.1}%
+\contentsline {subsection}{\numberline {6.10.2}Member Enumeration Documentation}{70}{subsection.6.10.2}%
+\contentsline {subsubsection}{ParallelDecomp}{70}{section*.112}%
+\contentsline {subsection}{\numberline {6.10.3}Member Data Documentation}{70}{subsection.6.10.3}%
+\contentsline {subsubsection}{ghostExtent}{70}{section*.113}%
+\contentsline {subsubsection}{globalPlanarDims}{70}{section*.114}%
+\contentsline {subsubsection}{latInit}{70}{section*.115}%
+\contentsline {subsubsection}{latticeCommInitial}{71}{section*.116}%
+\contentsline {subsubsection}{noAddingPlanesDuringSimulation}{71}{section*.117}%
+\contentsline {subsubsection}{numFloatsPerCell}{71}{section*.118}%
+\contentsline {subsubsection}{numIntsPerCell}{71}{section*.119}%
+\contentsline {subsubsection}{numPlanesToReserve}{71}{section*.120}%
+\contentsline {subsubsection}{parallelDecomp}{71}{section*.121}%
+\contentsline {subsubsection}{setEmptyCellVals}{72}{section*.122}%
+\contentsline {section}{\numberline {6.11}KMCThin\hY {}Film\hY {}::Lattice\hY {}Planar\hY {}BBox Struct Reference}{72}{section.6.11}%
+\contentsline {subsection}{\numberline {6.11.1}Detailed Description}{72}{subsection.6.11.1}%
+\contentsline {subsection}{\numberline {6.11.2}Member Data Documentation}{72}{subsection.6.11.2}%
+\contentsline {subsubsection}{imaxP1}{72}{section*.124}%
+\contentsline {subsubsection}{imin}{72}{section*.125}%
+\contentsline {subsubsection}{jmaxP1}{73}{section*.126}%
+\contentsline {subsubsection}{jmin}{73}{section*.127}%
+\contentsline {section}{\numberline {6.12}KMCThin\hY {}Film\hY {}::Rand\hY {}Num\hY {}Gen Class Reference}{73}{section.6.12}%
+\contentsline {subsection}{\numberline {6.12.1}Detailed Description}{73}{subsection.6.12.1}%
+\contentsline {subsection}{\numberline {6.12.2}Member Function Documentation}{73}{subsection.6.12.2}%
+\contentsline {subsubsection}{getNumInOpenIntervalFrom0To1()}{73}{section*.129}%
+\contentsline {section}{\numberline {6.13}KMCThin\hY {}Film\hY {}::Rand\hY {}Num\hY {}Gen\hY {}DCMT Class Reference}{74}{section.6.13}%
+\contentsline {subsection}{\numberline {6.13.1}Detailed Description}{74}{subsection.6.13.1}%
+\contentsline {subsection}{\numberline {6.13.2}Member Enumeration Documentation}{74}{subsection.6.13.2}%
+\contentsline {subsubsection}{Period}{74}{section*.132}%
+\contentsline {subsection}{\numberline {6.13.3}Constructor \& Destructor Documentation}{75}{subsection.6.13.3}%
+\contentsline {subsubsection}{RandNumGenDCMT()}{75}{section*.133}%
+\contentsline {subsection}{\numberline {6.13.4}Member Function Documentation}{75}{subsection.6.13.4}%
+\contentsline {subsubsection}{getNumInOpenIntervalFrom0To1()}{75}{section*.134}%
+\contentsline {section}{\numberline {6.14}KMCThin\hY {}Film\hY {}::Rand\hY {}Num\hY {}Gen\hY {}MT19937 Class Reference}{75}{section.6.14}%
+\contentsline {subsection}{\numberline {6.14.1}Detailed Description}{75}{subsection.6.14.1}%
+\contentsline {subsection}{\numberline {6.14.2}Constructor \& Destructor Documentation}{76}{subsection.6.14.2}%
+\contentsline {subsubsection}{RandNumGenMT19937()}{76}{section*.136}%
+\contentsline {subsection}{\numberline {6.14.3}Member Function Documentation}{76}{subsection.6.14.3}%
+\contentsline {subsubsection}{getNumInOpenIntervalFrom0To1()}{76}{section*.137}%
+\contentsline {section}{\numberline {6.15}KMCThin\hY {}Film\hY {}::Rand\hY {}Num\hY {}Gen\hY {}Rng\hY {}Streams Class Reference}{76}{section.6.15}%
+\contentsline {subsection}{\numberline {6.15.1}Detailed Description}{76}{subsection.6.15.1}%
+\contentsline {subsection}{\numberline {6.15.2}Constructor \& Destructor Documentation}{76}{subsection.6.15.2}%
+\contentsline {subsubsection}{RandNumGenRngStreams()}{76}{section*.139}%
+\contentsline {subsection}{\numberline {6.15.3}Member Function Documentation}{77}{subsection.6.15.3}%
+\contentsline {subsubsection}{getNumInOpenIntervalFrom0To1()}{77}{section*.140}%
+\contentsline {section}{\numberline {6.16}KMCThin\hY {}Film\hY {}::Time\hY {}Incr\hY {}::Scheme\hY {}Vars Class Reference}{77}{section.6.16}%
+\contentsline {subsection}{\numberline {6.16.1}Detailed Description}{77}{subsection.6.16.1}%
+\contentsline {subsection}{\numberline {6.16.2}Member Function Documentation}{77}{subsection.6.16.2}%
+\contentsline {subsubsection}{getSchemeName()}{77}{section*.142}%
+\contentsline {subsubsection}{getSchemeParamIfAvailable()}{77}{section*.143}%
+\contentsline {subsubsection}{getSchemeParamOrDie()}{78}{section*.144}%
+\contentsline {subsubsection}{getSchemeParamOrReturnDefaultVal()}{78}{section*.145}%
+\contentsline {subsubsection}{setSchemeName()}{78}{section*.146}%
+\contentsline {subsubsection}{setSchemeParam()}{78}{section*.147}%
+\contentsline {section}{\numberline {6.17}KMCThin\hY {}Film\hY {}::Simulation Class Reference}{79}{section.6.17}%
+\contentsline {subsection}{\numberline {6.17.1}Detailed Description}{80}{subsection.6.17.1}%
+\contentsline {subsection}{\numberline {6.17.2}Constructor \& Destructor Documentation}{81}{subsection.6.17.2}%
+\contentsline {subsubsection}{Simulation()}{81}{section*.149}%
+\contentsline {subsection}{\numberline {6.17.3}Member Function Documentation}{81}{subsection.6.17.3}%
+\contentsline {subsubsection}{addCellCenteredEventGroup()}{81}{section*.150}%
+\contentsline {subsubsection}{addOverLatticeEvent()\hspace {0.1cm}{\footnotesize \ttfamily [1/2]}}{81}{section*.151}%
+\contentsline {subsubsection}{addOverLatticeEvent()\hspace {0.1cm}{\footnotesize \ttfamily [2/2]}}{82}{section*.152}%
+\contentsline {subsubsection}{addStepPeriodicAction()}{82}{section*.153}%
+\contentsline {subsubsection}{addTimePeriodicAction()}{83}{section*.154}%
+\contentsline {subsubsection}{changeCellCenteredEventGroup()}{83}{section*.155}%
+\contentsline {subsubsection}{changeOverLatticeEvent()\hspace {0.1cm}{\footnotesize \ttfamily [1/2]}}{84}{section*.156}%
+\contentsline {subsubsection}{changeOverLatticeEvent()\hspace {0.1cm}{\footnotesize \ttfamily [2/2]}}{84}{section*.157}%
+\contentsline {subsubsection}{changeStepPeriodicAction()}{84}{section*.158}%
+\contentsline {subsubsection}{changeTimePeriodicAction()}{85}{section*.159}%
+\contentsline {subsubsection}{comm()}{85}{section*.160}%
+\contentsline {subsubsection}{commCoord()}{85}{section*.161}%
+\contentsline {subsubsection}{elapsedTime()}{86}{section*.162}%
+\contentsline {subsubsection}{getLatticeGlobalPlanarBBox()}{86}{section*.163}%
+\contentsline {subsubsection}{getLatticeLocalPlanarBBox()}{86}{section*.164}%
+\contentsline {subsubsection}{getLatticeSectorPlanarBBox()}{86}{section*.165}%
+\contentsline {subsubsection}{nProcs()}{87}{section*.166}%
+\contentsline {subsubsection}{numGlobalSteps()}{87}{section*.167}%
+\contentsline {subsubsection}{numLocalEvents()}{87}{section*.168}%
+\contentsline {subsubsection}{procID()}{87}{section*.169}%
+\contentsline {subsubsection}{procPerDim()}{87}{section*.170}%
+\contentsline {subsubsection}{removeCellCenteredEventGroup()}{88}{section*.171}%
+\contentsline {subsubsection}{removeOverLatticeEvent()}{88}{section*.172}%
+\contentsline {subsubsection}{removeStepPeriodicAction()}{88}{section*.173}%
+\contentsline {subsubsection}{removeTimePeriodicAction()}{88}{section*.174}%
+\contentsline {subsubsection}{reserveCellCenteredEventGroups()}{89}{section*.175}%
+\contentsline {subsubsection}{reserveOverLatticeEvents()}{89}{section*.176}%
+\contentsline {subsubsection}{reserveStepPeriodicActions()}{89}{section*.177}%
+\contentsline {subsubsection}{reserveTimePeriodicActions()}{89}{section*.178}%
+\contentsline {subsubsection}{run()}{89}{section*.179}%
+\contentsline {subsubsection}{setRNG()}{90}{section*.180}%
+\contentsline {subsubsection}{setSolver()}{90}{section*.181}%
+\contentsline {subsubsection}{setTimeIncrScheme()}{90}{section*.182}%
+\contentsline {subsubsection}{trackCellsChangedByPeriodicActions()}{90}{section*.183}%
+\contentsline {section}{\numberline {6.18}KMCThin\hY {}Film\hY {}::Simulation\hY {}State Class Reference}{91}{section.6.18}%
+\contentsline {subsection}{\numberline {6.18.1}Detailed Description}{91}{subsection.6.18.1}%
+\contentsline {subsection}{\numberline {6.18.2}Member Function Documentation}{91}{subsection.6.18.2}%
+\contentsline {subsubsection}{elapsedTime()}{91}{section*.186}%
+\contentsline {subsubsection}{globalTimeIncrement()}{91}{section*.187}%
+\contentsline {subsubsection}{maxTime()}{92}{section*.188}%
+\contentsline {subsubsection}{numGlobalSteps()}{92}{section*.189}%
+\contentsline {subsubsection}{numLocalEvents()}{92}{section*.190}%
+\contentsline {chapter}{\numberline {7}File Documentation}{93}{chapter.7}%
+\contentsline {section}{\numberline {7.1}Cell\hY {}Centered\hY {}Group\hY {}Propensities.\hY {}hpp File Reference}{93}{section.7.1}%
+\contentsline {subsection}{\numberline {7.1.1}Detailed Description}{93}{subsection.7.1.1}%
+\contentsline {section}{\numberline {7.2}Cell\hY {}Centered\hY {}Group\hY {}Propensities.\hY {}hpp}{93}{section.7.2}%
+\contentsline {section}{\numberline {7.3}Cell\hY {}Inds.\hY {}hpp File Reference}{93}{section.7.3}%
+\contentsline {subsection}{\numberline {7.3.1}Detailed Description}{94}{subsection.7.3.1}%
+\contentsline {section}{\numberline {7.4}Cell\hY {}Inds.\hY {}hpp}{94}{section.7.4}%
+\contentsline {section}{\numberline {7.5}Cell\hY {}Neigh\hY {}Offsets.\hY {}hpp File Reference}{95}{section.7.5}%
+\contentsline {subsection}{\numberline {7.5.1}Detailed Description}{95}{subsection.7.5.1}%
+\contentsline {section}{\numberline {7.6}Cell\hY {}Neigh\hY {}Offsets.\hY {}hpp}{95}{section.7.6}%
+\contentsline {section}{\numberline {7.7}Cell\hY {}Neigh\hY {}Probe.\hY {}hpp File Reference}{96}{section.7.7}%
+\contentsline {subsection}{\numberline {7.7.1}Detailed Description}{96}{subsection.7.7.1}%
+\contentsline {section}{\numberline {7.8}Cell\hY {}Neigh\hY {}Probe.\hY {}hpp}{96}{section.7.8}%
+\contentsline {section}{\numberline {7.9}Cells\hY {}To\hY {}Change.\hY {}hpp}{97}{section.7.9}%
+\contentsline {section}{\numberline {7.10}Error\hY {}Handling.\hY {}hpp File Reference}{98}{section.7.10}%
+\contentsline {subsection}{\numberline {7.10.1}Detailed Description}{98}{subsection.7.10.1}%
+\contentsline {section}{\numberline {7.11}Error\hY {}Handling.\hY {}hpp}{98}{section.7.11}%
+\contentsline {section}{\numberline {7.12}Event\hY {}Executor.\hY {}hpp File Reference}{98}{section.7.12}%
+\contentsline {subsection}{\numberline {7.12.1}Detailed Description}{99}{subsection.7.12.1}%
+\contentsline {section}{\numberline {7.13}Event\hY {}Executor.\hY {}hpp}{99}{section.7.13}%
+\contentsline {section}{\numberline {7.14}Event\hY {}Executor\hY {}Group.\hY {}hpp File Reference}{99}{section.7.14}%
+\contentsline {subsection}{\numberline {7.14.1}Detailed Description}{100}{subsection.7.14.1}%
+\contentsline {section}{\numberline {7.15}Event\hY {}Executor\hY {}Group.\hY {}hpp}{100}{section.7.15}%
+\contentsline {section}{\numberline {7.16}Ids\hY {}Of\hY {}Solvers.\hY {}hpp File Reference}{101}{section.7.16}%
+\contentsline {subsection}{\numberline {7.16.1}Detailed Description}{101}{subsection.7.16.1}%
+\contentsline {section}{\numberline {7.17}Ids\hY {}Of\hY {}Solvers.\hY {}hpp}{101}{section.7.17}%
+\contentsline {section}{\numberline {7.18}Lattice.\hY {}hpp File Reference}{101}{section.7.18}%
+\contentsline {subsection}{\numberline {7.18.1}Detailed Description}{102}{subsection.7.18.1}%
+\contentsline {section}{\numberline {7.19}Lattice.\hY {}hpp}{102}{section.7.19}%
+\contentsline {section}{\numberline {7.20}Make\hY {}Enum.\hY {}hpp File Reference}{105}{section.7.20}%
+\contentsline {subsection}{\numberline {7.20.1}Detailed Description}{105}{subsection.7.20.1}%
+\contentsline {subsection}{\numberline {7.20.2}Macro Definition Documentation}{105}{subsection.7.20.2}%
+\contentsline {subsubsection}{KMC\_MAKE\_ID\_ENUM}{105}{section*.212}%
+\contentsline {subsubsection}{KMC\_MAKE\_LATTICE\_FLOATVAL\_ENUM}{106}{section*.213}%
+\contentsline {subsubsection}{KMC\_MAKE\_LATTICE\_INTVAL\_ENUM}{106}{section*.214}%
+\contentsline {subsubsection}{KMC\_MAKE\_OFFSET\_ENUM}{106}{section*.215}%
+\contentsline {section}{\numberline {7.21}Make\hY {}Enum.\hY {}hpp}{107}{section.7.21}%
+\contentsline {section}{\numberline {7.22}Periodic\hY {}Action.\hY {}hpp File Reference}{107}{section.7.22}%
+\contentsline {subsection}{\numberline {7.22.1}Detailed Description}{108}{subsection.7.22.1}%
+\contentsline {section}{\numberline {7.23}Periodic\hY {}Action.\hY {}hpp}{108}{section.7.23}%
+\contentsline {section}{\numberline {7.24}Rand\hY {}Num\hY {}Gen.\hY {}hpp File Reference}{108}{section.7.24}%
+\contentsline {subsection}{\numberline {7.24.1}Detailed Description}{108}{subsection.7.24.1}%
+\contentsline {section}{\numberline {7.25}Rand\hY {}Num\hY {}Gen.\hY {}hpp}{108}{section.7.25}%
+\contentsline {section}{\numberline {7.26}Rand\hY {}Num\hY {}Gen\hY {}DCMT.\hY {}hpp File Reference}{109}{section.7.26}%
+\contentsline {subsection}{\numberline {7.26.1}Detailed Description}{109}{subsection.7.26.1}%
+\contentsline {section}{\numberline {7.27}Rand\hY {}Num\hY {}Gen\hY {}DCMT.\hY {}hpp}{109}{section.7.27}%
+\contentsline {section}{\numberline {7.28}Rand\hY {}Num\hY {}Gen\hY {}MT19937.\hY {}hpp File Reference}{110}{section.7.28}%
+\contentsline {subsection}{\numberline {7.28.1}Detailed Description}{110}{subsection.7.28.1}%
+\contentsline {section}{\numberline {7.29}Rand\hY {}Num\hY {}Gen\hY {}MT19937.\hY {}hpp}{110}{section.7.29}%
+\contentsline {section}{\numberline {7.30}Rand\hY {}Num\hY {}Gen\hY {}Rng\hY {}Streams.\hY {}hpp File Reference}{111}{section.7.30}%
+\contentsline {subsection}{\numberline {7.30.1}Detailed Description}{111}{subsection.7.30.1}%
+\contentsline {section}{\numberline {7.31}Rand\hY {}Num\hY {}Gen\hY {}Rng\hY {}Streams.\hY {}hpp}{111}{section.7.31}%
+\contentsline {section}{\numberline {7.32}Simulation.\hY {}hpp File Reference}{112}{section.7.32}%
+\contentsline {subsection}{\numberline {7.32.1}Detailed Description}{112}{subsection.7.32.1}%
+\contentsline {section}{\numberline {7.33}Simulation.\hY {}hpp}{112}{section.7.33}%
+\contentsline {section}{\numberline {7.34}Simulation\hY {}State.\hY {}hpp File Reference}{114}{section.7.34}%
+\contentsline {subsection}{\numberline {7.34.1}Detailed Description}{114}{subsection.7.34.1}%
+\contentsline {section}{\numberline {7.35}Simulation\hY {}State.\hY {}hpp}{114}{section.7.35}%
+\contentsline {section}{\numberline {7.36}Time\hY {}Incr\hY {}Scheme\hY {}Vars.\hY {}hpp File Reference}{115}{section.7.36}%
+\contentsline {subsection}{\numberline {7.36.1}Detailed Description}{116}{subsection.7.36.1}%
+\contentsline {section}{\numberline {7.37}Time\hY {}Incr\hY {}Scheme\hY {}Vars.\hY {}hpp}{116}{section.7.37}%
+\contentsline {chapter}{\numberline {8}Examples}{117}{chapter.8}%
+\contentsline {section}{\numberline {8.1}test\hY {}Fractal/test\hY {}Fractal.\hY {}cpp}{117}{section.8.1}%
+\contentsline {section}{\numberline {8.2}test\hY {}Fractal/\hY {}Events\hY {}And\hY {}Actions.\hY {}hpp}{118}{section.8.2}%
+\contentsline {section}{\numberline {8.3}test\hY {}Fractal/\hY {}Events\hY {}And\hY {}Actions.\hY {}cpp}{119}{section.8.3}%
+\contentsline {section}{\numberline {8.4}test\hY {}Fractal\hY {}\_\hY {}semi\hY {}\_\hY {}manual\hY {}\_\hY {}track/test\hY {}Fractal.\hY {}cpp}{121}{section.8.4}%
+\contentsline {section}{\numberline {8.5}test\hY {}Fractal\hY {}\_\hY {}semi\hY {}\_\hY {}manual\hY {}\_\hY {}track/\hY {}Events\hY {}And\hY {}Actions.\hY {}hpp}{122}{section.8.5}%
+\contentsline {section}{\numberline {8.6}test\hY {}Fractal\hY {}\_\hY {}semi\hY {}\_\hY {}manual\hY {}\_\hY {}track/\hY {}Events\hY {}And\hY {}Actions.\hY {}cpp}{123}{section.8.6}%
+\contentsline {section}{\numberline {8.7}test\hY {}Fractal\hY {}\_\hY {}parallel/test\hY {}Fractal.\hY {}cpp}{124}{section.8.7}%
+\contentsline {section}{\numberline {8.8}test\hY {}Ballistic\hY {}Dep1/test\hY {}Ballistic\hY {}Dep.\hY {}cpp}{126}{section.8.8}%
+\contentsline {section}{\numberline {8.9}test\hY {}Ballistic\hY {}Dep1/\hY {}Events\hY {}And\hY {}Actions.\hY {}hpp}{127}{section.8.9}%
+\contentsline {section}{\numberline {8.10}test\hY {}Ballistic\hY {}Dep1/\hY {}Events\hY {}And\hY {}Actions.\hY {}cpp}{128}{section.8.10}%
+\contentsline {section}{\numberline {8.11}test\hY {}Ballistic\hY {}Dep1/\hY {}Init\hY {}Lattice.\hY {}hpp}{131}{section.8.11}%
+\contentsline {section}{\numberline {8.12}test\hY {}Ballistic\hY {}Dep1/\hY {}Init\hY {}Lattice.\hY {}cpp}{131}{section.8.12}%
+\contentsline {section}{\numberline {8.13}test\hY {}Ballistic\hY {}Dep2/test\hY {}Ballistic\hY {}Dep.\hY {}cpp}{131}{section.8.13}%
+\contentsline {section}{\numberline {8.14}test\hY {}Ballistic\hY {}Dep2/\hY {}Events\hY {}And\hY {}Actions.\hY {}hpp}{133}{section.8.14}%
+\contentsline {section}{\numberline {8.15}test\hY {}Ballistic\hY {}Dep2/\hY {}Events\hY {}And\hY {}Actions.\hY {}cpp}{134}{section.8.15}%
+\contentsline {section}{\numberline {8.16}test\hY {}Patterned\hY {}Surface1/test\hY {}Patterned\hY {}Surface.\hY {}cpp}{136}{section.8.16}%
+\contentsline {section}{\numberline {8.17}test\hY {}Patterned\hY {}Surface1/\hY {}Events\hY {}And\hY {}Actions.\hY {}hpp}{138}{section.8.17}%
+\contentsline {section}{\numberline {8.18}test\hY {}Patterned\hY {}Surface1/\hY {}Events\hY {}And\hY {}Actions.\hY {}cpp}{139}{section.8.18}%
+\contentsline {section}{\numberline {8.19}test\hY {}Patterned\hY {}Surface1/\hY {}Init\hY {}Lattice.\hY {}hpp}{140}{section.8.19}%
+\contentsline {section}{\numberline {8.20}test\hY {}Patterned\hY {}Surface1/\hY {}Init\hY {}Lattice.\hY {}cpp}{141}{section.8.20}%
+\contentsline {section}{\numberline {8.21}test\hY {}Patterned\hY {}Surface1/\hY {}Physical\hY {}Constants.\hY {}hpp}{142}{section.8.21}%
+\contentsline {section}{\numberline {8.22}test\hY {}Patterned\hY {}Surface2/test\hY {}Patterned\hY {}Surface.\hY {}cpp}{142}{section.8.22}%
+\contentsline {section}{\numberline {8.23}test\hY {}Patterned\hY {}Surface2/\hY {}Events\hY {}And\hY {}Actions.\hY {}hpp}{143}{section.8.23}%
+\contentsline {section}{\numberline {8.24}test\hY {}Patterned\hY {}Surface2/\hY {}Events\hY {}And\hY {}Actions.\hY {}cpp}{144}{section.8.24}%
+\contentsline {chapter}{Bibliography}{147}{chapter*.235}%
+\contentsline {chapter}{Index}{149}{section*.236}%

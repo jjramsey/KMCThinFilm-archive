@@ -1,0 +1,31 @@
+\doxysection{KMCThin\+Film\+::Solver\+Id Namespace Reference}
+\hypertarget{namespaceKMCThinFilm_1_1SolverId}{}\label{namespaceKMCThinFilm_1_1SolverId}\index{KMCThinFilm::SolverId@{KMCThinFilm::SolverId}}
+\doxysubsubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{namespaceKMCThinFilm_1_1SolverId_a43b0b7ee9ab985e86a13450beb2c7523}{Type}} \{ \mbox{\hyperlink{namespaceKMCThinFilm_1_1SolverId_a43b0b7ee9ab985e86a13450beb2c7523a66b6c59bbaeb00525c6dd96af1b33563}{DYNAMIC\+\_\+\+SCHULZE}}
+, \mbox{\hyperlink{namespaceKMCThinFilm_1_1SolverId_a43b0b7ee9ab985e86a13450beb2c7523ae9d89581f4843523f96f1ef4350094d4}{BINARY\+\_\+\+TREE}}
+ \}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Namespace to enclose the \doxylink{namespaceKMCThinFilm_1_1SolverId_a43b0b7ee9ab985e86a13450beb2c7523}{Solver\+Id\+::\+Type} enumeration 
+
+\doxysubsection{Enumeration Type Documentation}
+\Hypertarget{namespaceKMCThinFilm_1_1SolverId_a43b0b7ee9ab985e86a13450beb2c7523}\index{KMCThinFilm::SolverId@{KMCThinFilm::SolverId}!Type@{Type}}
+\index{Type@{Type}!KMCThinFilm::SolverId@{KMCThinFilm::SolverId}}
+\doxysubsubsection{\texorpdfstring{Type}{Type}}
+{\footnotesize\ttfamily \label{namespaceKMCThinFilm_1_1SolverId_a43b0b7ee9ab985e86a13450beb2c7523} 
+enum \mbox{\hyperlink{namespaceKMCThinFilm_1_1SolverId_a43b0b7ee9ab985e86a13450beb2c7523}{KMCThin\+Film\+::\+Solver\+Id\+::\+Type}}}
+
+Types of solvers used in a KMC simulation \begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{DYNAMIC\_SCHULZE@{DYNAMIC\_SCHULZE}!KMCThinFilm::SolverId@{KMCThinFilm::SolverId}}\index{KMCThinFilm::SolverId@{KMCThinFilm::SolverId}!DYNAMIC\_SCHULZE@{DYNAMIC\_SCHULZE}}}\Hypertarget{namespaceKMCThinFilm_1_1SolverId_a43b0b7ee9ab985e86a13450beb2c7523a66b6c59bbaeb00525c6dd96af1b33563}\label{namespaceKMCThinFilm_1_1SolverId_a43b0b7ee9ab985e86a13450beb2c7523a66b6c59bbaeb00525c6dd96af1b33563} 
+DYNAMIC\+\_\+\+SCHULZE&A solver implementing an algorithm similar to that described by Schulze in {\itshape Physical Review E}, vol. 65, 036704 (2002), but allowing for the number of event propensities to be determined at runtime. This should allow the choosing of an event to scale with the number of unique propensities, rather than the number of events. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{BINARY\_TREE@{BINARY\_TREE}!KMCThinFilm::SolverId@{KMCThinFilm::SolverId}}\index{KMCThinFilm::SolverId@{KMCThinFilm::SolverId}!BINARY\_TREE@{BINARY\_TREE}}}\Hypertarget{namespaceKMCThinFilm_1_1SolverId_a43b0b7ee9ab985e86a13450beb2c7523ae9d89581f4843523f96f1ef4350094d4}\label{namespaceKMCThinFilm_1_1SolverId_a43b0b7ee9ab985e86a13450beb2c7523ae9d89581f4843523f96f1ef4350094d4} 
+BINARY\+\_\+\+TREE&A solver where the possible events are stored as leaves in a binary tree, allowing the choosing of an event to scale as $O(log_2 N)$, where {\itshape N} is the number of possible events. May be faster than DYNAMIC\+\_\+\+SCHULZE in practice. \\
+\hline
+
+\end{DoxyEnumFields}

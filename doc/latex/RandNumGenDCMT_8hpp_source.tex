@@ -1,0 +1,55 @@
+\doxysection{Rand\+Num\+Gen\+DCMT.\+hpp}
+\hypertarget{RandNumGenDCMT_8hpp_source}{}\label{RandNumGenDCMT_8hpp_source}\index{RandNumGenDCMT.hpp@{RandNumGenDCMT.hpp}}
+\mbox{\hyperlink{RandNumGenDCMT_8hpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ RAND\_NUM\_GEN\_DCMT\_HPP}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ RAND\_NUM\_GEN\_DCMT\_HPP}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{keyword}{extern}\ \textcolor{stringliteral}{"{}C"{}}\ \{}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <dc.h>}}
+\DoxyCodeLine{00006\ \}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{RandNumGen_8hpp}{RandNumGen.hpp}}"{}}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespaceKMCThinFilm}{KMCThinFilm}}\ \{}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00025\ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{classKMCThinFilm_1_1RandNumGenDCMT_aaba0c646a32c0741e141309ae0cd1422}{RandNumGenDCMT}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classKMCThinFilm_1_1RandNumGen}{RandNumGen}}\ \{}
+\DoxyCodeLine{00026\ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keyword}{enum}\ \mbox{\hyperlink{classKMCThinFilm_1_1RandNumGenDCMT_a8b382ccad8268352985cc35e298296fd}{Period}}\ \{}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ P521\ =\ 521,}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ P607\ =\ 607,}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ P1279\ =\ 1279,\ }
+\DoxyCodeLine{00041\ \ \ \ \ \ \ P2203\ =\ 2203,\ }
+\DoxyCodeLine{00042\ \ \ \ \ \ \ P2281\ =\ 2281,\ }
+\DoxyCodeLine{00043\ \ \ \ \ \ \ P3217\ =\ 3217,\ }
+\DoxyCodeLine{00044\ \ \ \ \ \ \ P4253\ =\ 4253,\ }
+\DoxyCodeLine{00045\ \ \ \ \ \ \ P4423\ =\ 4423,\ }
+\DoxyCodeLine{00046\ \ \ \ \ \ \ P9689\ =\ 9689,\ }
+\DoxyCodeLine{00047\ \ \ \ \ \ \ P9941\ =\ 9941,\ }
+\DoxyCodeLine{00048\ \ \ \ \ \ \ P11213\ =\ 11213,\ }
+\DoxyCodeLine{00049\ \ \ \ \ \ \ P19937\ =\ 19937,\ }
+\DoxyCodeLine{00050\ \ \ \ \ \ \ P21701\ =\ 21701,\ }
+\DoxyCodeLine{00051\ \ \ \ \ \ \ P23209\ =\ 23209,\ }
+\DoxyCodeLine{00052\ \ \ \ \ \ \ P44497\ =\ 44497}
+\DoxyCodeLine{00053\ \ \ \ \ \};}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00058\ \ \ \ \ \mbox{\hyperlink{classKMCThinFilm_1_1RandNumGenDCMT_aaba0c646a32c0741e141309ae0cd1422}{RandNumGenDCMT}}(\textcolor{keywordtype}{int}\ rank\ ,}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint32\_t\ seed\ ,\ }
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint32\_t\ seed\_perProc\ ,}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classKMCThinFilm_1_1RandNumGenDCMT_a8b382ccad8268352985cc35e298296fd}{Period}}\ period\ =\ P521\ );}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00072\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{classKMCThinFilm_1_1RandNumGenDCMT_a372003214275ad9889895ff3fabab8d3}{getNumInOpenIntervalFrom0To1}}();}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{classKMCThinFilm_1_1RandNumGenDCMT_aaba0c646a32c0741e141309ae0cd1422}{\string~RandNumGenDCMT}}();}
+\DoxyCodeLine{00075\ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00076\ \ \ \ \ uint32\_t\ seed\_;}
+\DoxyCodeLine{00077\ \ \ \ \ mt\_struct\ *\ mts\_;}
+\DoxyCodeLine{00078\ \ \ \};}
+\DoxyCodeLine{00079\ }
+\DoxyCodeLine{00080\ \}}
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00082\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ RAND\_NUM\_GEN\_DCMT\_HPP\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

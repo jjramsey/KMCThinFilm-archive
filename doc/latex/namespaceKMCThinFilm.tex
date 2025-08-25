@@ -1,0 +1,189 @@
+\doxysection{KMCThin\+Film Namespace Reference}
+\hypertarget{namespaceKMCThinFilm}{}\label{namespaceKMCThinFilm}\index{KMCThinFilm@{KMCThinFilm}}
+\doxysubsubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+namespace \mbox{\hyperlink{namespaceKMCThinFilm_1_1SolverId}{Solver\+Id}}
+\item 
+namespace \mbox{\hyperlink{namespaceKMCThinFilm_1_1TimeIncr}{Time\+Incr}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classKMCThinFilm_1_1AddEmptyPlanes}{Add\+Empty\+Planes}}
+\item 
+class \mbox{\hyperlink{classKMCThinFilm_1_1CellInds}{Cell\+Inds}}
+\item 
+class \mbox{\hyperlink{classKMCThinFilm_1_1CellIndsOffset}{Cell\+Inds\+Offset}}
+\item 
+class \mbox{\hyperlink{classKMCThinFilm_1_1CellNeighOffsets}{Cell\+Neigh\+Offsets}}
+\item 
+class \mbox{\hyperlink{classKMCThinFilm_1_1CellNeighProbe}{Cell\+Neigh\+Probe}}
+\item 
+class \mbox{\hyperlink{classKMCThinFilm_1_1CellsToChange}{Cells\+To\+Change}}
+\item 
+class \mbox{\hyperlink{classKMCThinFilm_1_1CellToProbe}{Cell\+To\+Probe}}
+\item 
+class \mbox{\hyperlink{classKMCThinFilm_1_1EventExecutorGroup}{Event\+Executor\+Group}}
+\item 
+class \mbox{\hyperlink{classKMCThinFilm_1_1Lattice}{Lattice}}
+\item 
+struct \mbox{\hyperlink{structKMCThinFilm_1_1LatticeParams}{Lattice\+Params}}
+\item 
+struct \mbox{\hyperlink{structKMCThinFilm_1_1LatticePlanarBBox}{Lattice\+Planar\+BBox}}
+\item 
+class \mbox{\hyperlink{classKMCThinFilm_1_1RandNumGen}{Rand\+Num\+Gen}}
+\item 
+class \mbox{\hyperlink{classKMCThinFilm_1_1RandNumGenDCMT}{Rand\+Num\+Gen\+DCMT}}
+\item 
+class \mbox{\hyperlink{classKMCThinFilm_1_1RandNumGenMT19937}{Rand\+Num\+Gen\+MT19937}}
+\item 
+class \mbox{\hyperlink{classKMCThinFilm_1_1RandNumGenRngStreams}{Rand\+Num\+Gen\+Rng\+Streams}}
+\item 
+class \mbox{\hyperlink{classKMCThinFilm_1_1Simulation}{Simulation}}
+\item 
+class \mbox{\hyperlink{classKMCThinFilm_1_1SimulationState}{Simulation\+State}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef boost\+::function$<$ void(const \mbox{\hyperlink{classKMCThinFilm_1_1CellNeighProbe}{Cell\+Neigh\+Probe}} \&, std\+::vector$<$ double $>$ \&)$>$ \mbox{\hyperlink{namespaceKMCThinFilm_afc58c6c4948aa7d7243beb0990a563f1}{Cell\+Centered\+Group\+Propensities}}
+\item 
+typedef boost\+::function$<$ void(const \mbox{\hyperlink{classKMCThinFilm_1_1CellInds}{Cell\+Inds}} \&, const \mbox{\hyperlink{classKMCThinFilm_1_1SimulationState}{Simulation\+State}} \&, \mbox{\hyperlink{classKMCThinFilm_1_1Lattice}{Lattice}} \&)$>$ \mbox{\hyperlink{namespaceKMCThinFilm_a601f0f23e6b591202d40f27df34db951}{Event\+Executor\+Auto\+Track}}
+\item 
+typedef boost\+::function$<$ void(const \mbox{\hyperlink{classKMCThinFilm_1_1CellInds}{Cell\+Inds}} \&, const \mbox{\hyperlink{classKMCThinFilm_1_1SimulationState}{Simulation\+State}} \&, const \mbox{\hyperlink{classKMCThinFilm_1_1Lattice}{Lattice}} \&, std\+::vector$<$ \mbox{\hyperlink{classKMCThinFilm_1_1CellsToChange}{Cells\+To\+Change}} $>$ \&)$>$ \mbox{\hyperlink{namespaceKMCThinFilm_a92a9e6c3ced8703f95265e85d80f1797}{Event\+Executor\+Semi\+Manual\+Track}}
+\item 
+typedef boost\+::function$<$ void(\mbox{\hyperlink{classKMCThinFilm_1_1Lattice}{Lattice}} \&lattice)$>$ \mbox{\hyperlink{namespaceKMCThinFilm_a716044de50c29c8bb9118f8dbeb3d4bf}{Lattice\+Initializer}}
+\item 
+typedef boost\+::function$<$ void(const \mbox{\hyperlink{classKMCThinFilm_1_1SimulationState}{Simulation\+State}} \&, \mbox{\hyperlink{classKMCThinFilm_1_1Lattice}{Lattice}} \&)$>$ \mbox{\hyperlink{namespaceKMCThinFilm_ab48bbcbabdf454a07e2f0edb47404abe}{Periodic\+Action}}
+\item 
+typedef boost\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classKMCThinFilm_1_1RandNumGen}{Rand\+Num\+Gen}} $>$ \mbox{\hyperlink{namespaceKMCThinFilm_a7b5f253610505f71091c404d12d05aee}{Rand\+Num\+Gen\+Shared\+Ptr}}
+\item 
+typedef boost\+::function$<$ void(const \mbox{\hyperlink{classKMCThinFilm_1_1CellInds}{Cell\+Inds}} \&, const \mbox{\hyperlink{classKMCThinFilm_1_1Lattice}{Lattice}} \&, std\+::vector$<$ int $>$ \&empty\+Int\+Vals, std\+::vector$<$ double $>$ \&empty\+Float\+Vals)$>$ \mbox{\hyperlink{namespaceKMCThinFilm_a92970705c2d791c5497beb06d88c8fa3}{Set\+Empty\+Cell\+Vals}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{namespaceKMCThinFilm_aac20cac9fafdadc9f9140d8c444a909d}{abort\+On\+Condition}} (bool condition, const std\+::string \&msg)
+\item 
+void \mbox{\hyperlink{namespaceKMCThinFilm_a02f166564651b1bae0acea5afe7d6a75}{abort\+With\+Msg}} (const std\+::string \&msg)
+\item 
+void \mbox{\hyperlink{namespaceKMCThinFilm_acb9484dffdfd1584121f8a7c8bb8d924}{exit\+On\+Condition}} (bool condition, const std\+::string \&msg)
+\item 
+void \mbox{\hyperlink{namespaceKMCThinFilm_a77bd0cec2abe3a269140d80cfea34ed8}{exit\+With\+Msg}} (const std\+::string \&msg)
+\item 
+\mbox{\hyperlink{classKMCThinFilm_1_1CellInds}{Cell\+Inds}} \mbox{\hyperlink{namespaceKMCThinFilm_a57489af951d041dc66872aea47fa3da2}{operator+}} (const \mbox{\hyperlink{classKMCThinFilm_1_1CellInds}{Cell\+Inds}} \&ci, const \mbox{\hyperlink{classKMCThinFilm_1_1CellIndsOffset}{Cell\+Inds\+Offset}} \&offset)
+\item 
+\mbox{\hyperlink{classKMCThinFilm_1_1CellIndsOffset}{Cell\+Inds\+Offset}} \mbox{\hyperlink{namespaceKMCThinFilm_aacd669843be2e15ab3d438f7cf892f20}{operator+}} (const \mbox{\hyperlink{classKMCThinFilm_1_1CellIndsOffset}{Cell\+Inds\+Offset}} \&offset1, const \mbox{\hyperlink{classKMCThinFilm_1_1CellIndsOffset}{Cell\+Inds\+Offset}} \&offset2)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+This is the namespace that contains all the class definitions and functions of the ARL \doxylink{namespaceKMCThinFilm}{KMCThin\+Film} library. 
+
+\doxysubsection{Typedef Documentation}
+\Hypertarget{namespaceKMCThinFilm_afc58c6c4948aa7d7243beb0990a563f1}\index{KMCThinFilm@{KMCThinFilm}!CellCenteredGroupPropensities@{CellCenteredGroupPropensities}}
+\index{CellCenteredGroupPropensities@{CellCenteredGroupPropensities}!KMCThinFilm@{KMCThinFilm}}
+\doxysubsubsection{\texorpdfstring{CellCenteredGroupPropensities}{CellCenteredGroupPropensities}}
+{\footnotesize\ttfamily \label{namespaceKMCThinFilm_afc58c6c4948aa7d7243beb0990a563f1} 
+typedef boost\+::function$<$void (const \mbox{\hyperlink{classKMCThinFilm_1_1CellNeighProbe}{Cell\+Neigh\+Probe}} \&, std\+::vector$<$double$>$ \&)$>$ \mbox{\hyperlink{namespaceKMCThinFilm_afc58c6c4948aa7d7243beb0990a563f1}{KMCThin\+Film\+::\+Cell\+Centered\+Group\+Propensities}}}
+
+Signature of the function object used to determine the propensities of a group of related events. \Hypertarget{namespaceKMCThinFilm_a601f0f23e6b591202d40f27df34db951}\index{KMCThinFilm@{KMCThinFilm}!EventExecutorAutoTrack@{EventExecutorAutoTrack}}
+\index{EventExecutorAutoTrack@{EventExecutorAutoTrack}!KMCThinFilm@{KMCThinFilm}}
+\doxysubsubsection{\texorpdfstring{EventExecutorAutoTrack}{EventExecutorAutoTrack}}
+{\footnotesize\ttfamily \label{namespaceKMCThinFilm_a601f0f23e6b591202d40f27df34db951} 
+typedef boost\+::function$<$void (const \mbox{\hyperlink{classKMCThinFilm_1_1CellInds}{Cell\+Inds}} \&, const \mbox{\hyperlink{classKMCThinFilm_1_1SimulationState}{Simulation\+State}} \&, \mbox{\hyperlink{classKMCThinFilm_1_1Lattice}{Lattice}} \&)$>$ \mbox{\hyperlink{namespaceKMCThinFilm_a601f0f23e6b591202d40f27df34db951}{KMCThin\+Film\+::\+Event\+Executor\+Auto\+Track}}}
+
+Signature for a function object to execute an event where "{}auto-\/tracking"{} is used.
+
+In auto-\/tracking, cells affected by the event are determined automatically from the offsets used to calculate propensities and the positions of cells directly changed by the executed event, which are logged automatically when \doxylink{classKMCThinFilm_1_1Lattice_a81beda29c4c8722cb047f7f2ce0a09ce}{Lattice\+::set\+Int()} and \doxylink{classKMCThinFilm_1_1Lattice_aefe9601bf62fdb46d451d61fa017e691}{Lattice\+::set\+Float()} are called. This mode of tracking may lead to redundant propensity calculations. \Hypertarget{namespaceKMCThinFilm_a92a9e6c3ced8703f95265e85d80f1797}\index{KMCThinFilm@{KMCThinFilm}!EventExecutorSemiManualTrack@{EventExecutorSemiManualTrack}}
+\index{EventExecutorSemiManualTrack@{EventExecutorSemiManualTrack}!KMCThinFilm@{KMCThinFilm}}
+\doxysubsubsection{\texorpdfstring{EventExecutorSemiManualTrack}{EventExecutorSemiManualTrack}}
+{\footnotesize\ttfamily \label{namespaceKMCThinFilm_a92a9e6c3ced8703f95265e85d80f1797} 
+typedef boost\+::function$<$void (const \mbox{\hyperlink{classKMCThinFilm_1_1CellInds}{Cell\+Inds}} \&, const \mbox{\hyperlink{classKMCThinFilm_1_1SimulationState}{Simulation\+State}} \&, const \mbox{\hyperlink{classKMCThinFilm_1_1Lattice}{Lattice}} \&, std\+::vector$<$\mbox{\hyperlink{classKMCThinFilm_1_1CellsToChange}{Cells\+To\+Change}}$>$ \&)$>$ \mbox{\hyperlink{namespaceKMCThinFilm_a92a9e6c3ced8703f95265e85d80f1797}{KMCThin\+Film\+::\+Event\+Executor\+Semi\+Manual\+Track}}}
+
+Signature for a function object to execute an event where "{}semi-\/manual"{} tracking is used.
+
+In semi-\/manual tracking, the user specifies the relative positions of the cells changed by an event. Using this information along with the offsets used to calculate propensities can reduce or eliminate redundant propensity calculations. \Hypertarget{namespaceKMCThinFilm_a716044de50c29c8bb9118f8dbeb3d4bf}\index{KMCThinFilm@{KMCThinFilm}!LatticeInitializer@{LatticeInitializer}}
+\index{LatticeInitializer@{LatticeInitializer}!KMCThinFilm@{KMCThinFilm}}
+\doxysubsubsection{\texorpdfstring{LatticeInitializer}{LatticeInitializer}}
+{\footnotesize\ttfamily \label{namespaceKMCThinFilm_a716044de50c29c8bb9118f8dbeb3d4bf} 
+typedef boost\+::function$<$void (\mbox{\hyperlink{classKMCThinFilm_1_1Lattice}{Lattice}} \& lattice)$>$ \mbox{\hyperlink{namespaceKMCThinFilm_a716044de50c29c8bb9118f8dbeb3d4bf}{KMCThin\+Film\+::\+Lattice\+Initializer}}}
+
+Signature of a function or function object to be used to initialize a lattice. \Hypertarget{namespaceKMCThinFilm_ab48bbcbabdf454a07e2f0edb47404abe}\index{KMCThinFilm@{KMCThinFilm}!PeriodicAction@{PeriodicAction}}
+\index{PeriodicAction@{PeriodicAction}!KMCThinFilm@{KMCThinFilm}}
+\doxysubsubsection{\texorpdfstring{PeriodicAction}{PeriodicAction}}
+{\footnotesize\ttfamily \label{namespaceKMCThinFilm_ab48bbcbabdf454a07e2f0edb47404abe} 
+typedef boost\+::function$<$void (const \mbox{\hyperlink{classKMCThinFilm_1_1SimulationState}{Simulation\+State}} \&, \mbox{\hyperlink{classKMCThinFilm_1_1Lattice}{Lattice}} \&)$>$ \mbox{\hyperlink{namespaceKMCThinFilm_ab48bbcbabdf454a07e2f0edb47404abe}{KMCThin\+Film\+::\+Periodic\+Action}}}
+
+Signature for the function object called periodically during a simulation. \Hypertarget{namespaceKMCThinFilm_a7b5f253610505f71091c404d12d05aee}\index{KMCThinFilm@{KMCThinFilm}!RandNumGenSharedPtr@{RandNumGenSharedPtr}}
+\index{RandNumGenSharedPtr@{RandNumGenSharedPtr}!KMCThinFilm@{KMCThinFilm}}
+\doxysubsubsection{\texorpdfstring{RandNumGenSharedPtr}{RandNumGenSharedPtr}}
+{\footnotesize\ttfamily \label{namespaceKMCThinFilm_a7b5f253610505f71091c404d12d05aee} 
+typedef boost\+::shared\+\_\+ptr$<$\mbox{\hyperlink{classKMCThinFilm_1_1RandNumGen}{Rand\+Num\+Gen}}$>$ \mbox{\hyperlink{namespaceKMCThinFilm_a7b5f253610505f71091c404d12d05aee}{KMCThin\+Film\+::\+Rand\+Num\+Gen\+Shared\+Ptr}}}
+
+"{}\+Smart"{} pointer used to point to an implementation of the \doxylink{classKMCThinFilm_1_1RandNumGen}{Rand\+Num\+Gen} class. \begin{Desc}
+\item[Examples]\par
+\mbox{\hyperlink{testBallisticDep1_2EventsAndActions_8hpp-example}{test\+Ballistic\+Dep1/\+Events\+And\+Actions.\+hpp}}, \mbox{\hyperlink{testBallisticDep1_2InitLattice_8hpp-example}{test\+Ballistic\+Dep1/\+Init\+Lattice.\+hpp}}, and \mbox{\hyperlink{testBallisticDep2_2EventsAndActions_8hpp-example}{test\+Ballistic\+Dep2/\+Events\+And\+Actions.\+hpp}}.\end{Desc}
+\Hypertarget{namespaceKMCThinFilm_a92970705c2d791c5497beb06d88c8fa3}\index{KMCThinFilm@{KMCThinFilm}!SetEmptyCellVals@{SetEmptyCellVals}}
+\index{SetEmptyCellVals@{SetEmptyCellVals}!KMCThinFilm@{KMCThinFilm}}
+\doxysubsubsection{\texorpdfstring{SetEmptyCellVals}{SetEmptyCellVals}}
+{\footnotesize\ttfamily \label{namespaceKMCThinFilm_a92970705c2d791c5497beb06d88c8fa3} 
+typedef boost\+::function$<$void (const \mbox{\hyperlink{classKMCThinFilm_1_1CellInds}{Cell\+Inds}} \&, const \mbox{\hyperlink{classKMCThinFilm_1_1Lattice}{Lattice}} \&, std\+::vector$<$int$>$ \& empty\+Int\+Vals, std\+::vector$<$double$>$ \& empty\+Float\+Vals)$>$ \mbox{\hyperlink{namespaceKMCThinFilm_a92970705c2d791c5497beb06d88c8fa3}{KMCThin\+Film\+::\+Set\+Empty\+Cell\+Vals}}}
+
+Signature of a function or function object to be used to set the integers and floating-\/point numbers in an empty lattice cell to their proper values.
+
+Note that when this function is used, the vectors {\itshape empty\+Int\+Vals} and {\itshape empty\+Float\+Vals} have already had their sizes set to the number of integer values and number of floating-\/point values per lattice cell, respectively. 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespaceKMCThinFilm_aac20cac9fafdadc9f9140d8c444a909d}\index{KMCThinFilm@{KMCThinFilm}!abortOnCondition@{abortOnCondition}}
+\index{abortOnCondition@{abortOnCondition}!KMCThinFilm@{KMCThinFilm}}
+\doxysubsubsection{\texorpdfstring{abortOnCondition()}{abortOnCondition()}}
+{\footnotesize\ttfamily \label{namespaceKMCThinFilm_aac20cac9fafdadc9f9140d8c444a909d} 
+void KMCThin\+Film\+::abort\+On\+Condition (\begin{DoxyParamCaption}\item[{bool}]{condition}{, }\item[{const std\+::string \&}]{msg}{}\end{DoxyParamCaption})}
+
+Aborts the program and prints the message string {\itshape msg} on all processors where {\itshape condition} is true.
+
+This function terminates less gracefully than \doxylink{namespaceKMCThinFilm_acb9484dffdfd1584121f8a7c8bb8d924}{exit\+On\+Condition()}, but may be used for cases where {\itshape condition} may not necessarily evaluate to the same value on all processors.
+
+\begin{DoxySeeAlso}{See also}
+\doxylink{namespaceKMCThinFilm_acb9484dffdfd1584121f8a7c8bb8d924}{exit\+On\+Condition()} 
+\end{DoxySeeAlso}
+\Hypertarget{namespaceKMCThinFilm_a02f166564651b1bae0acea5afe7d6a75}\index{KMCThinFilm@{KMCThinFilm}!abortWithMsg@{abortWithMsg}}
+\index{abortWithMsg@{abortWithMsg}!KMCThinFilm@{KMCThinFilm}}
+\doxysubsubsection{\texorpdfstring{abortWithMsg()}{abortWithMsg()}}
+{\footnotesize\ttfamily \label{namespaceKMCThinFilm_a02f166564651b1bae0acea5afe7d6a75} 
+void KMCThin\+Film\+::abort\+With\+Msg (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{msg}{}\end{DoxyParamCaption})}
+
+Aborts the program and prints the message string {\itshape msg} on all processors. \Hypertarget{namespaceKMCThinFilm_acb9484dffdfd1584121f8a7c8bb8d924}\index{KMCThinFilm@{KMCThinFilm}!exitOnCondition@{exitOnCondition}}
+\index{exitOnCondition@{exitOnCondition}!KMCThinFilm@{KMCThinFilm}}
+\doxysubsubsection{\texorpdfstring{exitOnCondition()}{exitOnCondition()}}
+{\footnotesize\ttfamily \label{namespaceKMCThinFilm_acb9484dffdfd1584121f8a7c8bb8d924} 
+void KMCThin\+Film\+::exit\+On\+Condition (\begin{DoxyParamCaption}\item[{bool}]{condition}{, }\item[{const std\+::string \&}]{msg}{}\end{DoxyParamCaption})}
+
+Exits the program and prints the message string {\itshape msg} on rank 0 of MPI\+\_\+\+COMM\+\_\+\+WORLD if {\itshape condition} is true.
+
+This function allows for limited error handling, but only for the cases where {\itshape condition} is tested on all processors and {\itshape will evaluate to the same value on all processors}. If these conditions will not always be satisfied, then another method of error handling, e.\+g. \doxylink{namespaceKMCThinFilm_aac20cac9fafdadc9f9140d8c444a909d}{abort\+On\+Condition()}, should be used instead.
+
+\begin{DoxySeeAlso}{See also}
+\doxylink{namespaceKMCThinFilm_aac20cac9fafdadc9f9140d8c444a909d}{abort\+On\+Condition()} 
+\end{DoxySeeAlso}
+\Hypertarget{namespaceKMCThinFilm_a77bd0cec2abe3a269140d80cfea34ed8}\index{KMCThinFilm@{KMCThinFilm}!exitWithMsg@{exitWithMsg}}
+\index{exitWithMsg@{exitWithMsg}!KMCThinFilm@{KMCThinFilm}}
+\doxysubsubsection{\texorpdfstring{exitWithMsg()}{exitWithMsg()}}
+{\footnotesize\ttfamily \label{namespaceKMCThinFilm_a77bd0cec2abe3a269140d80cfea34ed8} 
+void KMCThin\+Film\+::exit\+With\+Msg (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{msg}{}\end{DoxyParamCaption})}
+
+Exits the program and prints the message string {\itshape msg} on rank 0 of MPI\+\_\+\+COMM\+\_\+\+WORLD. \Hypertarget{namespaceKMCThinFilm_a57489af951d041dc66872aea47fa3da2}\index{KMCThinFilm@{KMCThinFilm}!operator+@{operator+}}
+\index{operator+@{operator+}!KMCThinFilm@{KMCThinFilm}}
+\doxysubsubsection{\texorpdfstring{operator+()}{operator+()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{namespaceKMCThinFilm_a57489af951d041dc66872aea47fa3da2} 
+\mbox{\hyperlink{classKMCThinFilm_1_1CellInds}{Cell\+Inds}} KMCThin\+Film\+::operator+ (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classKMCThinFilm_1_1CellInds}{Cell\+Inds}} \&}]{ci}{, }\item[{const \mbox{\hyperlink{classKMCThinFilm_1_1CellIndsOffset}{Cell\+Inds\+Offset}} \&}]{offset}{}\end{DoxyParamCaption})}
+
+Returns a \doxylink{classKMCThinFilm_1_1CellInds}{Cell\+Inds} instance with the indices ci.\+i + offset.\+i, ci.\+j + offset.\+j, and ci.\+k + offset.\+k. \Hypertarget{namespaceKMCThinFilm_aacd669843be2e15ab3d438f7cf892f20}\index{KMCThinFilm@{KMCThinFilm}!operator+@{operator+}}
+\index{operator+@{operator+}!KMCThinFilm@{KMCThinFilm}}
+\doxysubsubsection{\texorpdfstring{operator+()}{operator+()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{namespaceKMCThinFilm_aacd669843be2e15ab3d438f7cf892f20} 
+\mbox{\hyperlink{classKMCThinFilm_1_1CellIndsOffset}{Cell\+Inds\+Offset}} KMCThin\+Film\+::operator+ (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classKMCThinFilm_1_1CellIndsOffset}{Cell\+Inds\+Offset}} \&}]{offset1}{, }\item[{const \mbox{\hyperlink{classKMCThinFilm_1_1CellIndsOffset}{Cell\+Inds\+Offset}} \&}]{offset2}{}\end{DoxyParamCaption})}
+
+Returns a \doxylink{classKMCThinFilm_1_1CellIndsOffset}{Cell\+Inds\+Offset} instance with the indices offset1.\+i + offset2.\+i, offset1.\+j + offset2.\+j, and offset1.\+k + offset2.\+k. 

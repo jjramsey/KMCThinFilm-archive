@@ -1,0 +1,693 @@
+\doxysection{KMCThin\+Film\+::Simulation Class Reference}
+\hypertarget{classKMCThinFilm_1_1Simulation}{}\label{classKMCThinFilm_1_1Simulation}\index{KMCThinFilm::Simulation@{KMCThinFilm::Simulation}}
+
+
+{\ttfamily \#include $<$Simulation.\+hpp$>$}
+
+Inheritance diagram for KMCThin\+Film\+::Simulation\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classKMCThinFilm_1_1Simulation}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classKMCThinFilm_1_1Simulation_ac5a1023e231685fda3a421e86beff980}{Simulation}} (const \mbox{\hyperlink{structKMCThinFilm_1_1LatticeParams}{Lattice\+Params}} \&params\+For\+Lattice)
+\item 
+void \mbox{\hyperlink{classKMCThinFilm_1_1Simulation_ada268bce065b942617fd1331b083626d}{add\+Cell\+Centered\+Event\+Group}} (int event\+Group\+Id, const \mbox{\hyperlink{classKMCThinFilm_1_1CellNeighOffsets}{Cell\+Neigh\+Offsets}} \&cno, \mbox{\hyperlink{namespaceKMCThinFilm_afc58c6c4948aa7d7243beb0990a563f1}{Cell\+Centered\+Group\+Propensities}} propensities, const \mbox{\hyperlink{classKMCThinFilm_1_1EventExecutorGroup}{Event\+Executor\+Group}} \&event\+Executor\+Group)
+\item 
+void \mbox{\hyperlink{classKMCThinFilm_1_1Simulation_affa3dff53afd248546457944b98376d9}{add\+Over\+Lattice\+Event}} (int event\+Id, double propensity\+Per\+Unit\+Area, \mbox{\hyperlink{namespaceKMCThinFilm_a601f0f23e6b591202d40f27df34db951}{Event\+Executor\+Auto\+Track}} event\+Executor)
+\item 
+void \mbox{\hyperlink{classKMCThinFilm_1_1Simulation_a8513218aee1c117ec324b8a9cdef6ccf}{add\+Over\+Lattice\+Event}} (int event\+Id, double propensity\+Per\+Unit\+Area, \mbox{\hyperlink{namespaceKMCThinFilm_a92a9e6c3ced8703f95265e85d80f1797}{Event\+Executor\+Semi\+Manual\+Track}} event\+Executor, const std\+::vector$<$ \mbox{\hyperlink{classKMCThinFilm_1_1CellNeighOffsets}{Cell\+Neigh\+Offsets}} $>$ \&cno\+Vec)
+\item 
+void \mbox{\hyperlink{classKMCThinFilm_1_1Simulation_a5280f709245a66489eb357f488082528}{add\+Step\+Periodic\+Action}} (int action\+Id, \mbox{\hyperlink{namespaceKMCThinFilm_ab48bbcbabdf454a07e2f0edb47404abe}{Periodic\+Action}} action, int period\+Of\+Steps, bool do\+At\+Sim\+End)
+\item 
+void \mbox{\hyperlink{classKMCThinFilm_1_1Simulation_a2d0b886ef44d3acf0a8c018a7042e1d9}{add\+Time\+Periodic\+Action}} (int action\+Id, \mbox{\hyperlink{namespaceKMCThinFilm_ab48bbcbabdf454a07e2f0edb47404abe}{Periodic\+Action}} action, double period\+Of\+Time, bool do\+At\+Sim\+End)
+\item 
+void \mbox{\hyperlink{classKMCThinFilm_1_1Simulation_a4caf800d8630e74210e0301da0238f6a}{change\+Cell\+Centered\+Event\+Group}} (int event\+Group\+Id, const \mbox{\hyperlink{classKMCThinFilm_1_1CellNeighOffsets}{Cell\+Neigh\+Offsets}} \&cno, \mbox{\hyperlink{namespaceKMCThinFilm_afc58c6c4948aa7d7243beb0990a563f1}{Cell\+Centered\+Group\+Propensities}} propensities, const \mbox{\hyperlink{classKMCThinFilm_1_1EventExecutorGroup}{Event\+Executor\+Group}} \&event\+Executor\+Group)
+\item 
+void \mbox{\hyperlink{classKMCThinFilm_1_1Simulation_a3a45062725c9fe3a70e21200d01bafba}{change\+Over\+Lattice\+Event}} (int event\+Id, double propensity\+Per\+Unit\+Area, \mbox{\hyperlink{namespaceKMCThinFilm_a601f0f23e6b591202d40f27df34db951}{Event\+Executor\+Auto\+Track}} event\+Executor)
+\item 
+void \mbox{\hyperlink{classKMCThinFilm_1_1Simulation_a1ddc6a10209942546b0e42392a1dbfe8}{change\+Over\+Lattice\+Event}} (int event\+Id, double propensity\+Per\+Unit\+Area, \mbox{\hyperlink{namespaceKMCThinFilm_a92a9e6c3ced8703f95265e85d80f1797}{Event\+Executor\+Semi\+Manual\+Track}} event\+Executor, const std\+::vector$<$ \mbox{\hyperlink{classKMCThinFilm_1_1CellNeighOffsets}{Cell\+Neigh\+Offsets}} $>$ \&cno\+Vec)
+\item 
+void \mbox{\hyperlink{classKMCThinFilm_1_1Simulation_a529e986f0c320259497e08ac684c89d5}{change\+Step\+Periodic\+Action}} (int action\+Id, \mbox{\hyperlink{namespaceKMCThinFilm_ab48bbcbabdf454a07e2f0edb47404abe}{Periodic\+Action}} action, int period\+Of\+Steps, bool do\+At\+Sim\+End)
+\item 
+void \mbox{\hyperlink{classKMCThinFilm_1_1Simulation_a2baf3e0cf9ae646f8bc09fc704316bb4}{change\+Time\+Periodic\+Action}} (int action\+Id, \mbox{\hyperlink{namespaceKMCThinFilm_ab48bbcbabdf454a07e2f0edb47404abe}{Periodic\+Action}} action, double period\+Of\+Time, bool do\+At\+Sim\+End)
+\item 
+const MPI\+\_\+\+Comm \& \mbox{\hyperlink{classKMCThinFilm_1_1Simulation_a7fa4b341178e7b2bb32a598a72035b5b}{comm}} () const
+\item 
+int \mbox{\hyperlink{classKMCThinFilm_1_1Simulation_ab25825583016491e2df8bbb377e5a59a}{comm\+Coord}} (int dim) const
+\item 
+double \mbox{\hyperlink{classKMCThinFilm_1_1Simulation_ae70c8f71a13bf376234af627129cc4a4}{elapsed\+Time}} () const
+\item 
+void \mbox{\hyperlink{classKMCThinFilm_1_1Simulation_ae397f0319a4e978f1d754e7f8bedcd01}{get\+Lattice\+Global\+Planar\+BBox}} (\mbox{\hyperlink{structKMCThinFilm_1_1LatticePlanarBBox}{Lattice\+Planar\+BBox}} \&bbox) const
+\item 
+void \mbox{\hyperlink{classKMCThinFilm_1_1Simulation_a67278594ebc8ee6be87f153334bd4ab9}{get\+Lattice\+Local\+Planar\+BBox}} (bool w\+Ghost, \mbox{\hyperlink{structKMCThinFilm_1_1LatticePlanarBBox}{Lattice\+Planar\+BBox}} \&bbox) const
+\item 
+void \mbox{\hyperlink{classKMCThinFilm_1_1Simulation_a1fa737caf023560abb4b862fe581c3de}{get\+Lattice\+Sector\+Planar\+BBox}} (int sect\+Num, \mbox{\hyperlink{structKMCThinFilm_1_1LatticePlanarBBox}{Lattice\+Planar\+BBox}} \&bbox) const
+\item 
+int \mbox{\hyperlink{classKMCThinFilm_1_1Simulation_ac09e29f5535debb54cd1fe50690dde3d}{n\+Procs}} () const
+\item 
+unsigned long long \mbox{\hyperlink{classKMCThinFilm_1_1Simulation_ac9436832964b46d46978671664445584}{num\+Global\+Steps}} () const
+\item 
+unsigned long long \mbox{\hyperlink{classKMCThinFilm_1_1Simulation_a5a722b36af5090fa2b397ad3bebf70e4}{num\+Local\+Events}} () const
+\item 
+int \mbox{\hyperlink{classKMCThinFilm_1_1Simulation_a4007433a9f7d97dd149c2488b7d94e5b}{proc\+ID}} () const
+\item 
+int \mbox{\hyperlink{classKMCThinFilm_1_1Simulation_a80a53b16a011a515563dcf7911d3122f}{proc\+Per\+Dim}} (int dim) const
+\item 
+void \mbox{\hyperlink{classKMCThinFilm_1_1Simulation_a0104e044fb41e47a1844de9e9b08c9dc}{remove\+Cell\+Centered\+Event\+Group}} (int event\+Group\+Id)
+\item 
+void \mbox{\hyperlink{classKMCThinFilm_1_1Simulation_a6d349b62458c42fb92f6b9121fc069e4}{remove\+Over\+Lattice\+Event}} (int event\+Id)
+\item 
+void \mbox{\hyperlink{classKMCThinFilm_1_1Simulation_a543ca84790107365fbda969c51d4b375}{remove\+Step\+Periodic\+Action}} (int action\+Id)
+\item 
+void \mbox{\hyperlink{classKMCThinFilm_1_1Simulation_a8297804adb609b8576fe78347f78e922}{remove\+Time\+Periodic\+Action}} (int action\+Id)
+\item 
+void \mbox{\hyperlink{classKMCThinFilm_1_1Simulation_a07827968543d9a9f2cbbdb356b5df8df}{reserve\+Cell\+Centered\+Event\+Groups}} (int num\+Groups, int num\+Tot\+Events)
+\item 
+void \mbox{\hyperlink{classKMCThinFilm_1_1Simulation_a21587717d5f10a6ae3b8c3606752db13}{reserve\+Over\+Lattice\+Events}} (int num)
+\item 
+void \mbox{\hyperlink{classKMCThinFilm_1_1Simulation_a734109081f5140cbf4b8e852a5fccfa8}{reserve\+Step\+Periodic\+Actions}} (int num)
+\item 
+void \mbox{\hyperlink{classKMCThinFilm_1_1Simulation_af30c7df97cb00c239325b0500b971a40}{reserve\+Time\+Periodic\+Actions}} (int num)
+\item 
+void \mbox{\hyperlink{classKMCThinFilm_1_1Simulation_a1062679abfb7c62e2ff817c5b12188c4}{run}} (double run\+Time)
+\item 
+void \mbox{\hyperlink{classKMCThinFilm_1_1Simulation_aab6ce6b8f7013c7ce3bcedb8fc3cc469}{set\+RNG}} (\mbox{\hyperlink{namespaceKMCThinFilm_a7b5f253610505f71091c404d12d05aee}{Rand\+Num\+Gen\+Shared\+Ptr}} rng)
+\item 
+void \mbox{\hyperlink{classKMCThinFilm_1_1Simulation_adf613f2cf2520695a0fb2ddbbdfd2328}{set\+Solver}} (\mbox{\hyperlink{namespaceKMCThinFilm_1_1SolverId_a43b0b7ee9ab985e86a13450beb2c7523}{Solver\+Id\+::\+Type}} s\+Id)
+\item 
+void \mbox{\hyperlink{classKMCThinFilm_1_1Simulation_a24c009402c255dcb62083aab98eee47d}{set\+Time\+Incr\+Scheme}} (const \mbox{\hyperlink{classKMCThinFilm_1_1TimeIncr_1_1SchemeVars}{Time\+Incr\+::\+Scheme\+Vars}} \&vars)
+\item 
+void \mbox{\hyperlink{classKMCThinFilm_1_1Simulation_afc44a336b2b972b690f29812e5358cc7}{track\+Cells\+Changed\+By\+Periodic\+Actions}} (bool do\+Track)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Class for setting up and running a simulation.
+
+Typical usage for this class is something like this\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\mbox{\hyperlink{MakeEnum_8hpp_ab74f47ea48cae4ae81e76e45c4fd67c4}{KMC\_MAKE\_LATTICE\_INTVAL\_ENUM}}(My,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ GaSiteStatus,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ AsSiteStatus);\ \ \ \ }
+\DoxyCodeLine{}
+\DoxyCodeLine{LatticeParams\ latParams;}
+\DoxyCodeLine{}
+\DoxyCodeLine{latParams.numIntsPerCell\ =\ MyIntVal::SIZE;}
+\DoxyCodeLine{latParams.globalPlanarDims[0]\ =\ latParams.globalPlanarDims[1]\ =\ myGlobalSize(...);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{preprocessor}{\#if\ KMC\_PARALLEL}}
+\DoxyCodeLine{latParams.ghostExtent[0]\ =\ latParams.ghostExtent[1]\ =\ myGhostExtent(...);}
+\DoxyCodeLine{\textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\mbox{\hyperlink{classKMCThinFilm_1_1Simulation_ac5a1023e231685fda3a421e86beff980}{Simulation}}\ sim(latParams);}
+\DoxyCodeLine{}
+\DoxyCodeLine{sim.setSolver(\mbox{\hyperlink{namespaceKMCThinFilm_1_1SolverId_a43b0b7ee9ab985e86a13450beb2c7523ae9d89581f4843523f96f1ef4350094d4}{SolverId::BINARY\_TREE}});}
+\DoxyCodeLine{}
+\DoxyCodeLine{\mbox{\hyperlink{namespaceKMCThinFilm_a7b5f253610505f71091c404d12d05aee}{RandNumGenSharedPtr}}\ rng(\textcolor{keyword}{new}\ MyRandNumGen(...));\ \ \ \ }
+\DoxyCodeLine{sim.setRNG(rng);}
+\DoxyCodeLine{}
+\DoxyCodeLine{TimeIncr::SchemeVars\ schemeVars;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{//\ Set\ values\ of\ schemeVars}}
+\DoxyCodeLine{}
+\DoxyCodeLine{sim.setTimeIncrScheme(schemeVars);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\mbox{\hyperlink{MakeEnum_8hpp_a21a6e7611184f517474f1a4628e0e0cb}{KMC\_MAKE\_ID\_ENUM}}(MyOverLatticeEvents,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DEPOSITION\_Ga,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DEPOSITION\_As2);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\mbox{\hyperlink{MakeEnum_8hpp_a21a6e7611184f517474f1a4628e0e0cb}{KMC\_MAKE\_ID\_ENUM}}(MyCellCenteredEvents,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ GaHOP,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ As2Dimer\_TO\_AsCrystal,\ ...\ other\ events\ ...\ );}
+\DoxyCodeLine{}
+\DoxyCodeLine{}
+\DoxyCodeLine{sim.reserveOverLatticeEvents(MyOverLatticeEvents::SIZE);}
+\DoxyCodeLine{}
+\DoxyCodeLine{sim.addOverLatticeEvent(MyOverLatticeEvents::DEPOSITION\_Ga,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ myGaDepRate(...),\ GaDepositionExecute());}
+\DoxyCodeLine{}
+\DoxyCodeLine{sim.addOverLatticeEvent(MyOverLatticeEvents::DEPOSITION\_As2,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ myAsDepRate(...),\ AsDepositionExecute());}
+\DoxyCodeLine{}
+\DoxyCodeLine{sim.addCellCenteredEventGroup(MyCellCenteredEventGroups::HOPS,\ ...);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{//\ More\ possible\ events\ defined}}
+\DoxyCodeLine{}
+\DoxyCodeLine{sim.run(approxDepTime);}
+\DoxyCodeLine{sim.removeOverLatticeEvent(MyOverLatticeEvents::DEPOSITION\_Ga);}
+\DoxyCodeLine{sim.removeOverLatticeEvent(MyOverLatticeEvents::DEPOSITION\_As2);}
+\DoxyCodeLine{sim.run(2.0*approxDepTime);}
+
+\end{DoxyCode}
+ \begin{Desc}
+\item[Examples]\par
+\mbox{\hyperlink{testBallisticDep1_2testBallisticDep_8cpp-example}{test\+Ballistic\+Dep1/test\+Ballistic\+Dep.\+cpp}}, \mbox{\hyperlink{testBallisticDep2_2testBallisticDep_8cpp-example}{test\+Ballistic\+Dep2/test\+Ballistic\+Dep.\+cpp}}, \mbox{\hyperlink{testFractal_2testFractal_8cpp-example}{test\+Fractal/test\+Fractal.\+cpp}}, \mbox{\hyperlink{testFractal_parallel_2testFractal_8cpp-example}{test\+Fractal\+\_\+parallel/test\+Fractal.\+cpp}}, \mbox{\hyperlink{testFractal_semi_manual_track_2testFractal_8cpp-example}{test\+Fractal\+\_\+semi\+\_\+manual\+\_\+track/test\+Fractal.\+cpp}}, \mbox{\hyperlink{testPatternedSurface1_2testPatternedSurface_8cpp-example}{test\+Patterned\+Surface1/test\+Patterned\+Surface.\+cpp}}, and \mbox{\hyperlink{testPatternedSurface2_2testPatternedSurface_8cpp-example}{test\+Patterned\+Surface2/test\+Patterned\+Surface.\+cpp}}.\end{Desc}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classKMCThinFilm_1_1Simulation_ac5a1023e231685fda3a421e86beff980}\index{KMCThinFilm::Simulation@{KMCThinFilm::Simulation}!Simulation@{Simulation}}
+\index{Simulation@{Simulation}!KMCThinFilm::Simulation@{KMCThinFilm::Simulation}}
+\doxysubsubsection{\texorpdfstring{Simulation()}{Simulation()}}
+{\footnotesize\ttfamily \label{classKMCThinFilm_1_1Simulation_ac5a1023e231685fda3a421e86beff980} 
+KMCThin\+Film\+::\+Simulation\+::\+Simulation (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structKMCThinFilm_1_1LatticeParams}{Lattice\+Params}} \&}]{params\+For\+Lattice}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+Constructor to initialize the simulation 
+\begin{DoxyParams}{Parameters}
+{\em params\+For\+Lattice} & Parameters for the lattice used internally by the simulation. \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classKMCThinFilm_1_1Simulation_ada268bce065b942617fd1331b083626d}\index{KMCThinFilm::Simulation@{KMCThinFilm::Simulation}!addCellCenteredEventGroup@{addCellCenteredEventGroup}}
+\index{addCellCenteredEventGroup@{addCellCenteredEventGroup}!KMCThinFilm::Simulation@{KMCThinFilm::Simulation}}
+\doxysubsubsection{\texorpdfstring{addCellCenteredEventGroup()}{addCellCenteredEventGroup()}}
+{\footnotesize\ttfamily \label{classKMCThinFilm_1_1Simulation_ada268bce065b942617fd1331b083626d} 
+void KMCThin\+Film\+::\+Simulation\+::add\+Cell\+Centered\+Event\+Group (\begin{DoxyParamCaption}\item[{int}]{event\+Group\+Id}{, }\item[{const \mbox{\hyperlink{classKMCThinFilm_1_1CellNeighOffsets}{Cell\+Neigh\+Offsets}} \&}]{cno}{, }\item[{\mbox{\hyperlink{namespaceKMCThinFilm_afc58c6c4948aa7d7243beb0990a563f1}{Cell\+Centered\+Group\+Propensities}}}]{propensities}{, }\item[{const \mbox{\hyperlink{classKMCThinFilm_1_1EventExecutorGroup}{Event\+Executor\+Group}} \&}]{event\+Executor\+Group}{}\end{DoxyParamCaption})}
+
+Adds a possible cell-\/centered event group to the simulation. 
+\begin{DoxyParams}{Parameters}
+{\em event\+Group\+Id} & Unique integer ID of event group  \\
+\hline
+{\em cno} & Offsets used to find cells used to determine the event propensities  \\
+\hline
+{\em propensities} & Function or function object used to determine the propensities of this group of events.  \\
+\hline
+{\em event\+Executor\+Group} & Group of function objects, one of which runs if this event is executed. \\
+\hline
+\end{DoxyParams}
+\begin{Desc}
+\item[Examples]\par
+\mbox{\hyperlink{testBallisticDep1_2testBallisticDep_8cpp-example}{test\+Ballistic\+Dep1/test\+Ballistic\+Dep.\+cpp}}, \mbox{\hyperlink{testBallisticDep2_2testBallisticDep_8cpp-example}{test\+Ballistic\+Dep2/test\+Ballistic\+Dep.\+cpp}}, \mbox{\hyperlink{testFractal_2testFractal_8cpp-example}{test\+Fractal/test\+Fractal.\+cpp}}, \mbox{\hyperlink{testFractal_parallel_2testFractal_8cpp-example}{test\+Fractal\+\_\+parallel/test\+Fractal.\+cpp}}, \mbox{\hyperlink{testFractal_semi_manual_track_2testFractal_8cpp-example}{test\+Fractal\+\_\+semi\+\_\+manual\+\_\+track/test\+Fractal.\+cpp}}, \mbox{\hyperlink{testPatternedSurface1_2testPatternedSurface_8cpp-example}{test\+Patterned\+Surface1/test\+Patterned\+Surface.\+cpp}}, and \mbox{\hyperlink{testPatternedSurface2_2testPatternedSurface_8cpp-example}{test\+Patterned\+Surface2/test\+Patterned\+Surface.\+cpp}}.\end{Desc}
+\Hypertarget{classKMCThinFilm_1_1Simulation_affa3dff53afd248546457944b98376d9}\index{KMCThinFilm::Simulation@{KMCThinFilm::Simulation}!addOverLatticeEvent@{addOverLatticeEvent}}
+\index{addOverLatticeEvent@{addOverLatticeEvent}!KMCThinFilm::Simulation@{KMCThinFilm::Simulation}}
+\doxysubsubsection{\texorpdfstring{addOverLatticeEvent()}{addOverLatticeEvent()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{classKMCThinFilm_1_1Simulation_affa3dff53afd248546457944b98376d9} 
+void KMCThin\+Film\+::\+Simulation\+::add\+Over\+Lattice\+Event (\begin{DoxyParamCaption}\item[{int}]{event\+Id}{, }\item[{double}]{propensity\+Per\+Unit\+Area}{, }\item[{\mbox{\hyperlink{namespaceKMCThinFilm_a601f0f23e6b591202d40f27df34db951}{Event\+Executor\+Auto\+Track}}}]{event\+Executor}{}\end{DoxyParamCaption})}
+
+Adds a possible "{}over-\/lattice"{} event to the simulation, that is, one that may occur at a random site over the lattice (e.\+g. deposition of an atom). Here, the cells affected by the event are determined by "{}auto-\/tracking."{}
+
+If this event occurs, the \doxylink{classKMCThinFilm_1_1CellInds}{Cell\+Inds} argument of {\itshape event\+Executor} will have its first two components, i \& j, set to a random in-\/plane position within the current sector, and its third component, k, set to one less than the height of the lattice.
+
+\begin{DoxySeeAlso}{See also}
+\doxylink{namespaceKMCThinFilm_a601f0f23e6b591202d40f27df34db951}{Event\+Executor\+Auto\+Track} 
+\end{DoxySeeAlso}
+
+\begin{DoxyParams}{Parameters}
+{\em event\+Id} & Unique integer ID of event.  \\
+\hline
+{\em propensity\+Per\+Unit\+Area} & Propensity per unit area (e.\+g. deposition flux) of event  \\
+\hline
+{\em event\+Executor} & Function or function object that runs if this event is executed. \\
+\hline
+\end{DoxyParams}
+\begin{Desc}
+\item[Examples]\par
+\mbox{\hyperlink{testBallisticDep1_2testBallisticDep_8cpp-example}{test\+Ballistic\+Dep1/test\+Ballistic\+Dep.\+cpp}}, \mbox{\hyperlink{testBallisticDep2_2testBallisticDep_8cpp-example}{test\+Ballistic\+Dep2/test\+Ballistic\+Dep.\+cpp}}, \mbox{\hyperlink{testFractal_2testFractal_8cpp-example}{test\+Fractal/test\+Fractal.\+cpp}}, \mbox{\hyperlink{testFractal_parallel_2testFractal_8cpp-example}{test\+Fractal\+\_\+parallel/test\+Fractal.\+cpp}}, \mbox{\hyperlink{testFractal_semi_manual_track_2testFractal_8cpp-example}{test\+Fractal\+\_\+semi\+\_\+manual\+\_\+track/test\+Fractal.\+cpp}}, \mbox{\hyperlink{testPatternedSurface1_2testPatternedSurface_8cpp-example}{test\+Patterned\+Surface1/test\+Patterned\+Surface.\+cpp}}, and \mbox{\hyperlink{testPatternedSurface2_2testPatternedSurface_8cpp-example}{test\+Patterned\+Surface2/test\+Patterned\+Surface.\+cpp}}.\end{Desc}
+\Hypertarget{classKMCThinFilm_1_1Simulation_a8513218aee1c117ec324b8a9cdef6ccf}\index{KMCThinFilm::Simulation@{KMCThinFilm::Simulation}!addOverLatticeEvent@{addOverLatticeEvent}}
+\index{addOverLatticeEvent@{addOverLatticeEvent}!KMCThinFilm::Simulation@{KMCThinFilm::Simulation}}
+\doxysubsubsection{\texorpdfstring{addOverLatticeEvent()}{addOverLatticeEvent()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{classKMCThinFilm_1_1Simulation_a8513218aee1c117ec324b8a9cdef6ccf} 
+void KMCThin\+Film\+::\+Simulation\+::add\+Over\+Lattice\+Event (\begin{DoxyParamCaption}\item[{int}]{event\+Id}{, }\item[{double}]{propensity\+Per\+Unit\+Area}{, }\item[{\mbox{\hyperlink{namespaceKMCThinFilm_a92a9e6c3ced8703f95265e85d80f1797}{Event\+Executor\+Semi\+Manual\+Track}}}]{event\+Executor}{, }\item[{const std\+::vector$<$ \mbox{\hyperlink{classKMCThinFilm_1_1CellNeighOffsets}{Cell\+Neigh\+Offsets}} $>$ \&}]{cno\+Vec}{}\end{DoxyParamCaption})}
+
+Adds a possible "{}over-\/lattice"{} event to the simulation, that is, one that may occur at a random site over the lattice (e.\+g. deposition of an atom). Here, the cells affected by the event are determined by "{}semi-\/manual"{} tracking.
+
+If this event occurs, the \doxylink{classKMCThinFilm_1_1CellInds}{Cell\+Inds} argument of {\itshape event\+Executor} will have its first two components, i \& j, set to a random in-\/plane position within the current sector, and its third component, k, set to one less than the height of the lattice.
+
+\begin{DoxySeeAlso}{See also}
+\doxylink{namespaceKMCThinFilm_a92a9e6c3ced8703f95265e85d80f1797}{Event\+Executor\+Semi\+Manual\+Track} 
+\end{DoxySeeAlso}
+
+\begin{DoxyParams}{Parameters}
+{\em event\+Id} & Unique integer ID of event.  \\
+\hline
+{\em propensity\+Per\+Unit\+Area} & Propensity per unit area (e.\+g. deposition flux) of event  \\
+\hline
+{\em event\+Executor} & Function or function object that runs if this event is executed.  \\
+\hline
+{\em cno\+Vec} & Relative positions of cells directly changed by event. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classKMCThinFilm_1_1Simulation_a5280f709245a66489eb357f488082528}\index{KMCThinFilm::Simulation@{KMCThinFilm::Simulation}!addStepPeriodicAction@{addStepPeriodicAction}}
+\index{addStepPeriodicAction@{addStepPeriodicAction}!KMCThinFilm::Simulation@{KMCThinFilm::Simulation}}
+\doxysubsubsection{\texorpdfstring{addStepPeriodicAction()}{addStepPeriodicAction()}}
+{\footnotesize\ttfamily \label{classKMCThinFilm_1_1Simulation_a5280f709245a66489eb357f488082528} 
+void KMCThin\+Film\+::\+Simulation\+::add\+Step\+Periodic\+Action (\begin{DoxyParamCaption}\item[{int}]{action\+Id}{, }\item[{\mbox{\hyperlink{namespaceKMCThinFilm_ab48bbcbabdf454a07e2f0edb47404abe}{Periodic\+Action}}}]{action}{, }\item[{int}]{period\+Of\+Steps}{, }\item[{bool}]{do\+At\+Sim\+End}{}\end{DoxyParamCaption})}
+
+Adds a step-\/periodic action to the simulation.
+
+Step-\/periodic actions are actions that occur every P time steps of the simulation, with P being the period. 
+\begin{DoxyParams}{Parameters}
+{\em action\+Id} & Unique integer ID for the action  \\
+\hline
+{\em action} & Function or function object executed by this action.  \\
+\hline
+{\em period\+Of\+Steps} & The period of the action  \\
+\hline
+{\em do\+At\+Sim\+End} & If true, this action is done at the end of a simulation run as well. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classKMCThinFilm_1_1Simulation_a2d0b886ef44d3acf0a8c018a7042e1d9}\index{KMCThinFilm::Simulation@{KMCThinFilm::Simulation}!addTimePeriodicAction@{addTimePeriodicAction}}
+\index{addTimePeriodicAction@{addTimePeriodicAction}!KMCThinFilm::Simulation@{KMCThinFilm::Simulation}}
+\doxysubsubsection{\texorpdfstring{addTimePeriodicAction()}{addTimePeriodicAction()}}
+{\footnotesize\ttfamily \label{classKMCThinFilm_1_1Simulation_a2d0b886ef44d3acf0a8c018a7042e1d9} 
+void KMCThin\+Film\+::\+Simulation\+::add\+Time\+Periodic\+Action (\begin{DoxyParamCaption}\item[{int}]{action\+Id}{, }\item[{\mbox{\hyperlink{namespaceKMCThinFilm_ab48bbcbabdf454a07e2f0edb47404abe}{Periodic\+Action}}}]{action}{, }\item[{double}]{period\+Of\+Time}{, }\item[{bool}]{do\+At\+Sim\+End}{}\end{DoxyParamCaption})}
+
+Adds a time-\/periodic action to the simulation.
+
+Time-\/periodic actions are actions that occur every P units of simulation time, with P being the time period. 
+\begin{DoxyParams}{Parameters}
+{\em action\+Id} & Unique integer ID for the action  \\
+\hline
+{\em action} & Function or function object executed by this action.  \\
+\hline
+{\em period\+Of\+Time} & The period of the action  \\
+\hline
+{\em do\+At\+Sim\+End} & If true, this action is done at the end of a simulation run as well. \\
+\hline
+\end{DoxyParams}
+\begin{Desc}
+\item[Examples]\par
+\mbox{\hyperlink{testBallisticDep1_2testBallisticDep_8cpp-example}{test\+Ballistic\+Dep1/test\+Ballistic\+Dep.\+cpp}}, \mbox{\hyperlink{testBallisticDep2_2testBallisticDep_8cpp-example}{test\+Ballistic\+Dep2/test\+Ballistic\+Dep.\+cpp}}, \mbox{\hyperlink{testFractal_2testFractal_8cpp-example}{test\+Fractal/test\+Fractal.\+cpp}}, \mbox{\hyperlink{testFractal_parallel_2testFractal_8cpp-example}{test\+Fractal\+\_\+parallel/test\+Fractal.\+cpp}}, \mbox{\hyperlink{testFractal_semi_manual_track_2testFractal_8cpp-example}{test\+Fractal\+\_\+semi\+\_\+manual\+\_\+track/test\+Fractal.\+cpp}}, \mbox{\hyperlink{testPatternedSurface1_2testPatternedSurface_8cpp-example}{test\+Patterned\+Surface1/test\+Patterned\+Surface.\+cpp}}, and \mbox{\hyperlink{testPatternedSurface2_2testPatternedSurface_8cpp-example}{test\+Patterned\+Surface2/test\+Patterned\+Surface.\+cpp}}.\end{Desc}
+\Hypertarget{classKMCThinFilm_1_1Simulation_a4caf800d8630e74210e0301da0238f6a}\index{KMCThinFilm::Simulation@{KMCThinFilm::Simulation}!changeCellCenteredEventGroup@{changeCellCenteredEventGroup}}
+\index{changeCellCenteredEventGroup@{changeCellCenteredEventGroup}!KMCThinFilm::Simulation@{KMCThinFilm::Simulation}}
+\doxysubsubsection{\texorpdfstring{changeCellCenteredEventGroup()}{changeCellCenteredEventGroup()}}
+{\footnotesize\ttfamily \label{classKMCThinFilm_1_1Simulation_a4caf800d8630e74210e0301da0238f6a} 
+void KMCThin\+Film\+::\+Simulation\+::change\+Cell\+Centered\+Event\+Group (\begin{DoxyParamCaption}\item[{int}]{event\+Group\+Id}{, }\item[{const \mbox{\hyperlink{classKMCThinFilm_1_1CellNeighOffsets}{Cell\+Neigh\+Offsets}} \&}]{cno}{, }\item[{\mbox{\hyperlink{namespaceKMCThinFilm_afc58c6c4948aa7d7243beb0990a563f1}{Cell\+Centered\+Group\+Propensities}}}]{propensities}{, }\item[{const \mbox{\hyperlink{classKMCThinFilm_1_1EventExecutorGroup}{Event\+Executor\+Group}} \&}]{event\+Executor\+Group}{}\end{DoxyParamCaption})}
+
+Changes a possible cell-\/centered event group that has been previously added to the simulation.
+
+\begin{DoxySeeAlso}{See also}
+\doxylink{classKMCThinFilm_1_1Simulation_ada268bce065b942617fd1331b083626d}{add\+Cell\+Centered\+Event\+Group()} 
+\end{DoxySeeAlso}
+
+\begin{DoxyParams}{Parameters}
+{\em event\+Group\+Id} & Unique integer ID of event group  \\
+\hline
+{\em cno} & Offsets used to find cells used to determine the event propensities  \\
+\hline
+{\em propensities} & Function or function object used to determine the propensities of this group of events.  \\
+\hline
+{\em event\+Executor\+Group} & Group of function objects, one of which runs if this event is executed. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classKMCThinFilm_1_1Simulation_a3a45062725c9fe3a70e21200d01bafba}\index{KMCThinFilm::Simulation@{KMCThinFilm::Simulation}!changeOverLatticeEvent@{changeOverLatticeEvent}}
+\index{changeOverLatticeEvent@{changeOverLatticeEvent}!KMCThinFilm::Simulation@{KMCThinFilm::Simulation}}
+\doxysubsubsection{\texorpdfstring{changeOverLatticeEvent()}{changeOverLatticeEvent()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{classKMCThinFilm_1_1Simulation_a3a45062725c9fe3a70e21200d01bafba} 
+void KMCThin\+Film\+::\+Simulation\+::change\+Over\+Lattice\+Event (\begin{DoxyParamCaption}\item[{int}]{event\+Id}{, }\item[{double}]{propensity\+Per\+Unit\+Area}{, }\item[{\mbox{\hyperlink{namespaceKMCThinFilm_a601f0f23e6b591202d40f27df34db951}{Event\+Executor\+Auto\+Track}}}]{event\+Executor}{}\end{DoxyParamCaption})}
+
+Changes a possible "{}over-\/lattice"{} event that has been previously added to the simulation. Here, the cells affected by the event are determined by "{}auto-\/tracking."{}
+
+\begin{DoxySeeAlso}{See also}
+\doxylink{classKMCThinFilm_1_1Simulation_affa3dff53afd248546457944b98376d9}{add\+Over\+Lattice\+Event()} \doxylink{namespaceKMCThinFilm_a601f0f23e6b591202d40f27df34db951}{Event\+Executor\+Auto\+Track} 
+\end{DoxySeeAlso}
+
+\begin{DoxyParams}{Parameters}
+{\em event\+Id} & Integer ID of event to be changes.  \\
+\hline
+{\em propensity\+Per\+Unit\+Area} & Propensity per unit area (e.\+g. deposition flux) of event  \\
+\hline
+{\em event\+Executor} & Function or function object that runs if this event is executed. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classKMCThinFilm_1_1Simulation_a1ddc6a10209942546b0e42392a1dbfe8}\index{KMCThinFilm::Simulation@{KMCThinFilm::Simulation}!changeOverLatticeEvent@{changeOverLatticeEvent}}
+\index{changeOverLatticeEvent@{changeOverLatticeEvent}!KMCThinFilm::Simulation@{KMCThinFilm::Simulation}}
+\doxysubsubsection{\texorpdfstring{changeOverLatticeEvent()}{changeOverLatticeEvent()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{classKMCThinFilm_1_1Simulation_a1ddc6a10209942546b0e42392a1dbfe8} 
+void KMCThin\+Film\+::\+Simulation\+::change\+Over\+Lattice\+Event (\begin{DoxyParamCaption}\item[{int}]{event\+Id}{, }\item[{double}]{propensity\+Per\+Unit\+Area}{, }\item[{\mbox{\hyperlink{namespaceKMCThinFilm_a92a9e6c3ced8703f95265e85d80f1797}{Event\+Executor\+Semi\+Manual\+Track}}}]{event\+Executor}{, }\item[{const std\+::vector$<$ \mbox{\hyperlink{classKMCThinFilm_1_1CellNeighOffsets}{Cell\+Neigh\+Offsets}} $>$ \&}]{cno\+Vec}{}\end{DoxyParamCaption})}
+
+Changes a possible "{}over-\/lattice"{} event that has been previously added to the simulation. Here, the cells affected by the event are determined by "{}semi-\/manual"{} tracking.
+
+\begin{DoxySeeAlso}{See also}
+\doxylink{classKMCThinFilm_1_1Simulation_affa3dff53afd248546457944b98376d9}{add\+Over\+Lattice\+Event()} \doxylink{namespaceKMCThinFilm_a92a9e6c3ced8703f95265e85d80f1797}{Event\+Executor\+Semi\+Manual\+Track} 
+\end{DoxySeeAlso}
+
+\begin{DoxyParams}{Parameters}
+{\em event\+Id} & Integer ID of event to be changes.  \\
+\hline
+{\em propensity\+Per\+Unit\+Area} & Propensity per unit area (e.\+g. deposition flux) of event  \\
+\hline
+{\em event\+Executor} & Function or function object that runs if this event is executed.  \\
+\hline
+{\em cno\+Vec} & Relative positions of cells directly changed by event. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classKMCThinFilm_1_1Simulation_a529e986f0c320259497e08ac684c89d5}\index{KMCThinFilm::Simulation@{KMCThinFilm::Simulation}!changeStepPeriodicAction@{changeStepPeriodicAction}}
+\index{changeStepPeriodicAction@{changeStepPeriodicAction}!KMCThinFilm::Simulation@{KMCThinFilm::Simulation}}
+\doxysubsubsection{\texorpdfstring{changeStepPeriodicAction()}{changeStepPeriodicAction()}}
+{\footnotesize\ttfamily \label{classKMCThinFilm_1_1Simulation_a529e986f0c320259497e08ac684c89d5} 
+void KMCThin\+Film\+::\+Simulation\+::change\+Step\+Periodic\+Action (\begin{DoxyParamCaption}\item[{int}]{action\+Id}{, }\item[{\mbox{\hyperlink{namespaceKMCThinFilm_ab48bbcbabdf454a07e2f0edb47404abe}{Periodic\+Action}}}]{action}{, }\item[{int}]{period\+Of\+Steps}{, }\item[{bool}]{do\+At\+Sim\+End}{}\end{DoxyParamCaption})}
+
+Changes a step-\/periodic action that had been previously added to the simulation.
+
+\begin{DoxySeeAlso}{See also}
+\doxylink{classKMCThinFilm_1_1Simulation_a5280f709245a66489eb357f488082528}{add\+Step\+Periodic\+Action()} 
+\end{DoxySeeAlso}
+
+\begin{DoxyParams}{Parameters}
+{\em action\+Id} & Integer ID of the action to be changed  \\
+\hline
+{\em action} & Function or function object executed by this action.  \\
+\hline
+{\em period\+Of\+Steps} & The period of the action  \\
+\hline
+{\em do\+At\+Sim\+End} & If true, this action is done at the end of a simulation run as well. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classKMCThinFilm_1_1Simulation_a2baf3e0cf9ae646f8bc09fc704316bb4}\index{KMCThinFilm::Simulation@{KMCThinFilm::Simulation}!changeTimePeriodicAction@{changeTimePeriodicAction}}
+\index{changeTimePeriodicAction@{changeTimePeriodicAction}!KMCThinFilm::Simulation@{KMCThinFilm::Simulation}}
+\doxysubsubsection{\texorpdfstring{changeTimePeriodicAction()}{changeTimePeriodicAction()}}
+{\footnotesize\ttfamily \label{classKMCThinFilm_1_1Simulation_a2baf3e0cf9ae646f8bc09fc704316bb4} 
+void KMCThin\+Film\+::\+Simulation\+::change\+Time\+Periodic\+Action (\begin{DoxyParamCaption}\item[{int}]{action\+Id}{, }\item[{\mbox{\hyperlink{namespaceKMCThinFilm_ab48bbcbabdf454a07e2f0edb47404abe}{Periodic\+Action}}}]{action}{, }\item[{double}]{period\+Of\+Time}{, }\item[{bool}]{do\+At\+Sim\+End}{}\end{DoxyParamCaption})}
+
+Changes a time-\/periodic action that had been previously added to the simulation.
+
+\begin{DoxySeeAlso}{See also}
+\doxylink{classKMCThinFilm_1_1Simulation_a2d0b886ef44d3acf0a8c018a7042e1d9}{add\+Time\+Periodic\+Action()} 
+\end{DoxySeeAlso}
+
+\begin{DoxyParams}{Parameters}
+{\em action\+Id} & Integer ID of the action to be changed  \\
+\hline
+{\em action} & Function or function object executed by this action.  \\
+\hline
+{\em period\+Of\+Time} & The period of the action  \\
+\hline
+{\em do\+At\+Sim\+End} & If true, this action is done at the end of a simulation run as well. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classKMCThinFilm_1_1Simulation_a7fa4b341178e7b2bb32a598a72035b5b}\index{KMCThinFilm::Simulation@{KMCThinFilm::Simulation}!comm@{comm}}
+\index{comm@{comm}!KMCThinFilm::Simulation@{KMCThinFilm::Simulation}}
+\doxysubsubsection{\texorpdfstring{comm()}{comm()}}
+{\footnotesize\ttfamily \label{classKMCThinFilm_1_1Simulation_a7fa4b341178e7b2bb32a598a72035b5b} 
+const MPI\+\_\+\+Comm \& KMCThin\+Film\+::\+Simulation\+::comm (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+The MPI communicator used by the lattice in the simulation for the interchange of ghost lattice cells, if the preprocessor variable KMC\+\_\+\+PARALLEL is non-\/zero. {\bfseries{Not available in the serial version of the ARL \doxylink{namespaceKMCThinFilm}{KMCThin\+Film} library.}}
+
+This is {\itshape not} the same as the {\itshape lattice\+Comm\+Initial} member of the \doxylink{structKMCThinFilm_1_1LatticeParams}{Lattice\+Params} object used to construct the lattice.
+
+\begin{DoxySeeAlso}{See also}
+\doxylink{classKMCThinFilm_1_1Lattice_aef0511e825e463bc1f91df0720513c86}{Lattice\+::comm()} 
+\end{DoxySeeAlso}
+\Hypertarget{classKMCThinFilm_1_1Simulation_ab25825583016491e2df8bbb377e5a59a}\index{KMCThinFilm::Simulation@{KMCThinFilm::Simulation}!commCoord@{commCoord}}
+\index{commCoord@{commCoord}!KMCThinFilm::Simulation@{KMCThinFilm::Simulation}}
+\doxysubsubsection{\texorpdfstring{commCoord()}{commCoord()}}
+{\footnotesize\ttfamily \label{classKMCThinFilm_1_1Simulation_ab25825583016491e2df8bbb377e5a59a} 
+int KMCThin\+Film\+::\+Simulation\+::comm\+Coord (\begin{DoxyParamCaption}\item[{int}]{dim}{}\end{DoxyParamCaption}) const}
+
+Coordinates for a processor in an MPI Cartesian topology along in-\/plane dimension {\itshape dim} for a given processor.
+
+\begin{DoxySeeAlso}{See also}
+\doxylink{classKMCThinFilm_1_1Lattice_a0236ed2c0c17d92a5ab01f61519f8983}{Lattice\+::comm\+Coord()} 
+\end{DoxySeeAlso}
+\begin{Desc}
+\item[Examples]\par
+\mbox{\hyperlink{testFractal_parallel_2testFractal_8cpp-example}{test\+Fractal\+\_\+parallel/test\+Fractal.\+cpp}}.\end{Desc}
+\Hypertarget{classKMCThinFilm_1_1Simulation_ae70c8f71a13bf376234af627129cc4a4}\index{KMCThinFilm::Simulation@{KMCThinFilm::Simulation}!elapsedTime@{elapsedTime}}
+\index{elapsedTime@{elapsedTime}!KMCThinFilm::Simulation@{KMCThinFilm::Simulation}}
+\doxysubsubsection{\texorpdfstring{elapsedTime()}{elapsedTime()}}
+{\footnotesize\ttfamily \label{classKMCThinFilm_1_1Simulation_ae70c8f71a13bf376234af627129cc4a4} 
+double KMCThin\+Film\+::\+Simulation\+::elapsed\+Time (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+The amount of {\itshape simulated} time (not the actual wall clock time) that has passed since the beginning of the first simulation run.
+
+\begin{DoxySeeAlso}{See also}
+\doxylink{classKMCThinFilm_1_1SimulationState_a01882b6444dedf12543e0a9e7f763f02}{Simulation\+State\+::elapsed\+Time()} 
+\end{DoxySeeAlso}
+\Hypertarget{classKMCThinFilm_1_1Simulation_ae397f0319a4e978f1d754e7f8bedcd01}\index{KMCThinFilm::Simulation@{KMCThinFilm::Simulation}!getLatticeGlobalPlanarBBox@{getLatticeGlobalPlanarBBox}}
+\index{getLatticeGlobalPlanarBBox@{getLatticeGlobalPlanarBBox}!KMCThinFilm::Simulation@{KMCThinFilm::Simulation}}
+\doxysubsubsection{\texorpdfstring{getLatticeGlobalPlanarBBox()}{getLatticeGlobalPlanarBBox()}}
+{\footnotesize\ttfamily \label{classKMCThinFilm_1_1Simulation_ae397f0319a4e978f1d754e7f8bedcd01} 
+void KMCThin\+Film\+::\+Simulation\+::get\+Lattice\+Global\+Planar\+BBox (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structKMCThinFilm_1_1LatticePlanarBBox}{Lattice\+Planar\+BBox}} \&}]{bbox}{}\end{DoxyParamCaption}) const}
+
+Obtain limiting values of the global lattice coordinates.
+
+\begin{DoxySeeAlso}{See also}
+\doxylink{classKMCThinFilm_1_1Lattice_ac160d406b29dc80fb72551ad3d74ac3a}{Lattice\+::get\+Global\+Planar\+BBox()} 
+\end{DoxySeeAlso}
+
+\begin{DoxyParams}{Parameters}
+{\em bbox} & Bounding box of the global lattice coordinates. \\
+\hline
+\end{DoxyParams}
+\begin{Desc}
+\item[Examples]\par
+\mbox{\hyperlink{testBallisticDep2_2testBallisticDep_8cpp-example}{test\+Ballistic\+Dep2/test\+Ballistic\+Dep.\+cpp}}.\end{Desc}
+\Hypertarget{classKMCThinFilm_1_1Simulation_a67278594ebc8ee6be87f153334bd4ab9}\index{KMCThinFilm::Simulation@{KMCThinFilm::Simulation}!getLatticeLocalPlanarBBox@{getLatticeLocalPlanarBBox}}
+\index{getLatticeLocalPlanarBBox@{getLatticeLocalPlanarBBox}!KMCThinFilm::Simulation@{KMCThinFilm::Simulation}}
+\doxysubsubsection{\texorpdfstring{getLatticeLocalPlanarBBox()}{getLatticeLocalPlanarBBox()}}
+{\footnotesize\ttfamily \label{classKMCThinFilm_1_1Simulation_a67278594ebc8ee6be87f153334bd4ab9} 
+void KMCThin\+Film\+::\+Simulation\+::get\+Lattice\+Local\+Planar\+BBox (\begin{DoxyParamCaption}\item[{bool}]{w\+Ghost}{, }\item[{\mbox{\hyperlink{structKMCThinFilm_1_1LatticePlanarBBox}{Lattice\+Planar\+BBox}} \&}]{bbox}{}\end{DoxyParamCaption}) const}
+
+Obtain limiting values of the local coordinates of the cells used in the simulation lattice.
+
+\begin{DoxySeeAlso}{See also}
+\doxylink{classKMCThinFilm_1_1Lattice_a1504ff860e046a8965b37dd437a74c52}{Lattice\+::get\+Local\+Planar\+BBox()} 
+\end{DoxySeeAlso}
+
+\begin{DoxyParams}{Parameters}
+{\em w\+Ghost} & Indicates whether minimum and maximum values for lattice cell coordinates include the coordinates of ghost lattice cells.  \\
+\hline
+{\em bbox} & Bounding box of the local lattice coordinates. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classKMCThinFilm_1_1Simulation_a1fa737caf023560abb4b862fe581c3de}\index{KMCThinFilm::Simulation@{KMCThinFilm::Simulation}!getLatticeSectorPlanarBBox@{getLatticeSectorPlanarBBox}}
+\index{getLatticeSectorPlanarBBox@{getLatticeSectorPlanarBBox}!KMCThinFilm::Simulation@{KMCThinFilm::Simulation}}
+\doxysubsubsection{\texorpdfstring{getLatticeSectorPlanarBBox()}{getLatticeSectorPlanarBBox()}}
+{\footnotesize\ttfamily \label{classKMCThinFilm_1_1Simulation_a1fa737caf023560abb4b862fe581c3de} 
+void KMCThin\+Film\+::\+Simulation\+::get\+Lattice\+Sector\+Planar\+BBox (\begin{DoxyParamCaption}\item[{int}]{sect\+Num}{, }\item[{\mbox{\hyperlink{structKMCThinFilm_1_1LatticePlanarBBox}{Lattice\+Planar\+BBox}} \&}]{bbox}{}\end{DoxyParamCaption}) const}
+
+Obtain limiting values of the local lattice coordinates for a particular sector or sublattice.
+
+\begin{DoxySeeAlso}{See also}
+\doxylink{classKMCThinFilm_1_1Lattice_ae6d9adbfdcd256875c8b9b6b281c648c}{Lattice\+::get\+Sector\+Planar\+BBox()} 
+\end{DoxySeeAlso}
+
+\begin{DoxyParams}{Parameters}
+{\em sect\+Num} & Sector number, ranging from 0 to num\+Sectors() -\/ 1  \\
+\hline
+{\em bbox} & Bounding box of the lattice coordinates within the sector. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classKMCThinFilm_1_1Simulation_ac09e29f5535debb54cd1fe50690dde3d}\index{KMCThinFilm::Simulation@{KMCThinFilm::Simulation}!nProcs@{nProcs}}
+\index{nProcs@{nProcs}!KMCThinFilm::Simulation@{KMCThinFilm::Simulation}}
+\doxysubsubsection{\texorpdfstring{nProcs()}{nProcs()}}
+{\footnotesize\ttfamily \label{classKMCThinFilm_1_1Simulation_ac09e29f5535debb54cd1fe50690dde3d} 
+int KMCThin\+Film\+::\+Simulation\+::n\+Procs (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+Number of processors over which the lattice in the simulation is distributed.
+
+\begin{DoxySeeAlso}{See also}
+\doxylink{classKMCThinFilm_1_1Lattice_ad48a237aac1ffb943bf8b49de148da89}{Lattice\+::n\+Procs()} 
+\end{DoxySeeAlso}
+\Hypertarget{classKMCThinFilm_1_1Simulation_ac9436832964b46d46978671664445584}\index{KMCThinFilm::Simulation@{KMCThinFilm::Simulation}!numGlobalSteps@{numGlobalSteps}}
+\index{numGlobalSteps@{numGlobalSteps}!KMCThinFilm::Simulation@{KMCThinFilm::Simulation}}
+\doxysubsubsection{\texorpdfstring{numGlobalSteps()}{numGlobalSteps()}}
+{\footnotesize\ttfamily \label{classKMCThinFilm_1_1Simulation_ac9436832964b46d46978671664445584} 
+unsigned long long KMCThin\+Film\+::\+Simulation\+::num\+Global\+Steps (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+Number of times the global clock has been incremented. For serial simulations, this yields the same value as \doxylink{classKMCThinFilm_1_1Simulation_a5a722b36af5090fa2b397ad3bebf70e4}{num\+Local\+Events()}.
+
+\begin{DoxySeeAlso}{See also}
+\doxylink{classKMCThinFilm_1_1SimulationState_ad5f8eb846523ab0fa5d9885e9be5c01c}{Simulation\+State\+::num\+Global\+Steps()} 
+\end{DoxySeeAlso}
+\Hypertarget{classKMCThinFilm_1_1Simulation_a5a722b36af5090fa2b397ad3bebf70e4}\index{KMCThinFilm::Simulation@{KMCThinFilm::Simulation}!numLocalEvents@{numLocalEvents}}
+\index{numLocalEvents@{numLocalEvents}!KMCThinFilm::Simulation@{KMCThinFilm::Simulation}}
+\doxysubsubsection{\texorpdfstring{numLocalEvents()}{numLocalEvents()}}
+{\footnotesize\ttfamily \label{classKMCThinFilm_1_1Simulation_a5a722b36af5090fa2b397ad3bebf70e4} 
+unsigned long long KMCThin\+Film\+::\+Simulation\+::num\+Local\+Events (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+Number of events that have occurred on a particular processor.
+
+\begin{DoxySeeAlso}{See also}
+\doxylink{classKMCThinFilm_1_1SimulationState_a7b059ae6d15ec65426e171df9f17141d}{Simulation\+State\+::num\+Local\+Events()} 
+\end{DoxySeeAlso}
+\Hypertarget{classKMCThinFilm_1_1Simulation_a4007433a9f7d97dd149c2488b7d94e5b}\index{KMCThinFilm::Simulation@{KMCThinFilm::Simulation}!procID@{procID}}
+\index{procID@{procID}!KMCThinFilm::Simulation@{KMCThinFilm::Simulation}}
+\doxysubsubsection{\texorpdfstring{procID()}{procID()}}
+{\footnotesize\ttfamily \label{classKMCThinFilm_1_1Simulation_a4007433a9f7d97dd149c2488b7d94e5b} 
+int KMCThin\+Film\+::\+Simulation\+::proc\+ID (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+When the preprocessor variable KMC\+\_\+\+PARALLEL is zero, this always returns zero. Otherwise, this is the MPI rank of the local process, where the communicator for that process is given by \doxylink{classKMCThinFilm_1_1Simulation_a7fa4b341178e7b2bb32a598a72035b5b}{Simulation\+::comm()}.
+
+\begin{DoxySeeAlso}{See also}
+\doxylink{classKMCThinFilm_1_1Lattice_aec4668447dc65f0a0be67b53519db0d5}{Lattice\+::proc\+ID()} 
+\end{DoxySeeAlso}
+\begin{Desc}
+\item[Examples]\par
+\mbox{\hyperlink{testFractal_parallel_2testFractal_8cpp-example}{test\+Fractal\+\_\+parallel/test\+Fractal.\+cpp}}.\end{Desc}
+\Hypertarget{classKMCThinFilm_1_1Simulation_a80a53b16a011a515563dcf7911d3122f}\index{KMCThinFilm::Simulation@{KMCThinFilm::Simulation}!procPerDim@{procPerDim}}
+\index{procPerDim@{procPerDim}!KMCThinFilm::Simulation@{KMCThinFilm::Simulation}}
+\doxysubsubsection{\texorpdfstring{procPerDim()}{procPerDim()}}
+{\footnotesize\ttfamily \label{classKMCThinFilm_1_1Simulation_a80a53b16a011a515563dcf7911d3122f} 
+int KMCThin\+Film\+::\+Simulation\+::proc\+Per\+Dim (\begin{DoxyParamCaption}\item[{int}]{dim}{}\end{DoxyParamCaption}) const}
+
+The number of processors along in-\/plane dimension {\itshape dim}.
+
+\begin{DoxySeeAlso}{See also}
+\doxylink{classKMCThinFilm_1_1Lattice_ab21e3aa48b60071c245ac1d3e4c8b6d9}{Lattice\+::proc\+Per\+Dim()} 
+\end{DoxySeeAlso}
+\Hypertarget{classKMCThinFilm_1_1Simulation_a0104e044fb41e47a1844de9e9b08c9dc}\index{KMCThinFilm::Simulation@{KMCThinFilm::Simulation}!removeCellCenteredEventGroup@{removeCellCenteredEventGroup}}
+\index{removeCellCenteredEventGroup@{removeCellCenteredEventGroup}!KMCThinFilm::Simulation@{KMCThinFilm::Simulation}}
+\doxysubsubsection{\texorpdfstring{removeCellCenteredEventGroup()}{removeCellCenteredEventGroup()}}
+{\footnotesize\ttfamily \label{classKMCThinFilm_1_1Simulation_a0104e044fb41e47a1844de9e9b08c9dc} 
+void KMCThin\+Film\+::\+Simulation\+::remove\+Cell\+Centered\+Event\+Group (\begin{DoxyParamCaption}\item[{int}]{event\+Group\+Id}{}\end{DoxyParamCaption})}
+
+Removes a previously added possible cell-\/centered event group from the simulation.
+
+\begin{DoxySeeAlso}{See also}
+\doxylink{classKMCThinFilm_1_1Simulation_ada268bce065b942617fd1331b083626d}{add\+Cell\+Centered\+Event\+Group()} \doxylink{classKMCThinFilm_1_1Simulation_a4caf800d8630e74210e0301da0238f6a}{change\+Cell\+Centered\+Event\+Group()} 
+\end{DoxySeeAlso}
+
+\begin{DoxyParams}{Parameters}
+{\em event\+Group\+Id} & Integer ID of event group to be removed. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classKMCThinFilm_1_1Simulation_a6d349b62458c42fb92f6b9121fc069e4}\index{KMCThinFilm::Simulation@{KMCThinFilm::Simulation}!removeOverLatticeEvent@{removeOverLatticeEvent}}
+\index{removeOverLatticeEvent@{removeOverLatticeEvent}!KMCThinFilm::Simulation@{KMCThinFilm::Simulation}}
+\doxysubsubsection{\texorpdfstring{removeOverLatticeEvent()}{removeOverLatticeEvent()}}
+{\footnotesize\ttfamily \label{classKMCThinFilm_1_1Simulation_a6d349b62458c42fb92f6b9121fc069e4} 
+void KMCThin\+Film\+::\+Simulation\+::remove\+Over\+Lattice\+Event (\begin{DoxyParamCaption}\item[{int}]{event\+Id}{}\end{DoxyParamCaption})}
+
+Removes a previously added possible "{}over-\/lattice"{} from the simulation.
+
+\begin{DoxySeeAlso}{See also}
+\doxylink{classKMCThinFilm_1_1Simulation_affa3dff53afd248546457944b98376d9}{add\+Over\+Lattice\+Event()} \doxylink{classKMCThinFilm_1_1Simulation_a3a45062725c9fe3a70e21200d01bafba}{change\+Over\+Lattice\+Event()} 
+\end{DoxySeeAlso}
+
+\begin{DoxyParams}{Parameters}
+{\em event\+Id} & Integer ID of event to be removed. \\
+\hline
+\end{DoxyParams}
+\begin{Desc}
+\item[Examples]\par
+\mbox{\hyperlink{testFractal_2testFractal_8cpp-example}{test\+Fractal/test\+Fractal.\+cpp}}, \mbox{\hyperlink{testFractal_parallel_2testFractal_8cpp-example}{test\+Fractal\+\_\+parallel/test\+Fractal.\+cpp}}, \mbox{\hyperlink{testFractal_semi_manual_track_2testFractal_8cpp-example}{test\+Fractal\+\_\+semi\+\_\+manual\+\_\+track/test\+Fractal.\+cpp}}, \mbox{\hyperlink{testPatternedSurface1_2testPatternedSurface_8cpp-example}{test\+Patterned\+Surface1/test\+Patterned\+Surface.\+cpp}}, and \mbox{\hyperlink{testPatternedSurface2_2testPatternedSurface_8cpp-example}{test\+Patterned\+Surface2/test\+Patterned\+Surface.\+cpp}}.\end{Desc}
+\Hypertarget{classKMCThinFilm_1_1Simulation_a543ca84790107365fbda969c51d4b375}\index{KMCThinFilm::Simulation@{KMCThinFilm::Simulation}!removeStepPeriodicAction@{removeStepPeriodicAction}}
+\index{removeStepPeriodicAction@{removeStepPeriodicAction}!KMCThinFilm::Simulation@{KMCThinFilm::Simulation}}
+\doxysubsubsection{\texorpdfstring{removeStepPeriodicAction()}{removeStepPeriodicAction()}}
+{\footnotesize\ttfamily \label{classKMCThinFilm_1_1Simulation_a543ca84790107365fbda969c51d4b375} 
+void KMCThin\+Film\+::\+Simulation\+::remove\+Step\+Periodic\+Action (\begin{DoxyParamCaption}\item[{int}]{action\+Id}{}\end{DoxyParamCaption})}
+
+Removes a previously-\/added step-\/periodic action from the simulation.
+
+\begin{DoxySeeAlso}{See also}
+\doxylink{classKMCThinFilm_1_1Simulation_a5280f709245a66489eb357f488082528}{add\+Step\+Periodic\+Action()} \doxylink{classKMCThinFilm_1_1Simulation_a529e986f0c320259497e08ac684c89d5}{change\+Step\+Periodic\+Action()} 
+\end{DoxySeeAlso}
+\Hypertarget{classKMCThinFilm_1_1Simulation_a8297804adb609b8576fe78347f78e922}\index{KMCThinFilm::Simulation@{KMCThinFilm::Simulation}!removeTimePeriodicAction@{removeTimePeriodicAction}}
+\index{removeTimePeriodicAction@{removeTimePeriodicAction}!KMCThinFilm::Simulation@{KMCThinFilm::Simulation}}
+\doxysubsubsection{\texorpdfstring{removeTimePeriodicAction()}{removeTimePeriodicAction()}}
+{\footnotesize\ttfamily \label{classKMCThinFilm_1_1Simulation_a8297804adb609b8576fe78347f78e922} 
+void KMCThin\+Film\+::\+Simulation\+::remove\+Time\+Periodic\+Action (\begin{DoxyParamCaption}\item[{int}]{action\+Id}{}\end{DoxyParamCaption})}
+
+Removes a previously-\/added time-\/periodic action from the simulation.
+
+\begin{DoxySeeAlso}{See also}
+\doxylink{classKMCThinFilm_1_1Simulation_a2d0b886ef44d3acf0a8c018a7042e1d9}{add\+Time\+Periodic\+Action()} \doxylink{classKMCThinFilm_1_1Simulation_a2baf3e0cf9ae646f8bc09fc704316bb4}{change\+Time\+Periodic\+Action()} 
+\end{DoxySeeAlso}
+
+\begin{DoxyParams}{Parameters}
+{\em action\+Id} & Integer ID of the action to be removed \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classKMCThinFilm_1_1Simulation_a07827968543d9a9f2cbbdb356b5df8df}\index{KMCThinFilm::Simulation@{KMCThinFilm::Simulation}!reserveCellCenteredEventGroups@{reserveCellCenteredEventGroups}}
+\index{reserveCellCenteredEventGroups@{reserveCellCenteredEventGroups}!KMCThinFilm::Simulation@{KMCThinFilm::Simulation}}
+\doxysubsubsection{\texorpdfstring{reserveCellCenteredEventGroups()}{reserveCellCenteredEventGroups()}}
+{\footnotesize\ttfamily \label{classKMCThinFilm_1_1Simulation_a07827968543d9a9f2cbbdb356b5df8df} 
+void KMCThin\+Film\+::\+Simulation\+::reserve\+Cell\+Centered\+Event\+Groups (\begin{DoxyParamCaption}\item[{int}]{num\+Groups}{, }\item[{int}]{num\+Tot\+Events}{}\end{DoxyParamCaption})}
+
+Sets the number of possible cell-\/centered event groups for the simulation to {\itshape num\+Groups}, and the number of individual possible cell-\/centered events to {\itshape num\+Tot\+Events}.
+
+Should be called before a call to \doxylink{classKMCThinFilm_1_1Simulation_ada268bce065b942617fd1331b083626d}{add\+Cell\+Centered\+Event\+Group()}, and the number of calls to \doxylink{classKMCThinFilm_1_1Simulation_ada268bce065b942617fd1331b083626d}{add\+Cell\+Centered\+Event\+Group()} should be the same as {\itshape num\+Groups}. \begin{Desc}
+\item[Examples]\par
+\mbox{\hyperlink{testBallisticDep1_2testBallisticDep_8cpp-example}{test\+Ballistic\+Dep1/test\+Ballistic\+Dep.\+cpp}}, \mbox{\hyperlink{testBallisticDep2_2testBallisticDep_8cpp-example}{test\+Ballistic\+Dep2/test\+Ballistic\+Dep.\+cpp}}, \mbox{\hyperlink{testFractal_2testFractal_8cpp-example}{test\+Fractal/test\+Fractal.\+cpp}}, \mbox{\hyperlink{testFractal_parallel_2testFractal_8cpp-example}{test\+Fractal\+\_\+parallel/test\+Fractal.\+cpp}}, \mbox{\hyperlink{testFractal_semi_manual_track_2testFractal_8cpp-example}{test\+Fractal\+\_\+semi\+\_\+manual\+\_\+track/test\+Fractal.\+cpp}}, \mbox{\hyperlink{testPatternedSurface1_2testPatternedSurface_8cpp-example}{test\+Patterned\+Surface1/test\+Patterned\+Surface.\+cpp}}, and \mbox{\hyperlink{testPatternedSurface2_2testPatternedSurface_8cpp-example}{test\+Patterned\+Surface2/test\+Patterned\+Surface.\+cpp}}.\end{Desc}
+\Hypertarget{classKMCThinFilm_1_1Simulation_a21587717d5f10a6ae3b8c3606752db13}\index{KMCThinFilm::Simulation@{KMCThinFilm::Simulation}!reserveOverLatticeEvents@{reserveOverLatticeEvents}}
+\index{reserveOverLatticeEvents@{reserveOverLatticeEvents}!KMCThinFilm::Simulation@{KMCThinFilm::Simulation}}
+\doxysubsubsection{\texorpdfstring{reserveOverLatticeEvents()}{reserveOverLatticeEvents()}}
+{\footnotesize\ttfamily \label{classKMCThinFilm_1_1Simulation_a21587717d5f10a6ae3b8c3606752db13} 
+void KMCThin\+Film\+::\+Simulation\+::reserve\+Over\+Lattice\+Events (\begin{DoxyParamCaption}\item[{int}]{num}{}\end{DoxyParamCaption})}
+
+Sets the number of "{}over-\/lattice"{} possible events for the simulation, that is, events that occur at a random site over the lattice (e.\+g. deposition of an atom), to {\itshape num}.
+
+Should be called before a call to \doxylink{classKMCThinFilm_1_1Simulation_affa3dff53afd248546457944b98376d9}{add\+Over\+Lattice\+Event()}, and the number of calls to \doxylink{classKMCThinFilm_1_1Simulation_affa3dff53afd248546457944b98376d9}{add\+Over\+Lattice\+Event()} should be the same as {\itshape num}. \begin{Desc}
+\item[Examples]\par
+\mbox{\hyperlink{testBallisticDep1_2testBallisticDep_8cpp-example}{test\+Ballistic\+Dep1/test\+Ballistic\+Dep.\+cpp}}, \mbox{\hyperlink{testBallisticDep2_2testBallisticDep_8cpp-example}{test\+Ballistic\+Dep2/test\+Ballistic\+Dep.\+cpp}}, \mbox{\hyperlink{testFractal_2testFractal_8cpp-example}{test\+Fractal/test\+Fractal.\+cpp}}, \mbox{\hyperlink{testFractal_parallel_2testFractal_8cpp-example}{test\+Fractal\+\_\+parallel/test\+Fractal.\+cpp}}, \mbox{\hyperlink{testFractal_semi_manual_track_2testFractal_8cpp-example}{test\+Fractal\+\_\+semi\+\_\+manual\+\_\+track/test\+Fractal.\+cpp}}, \mbox{\hyperlink{testPatternedSurface1_2testPatternedSurface_8cpp-example}{test\+Patterned\+Surface1/test\+Patterned\+Surface.\+cpp}}, and \mbox{\hyperlink{testPatternedSurface2_2testPatternedSurface_8cpp-example}{test\+Patterned\+Surface2/test\+Patterned\+Surface.\+cpp}}.\end{Desc}
+\Hypertarget{classKMCThinFilm_1_1Simulation_a734109081f5140cbf4b8e852a5fccfa8}\index{KMCThinFilm::Simulation@{KMCThinFilm::Simulation}!reserveStepPeriodicActions@{reserveStepPeriodicActions}}
+\index{reserveStepPeriodicActions@{reserveStepPeriodicActions}!KMCThinFilm::Simulation@{KMCThinFilm::Simulation}}
+\doxysubsubsection{\texorpdfstring{reserveStepPeriodicActions()}{reserveStepPeriodicActions()}}
+{\footnotesize\ttfamily \label{classKMCThinFilm_1_1Simulation_a734109081f5140cbf4b8e852a5fccfa8} 
+void KMCThin\+Film\+::\+Simulation\+::reserve\+Step\+Periodic\+Actions (\begin{DoxyParamCaption}\item[{int}]{num}{}\end{DoxyParamCaption})}
+
+Sets the number of step-\/periodic actions for the simulation to {\itshape num}.
+
+Should be called before a call to \doxylink{classKMCThinFilm_1_1Simulation_a5280f709245a66489eb357f488082528}{add\+Step\+Periodic\+Action()}, and the number of calls to \doxylink{classKMCThinFilm_1_1Simulation_a5280f709245a66489eb357f488082528}{add\+Step\+Periodic\+Action()} should be the same as {\itshape num}. \Hypertarget{classKMCThinFilm_1_1Simulation_af30c7df97cb00c239325b0500b971a40}\index{KMCThinFilm::Simulation@{KMCThinFilm::Simulation}!reserveTimePeriodicActions@{reserveTimePeriodicActions}}
+\index{reserveTimePeriodicActions@{reserveTimePeriodicActions}!KMCThinFilm::Simulation@{KMCThinFilm::Simulation}}
+\doxysubsubsection{\texorpdfstring{reserveTimePeriodicActions()}{reserveTimePeriodicActions()}}
+{\footnotesize\ttfamily \label{classKMCThinFilm_1_1Simulation_af30c7df97cb00c239325b0500b971a40} 
+void KMCThin\+Film\+::\+Simulation\+::reserve\+Time\+Periodic\+Actions (\begin{DoxyParamCaption}\item[{int}]{num}{}\end{DoxyParamCaption})}
+
+Sets the number of time-\/periodic actions for the simulation to {\itshape num}.
+
+Should be called before a call to \doxylink{classKMCThinFilm_1_1Simulation_a2d0b886ef44d3acf0a8c018a7042e1d9}{add\+Time\+Periodic\+Action()}, and the number of calls to \doxylink{classKMCThinFilm_1_1Simulation_a2d0b886ef44d3acf0a8c018a7042e1d9}{add\+Time\+Periodic\+Action()} should be the same as {\itshape num}. \begin{Desc}
+\item[Examples]\par
+\mbox{\hyperlink{testBallisticDep1_2testBallisticDep_8cpp-example}{test\+Ballistic\+Dep1/test\+Ballistic\+Dep.\+cpp}}, \mbox{\hyperlink{testBallisticDep2_2testBallisticDep_8cpp-example}{test\+Ballistic\+Dep2/test\+Ballistic\+Dep.\+cpp}}, \mbox{\hyperlink{testFractal_2testFractal_8cpp-example}{test\+Fractal/test\+Fractal.\+cpp}}, \mbox{\hyperlink{testFractal_parallel_2testFractal_8cpp-example}{test\+Fractal\+\_\+parallel/test\+Fractal.\+cpp}}, \mbox{\hyperlink{testFractal_semi_manual_track_2testFractal_8cpp-example}{test\+Fractal\+\_\+semi\+\_\+manual\+\_\+track/test\+Fractal.\+cpp}}, \mbox{\hyperlink{testPatternedSurface1_2testPatternedSurface_8cpp-example}{test\+Patterned\+Surface1/test\+Patterned\+Surface.\+cpp}}, and \mbox{\hyperlink{testPatternedSurface2_2testPatternedSurface_8cpp-example}{test\+Patterned\+Surface2/test\+Patterned\+Surface.\+cpp}}.\end{Desc}
+\Hypertarget{classKMCThinFilm_1_1Simulation_a1062679abfb7c62e2ff817c5b12188c4}\index{KMCThinFilm::Simulation@{KMCThinFilm::Simulation}!run@{run}}
+\index{run@{run}!KMCThinFilm::Simulation@{KMCThinFilm::Simulation}}
+\doxysubsubsection{\texorpdfstring{run()}{run()}}
+{\footnotesize\ttfamily \label{classKMCThinFilm_1_1Simulation_a1062679abfb7c62e2ff817c5b12188c4} 
+void KMCThin\+Film\+::\+Simulation\+::run (\begin{DoxyParamCaption}\item[{double}]{run\+Time}{}\end{DoxyParamCaption})}
+
+Runs the simulation 
+\begin{DoxyParams}{Parameters}
+{\em run\+Time} & Length of simulation time \\
+\hline
+\end{DoxyParams}
+\begin{Desc}
+\item[Examples]\par
+\mbox{\hyperlink{testBallisticDep1_2testBallisticDep_8cpp-example}{test\+Ballistic\+Dep1/test\+Ballistic\+Dep.\+cpp}}, \mbox{\hyperlink{testBallisticDep2_2testBallisticDep_8cpp-example}{test\+Ballistic\+Dep2/test\+Ballistic\+Dep.\+cpp}}, \mbox{\hyperlink{testFractal_2testFractal_8cpp-example}{test\+Fractal/test\+Fractal.\+cpp}}, \mbox{\hyperlink{testFractal_parallel_2testFractal_8cpp-example}{test\+Fractal\+\_\+parallel/test\+Fractal.\+cpp}}, \mbox{\hyperlink{testFractal_semi_manual_track_2testFractal_8cpp-example}{test\+Fractal\+\_\+semi\+\_\+manual\+\_\+track/test\+Fractal.\+cpp}}, \mbox{\hyperlink{testPatternedSurface1_2testPatternedSurface_8cpp-example}{test\+Patterned\+Surface1/test\+Patterned\+Surface.\+cpp}}, and \mbox{\hyperlink{testPatternedSurface2_2testPatternedSurface_8cpp-example}{test\+Patterned\+Surface2/test\+Patterned\+Surface.\+cpp}}.\end{Desc}
+\Hypertarget{classKMCThinFilm_1_1Simulation_aab6ce6b8f7013c7ce3bcedb8fc3cc469}\index{KMCThinFilm::Simulation@{KMCThinFilm::Simulation}!setRNG@{setRNG}}
+\index{setRNG@{setRNG}!KMCThinFilm::Simulation@{KMCThinFilm::Simulation}}
+\doxysubsubsection{\texorpdfstring{setRNG()}{setRNG()}}
+{\footnotesize\ttfamily \label{classKMCThinFilm_1_1Simulation_aab6ce6b8f7013c7ce3bcedb8fc3cc469} 
+void KMCThin\+Film\+::\+Simulation\+::set\+RNG (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespaceKMCThinFilm_a7b5f253610505f71091c404d12d05aee}{Rand\+Num\+Gen\+Shared\+Ptr}}}]{rng}{}\end{DoxyParamCaption})}
+
+Sets the random-\/number generator of the simulation.
+
+This must be called {\bfseries{after}} \doxylink{classKMCThinFilm_1_1Simulation_adf613f2cf2520695a0fb2ddbbdfd2328}{set\+Solver()} has been called. \begin{Desc}
+\item[Examples]\par
+\mbox{\hyperlink{testBallisticDep1_2testBallisticDep_8cpp-example}{test\+Ballistic\+Dep1/test\+Ballistic\+Dep.\+cpp}}, \mbox{\hyperlink{testBallisticDep2_2testBallisticDep_8cpp-example}{test\+Ballistic\+Dep2/test\+Ballistic\+Dep.\+cpp}}, \mbox{\hyperlink{testFractal_2testFractal_8cpp-example}{test\+Fractal/test\+Fractal.\+cpp}}, \mbox{\hyperlink{testFractal_parallel_2testFractal_8cpp-example}{test\+Fractal\+\_\+parallel/test\+Fractal.\+cpp}}, \mbox{\hyperlink{testFractal_semi_manual_track_2testFractal_8cpp-example}{test\+Fractal\+\_\+semi\+\_\+manual\+\_\+track/test\+Fractal.\+cpp}}, \mbox{\hyperlink{testPatternedSurface1_2testPatternedSurface_8cpp-example}{test\+Patterned\+Surface1/test\+Patterned\+Surface.\+cpp}}, and \mbox{\hyperlink{testPatternedSurface2_2testPatternedSurface_8cpp-example}{test\+Patterned\+Surface2/test\+Patterned\+Surface.\+cpp}}.\end{Desc}
+\Hypertarget{classKMCThinFilm_1_1Simulation_adf613f2cf2520695a0fb2ddbbdfd2328}\index{KMCThinFilm::Simulation@{KMCThinFilm::Simulation}!setSolver@{setSolver}}
+\index{setSolver@{setSolver}!KMCThinFilm::Simulation@{KMCThinFilm::Simulation}}
+\doxysubsubsection{\texorpdfstring{setSolver()}{setSolver()}}
+{\footnotesize\ttfamily \label{classKMCThinFilm_1_1Simulation_adf613f2cf2520695a0fb2ddbbdfd2328} 
+void KMCThin\+Film\+::\+Simulation\+::set\+Solver (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespaceKMCThinFilm_1_1SolverId_a43b0b7ee9ab985e86a13450beb2c7523}{Solver\+Id\+::\+Type}}}]{s\+Id}{}\end{DoxyParamCaption})}
+
+Sets the type of solver, i.\+e. the means of storing and choosing events, for the simulation. \begin{Desc}
+\item[Examples]\par
+\mbox{\hyperlink{testBallisticDep1_2testBallisticDep_8cpp-example}{test\+Ballistic\+Dep1/test\+Ballistic\+Dep.\+cpp}}, \mbox{\hyperlink{testBallisticDep2_2testBallisticDep_8cpp-example}{test\+Ballistic\+Dep2/test\+Ballistic\+Dep.\+cpp}}, \mbox{\hyperlink{testFractal_2testFractal_8cpp-example}{test\+Fractal/test\+Fractal.\+cpp}}, \mbox{\hyperlink{testFractal_parallel_2testFractal_8cpp-example}{test\+Fractal\+\_\+parallel/test\+Fractal.\+cpp}}, \mbox{\hyperlink{testFractal_semi_manual_track_2testFractal_8cpp-example}{test\+Fractal\+\_\+semi\+\_\+manual\+\_\+track/test\+Fractal.\+cpp}}, \mbox{\hyperlink{testPatternedSurface1_2testPatternedSurface_8cpp-example}{test\+Patterned\+Surface1/test\+Patterned\+Surface.\+cpp}}, and \mbox{\hyperlink{testPatternedSurface2_2testPatternedSurface_8cpp-example}{test\+Patterned\+Surface2/test\+Patterned\+Surface.\+cpp}}.\end{Desc}
+\Hypertarget{classKMCThinFilm_1_1Simulation_a24c009402c255dcb62083aab98eee47d}\index{KMCThinFilm::Simulation@{KMCThinFilm::Simulation}!setTimeIncrScheme@{setTimeIncrScheme}}
+\index{setTimeIncrScheme@{setTimeIncrScheme}!KMCThinFilm::Simulation@{KMCThinFilm::Simulation}}
+\doxysubsubsection{\texorpdfstring{setTimeIncrScheme()}{setTimeIncrScheme()}}
+{\footnotesize\ttfamily \label{classKMCThinFilm_1_1Simulation_a24c009402c255dcb62083aab98eee47d} 
+void KMCThin\+Film\+::\+Simulation\+::set\+Time\+Incr\+Scheme (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classKMCThinFilm_1_1TimeIncr_1_1SchemeVars}{Time\+Incr\+::\+Scheme\+Vars}} \&}]{vars}{}\end{DoxyParamCaption})}
+
+Sets the parallel time-\/incrementing scheme.
+
+If KMC\+\_\+\+PARALLEL equals zero, this does nothing. This must be called {\bfseries{after}} \doxylink{classKMCThinFilm_1_1Simulation_adf613f2cf2520695a0fb2ddbbdfd2328}{set\+Solver()} has been called. \begin{Desc}
+\item[Examples]\par
+\mbox{\hyperlink{testFractal_parallel_2testFractal_8cpp-example}{test\+Fractal\+\_\+parallel/test\+Fractal.\+cpp}}.\end{Desc}
+\Hypertarget{classKMCThinFilm_1_1Simulation_afc44a336b2b972b690f29812e5358cc7}\index{KMCThinFilm::Simulation@{KMCThinFilm::Simulation}!trackCellsChangedByPeriodicActions@{trackCellsChangedByPeriodicActions}}
+\index{trackCellsChangedByPeriodicActions@{trackCellsChangedByPeriodicActions}!KMCThinFilm::Simulation@{KMCThinFilm::Simulation}}
+\doxysubsubsection{\texorpdfstring{trackCellsChangedByPeriodicActions()}{trackCellsChangedByPeriodicActions()}}
+{\footnotesize\ttfamily \label{classKMCThinFilm_1_1Simulation_afc44a336b2b972b690f29812e5358cc7} 
+void KMCThin\+Film\+::\+Simulation\+::track\+Cells\+Changed\+By\+Periodic\+Actions (\begin{DoxyParamCaption}\item[{bool}]{do\+Track}{}\end{DoxyParamCaption})}
+
+\mbox{[}{\bfseries{ADVANCED}}\mbox{]} If {\itshape do\+Track} is true, store indices of the lattice cells changed by the periodic actions that occur.
+
+If a periodic action actually {\itshape changes} the lattice (i.\+e. calls \doxylink{classKMCThinFilm_1_1Lattice_a81beda29c4c8722cb047f7f2ce0a09ce}{Lattice\+::set\+Int()}, \doxylink{classKMCThinFilm_1_1Lattice_aefe9601bf62fdb46d451d61fa017e691}{Lattice\+::set\+Float()}, or \doxylink{classKMCThinFilm_1_1Lattice_aa36bda22ed2b0bc8d8737d3d63009765}{Lattice\+::add\+Planes()}), then by default, the event list is rebuilt, which is an O(\+N) operation, with N being the number of lattice cells. This function changes this behavior. Since the indices of changed lattice cells are actually stored, only the entries in the event list affected by the changed lattice cells need to be changed. Note, though, that if the periodic actions change a large number of lattice sites, then the default behavior is probably more optimal, or at least less memory-\/hungry. 

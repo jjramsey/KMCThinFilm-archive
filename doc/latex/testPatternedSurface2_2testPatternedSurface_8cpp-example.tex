@@ -1,0 +1,117 @@
+\doxysection{test\+Patterned\+Surface2/test\+Patterned\+Surface.\+cpp}
+\hypertarget{testPatternedSurface2_2testPatternedSurface_8cpp-example}{}\label{testPatternedSurface2_2testPatternedSurface_8cpp-example}Driver file for another example implementation of a model with a patterned substrate surface
+
+This example is discussed in detail in the section ``\doxysectlink{illustrating_use_by_example_example_pat_sub}{Example\+: Implementations of a patterned substrate model}{1},'' subsection ``\doxysectlink{illustrating_use_by_example_example_pat_sub_impl1}{First implementation}{2}.''
+
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\textcolor{comment}{/*\ }}
+\DoxyCodeLine{\textcolor{comment}{\ \ \ Any\ comments\ in\ this\ code\ of\ the\ form\ "{}//!\ [...]"{}\ are\ used\ to}}
+\DoxyCodeLine{\textcolor{comment}{\ \ \ assist\ Doxygen\ in\ documenting\ this\ file.\ \ */}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <fstream>}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <boost/array.hpp>}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <KMCThinFilm/Simulation.hpp>}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <KMCThinFilm/RandNumGenMT19937.hpp>}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <KMCThinFilm/ErrorHandling.hpp>}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ "{}EventsAndActions.hpp"{}}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keyword}{using\ namespace\ }\mbox{\hyperlink{namespaceKMCThinFilm}{KMCThinFilm}};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keywordtype}{int}\ main()\ \{}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{double}\ F\ =\ 0.0033,\ maxCoverage\ =\ 0.15,\ E\_n\ =\ 0.18,\ T\ =\ 390;}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{int}\ numDomains\ =\ 16;}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ seed\ =\ 42;}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{namespaceKMCThinFilm_1_1SolverId_a43b0b7ee9ab985e86a13450beb2c7523}{SolverId::Type}}\ sId\ =\ \mbox{\hyperlink{namespaceKMCThinFilm_1_1SolverId_a43b0b7ee9ab985e86a13450beb2c7523a66b6c59bbaeb00525c6dd96af1b33563}{SolverId::DYNAMIC\_SCHULZE}};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ DblArray2D\ E\_s;}
+\DoxyCodeLine{\ \ }
+\DoxyCodeLine{\ \ std::ifstream\ patternFile(\textcolor{stringliteral}{"{}../singleDomain.dat"{}});}
+\DoxyCodeLine{\ \ boost::array<int,2>\ E\_s\_extents;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ patternFile\ >>\ E\_s\_extents[0]\ >>\ E\_s\_extents[1];}
+\DoxyCodeLine{\ \ E\_s.resize(E\_s\_extents);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{int}\ E\_s\_i,\ E\_s\_j;}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{double}\ E\_s\_val;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{while}\ (patternFile\ >>\ E\_s\_i\ >>\ E\_s\_j\ >>\ E\_s\_val)\ \{}
+\DoxyCodeLine{\ \ \ \ E\_s[E\_s\_i][E\_s\_j]\ =\ E\_s\_val;}
+\DoxyCodeLine{\ \ \}}
+\DoxyCodeLine{\ \ }
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{double}\ approxDepTime\ =\ maxCoverage/F;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{structKMCThinFilm_1_1LatticeParams}{LatticeParams}}\ latParams;}
+\DoxyCodeLine{\ \ latParams.\mbox{\hyperlink{structKMCThinFilm_1_1LatticeParams_a7a9d46d27758a276fd20d9c18156371a}{numIntsPerCell}}\ =\ PSIntVal::SIZE;}
+\DoxyCodeLine{\ \ latParams.\mbox{\hyperlink{structKMCThinFilm_1_1LatticeParams_a55263f7f4ef826b814ffeaae27ddf687}{numFloatsPerCell}}\ =\ PSFloatVal::SIZE;}
+\DoxyCodeLine{\ \ latParams.\mbox{\hyperlink{structKMCThinFilm_1_1LatticeParams_a3a3cc62a6fb5fdda00ed2c63e1ff1020}{globalPlanarDims}}[0]\ =\ numDomains*(E\_s.shape()[0]);}
+\DoxyCodeLine{\ \ latParams.\mbox{\hyperlink{structKMCThinFilm_1_1LatticeParams_a3a3cc62a6fb5fdda00ed2c63e1ff1020}{globalPlanarDims}}[1]\ =\ numDomains*(E\_s.shape()[1]);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{classKMCThinFilm_1_1Simulation}{Simulation}}\ sim(latParams);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ sim.\mbox{\hyperlink{classKMCThinFilm_1_1Simulation_adf613f2cf2520695a0fb2ddbbdfd2328}{setSolver}}(sId);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{namespaceKMCThinFilm_a7b5f253610505f71091c404d12d05aee}{RandNumGenSharedPtr}}\ rng(\textcolor{keyword}{new}\ \mbox{\hyperlink{classKMCThinFilm_1_1RandNumGenMT19937}{RandNumGenMT19937}}(seed));}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ sim.\mbox{\hyperlink{classKMCThinFilm_1_1Simulation_aab6ce6b8f7013c7ce3bcedb8fc3cc469}{setRNG}}(rng);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ sim.\mbox{\hyperlink{classKMCThinFilm_1_1Simulation_a21587717d5f10a6ae3b8c3606752db13}{reserveOverLatticeEvents}}(PSOverLatticeEvents::SIZE);}
+\DoxyCodeLine{\ \ sim.\mbox{\hyperlink{classKMCThinFilm_1_1Simulation_affa3dff53afd248546457944b98376d9}{addOverLatticeEvent}}(PSOverLatticeEvents::DEPOSITION,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ F,\ DepositionExecute);}
+\DoxyCodeLine{\ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{classKMCThinFilm_1_1CellNeighOffsets}{CellNeighOffsets}}\ hopCNO(HopOffset::SIZE);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ hopCNO.\mbox{\hyperlink{classKMCThinFilm_1_1CellNeighOffsets_a7b983204101cef4973f685d3c68a0106}{addOffset}}(HopOffset::UP,\ \ \ \ \mbox{\hyperlink{classKMCThinFilm_1_1CellIndsOffset}{CellIndsOffset}}(0,+1,0));}
+\DoxyCodeLine{\ \ hopCNO.\mbox{\hyperlink{classKMCThinFilm_1_1CellNeighOffsets_a7b983204101cef4973f685d3c68a0106}{addOffset}}(HopOffset::DOWN,\ \ \mbox{\hyperlink{classKMCThinFilm_1_1CellIndsOffset}{CellIndsOffset}}(0,-\/1,0));}
+\DoxyCodeLine{\ \ hopCNO.\mbox{\hyperlink{classKMCThinFilm_1_1CellNeighOffsets_a7b983204101cef4973f685d3c68a0106}{addOffset}}(HopOffset::LEFT,\ \ \mbox{\hyperlink{classKMCThinFilm_1_1CellIndsOffset}{CellIndsOffset}}(-\/1,0,0));}
+\DoxyCodeLine{\ \ hopCNO.\mbox{\hyperlink{classKMCThinFilm_1_1CellNeighOffsets_a7b983204101cef4973f685d3c68a0106}{addOffset}}(HopOffset::RIGHT,\ \mbox{\hyperlink{classKMCThinFilm_1_1CellIndsOffset}{CellIndsOffset}}(+1,0,0));}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ sim.\mbox{\hyperlink{classKMCThinFilm_1_1Simulation_a07827968543d9a9f2cbbdb356b5df8df}{reserveCellCenteredEventGroups}}(1,\ PSCellCenteredEvents::SIZE);}
+\DoxyCodeLine{\ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{classKMCThinFilm_1_1EventExecutorGroup}{EventExecutorGroup}}\ hopExecs(PSCellCenteredEvents::SIZE);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ std::vector<CellNeighOffsets>\ tmpExecCNO;}
+\DoxyCodeLine{\ \ tmpExecCNO.reserve(1);}
+\DoxyCodeLine{\ \ tmpExecCNO.push\_back(\mbox{\hyperlink{classKMCThinFilm_1_1CellNeighOffsets}{CellNeighOffsets}}(2));}
+\DoxyCodeLine{\ \ tmpExecCNO.back().addOffset(1,\ hopCNO.\mbox{\hyperlink{classKMCThinFilm_1_1CellNeighOffsets_acf082422c1ab26aa5144d98426f34ab2}{getOffset}}(HopOffset::LEFT));}
+\DoxyCodeLine{\ \ }
+\DoxyCodeLine{\ \ hopExecs.\mbox{\hyperlink{classKMCThinFilm_1_1EventExecutorGroup_a109dab6bc920f3fd6cf7df5d8076a61f}{addEventExecutor}}(PSCellCenteredEvents::HOP\_LEFT,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ HoppingExecute(),\ tmpExecCNO);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ tmpExecCNO.back().resetOffsets(2);}
+\DoxyCodeLine{\ \ tmpExecCNO.back().addOffset(1,\ hopCNO.\mbox{\hyperlink{classKMCThinFilm_1_1CellNeighOffsets_acf082422c1ab26aa5144d98426f34ab2}{getOffset}}(HopOffset::RIGHT));}
+\DoxyCodeLine{\ \ hopExecs.\mbox{\hyperlink{classKMCThinFilm_1_1EventExecutorGroup_a109dab6bc920f3fd6cf7df5d8076a61f}{addEventExecutor}}(PSCellCenteredEvents::HOP\_RIGHT,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ HoppingExecute(),\ tmpExecCNO);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ tmpExecCNO.back().resetOffsets(2);}
+\DoxyCodeLine{\ \ tmpExecCNO.back().addOffset(1,\ hopCNO.\mbox{\hyperlink{classKMCThinFilm_1_1CellNeighOffsets_acf082422c1ab26aa5144d98426f34ab2}{getOffset}}(HopOffset::UP));}
+\DoxyCodeLine{\ \ hopExecs.\mbox{\hyperlink{classKMCThinFilm_1_1EventExecutorGroup_a109dab6bc920f3fd6cf7df5d8076a61f}{addEventExecutor}}(PSCellCenteredEvents::HOP\_UP,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ HoppingExecute(),\ tmpExecCNO);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ tmpExecCNO.back().resetOffsets(2);}
+\DoxyCodeLine{\ \ tmpExecCNO.back().addOffset(1,\ hopCNO.\mbox{\hyperlink{classKMCThinFilm_1_1CellNeighOffsets_acf082422c1ab26aa5144d98426f34ab2}{getOffset}}(HopOffset::DOWN));}
+\DoxyCodeLine{\ \ hopExecs.\mbox{\hyperlink{classKMCThinFilm_1_1EventExecutorGroup_a109dab6bc920f3fd6cf7df5d8076a61f}{addEventExecutor}}(PSCellCenteredEvents::HOP\_DOWN,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ HoppingExecute(),\ tmpExecCNO);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ sim.\mbox{\hyperlink{classKMCThinFilm_1_1Simulation_ada268bce065b942617fd1331b083626d}{addCellCenteredEventGroup}}(1,\ hopCNO,\ HoppingPropensity(\&E\_s,\ E\_n,\ T),\ hopExecs);}
+\DoxyCodeLine{\ \ }
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ sim.\mbox{\hyperlink{classKMCThinFilm_1_1Simulation_af30c7df97cb00c239325b0500b971a40}{reserveTimePeriodicActions}}(PAction::SIZE);}
+\DoxyCodeLine{\ \ sim.\mbox{\hyperlink{classKMCThinFilm_1_1Simulation_a2d0b886ef44d3acf0a8c018a7042e1d9}{addTimePeriodicAction}}(PAction::PRINT,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ PrintASCII(\textcolor{stringliteral}{"{}snapshot"{}}),}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0.05*approxDepTime,\ \textcolor{keyword}{true});}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ sim.\mbox{\hyperlink{classKMCThinFilm_1_1Simulation_a1062679abfb7c62e2ff817c5b12188c4}{run}}(approxDepTime);}
+\DoxyCodeLine{\ \ sim.\mbox{\hyperlink{classKMCThinFilm_1_1Simulation_a6d349b62458c42fb92f6b9121fc069e4}{removeOverLatticeEvent}}(PSOverLatticeEvents::DEPOSITION);}
+\DoxyCodeLine{\ \ sim.\mbox{\hyperlink{classKMCThinFilm_1_1Simulation_a1062679abfb7c62e2ff817c5b12188c4}{run}}(0.1*approxDepTime);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{\}}
+
+\end{DoxyCodeInclude}
+ 
